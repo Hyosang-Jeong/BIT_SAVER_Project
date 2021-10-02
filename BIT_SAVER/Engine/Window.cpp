@@ -9,7 +9,7 @@ Creation date: 3/13/2021
 -----------------------------------------------------------------*/
 
 #include "Window.h"
-
+#include"Input.h"
 #include "Engine.h"			// GetWindow
 void Window::Init(GLint wid, GLint hei,std::string windowName)
 {
@@ -87,25 +87,65 @@ math::ivec2 Window::GetSize()
 //    doodle::clear_background(doodle::HexColor{ color });
 //}
 
+InputKey::Keyboard GLKEY_TO_GAME(int button)
+{
+    if (button == GLFW_KEY_ENTER) {
+        return InputKey::Keyboard::Enter;
+    }
+    else if (button == GLFW_KEY_ESCAPE) {
+        return InputKey::Keyboard::Escape;
+    }
+    else if (button == GLFW_KEY_SPACE) {
+        return InputKey::Keyboard::Space;
+    }
+    else if (button == GLFW_KEY_LEFT) {
+        return InputKey::Keyboard::Left;
+    }
+    else if (button == GLFW_KEY_RIGHT) {
+        return InputKey::Keyboard::Right;
+    }
+    else if (button == GLFW_KEY_UP) {
+        return InputKey::Keyboard::Up;
+    }
+    else if (button == GLFW_KEY_DOWN) {
+        return InputKey::Keyboard::Down;
+    }
+
+    else if (button >= GLFW_KEY_A && button <= GLFW_KEY_Z) {
+        int offset = static_cast<int>(button) - static_cast<int>(GLFW_KEY_A);
+        return static_cast<InputKey::Keyboard>(static_cast<int>(InputKey::Keyboard::A) + offset);
+    }
+    return InputKey::Keyboard::None;
+}
+
+
+
 void Window::key_cb(GLFWwindow* pwin, int key, int scancode, int action, int mod)
 {
     if (GLFW_PRESS == action)
     {
-#ifdef _DEBUG
-        std::cout << "Key pressed" << std::endl;
-#endif
+        InputKey::Keyboard button = GLKEY_TO_GAME(key);
+        if (button != InputKey::Keyboard::None)
+        {
+            Engine::GetLogger().LogDebug("on_key_pressed");
+            Engine::GetInput().SetKeyDown(button, true);
+        }
     }
     else if (GLFW_REPEAT == action)
     {
 #ifdef _DEBUG
-        std::cout << "Key repeatedly pressed" << std::endl;
+        Engine::GetLogger().LogDebug("Key repeated");
 #endif
     }
     else if (GLFW_RELEASE == action)
     {
-#ifdef _DEBUG
-        std::cout << "Key released" << std::endl;
-#endif
+        InputKey::Keyboard button = GLKEY_TO_GAME(key);
+        if (button != InputKey::Keyboard::None)
+        {
+            Engine::GetLogger().LogDebug("on_key_released");
+            Engine::GetInput().SetKeyDown(button, false);
+        }
+
     }
 
     if (GLFW_KEY_ESCAPE == key && GLFW_PRESS == action)

@@ -19,51 +19,37 @@ an OpenGL context and implement a game loop.
 #include <iomanip>
 #include"Engine/Engine.h"
 #include "music.h"
-/*                                                   type declarations
------------------------------------------------------------------------------ */
+#include"Game/Level1.h"
 
-/*                                                      function declarations
------------------------------------------------------------------------------ */
 static void draw();
 static void update();
 static void cleanup();
 
-/*                                                      function definitions
------------------------------------------------------------------------------ */
-/*  _________________________________________________________________________ */
-/*! main
 
-@param none
-
-@return int
-
-Indicates how the program existed. Normal exit is signaled by a return value of
-0. Abnormal termination is signaled by a non-zero return value.
-Note that the C++ compiler will insert a return 0 statement if one is missing.
-*/
 Engine& engine = Engine::Instance();
-
 int main() 
 {
     engine.Init("Bit_Saver");
 
-    GLApp::init();
     Music music;
     music.SoundSystem();
+    Level1 level1;
+    engine.GetGameStateManager().AddGameState(level1);
+
     while (!glfwWindowShouldClose(engine.GetWindow().ptr_window)) 
     {
-        update();
-        draw();
-        music.Play(0);
+       engine.Update();
+	   music.Play(0);
+
     }
-    cleanup();
+   // cleanup();
 }
 
 static void update() 
 {
     glfwPollEvents();
     double delta_time = GLHelper::update_time(1.0);
-    GLApp::update(delta_time);
+   GLApp::update(delta_time);
 }
 
 static void draw() 

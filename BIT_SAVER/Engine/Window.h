@@ -20,7 +20,7 @@ Creation date: 2/10/2021
         void Update();
         void Resize(int newWidth, int newHeight);
         math::ivec2 GetSize();
-        void Clear(unsigned int color);
+
 
 
         static void fbsize_cb(GLFWwindow* ptr_win, int width, int height);
