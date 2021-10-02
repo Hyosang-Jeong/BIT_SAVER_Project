@@ -1,80 +1,94 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="리소스 파일">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Engine">
-      <UniqueIdentifier>{4517a88e-1bd9-4da0-91f5-f10071eb84b2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game">
-      <UniqueIdentifier>{b4023bd8-867f-4cbe-8bb5-b7a3a79cfef3}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Engine\glhelper.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\glslshader.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Engine\Engine.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Logger.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Window.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-
-    <ClCompile Include="music.cpp">
-
-    <ClCompile Include="Engine\GameStateManager.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Level1.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Input.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Hero.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\GameObject.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\TransformMatrix.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="Engine\GameObjectManager.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\GameStateManager.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\glhelper.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
     <ClCompile Include="Engine\GLModel.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Texture.cpp">
-
+    <ClCompile Include="Engine\glslshader.cpp">
       <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Input.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Logger.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="music.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Texture.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\TransformMatrix.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Window.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Hero.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Level1.cpp">
+      <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\Engine.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameObject.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameObjectManager.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameState.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameStateManager.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
     <ClInclude Include="Engine\glapp.h">
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="Engine\glhelper.h">
       <Filter>Engine</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\GLModel.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
     <ClInclude Include="Engine\glslshader.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Engine.h">
+    <ClInclude Include="Engine\Input.h">
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Logger.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="music.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Texture.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\TransformMatrix.h">
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Window.h">
@@ -83,40 +97,20 @@
     <ClInclude Include="Engine\Vec2.h">
       <Filter>Engine</Filter>
     </ClInclude>
-
-    <ClInclude Include="music.h">
-
-    <ClInclude Include="Engine\GameStateManager.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\GameState.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Level1.h">
       <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Input.h">
-      <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="Game\Hero.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\GameObject.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\TransformMatrix.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\GameObjectManager.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\GLModel.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Texture.h">
-
-      <Filter>Engine</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{b8f843bc-cc0b-4dc3-ba77-3298d233ae37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{c84f0733-89e6-4e1b-a957-42b6f5f553b8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\Vec2.inl">
