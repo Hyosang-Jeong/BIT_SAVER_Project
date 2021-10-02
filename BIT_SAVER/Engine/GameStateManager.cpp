@@ -40,7 +40,8 @@ void GameStateManager::Update(double dt)
 {
 	switch (state)
 	{
-	case State::START: {
+	case State::START:
+	{
 		if (gameStates.empty() == true)
 		{
 			Engine::GetLogger().LogError("Don't have game states");
@@ -71,6 +72,7 @@ void GameStateManager::Update(double dt)
 		else
 		{
 			Engine::GetLogger().LogVerbose("Update" + currGameState->GetName());
+			glfwSwapBuffers(Engine::GetWindow().ptr_window);
 			currGameState->Update(dt);
 			currGameState->Draw();
 		}

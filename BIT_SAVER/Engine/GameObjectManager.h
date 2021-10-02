@@ -2,23 +2,31 @@
 Copyright (C) 2021 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
-File Name: GameState.h 
-Purpose: Base class for different game states
+File Name: GameObjectManager.h
 Project: CS230
 Author: Kevin Wright
-Creation date: 2/10/2021
+Creation date: 2/14/2021
 -----------------------------------------------------------------*/
 #pragma once
-#include <string>
+#include <vector>
+
+namespace math 
+{ 
+	class TransformMatrix; 
+}
+
+class GameObject;
+
+class GameObjectManager
+{
+public:
+	void Add(GameObject* obj);
+	void Unload();
+
+	void UpdateAll(double dt);
+	void DrawAll();
+private:
+	std::vector<GameObject*> gameObjects;
+};
 
 
-	class GameState
-	{
-	public:
-		virtual void Load() = 0;
-		virtual void Update(double dt) = 0;
-		virtual void Unload() = 0;
-		virtual std::string GetName() = 0;
-		virtual void Draw() = 0;
-	private:
-	};

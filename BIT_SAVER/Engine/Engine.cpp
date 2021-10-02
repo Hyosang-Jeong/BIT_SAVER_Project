@@ -32,9 +32,18 @@ void Engine::Init(std::string windowName)
 	time_t seed = time(NULL);
 	logger.LogEvent("Engine Init");
 	window.Init(1920, 1080,windowName);
+
+	init_shdrpgms();
+
 	fpsCalcTime = lastTick;
 	srand(static_cast<unsigned int>(seed));
 	logger.LogEvent("Seed = " + std::to_string(seed));
+
+
+	GLModel model;
+	model.set_name("Duck");
+	model.init();
+	models["Duck"] = model;
 }
 
 void Engine::Shutdown()
@@ -54,9 +63,9 @@ void Engine::Update()
 	if (dt >= (1.0 / Engine::Target_FPS))
 	{
 		logger.LogVerbose("Engine Update");
-		//gameStateManager.Update(dt);
-	//	input.Update();
-		//window.Update();
+		window.Update();
+		gameStateManager.Update(dt);
+		input.Update();
 		frameCount++;
 		if (frameCount >= Engine::FPS_IntervalFrameCount)
 		{
@@ -67,6 +76,25 @@ void Engine::Update()
 		}
 		lastTick = now;
 	}
+}
+void Engine::init_shdrpgms()
+{
+	std::vector<std::pair<GLenum, std::string>> shdr_files
+	{
+		std::make_pair(GL_VERTEX_SHADER, "../shaders/tutorial-5.vert"),
+		std::make_pair(GL_FRAGMENT_SHADER,  "../shaders/tutorial-5.frag")
+	};
+	GLSLShader shdr_pgm;
+	shdr_pgm.CompileLinkValidate(shdr_files);
+	if (GL_FALSE == shdr_pgm.IsLinked())
+	{
+		std::cout << "Unable to compile/link/validate shader programs\n";
+		std::cout << shdr_pgm.GetLog() << "\n";
+		std::exit(EXIT_FAILURE);
+	}
+	// add compiled, linked, and validated shader program to
+	// std::map container GLApp::shdrpgms
+	shdrpgms["Duck"] = shdr_pgm;
 }
 //bool Engine::HasGameEnded()
 //{

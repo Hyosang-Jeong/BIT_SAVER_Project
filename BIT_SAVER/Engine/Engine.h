@@ -11,19 +11,24 @@ Creation date: 2/10/2021
 #pragma once
 #include<iostream>
 #include <chrono>   
-//#include "GameStateManager.h"
-//#include "Input.h"
+#include "GameStateManager.h"
+#include "Input.h"
 #include "Window.h"
 #include "Logger.h"
+#include"GLModel.h"
+#include<map>
+#include"glslshader.h"
 //#include"TextureManager.h"
 //#include "SpriteFont.h"
 class Engine {
 public:
     static Engine& Instance() { static Engine instance; return instance; }
     static Logger& GetLogger() { return Instance().logger; };
-    //static CS230::Input& GetInput() { return Instance().input; }
+    static Input& GetInput() { return Instance().input; }
     static Window& GetWindow() { return Instance().window; }
-    //static CS230::GameStateManager& GetGameStateManager() { return Instance().gameStateManager; }
+    static GameStateManager& GetGameStateManager() { return Instance().gameStateManager; }
+    static  std::map<std::string, GLModel>& GetGLModel () { return Instance().models; }
+    static  std::map<std::string, GLSLShader>& GetGLShader() { return Instance().shdrpgms; }
     //static CS230::TextureManager& GetTextureManager() { return Instance().texturemanager; }
     //static CS230::SpriteFont& GetSpriteFont(int index) { return Instance().fonts[index]; }
 
@@ -31,7 +36,7 @@ public:
     void Shutdown();
     void Update();
     bool HasGameEnded();
-
+    void init_shdrpgms();
  //   void AddSpriteFont(const std::filesystem::path& fileName);
    // template<typename T>
    // static T* GetGSComponent() { return GetGameStateManager().GetGSComponent<T>(); }
@@ -44,10 +49,13 @@ private:
     std::chrono::system_clock::time_point fpsCalcTime;
     int frameCount;
 
-    Logger logger;
-  //  CS230::GameStateManager gameStateManager;
-  //  CS230::Input input;
+   Logger logger;
+   GameStateManager gameStateManager;
+   Input input;
    Window window;
+   std::map<std::string, GLModel> models;
+   std::map<std::string, GLSLShader> shdrpgms;
+
  //   CS230::TextureManager texturemanager;
     static constexpr double Target_FPS = 60.0;
     static constexpr int FPS_IntervalSec = 5;
