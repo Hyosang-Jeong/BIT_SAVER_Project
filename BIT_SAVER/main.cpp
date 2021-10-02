@@ -18,6 +18,7 @@ an OpenGL context and implement a game loop.
 #include <sstream>
 #include <iomanip>
 #include"Engine/Engine.h"
+#include "music.h"
 /*                                                   type declarations
 ----------------------------------------------------------------------------- */
 
@@ -47,11 +48,13 @@ int main()
     engine.Init("Bit_Saver");
 
     GLApp::init();
-
+    Music music;
+    music.SoundSystem();
     while (!glfwWindowShouldClose(engine.GetWindow().ptr_window)) 
     {
         update();
         draw();
+        music.Play(0);
     }
     cleanup();
 }

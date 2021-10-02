@@ -32,6 +32,9 @@
     <ClCompile Include="Engine\Window.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
+    <ClCompile Include="music.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\glapp.h">
@@ -53,6 +56,9 @@
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Vec2.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="music.h">
       <Filter>Engine</Filter>
     </ClInclude>
   </ItemGroup>
