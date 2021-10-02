@@ -29,6 +29,9 @@
     <ClCompile Include="Engine\Window.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
+
+    <ClCompile Include="music.cpp">
+
     <ClCompile Include="Engine\GameStateManager.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
@@ -54,6 +57,7 @@
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Texture.cpp">
+
       <Filter>Engine</Filter>
     </ClCompile>
   </ItemGroup>
@@ -79,6 +83,9 @@
     <ClInclude Include="Engine\Vec2.h">
       <Filter>Engine</Filter>
     </ClInclude>
+
+    <ClInclude Include="music.h">
+
     <ClInclude Include="Engine\GameStateManager.h">
       <Filter>Engine</Filter>
     </ClInclude>
@@ -107,6 +114,7 @@
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Texture.h">
+
       <Filter>Engine</Filter>
     </ClInclude>
   </ItemGroup>
