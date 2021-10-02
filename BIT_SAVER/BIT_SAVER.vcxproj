@@ -144,6 +144,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Engine.cpp" />
+    <ClCompile Include="Engine\GameStateManager.cpp" />
     <ClCompile Include="Engine\glapp.cpp" />
     <ClCompile Include="Engine\glhelper.cpp" />
     <ClCompile Include="Engine\glslshader.cpp" />
@@ -153,6 +154,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h" />
+    <ClInclude Include="Engine\GameState.h" />
+    <ClInclude Include="Engine\GameStateManager.h" />
     <ClInclude Include="Engine\glapp.h" />
     <ClInclude Include="Engine\glhelper.h" />
     <ClInclude Include="Engine\glslshader.h" />
