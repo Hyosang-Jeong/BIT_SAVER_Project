@@ -25,7 +25,6 @@ an OpenGL context and implement a game loop.
 ----------------------------------------------------------------------------- */
 static void draw();
 static void update();
-static void init();
 static void cleanup();
 
 /*                                                      function definitions
@@ -42,38 +41,33 @@ Indicates how the program existed. Normal exit is signaled by a return value of
 Note that the C++ compiler will insert a return 0 statement if one is missing.
 */
 Engine& engine = Engine::Instance();
+
 int main() 
 {
-
     engine.Init("Bit_Saver");
+
+    GLApp::init();
 
     while (!glfwWindowShouldClose(engine.GetWindow().ptr_window)) 
     {
         update();
         draw();
     }
-
     cleanup();
 }
 
 static void update() 
 {
     glfwPollEvents();
-
     double delta_time = GLHelper::update_time(1.0);
-
     GLApp::update(delta_time);
 }
 
 static void draw() 
 {
-
     GLApp::draw();
-
     glfwSwapBuffers(engine.GetWindow().ptr_window);
 }
-
-
 
 void cleanup() {
 

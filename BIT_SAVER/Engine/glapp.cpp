@@ -23,12 +23,13 @@ to OpenGL implementations.
 static GLApp    g_glapp;
 GLApp::GLModel GLApp::mdl;
 static int mode_frag = 0;
+
 void GLApp::init()  // add opengl info code by hyosang jung
 {
     // Part 1: clear colorbuffer with RGBA value in glClearColor ...
     glClearColor(1.f, 1.f, 1.f, 1.f);
     // Part 2: use the entire window as viewport ...
-    GLint w = GLHelper::width, h = GLHelper::height;
+    GLint w = 1920, h = 1080;
     glViewport(0, 0, w, h);
     // Part 3: initialize VAO and create shader program
     mdl.setup_vao();

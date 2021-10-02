@@ -20,8 +20,7 @@ void Window::Init(GLint wid, GLint hei,std::string windowName)
     {
         std::cout << "GLFW init has failed - abort program!!!" << std::endl; 
     }
-    // Before asking GLFW to create an OpenGL context, we specify the minimum constraints
- // in that context:
+
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -48,7 +47,7 @@ void Window::Init(GLint wid, GLint hei,std::string windowName)
 
    if (GLEW_OK != err) 
    {
-       //std::cerr << "Unable to initialize GLEW - error: "
+       std::cerr << "Unable to initialize GLEW - error: ";
        //    << glewGetErrorString(err) << " abort program" << std::endl;
        //return false;
    }
@@ -56,12 +55,11 @@ void Window::Init(GLint wid, GLint hei,std::string windowName)
        std::cout << "Using glew version: " << glewGetString(GLEW_VERSION) << std::endl;
        std::cout << "Driver supports OpenGL 4.5\n" << std::endl;
    }
-   //else 
+   else 
    {
-       //std::cerr << "Driver doesn't support OpenGL 4.5 - abort program" << std::endl;
+       std::cerr << "Driver doesn't support OpenGL 4.5 - abort program" << std::endl;
        //return false;
    }
-
    //return true;
 }
 void Window::Update() 
