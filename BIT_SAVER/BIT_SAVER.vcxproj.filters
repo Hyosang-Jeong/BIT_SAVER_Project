@@ -103,6 +103,7 @@
     <ClInclude Include="Game\Hero.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="stb_image.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">

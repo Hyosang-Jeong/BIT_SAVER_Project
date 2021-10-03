@@ -191,6 +191,7 @@
     <ClInclude Include="music.h" />
     <ClInclude Include="Game\Hero.h" />
     <ClInclude Include="Game\Level1.h" />
+    <ClInclude Include="stb_image.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\Vec2.inl" />

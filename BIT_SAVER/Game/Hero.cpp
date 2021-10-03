@@ -49,7 +49,7 @@ void Hero::Draw()
 	glBindVertexArray(mdl_ref->second.vaoid );
 
 	GLint uniform_var_loc1 = glGetUniformLocation(shd_ref->second.GetHandle(), "color_frag");
-	texture.setup_texobj("../images/duck-rgba-256.tex");
+	texture.setup_texobj("../images/chick.png");
 	GLuint  texobj_hdl0 = texture.Get_texture();
 	glActiveTexture(GL_TEXTURE0);
 	glEnable(GL_TEXTURE_2D);
