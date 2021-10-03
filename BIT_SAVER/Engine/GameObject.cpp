@@ -25,6 +25,38 @@ void GameObject::Update(double dt)
     //    UpdatePosition({ velocity.x * dt, velocity.y * dt });
     //}
     //currState->TestForExit(this);
+
+    glm::mat3 scale_matrix
+    {
+        scale.x,0,0,
+        0,scale.y,0,
+        0,0,1
+    };
+    double PI = 3.14159265359;
+    //angle_disp += angle_speed * (GLfloat)delta_time;
+
+
+    //glm::mat3 rotation_matrix
+    //{
+    //    cos(angle_disp * (float)PI / (float)180),sin(angle_disp * (float)PI / (float)180),0,
+    //   -sin(angle_disp * (float)PI / (float)180),cos(angle_disp * (float)PI / (float)180),0,
+    //    0,0,1
+    //};
+
+    glm::mat3 trans_matrix
+    {
+        1,0,0,
+         0,1,0,
+        position.x,position.y,1
+    };
+    glm::mat3 ndcscale_matrix
+    {
+       1.0 / 10.0  ,0  ,0,
+        0,  1 / 10.0 ,0,
+        0,0,1
+    };
+    mdl_to_ndc_xform =  trans_matrix  * scale_matrix;
+
 }
 
 void GameObject::Draw() 

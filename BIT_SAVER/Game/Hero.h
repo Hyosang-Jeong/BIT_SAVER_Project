@@ -21,12 +21,14 @@ public:
     glm::vec2 Getposition();
     void Draw() override;
 private:
-
+    InputKey moveUpKey;
+    InputKey moveDownKey;
    InputKey moveLeftKey;
    InputKey moveRightKey;
+
    InputKey jumpKey;
 
-    static constexpr double acceleration = 250;
+    static constexpr double acceleration = 1;
     static constexpr double drag = 500;
     static constexpr double max_velocity = 500;
     static constexpr double jumpVelocity = 1000;

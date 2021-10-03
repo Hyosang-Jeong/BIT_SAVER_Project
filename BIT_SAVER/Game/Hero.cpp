@@ -10,14 +10,15 @@ Creation date: 3/14/2021
 #include"Hero.h"
 #include"../Engine/Engine.h" //get window
 #include"Level1.h"  // Level1's gravity
-//#include  "..\Engine\Camera.h" // using Camera
-//#include"Hero_Anims.h" //use enum value
+#include <glm/gtc/type_ptr.hpp> // for glm::value_ptr
 
 Hero::Hero(glm::vec2 startPos) :
 	moveLeftKey(InputKey::Keyboard::Left),
 	moveRightKey(InputKey::Keyboard::Right),
+	moveUpKey(InputKey::Keyboard::Up),
+	moveDownKey(InputKey::Keyboard::Down),
 	jumpKey(InputKey::Keyboard::Up),
-	GameObject(startPos)
+	GameObject(startPos, 0, glm::vec2{ 0.1,0.1 })
 {
 	//sprite.Load("assets/hero.spt");
 	mdl_ref = Engine::GetGLModel().find("Duck");
@@ -30,36 +31,41 @@ Hero::Hero(glm::vec2 startPos) :
 void Hero::Update(double dt)
 {
 	GameObject::Update(dt);
-	shd_ref->second.Use();
-	//if (Getposition().x - sprite.GetFrameSize().x / 2 <= 0)
-	//{
-	//	SetPosition(math::vec2{ sprite.GetFrameSize().x / 2.0 ,GetPosition().y });
-	//	SetVelocity(math::vec2{ 0,GetVelocity().y });
-	//}
-	//if (Getposition().x + sprite.GetFrameSize().x / 2 >= Engine::GetWindow().GetSize().x + camera.GetPosition().x)
-	//{
-	//	SetPosition(math::vec2{ Engine::GetWindow().GetSize().x + camera.GetPosition().x - sprite.GetFrameSize().x / 2 ,GetPosition().y });
 
-	//	SetVelocity(math::vec2{ 0,GetVelocity().y });
-	//}
+	shd_ref->second.Use();
+	UpdateXVelocity( dt);
+
 }
 
 void Hero::Draw()
 {
-	glBindVertexArray(mdl_ref->second.vaoid );
 
-	GLint uniform_var_loc1 = glGetUniformLocation(shd_ref->second.GetHandle(), "color_frag");
+	glBindVertexArray(mdl_ref->second.vaoid );
 	texture.setup_texobj("../images/duck-rgba-256.tex");
 	GLuint  texobj_hdl0 = texture.Get_texture();
+
+	glTextureParameteri(texobj_hdl0, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // size
+	glTextureParameteri(texobj_hdl0, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glActiveTexture(GL_TEXTURE0);
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
-
 	glBindTexture(GL_TEXTURE_2D, texobj_hdl0);
 	glBindTextureUnit(0, texobj_hdl0);
 	
 	GLuint tex_loc = glGetUniformLocation(shd_ref->second.GetHandle(), "uTex2d");
 	glUniform1i(tex_loc, 0);
+
+	GLint uniform_var_loc1 = glGetUniformLocation(shd_ref->second.GetHandle(), "uModelToNDC");
+	if (uniform_var_loc1 >= 0)
+	{
+		glUniformMatrix3fv(uniform_var_loc1, 1, GL_FALSE, glm::value_ptr(mdl_to_ndc_xform));
+	}
+	else
+	{
+		Engine::GetLogger().LogError("Uniform variable doesn't exist!!!");
+	}
 
 	glDrawElements(mdl_ref->second.primitive_type, mdl_ref->second.draw_cnt, GL_UNSIGNED_SHORT, NULL);
 
@@ -78,45 +84,30 @@ void Hero::UpdateXVelocity(double dt)
 {
 	if (moveLeftKey.IsKeyDown() == true)
 	{
-		UpdateVelocity(glm::vec2{ -(acceleration * dt),0 });
-		if (GetVelocity().x < -max_velocity)
-		{
-			SetVelocity(glm::vec2{ -max_velocity,GetVelocity().y });
-		}
+		UpdatePosition({  -dt, 0});
+		SetScale(glm::vec2{ 0.1, 0.1 });
 	}
+
 	else if (moveRightKey.IsKeyDown() == true)
 	{
-		UpdateVelocity(glm::vec2{ (acceleration * dt),0 });
-
-		if (GetVelocity().x > max_velocity)
-		{
-			SetVelocity(glm::vec2{ max_velocity,GetVelocity().y });
-		}
+		UpdatePosition({ dt, 0 });
+		SetScale(glm::vec2{ -0.1, 0.1 });
 	}
 
-	else if (moveLeftKey.IsKeyDown() == false && moveRightKey.IsKeyDown() == false)
+	if (moveUpKey.IsKeyDown() == true)
 	{
-		if (GetVelocity().x < 0)
-		{
-			UpdateVelocity(glm::vec2{ (drag * dt),0 });
-			if (GetVelocity().x > 0)
-			{
-				SetVelocity(glm::vec2{ 0,GetVelocity().y });
-			}
-		}
-		else if (GetVelocity().x > 0)
-		{
-			UpdateVelocity(glm::vec2{ -(drag * dt),0 });
-			if (GetVelocity().x < 0)
-			{
-				SetVelocity(glm::vec2{ 0,GetVelocity().y });
-			}
-		}
+		UpdatePosition({ 0,dt});
+	}
+
+	else if (moveDownKey.IsKeyDown() == true)
+	{
+		UpdatePosition({ 0,-dt });
 	}
 }
 
 
-void Hero::ChangeState(State* newState) {
+void Hero::ChangeState(State* newState) 
+{
 	Engine::GetLogger().LogDebug("Leaving State: " + currState->GetName() + " Entering State: " + newState->GetName());
 	currState = newState;
 	currState->Enter(this);
@@ -179,11 +170,11 @@ void Hero::State_Running::Enter(GameObject* object)
 	Hero* hero = static_cast<Hero*>(object);
 	if (hero->moveLeftKey.IsKeyDown() == true)
 	{
-		hero->SetScale(glm::vec2{ -1.0,1.0 });
+		hero->SetScale(glm::vec2{ -0.1,0.1 });
 	}
 	else if (hero->moveRightKey.IsKeyDown() == true)
 	{
-		hero->SetScale(glm::vec2{ 1.0,1.0 });
+		hero->SetScale(glm::vec2{ 0.1,0.1 });
 	}
 	//hero->sprite.PlayAnimation(static_cast<int>(Hero_Anim::Hero_Run_Anim));
 }

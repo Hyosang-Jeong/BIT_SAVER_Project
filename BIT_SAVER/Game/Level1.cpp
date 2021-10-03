@@ -62,6 +62,7 @@ void Level1::Draw()
 	//background.Draw(camera);
 	//math::TransformMatrix cameraMatrix = camera.GetMatrix();
 	glClear(GL_COLOR_BUFFER_BIT);
+	glClearColor(1.0, 1.0, 1.0, 1.0);
 	gameObjectManager.DrawAll();
 	//math::ivec2 winSize = Engine::GetWindow().GetSize();
 	
