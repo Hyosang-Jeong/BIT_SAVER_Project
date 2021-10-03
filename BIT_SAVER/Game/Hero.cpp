@@ -39,9 +39,11 @@ void Hero::Update(double dt)
 
 void Hero::Draw()
 {
-
 	glBindVertexArray(mdl_ref->second.vaoid );
-	texture.setup_texobj("../images/duck-rgba-256.tex");
+
+	GLint uniform_var_loc1 = glGetUniformLocation(shd_ref->second.GetHandle(), "color_frag");
+	texture.setup_texobj("../images/chick.png");
+
 	GLuint  texobj_hdl0 = texture.Get_texture();
 
 	glTextureParameteri(texobj_hdl0, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // size
