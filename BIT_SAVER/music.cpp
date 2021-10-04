@@ -2,6 +2,9 @@
 #include <fstream>
 #include <cstdio>
 #include <sstream>
+#include <vector>
+
+
 using namespace std;
 
 
@@ -18,10 +21,13 @@ void Music::SoundSystem()
 void Music::Play(int Sound_num)
 {
     pSystem->playSound(pSound[Sound_num], NULL, 0, pChannel);
+
+    
 }
 
 void Music::Open()
 {
+    
     std::ofstream fout("a.txt", ios_base::binary);
 
 
@@ -48,4 +54,5 @@ void Music::Open()
     }
     fout.close();
     ifs.close();
+    
 }
