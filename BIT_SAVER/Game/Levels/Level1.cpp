@@ -13,6 +13,7 @@ Creation date: 3/07/2021
 #include"..\Objects\Bunny.h"
 #include"..\Objects\Track.h"
 #include<map>
+#include"..\..\Engine\Music\Midi.h"
 //#include"Screens.h" //Screens::Level2
 //#include"Hero.h" // add Hero
 //#include"Ball.h" // add Ball
@@ -36,19 +37,17 @@ lives(3)*/
 
 void Level1::Load()
 {
+	MidiEvent m;
 	heroPtr = new Hero({ 0,0 });
 	bunnyPtr = new Bunny({ 0.5,0.5 });
 	
 	std::map<int, std::vector<long double>> a;
-	std::vector<long double> ex1 = { 1,2,3,4,5 };
-	std::vector<long double> ex2 = { 1,3,6,8,5 };
-
-	a[1] = ex1;
-	a[2] = ex2;
+	a = m.MidiSetUp();
 
 
 	Engine::GetGameStateManager().gameObjectManager.Add(heroPtr);
 	Engine::GetGameStateManager().gameObjectManager.Add(bunnyPtr);
+
 	for (auto& track : a)
 	{
 		Engine::GetGameStateManager().gameObjectManager.Add(new Track(track.first,track.second));

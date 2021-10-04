@@ -21,7 +21,7 @@ Note::Note(glm::vec2 startPos) :  GameObject(startPos, 0, glm::vec2{ 0.1,0.1 })
 void Note::Update(double dt)
 {
 	GameObject::Update(dt);
-	UpdatePosition({ -dt, 0 });
+	UpdatePosition({ -dt/2.0, 0 });
 }
 
 void Note::Draw()

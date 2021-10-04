@@ -14,14 +14,14 @@ int main()
 
     Music music;
     music.SoundSystem();
-    music.Open();
+   // music.Open();
     Level1 level1;
     engine.GetGameStateManager().AddGameState(level1);
 
     while (!glfwWindowShouldClose(engine.GetWindow().ptr_window)) 
     {
        engine.Update();
-	   //music.Play(0);
+	   music.Play(0);
     }
    // cleanup();
 }
