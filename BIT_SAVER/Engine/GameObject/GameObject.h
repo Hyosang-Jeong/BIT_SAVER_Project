@@ -9,17 +9,17 @@ Creation date: 2/14/2021
 -----------------------------------------------------------------*/
 #pragma once
 
-#include "Vec2.h"
+//#include "Vec2.h"
 //#include "Sprite.h"
-#include "TransformMatrix.h"
+#include"..\Math\TransformMatrix.h"
 #include<iostream>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include<map>
-#include"GLModel.h"
-#include"glslshader.h"
-#include"Texture.h"
+#include"..\GLModel\GLModel.h"
+#include"..\GLShader\glslshader.h"
+#include"..\Texture\Texture.h"
 	class GameObject 
 	{
 	public:
@@ -79,7 +79,7 @@ Creation date: 2/14/2021
 		glm::vec2 scale;
 		glm::vec2 position;
 		glm::vec2 velocity;
-
+		glm::vec2 orientation;
 
 
 	protected:

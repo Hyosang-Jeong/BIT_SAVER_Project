@@ -7,15 +7,15 @@ Project: CS230
 Author: Hyosang Jung
 Creation date: 3/07/2021
 -----------------------------------------------------------------*/
-#include "..\Engine\GameState.h" // CS230::GameState
+#include "..\Engine\GameState\GameState.h" // CS230::GameState
 //#include "..\Engine\Texture.h"   // Texture background
 //#include"Background.h" //background object
 //#include"..\Engine\Camera.h" //camera
-#include "..\Engine\GameObjectManager.h" // gameobjectmanager
-#include"..\Engine\Input.h"  //input key
+#include "..\Engine\GameObject\GameObjectManager.h" // gameobjectmanager
+#include"..\Engine\Input\Input.h"  //input key
 //#include"Floor.h" //floor
 class Hero;
-class Bunny;
+//class Bunny;
 class Level1 : public GameState {
 public:
 	Level1();
@@ -32,7 +32,7 @@ private:
 	//Background* background;
 	GameObjectManager gameObjectManager;
 	Hero* heroPtr;
-	Bunny* bunnyPtr;
+	//Bunny* bunnyPtr;
 
 //	int lives;
 //	CS230::Texture livesTexture;

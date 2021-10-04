@@ -10,7 +10,7 @@ Creation date: 2021-03-07
 
 #include"GameStateManager.h"
 #include"GameState.h"
-#include"Engine.h" //Getlogger
+#include"..\Engine.h" //Getlogger
 GameStateManager::GameStateManager()
 {
 	currGameState = nullptr;

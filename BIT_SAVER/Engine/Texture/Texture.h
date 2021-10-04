@@ -10,9 +10,10 @@ Creation date: 2/11/2021
 -----------------------------------------------------------------*/
 #pragma once
 
-#include"TransformMatrix.h"  // display matrix
+#include"..\Math\TransformMatrix.h"  // display matrix
 #include<GL/glew.h>
 #include<string>
+
 class Texture
 {
     //friend class TextureManager;
@@ -20,12 +21,12 @@ class Texture
 
 public:
     Texture() = default;
-    void Draw(math::TransformMatrix displayMatrix);
+    void Draw(glm::mat3 displayMatrix,std::string mdl_name, std::string shdr_name);
     void Draw(math::TransformMatrix displayMatrix, math::ivec2 texelPos, math::ivec2 frameSize);
     math::ivec2 GetSize();
     unsigned int GetPixel(math::ivec2 texel);
     void setup_texobj(const char* pathname);
-    GLuint Get_texture();
+
 private:
   //  Texture(const std::filesystem::path& filePath);
    // Texture(doodle::Image&& doodleImage);

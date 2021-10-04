@@ -11,13 +11,13 @@ Creation date: 2/10/2021
 #pragma once
 #include<iostream>
 #include <chrono>   
-#include "GameStateManager.h"
-#include "Input.h"
-#include "Window.h"
-#include "Logger.h"
-#include"GLModel.h"
+#include "..\Engine\GameState\GameStateManager.h"
+#include "..\Engine\input\Input.h"
+#include "..\Engine\Window\Window.h"
+#include "..\Engine\Logger\Logger.h"
+#include"..\Engine\GLModel\GLModel.h"
+#include"..\Engine\GLShader\glslshader.h"
 #include<map>
-#include"glslshader.h"
 //#include"TextureManager.h"
 //#include "SpriteFont.h"
 class Engine {

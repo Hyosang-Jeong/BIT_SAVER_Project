@@ -9,9 +9,8 @@ Creation date: 2/11/2021
 -----------------------------------------------------------------*/
 #pragma once
 //#include "..\Engine\Sprite.h" //sprite
-#include "..\Engine\Input.h" //input key
-#include "..\Engine\Vec2.h" //vec2 struct 
-#include "..\Engine\GameObject.h" // GameObject inheritance
+#include "..\Engine\Input\Input.h" //input key
+#include "..\Engine\GameObject\GameObject.h" // GameObject inheritance
 
 
 class Hero : public GameObject {
