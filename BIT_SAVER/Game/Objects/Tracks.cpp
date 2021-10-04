@@ -37,7 +37,7 @@ void Track::Draw()
 	{
 		if (timer > i)
 		{
-			Engine::GetGameStateManager().gameObjectManager.Add(new Note({ 0,(track_num/6.0) - 0.5 }));
+			Engine::GetGameStateManager().gameObjectManager.Add(new Note({ 1,(track_num/6.0) - 0.5 }));
 			std::cout << "Track num: "<<track_num << "      time: " << i << "       timer: " << timer << std::endl;
 			time.erase(time.begin());
 		}
