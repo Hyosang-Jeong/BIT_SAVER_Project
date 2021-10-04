@@ -13,7 +13,7 @@ GameObject::GameObject(glm::vec2 position) : GameObject(position, 0, { 1, 1 }) {
 
 GameObject::GameObject(glm::vec2 position, double rotation, glm::vec2 scale)
     : velocity{ 0,0 }, position(position), updateMatrix(true),
-    scale(scale), rotation(rotation), currState(&state_nothing) 
+    scale(scale), rotation(rotation)
 {
 }
 
@@ -129,7 +129,3 @@ void GameObject::UpdateRotation(double newRotationAmount)
     updateMatrix = true;
 }
 
-void GameObject::ChangeState(State* newState) {
-    currState = newState;
-    currState->Enter(this);
-}

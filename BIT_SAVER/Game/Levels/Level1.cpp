@@ -9,8 +9,10 @@ Creation date: 3/07/2021
 -----------------------------------------------------------------*/
 #include "../Engine/Engine.h"	//GetGameStateManage
 #include"Level1.h"
-#include"Hero.h"
-//#include"Bunny.h"
+#include"..\Objects\Hero.h"
+#include"..\Objects\Bunny.h"
+#include"..\Objects\Track.h"
+#include<map>
 //#include"Screens.h" //Screens::Level2
 //#include"Hero.h" // add Hero
 //#include"Ball.h" // add Ball
@@ -25,7 +27,7 @@ Creation date: 3/07/2021
 //#include"GameParticles.h"
 
 Level1::Level1() : mainMenu(InputKey::Keyboard::Escape),
-reload(InputKey::Keyboard::R), heroPtr(nullptr)
+reload(InputKey::Keyboard::R), heroPtr(nullptr), bunnyPtr(nullptr)
 /*background(nullptr),
 ),bunnyPtr(nullptr)
 gameObjectManager(nullptr)
@@ -35,14 +37,27 @@ lives(3)*/
 void Level1::Load()
 {
 	heroPtr = new Hero({ 0,0 });
-	//bunnyPtr = new Bunny({ 0.5,0.5 });
-	gameObjectManager.Add(heroPtr);
-	//gameObjectManager.Add(bunnyPtr);
+	bunnyPtr = new Bunny({ 0.5,0.5 });
+	
+	std::map<int, std::vector<double>> a;
+	std::vector<double> ex1 = { 1,2,3,4,5 };
+	std::vector<double> ex2 = { 1,3,6,8,5 };
+
+	a[1] = ex1;
+	a[2] = ex2;
+
+
+	Engine::GetGameStateManager().GetGameObjectManager().Add(heroPtr);
+	Engine::GetGameStateManager().GetGameObjectManager().Add(bunnyPtr);
+	for (auto& track : a)
+	{
+		Engine::GetGameStateManager().GetGameObjectManager().Add(new Track(track.first,track.second));
+	}
 
 }
 void Level1::Update(double dt)
 {
-	gameObjectManager.UpdateAll(dt);
+	Engine::GetGameStateManager().GetGameObjectManager().UpdateAll(dt);
 
 #ifdef _DEBUG
 	if (reload.IsKeyReleased() == true)
@@ -56,7 +71,7 @@ void Level1::Update(double dt)
 
 void Level1::Unload()
 {
-	gameObjectManager.Unload();
+	Engine::GetGameStateManager().GetGameObjectManager().Unload();
 	heroPtr = nullptr;
 }
 
@@ -67,7 +82,7 @@ void Level1::Draw()
 	//math::TransformMatrix cameraMatrix = camera.GetMatrix();
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClearColor(1.0, 1.0, 1.0, 1.0);
-	gameObjectManager.DrawAll();
+	Engine::GetGameStateManager().GetGameObjectManager().DrawAll();
 	//math::ivec2 winSize = Engine::GetWindow().GetSize();
 	
 }

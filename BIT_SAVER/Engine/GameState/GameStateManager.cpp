@@ -36,6 +36,10 @@ void GameStateManager::ReloadState()
 {
 	state = State::UNLOAD;
 }
+GameObjectManager GameStateManager::GetGameObjectManager()
+{
+	return gameObjectManager;
+}
 void GameStateManager::Update(double dt)
 {
 	switch (state)

@@ -2,18 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Game\Level1.cpp">
-      <Filter>Game\Levels</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Bunny.cpp">
-      <Filter>Game\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Bunny.h">
-      <Filter>Game\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Hero.cpp">
-      <Filter>Game\GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\GameObject\GameObject.cpp">
       <Filter>Engine\GameObject</Filter>
     </ClCompile>
@@ -50,14 +38,23 @@
     <ClCompile Include="Engine\Engine.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Objects\Bunny.cpp">
+      <Filter>Game\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Objects\Hero.cpp">
+      <Filter>Game\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Levels\Level1.cpp">
+      <Filter>Game\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Objects\Tracks.cpp">
+      <Filter>Game\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Objects\Notes.cpp">
+      <Filter>Game\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game\Level1.h">
-      <Filter>Game\Levels</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Hero.h">
-      <Filter>Game\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\GameObject\GameObject.h">
       <Filter>Engine\GameObject</Filter>
     </ClInclude>
@@ -103,6 +100,21 @@
     <ClInclude Include="Engine\Engine.h">
       <Filter>Engine</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Objects\Bunny.h">
+      <Filter>Game\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Objects\Hero.h">
+      <Filter>Game\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Levels\Level1.h">
+      <Filter>Game\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Objects\Track.h">
+      <Filter>Game\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Objects\Notes.h">
+      <Filter>Game\Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Game">
@@ -110,9 +122,6 @@
     </Filter>
     <Filter Include="Game\Levels">
       <UniqueIdentifier>{13f620e9-81f1-46ac-951c-8dd652099076}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\GameObject">
-      <UniqueIdentifier>{5cc8c5b7-fe08-46e8-a483-cef650b1f2e8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine">
       <UniqueIdentifier>{63270feb-8ad1-4aba-bd38-6ccb4a32b1a0}</UniqueIdentifier>
@@ -149,6 +158,9 @@
     </Filter>
     <Filter Include="Engine\Window">
       <UniqueIdentifier>{38e9c6c6-957c-4786-8d74-7eaf659c7ea2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Objects">
+      <UniqueIdentifier>{5cc8c5b7-fe08-46e8-a483-cef650b1f2e8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

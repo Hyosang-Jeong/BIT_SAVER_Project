@@ -38,28 +38,6 @@ Creation date: 2/14/2021
 
 	protected:
 
-		class State 
-		{
-		public:
-			virtual void Enter(GameObject* object) = 0;
-			virtual void Update(GameObject* object, double dt) = 0;
-			virtual void TestForExit(GameObject* object) = 0;
-			virtual std::string GetName() = 0;
-		};
-		class State_Nothing : public State {
-		public:
-			void Enter(GameObject*) override {}
-			void Update(GameObject*, double) override {}
-			void TestForExit(GameObject*) override {}
-			std::string GetName() { return ""; }
-		};
-		State_Nothing state_nothing;
-
-		void ChangeState(State* newState);
-
-		State* currState;
-
-
 		void SetPosition(glm::vec2 newPosition);
 		void UpdatePosition(glm::vec2 adjustPosition);
 		void SetVelocity(glm::vec2 newPosition);

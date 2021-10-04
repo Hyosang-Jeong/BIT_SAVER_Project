@@ -9,11 +9,12 @@ Creation date: 2/10/2021
 -----------------------------------------------------------------*/
 #pragma once
 #include <vector>
-
+#include"..\GameObject\GameObjectManager.h"
 
 	class GameState;
 
-	class GameStateManager {
+	class GameStateManager
+	{
 	public:
 		GameStateManager();
 
@@ -23,7 +24,8 @@ Creation date: 2/10/2021
 		void Shutdown();
 		void ReloadState();
 		bool HasGameEnded() { return state == State::EXIT; }
-
+		GameObjectManager GetGameObjectManager();
+		
 	private:
 		enum class State {
 			START,
@@ -33,7 +35,7 @@ Creation date: 2/10/2021
 			SHUTDOWN,
 			EXIT,
 		};
-
+		GameObjectManager gameObjectManager;
 		std::vector<GameState*> gameStates;
 		State state;
 		GameState* currGameState;
