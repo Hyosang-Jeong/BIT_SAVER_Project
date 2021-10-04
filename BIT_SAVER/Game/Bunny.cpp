@@ -7,12 +7,12 @@ Project: CS230
 Author: Hyosang Jung
 Creation date: 3/14/2021
 -----------------------------------------------------------------*/
-#include"Hero.h"
+#include"Bunny.h"
 #include"../Engine/Engine.h" //get window
 #include"Level1.h"  // Level1's gravity
 #include <glm/gtc/type_ptr.hpp> // for glm::value_ptr
 
-Hero::Hero(glm::vec2 startPos) :
+Bunny::Bunny(glm::vec2 startPos) :
 	moveLeftKey(InputKey::Keyboard::Left),
 	moveRightKey(InputKey::Keyboard::Right),
 	moveUpKey(InputKey::Keyboard::Up),
@@ -28,20 +28,18 @@ Hero::Hero(glm::vec2 startPos) :
 }
 
 
-void Hero::Update(double dt)
+void Bunny::Update(double dt)
 {
 	GameObject::Update(dt);
-
-	UpdateXVelocity( dt);
-
+	//UpdateXVelocity(dt);
 }
 
-void Hero::Draw()
+void Bunny::Draw()
 {
 	shd_ref->second.Use();
-	glBindVertexArray(mdl_ref->second.vaoid );
+	glBindVertexArray(mdl_ref->second.vaoid);
 
-	texture.setup_texobj("../images/chick.png");
+	texture.setup_texobj("../images/stickman.png");
 
 	GLuint  texobj_hdl0 = texture.Get_texture();
 
@@ -54,7 +52,7 @@ void Hero::Draw()
 	glEnable(GL_BLEND);
 	glBindTexture(GL_TEXTURE_2D, texobj_hdl0);
 	glBindTextureUnit(0, texobj_hdl0);
-	
+
 	GLuint tex_loc = glGetUniformLocation(shd_ref->second.GetHandle(), "uTex2d");
 	glUniform1i(tex_loc, 0);
 
@@ -63,7 +61,7 @@ void Hero::Draw()
 	{
 		glUniformMatrix3fv(uniform_var_loc1, 1, GL_FALSE, glm::value_ptr(mdl_to_ndc_xform));
 	}
-	else
+   else
 	{
 		Engine::GetLogger().LogError("Uniform variable doesn't exist!!!");
 	}
@@ -76,16 +74,16 @@ void Hero::Draw()
 }
 
 
-glm::vec2 Hero::Getposition()
+glm::vec2 Bunny::Getposition()
 {
 	return GameObject::GetPosition();
 }
 
-void Hero::UpdateXVelocity(double dt)
+void Bunny::UpdateXVelocity(double dt)
 {
 	if (moveLeftKey.IsKeyDown() == true)
 	{
-		UpdatePosition({  -dt, 0});
+		UpdatePosition({ -dt, 0 });
 		SetScale(glm::vec2{ 0.1, 0.1 });
 	}
 
@@ -97,7 +95,7 @@ void Hero::UpdateXVelocity(double dt)
 
 	if (moveUpKey.IsKeyDown() == true)
 	{
-		UpdatePosition({ 0,dt});
+		UpdatePosition({ 0,dt });
 	}
 
 	else if (moveDownKey.IsKeyDown() == true)
@@ -107,27 +105,27 @@ void Hero::UpdateXVelocity(double dt)
 }
 
 
-void Hero::ChangeState(State* newState) 
+void Bunny::ChangeState(State* newState)
 {
 	Engine::GetLogger().LogDebug("Leaving State: " + currState->GetName() + " Entering State: " + newState->GetName());
 	currState = newState;
 	currState->Enter(this);
 }
 
-void Hero::State_Jumping::Enter(GameObject* object)
+void Bunny::State_Jumping::Enter(GameObject* object)
 {
-	Hero* hero = static_cast<Hero*>(object);
+	Bunny* hero = static_cast<Bunny*>(object);
 
-	hero->SetVelocity(glm::vec2{ hero->GetVelocity().x, Hero::jumpVelocity });
+	hero->SetVelocity(glm::vec2{ hero->GetVelocity().x, Bunny::jumpVelocity });
 	//hero->sprite.PlayAnimation(static_cast<int>(Hero_Anim::Hero_Jump_Anim));
 }
-void Hero::State_Jumping::Update(GameObject* object, double dt) {
-	Hero* hero = static_cast<Hero*>(object);
+void Bunny::State_Jumping::Update(GameObject* object, double dt) {
+	Bunny* hero = static_cast<Bunny*>(object);
 	//hero->UpdateVelocity(math::vec2{ 0,-(Level1::gravity * dt) });
 	hero->UpdateXVelocity(dt);  //Change X Velocity stuff
 }
-void Hero::State_Jumping::TestForExit(GameObject* object) {
-	Hero* hero = static_cast<Hero*>(object);
+void Bunny::State_Jumping::TestForExit(GameObject* object) {
+	Bunny* hero = static_cast<Bunny*>(object);
 	if (hero->jumpKey.IsKeyDown() == false) {  //Jump Key not pressed
 		hero->SetVelocity(glm::vec2{ hero->GetVelocity().x,0 });
 	}
@@ -136,20 +134,20 @@ void Hero::State_Jumping::TestForExit(GameObject* object) {
 	}
 }
 
-void Hero::State_Idle::Enter(GameObject* object)
+void Bunny::State_Idle::Enter(GameObject* object)
 {
-	Hero* hero = static_cast<Hero*>(object);
+	Bunny* hero = static_cast<Bunny*>(object);
 	//hero->sprite.PlayAnimation(static_cast<int>(Hero_Anim::Hero_Idle_Anim));
 }
 
-void Hero::State_Idle::Update([[maybe_unused]] GameObject* object, [[maybe_unused]] double dt)
+void Bunny::State_Idle::Update([[maybe_unused]] GameObject* object, [[maybe_unused]] double dt)
 {
 
 }
 
-void Hero::State_Idle::TestForExit(GameObject* object)
+void Bunny::State_Idle::TestForExit(GameObject* object)
 {
-	Hero* hero = static_cast<Hero*>(object);
+	Bunny* hero = static_cast<Bunny*>(object);
 	if (hero->moveLeftKey.IsKeyDown() == true)
 	{
 		hero->ChangeState(&hero->stateRunning);
@@ -166,9 +164,9 @@ void Hero::State_Idle::TestForExit(GameObject* object)
 
 
 
-void Hero::State_Running::Enter(GameObject* object)
+void Bunny::State_Running::Enter(GameObject* object)
 {
-	Hero* hero = static_cast<Hero*>(object);
+	Bunny* hero = static_cast<Bunny*>(object);
 	if (hero->moveLeftKey.IsKeyDown() == true)
 	{
 		hero->SetScale(glm::vec2{ -0.1,0.1 });
@@ -180,16 +178,16 @@ void Hero::State_Running::Enter(GameObject* object)
 	//hero->sprite.PlayAnimation(static_cast<int>(Hero_Anim::Hero_Run_Anim));
 }
 
-void Hero::State_Running::Update(GameObject* object, double dt)
+void Bunny::State_Running::Update(GameObject* object, double dt)
 {
-	Hero* hero = static_cast<Hero*>(object);
+	Bunny* hero = static_cast<Bunny*>(object);
 	hero->UpdateXVelocity(dt);
 }
 
 
-void Hero::State_Running::TestForExit(GameObject* object)
+void Bunny::State_Running::TestForExit(GameObject* object)
 {
-	Hero* hero = static_cast<Hero*>(object);
+	Bunny* hero = static_cast<Bunny*>(object);
 	if (hero->GetVelocity().x == 0)
 	{
 		hero->ChangeState(&hero->stateIdle);
@@ -209,15 +207,15 @@ void Hero::State_Running::TestForExit(GameObject* object)
 	}
 }
 
-void Hero::State_Skidding::Enter(GameObject* object)
+void Bunny::State_Skidding::Enter(GameObject* object)
 {
-	Hero* hero = static_cast<Hero*>(object);
+	Bunny* hero = static_cast<Bunny*>(object);
 	//hero->sprite.PlayAnimation(static_cast<int>(Hero_Anim::Hero_Skid_Anim));
 }
 
-void Hero::State_Skidding::Update(GameObject* object, double dt)
+void Bunny::State_Skidding::Update(GameObject* object, double dt)
 {
-	Hero* hero = static_cast<Hero*>(object);
+	Bunny* hero = static_cast<Bunny*>(object);
 	if (hero->GetVelocity().x < 0)
 	{
 		hero->UpdateVelocity(glm::vec2{ (drag * 2 * dt) ,0 });
@@ -229,9 +227,9 @@ void Hero::State_Skidding::Update(GameObject* object, double dt)
 
 }
 
-void Hero::State_Skidding::TestForExit(GameObject* object)
+void Bunny::State_Skidding::TestForExit(GameObject* object)
 {
-	Hero* hero = static_cast<Hero*>(object);
+	Bunny* hero = static_cast<Bunny*>(object);
 	if (hero->jumpKey.IsKeyDown() == true)
 	{
 		hero->ChangeState(&hero->stateJumping);
@@ -256,24 +254,24 @@ void Hero::State_Skidding::TestForExit(GameObject* object)
 	}
 }
 
-void Hero::State_Falling::Enter(GameObject* object)
+void Bunny::State_Falling::Enter(GameObject* object)
 {
-	Hero* hero = static_cast<Hero*>(object);
+	Bunny* hero = static_cast<Bunny*>(object);
 	//hero->sprite.PlayAnimation(static_cast<int>(Hero_Anim::Hero_Fall_Anim));
 }
 
 
-void Hero::State_Falling::Update(GameObject* object, double dt)
+void Bunny::State_Falling::Update(GameObject* object, double dt)
 {
-	Hero* hero = static_cast<Hero*>(object);
+	Bunny* hero = static_cast<Bunny*>(object);
 	//hero->UpdateVelocity(math::vec2{ 0,-(Level1::gravity * dt) });
 	hero->UpdateXVelocity(dt);
 }
 
 
-void Hero::State_Falling::TestForExit(GameObject* object)
+void Bunny::State_Falling::TestForExit(GameObject* object)
 {
-	Hero* hero = static_cast<Hero*>(object);
+	Bunny* hero = static_cast<Bunny*>(object);
 	/*if (hero->GetPosition().y <= Level1::floor)
 	{
 		hero->SetVelocity(math::vec2{ hero->GetVelocity().x,0 });

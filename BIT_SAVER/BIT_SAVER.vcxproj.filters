@@ -14,9 +14,6 @@
     <ClCompile Include="Engine\GameStateManager.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\glhelper.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\GLModel.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
@@ -47,6 +44,12 @@
     <ClCompile Include="Game\Level1.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Bunny.h">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Bunny.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h">
@@ -65,9 +68,6 @@
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="Engine\glapp.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\glhelper.h">
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="Engine\GLModel.h">
@@ -103,6 +103,7 @@
     <ClInclude Include="Game\Hero.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="stb_image.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">

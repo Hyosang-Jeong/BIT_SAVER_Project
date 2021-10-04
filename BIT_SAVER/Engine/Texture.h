@@ -24,7 +24,7 @@ public:
     void Draw(math::TransformMatrix displayMatrix, math::ivec2 texelPos, math::ivec2 frameSize);
     math::ivec2 GetSize();
     unsigned int GetPixel(math::ivec2 texel);
-    void setup_texobj(std::string pathname);
+    void setup_texobj(const char* pathname);
     GLuint Get_texture();
 private:
   //  Texture(const std::filesystem::path& filePath);

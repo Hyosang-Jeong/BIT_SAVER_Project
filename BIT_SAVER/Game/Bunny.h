@@ -14,19 +14,19 @@ Creation date: 2/11/2021
 #include "..\Engine\GameObject.h" // GameObject inheritance
 
 
-class Hero : public GameObject {
+class Bunny : public GameObject {
 public:
-    Hero(glm::vec2 startPos);
+    Bunny(glm::vec2 startPos);
     void Update(double dt) override;
     glm::vec2 Getposition();
     void Draw() override;
 private:
     InputKey moveUpKey;
     InputKey moveDownKey;
-   InputKey moveLeftKey;
-   InputKey moveRightKey;
+    InputKey moveLeftKey;
+    InputKey moveRightKey;
 
-   InputKey jumpKey;
+    InputKey jumpKey;
 
     static constexpr double acceleration = 1;
     static constexpr double drag = 500;

@@ -75,14 +75,18 @@ Creation date: 2/14/2021
 		bool updateMatrix;
 
 		double rotation;
+
 		glm::vec2 scale;
 		glm::vec2 position;
 		glm::vec2 velocity;
-		glm::mat3 mdl_to_ndc_xform;
+
+
+
 	protected:
 		std::map<std::string, GLModel>::iterator mdl_ref;
 		std::map<std::string, GLSLShader>::iterator shd_ref;
 		glm::mat3 mdl_xform;
+		glm::mat3 mdl_to_ndc_xform;
 		Texture texture;
 	};
 

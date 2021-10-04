@@ -159,7 +159,6 @@
     <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\GameObjectManager.cpp" />
     <ClCompile Include="Engine\GameStateManager.cpp" />
-    <ClCompile Include="Engine\glhelper.cpp" />
     <ClCompile Include="Engine\GLModel.cpp" />
     <ClCompile Include="Engine\glslshader.cpp" />
     <ClCompile Include="Engine\Input.cpp" />
@@ -167,6 +166,8 @@
     <ClCompile Include="Engine\Texture.cpp" />
     <ClCompile Include="Engine\TransformMatrix.cpp" />
     <ClCompile Include="Engine\Window.cpp" />
+    <ClCompile Include="Game\Bunny.cpp" />
+    <ClCompile Include="Game\Bunny.h" />
     <ClCompile Include="Game\Hero.cpp" />
     <ClCompile Include="Game\Level1.cpp" />
     <ClCompile Include="main.cpp" />
@@ -179,7 +180,6 @@
     <ClInclude Include="Engine\GameState.h" />
     <ClInclude Include="Engine\GameStateManager.h" />
     <ClInclude Include="Engine\glapp.h" />
-    <ClInclude Include="Engine\glhelper.h" />
     <ClInclude Include="Engine\GLModel.h" />
     <ClInclude Include="Engine\glslshader.h" />
     <ClInclude Include="Engine\Input.h" />
@@ -191,6 +191,7 @@
     <ClInclude Include="music.h" />
     <ClInclude Include="Game\Hero.h" />
     <ClInclude Include="Game\Level1.h" />
+    <ClInclude Include="stb_image.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\Vec2.inl" />

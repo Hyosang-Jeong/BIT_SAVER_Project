@@ -1,5 +1,5 @@
-#include "Engine/glhelper.h"
-#include "Engine/glapp.h"
+
+
 #include <iostream>
 #include <sstream>
 #include <iomanip>
@@ -21,8 +21,7 @@ int main()
     while (!glfwWindowShouldClose(engine.GetWindow().ptr_window)) 
     {
        engine.Update();
-	   music.Play(0);
-
+	   //music.Play(0);
     }
    // cleanup();
 }
