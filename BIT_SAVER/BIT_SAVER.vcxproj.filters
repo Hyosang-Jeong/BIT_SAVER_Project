@@ -53,6 +53,9 @@
     <ClCompile Include="Game\Objects\Notes.cpp">
       <Filter>Game\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Music\Midi.cpp">
+      <Filter>Engine\Music</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\GameObject\GameObject.h">
@@ -114,6 +117,9 @@
     </ClInclude>
     <ClInclude Include="Game\Objects\Notes.h">
       <Filter>Game\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Music\Midi.h">
+      <Filter>Engine\Music</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
