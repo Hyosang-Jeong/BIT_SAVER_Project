@@ -13,7 +13,8 @@ GameObject::GameObject(glm::vec2 position) : GameObject(position, 0, { 1, 1 }) {
 
 GameObject::GameObject(glm::vec2 position, double rotation, glm::vec2 scale)
     : velocity{ 0,0 }, position(position), updateMatrix(true),
-    scale(scale), rotation(rotation), currState(&state_nothing) {
+    scale(scale), rotation(rotation), currState(&state_nothing) 
+{
 }
 
 void GameObject::Update(double dt)
@@ -33,15 +34,15 @@ void GameObject::Update(double dt)
         0,0,1
     };
     double PI = 3.14159265359;
-    //angle_disp += angle_speed * (GLfloat)delta_time;
+    orientation.x += orientation.y * (GLfloat)dt;
 
 
-    //glm::mat3 rotation_matrix
-    //{
-    //    cos(angle_disp * (float)PI / (float)180),sin(angle_disp * (float)PI / (float)180),0,
-    //   -sin(angle_disp * (float)PI / (float)180),cos(angle_disp * (float)PI / (float)180),0,
-    //    0,0,1
-    //};
+    glm::mat3 rotation_matrix
+    {
+        cos(orientation.x * (float)PI / (float)180),sin(orientation.x * (float)PI / (float)180),0,
+       -sin(orientation.x * (float)PI / (float)180),cos(orientation.x * (float)PI / (float)180),0,
+        0,0,1
+    };
 
     glm::mat3 trans_matrix
     {
@@ -49,13 +50,13 @@ void GameObject::Update(double dt)
          0,1,0,
         position.x,position.y,1
     };
-    glm::mat3 ndcscale_matrix
-    {
-       1.0 / 10.0  ,0  ,0,
-        0,  1 / 10.0 ,0,
-        0,0,1
-    };
-    mdl_to_ndc_xform =  trans_matrix  * scale_matrix;
+    //glm::mat3 ndcscale_matrix
+    //{
+    //   1.0 / 10.0  ,0  ,0,
+    //    0,  1 / 10.0 ,0,
+    //    0,0,1
+    //};
+    mdl_to_ndc_xform =  trans_matrix  *rotation_matrix* scale_matrix;
 
 }
 

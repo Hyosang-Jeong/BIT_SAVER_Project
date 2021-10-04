@@ -9,8 +9,8 @@ Creation date: 3/13/2021
 -----------------------------------------------------------------*/
 
 #include "Window.h"
-#include"Input.h"
-#include "Engine.h"			// GetWindow
+#include"..\Input\Input.h"
+#include "..\Engine.h"			// GetWindow
 void Window::Init(GLint wid, GLint hei,std::string windowName)
 {
     Window::width = wid;
@@ -77,7 +77,7 @@ void Window::Resize(int newWidth, int newHeight)
     windowSize = { newWidth,newHeight };
 }
 
-math::ivec2 Window::GetSize()
+glm::vec2 Window::GetSize()
 {
     return windowSize;
 }
@@ -120,7 +120,7 @@ InputKey::Keyboard GLKEY_TO_GAME(int button)
 
 
 
-void Window::key_cb(GLFWwindow* pwin, int key, int scancode, int action, int mod)
+void Window::key_cb(GLFWwindow* pwin, int key, [[maybe_unused]] int scancode, int action, [[maybe_unused]] int mod)
 {
     if (GLFW_PRESS == action)
     {
@@ -155,7 +155,7 @@ void Window::key_cb(GLFWwindow* pwin, int key, int scancode, int action, int mod
 
 }
 
-void Window::mousebutton_cb(GLFWwindow* pwin, int button, int action, int mod)
+void Window::mousebutton_cb([[maybe_unused]] GLFWwindow* pwin, int button, int action, [[maybe_unused]] int mod)
 {
     switch (button)
     {
@@ -186,13 +186,13 @@ void Window::mousebutton_cb(GLFWwindow* pwin, int button, int action, int mod)
 }
 
 
-void Window::mousepos_cb(GLFWwindow* pwin, double xpos, double ypos)
+void Window::mousepos_cb([[maybe_unused]] GLFWwindow* pwin, [[maybe_unused]] double xpos, [[maybe_unused]] double ypos)
 {
 
 }
 
 
-void Window::fbsize_cb(GLFWwindow* ptr_win, int width, int height) {
+void Window::fbsize_cb([[maybe_unused]] GLFWwindow* ptr_win, int width, int height) {
     std::cout << "fbsize_cb getting called!!!" << std::endl;
     // use the entire framebuffer as drawing region
     glViewport(0, 0, width, height);

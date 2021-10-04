@@ -88,11 +88,13 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)sound_lib\studio\inc;$(SolutionDir)sound_lib\core\inc</AdditionalIncludeDirectories>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -103,13 +105,15 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)sound_lib\studio\inc;$(SolutionDir)sound_lib\core\inc</AdditionalIncludeDirectories>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -122,11 +126,13 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)sound_lib\studio\inc;$(SolutionDir)sound_lib\core\inc</AdditionalIncludeDirectories>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -137,13 +143,15 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)sound_lib\studio\inc;$(SolutionDir)sound_lib\core\inc</AdditionalIncludeDirectories>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -156,45 +164,44 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Engine.cpp" />
-    <ClCompile Include="Engine\GameObject.cpp" />
-    <ClCompile Include="Engine\GameObjectManager.cpp" />
-    <ClCompile Include="Engine\GameStateManager.cpp" />
-    <ClCompile Include="Engine\GLModel.cpp" />
-    <ClCompile Include="Engine\glslshader.cpp" />
-    <ClCompile Include="Engine\Input.cpp" />
-    <ClCompile Include="Engine\Logger.cpp" />
-    <ClCompile Include="Engine\Texture.cpp" />
-    <ClCompile Include="Engine\TransformMatrix.cpp" />
-    <ClCompile Include="Engine\Window.cpp" />
+    <ClCompile Include="Engine\GameObject\GameObject.cpp" />
+    <ClCompile Include="Engine\GameObject\GameObjectManager.cpp" />
+    <ClCompile Include="Engine\GameState\GameStateManager.cpp" />
+    <ClCompile Include="Engine\GLModel\GLModel.cpp" />
+    <ClCompile Include="Engine\GLShader\glslshader.cpp" />
+    <ClCompile Include="Engine\Input\Input.cpp" />
+    <ClCompile Include="Engine\Logger\Logger.cpp" />
+    <ClCompile Include="Engine\Math\TransformMatrix.cpp" />
+    <ClCompile Include="Engine\Music\music.cpp" />
+    <ClCompile Include="Engine\Texture\Texture.cpp" />
+    <ClCompile Include="Engine\Window\Window.cpp" />
     <ClCompile Include="Game\Bunny.cpp" />
     <ClCompile Include="Game\Bunny.h" />
     <ClCompile Include="Game\Hero.cpp" />
     <ClCompile Include="Game\Level1.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="music.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Engine.h" />
-    <ClInclude Include="Engine\GameObject.h" />
-    <ClInclude Include="Engine\GameObjectManager.h" />
-    <ClInclude Include="Engine\GameState.h" />
-    <ClInclude Include="Engine\GameStateManager.h" />
-    <ClInclude Include="Engine\glapp.h" />
-    <ClInclude Include="Engine\GLModel.h" />
-    <ClInclude Include="Engine\glslshader.h" />
-    <ClInclude Include="Engine\Input.h" />
-    <ClInclude Include="Engine\Logger.h" />
-    <ClInclude Include="Engine\Texture.h" />
-    <ClInclude Include="Engine\TransformMatrix.h" />
-    <ClInclude Include="Engine\Vec2.h" />
-    <ClInclude Include="Engine\Window.h" />
-    <ClInclude Include="music.h" />
+    <ClInclude Include="Engine\GameObject\GameObject.h" />
+    <ClInclude Include="Engine\GameObject\GameObjectManager.h" />
+    <ClInclude Include="Engine\GameState\GameState.h" />
+    <ClInclude Include="Engine\GameState\GameStateManager.h" />
+    <ClInclude Include="Engine\GLModel\GLModel.h" />
+    <ClInclude Include="Engine\GLShader\glslshader.h" />
+    <ClInclude Include="Engine\Image\stb_image.h" />
+    <ClInclude Include="Engine\Input\Input.h" />
+    <ClInclude Include="Engine\Logger\Logger.h" />
+    <ClInclude Include="Engine\Math\TransformMatrix.h" />
+    <ClInclude Include="Engine\Math\Vec2.h" />
+    <ClInclude Include="Engine\Music\music.h" />
+    <ClInclude Include="Engine\Texture\Texture.h" />
+    <ClInclude Include="Engine\Window\Window.h" />
     <ClInclude Include="Game\Hero.h" />
     <ClInclude Include="Game\Level1.h" />
-    <ClInclude Include="stb_image.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Engine\Vec2.inl" />
+    <None Include="Engine\Math\Vec2.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

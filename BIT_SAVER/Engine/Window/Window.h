@@ -9,19 +9,16 @@ Creation date: 2/10/2021
 -----------------------------------------------------------------*/
 #pragma once
 #include <string>
-#include"Vec2.h"
 #include <GL/glew.h> 
 #include <GLFW/glfw3.h>
-
+#include<glm/glm.hpp>
     class Window 
     {
     public:
         void Init(GLint wid, GLint hei,std::string windowName);
         void Update();
         void Resize(int newWidth, int newHeight);
-        math::ivec2 GetSize();
-
-
+        glm::vec2 GetSize();
 
         static void fbsize_cb(GLFWwindow* ptr_win, int width, int height);
         // I/O callbacks ...
@@ -34,7 +31,7 @@ Creation date: 2/10/2021
     private:
         GLint width, height;
         std::string title;
-        math::ivec2 windowSize;
+       glm::vec2 windowSize;
         
     };
 

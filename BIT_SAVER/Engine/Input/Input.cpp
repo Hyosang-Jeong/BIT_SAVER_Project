@@ -9,7 +9,7 @@ Author: Hyosang Jung
 Creation date: 2021-03-07
 -----------------------------------------------------------------*/
 #include"Input.h"
-#include"Engine.h"  //GetInput
+#include"..\Engine.h"  //GetInput
 InputKey::InputKey(Keyboard button)
 {
 	InputKey::button = button;

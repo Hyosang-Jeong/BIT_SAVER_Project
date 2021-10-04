@@ -9,7 +9,7 @@ Creation date: 4/15/2021
 -----------------------------------------------------------------*/
 #include"GameObjectManager.h"
 #include"GameObject.h"   // gameobject
-#include"TransformMatrix.h"  //TransformMatrix
+#include"..\Math\TransformMatrix.h"  //TransformMatrix
 
 void GameObjectManager::Add(GameObject* obj)
 {
