@@ -10,6 +10,7 @@ Creation date: 3/07/2021
 #include "../Engine/Engine.h"	//GetGameStateManage
 #include"Level1.h"
 #include"Hero.h"
+#include"Bunny.h"
 //#include"Screens.h" //Screens::Level2
 //#include"Hero.h" // add Hero
 //#include"Ball.h" // add Ball
@@ -25,7 +26,7 @@ Creation date: 3/07/2021
 
 Level1::Level1() : mainMenu(InputKey::Keyboard::Escape),
 reload(InputKey::Keyboard::R),
-heroPtr(nullptr)
+heroPtr(nullptr),bunnyPtr(nullptr)
 /*background(nullptr),
 gameObjectManager(nullptr),
 lives(3)*/
@@ -34,7 +35,10 @@ lives(3)*/
 void Level1::Load()
 {
 	heroPtr = new Hero({ 0,0 });
+	bunnyPtr = new Bunny({ 0.5,0.5 });
 	gameObjectManager.Add(heroPtr);
+	gameObjectManager.Add(bunnyPtr);
+
 }
 void Level1::Update(double dt)
 {

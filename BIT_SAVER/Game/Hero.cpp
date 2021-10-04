@@ -32,13 +32,13 @@ void Hero::Update(double dt)
 {
 	GameObject::Update(dt);
 
-	shd_ref->second.Use();
 	UpdateXVelocity( dt);
 
 }
 
 void Hero::Draw()
 {
+	shd_ref->second.Use();
 	glBindVertexArray(mdl_ref->second.vaoid );
 
 	texture.setup_texobj("../images/chick.png");

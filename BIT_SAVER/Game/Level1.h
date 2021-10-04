@@ -15,6 +15,7 @@ Creation date: 3/07/2021
 #include"..\Engine\Input.h"  //input key
 //#include"Floor.h" //floor
 class Hero;
+class Bunny;
 class Level1 : public GameState {
 public:
 	Level1();
@@ -31,6 +32,7 @@ private:
 	//Background* background;
 	GameObjectManager gameObjectManager;
 	Hero* heroPtr;
+	Bunny* bunnyPtr;
 
 //	int lives;
 //	CS230::Texture livesTexture;
