@@ -42,7 +42,7 @@ void Level1::Load()
 	bunnyPtr = new Bunny({ 0.5,0.5 });
 	
 	std::map<int, std::vector<long double>> a;
-	a = m.MidiSetUp("Rhapsody.mid");
+	a = m.MidiSetUp("canon.mid");
 
 
 	Engine::GetGameStateManager().gameObjectManager.Add(heroPtr);

@@ -17,7 +17,7 @@ void Music::SoundSystem()
     pSystem->init(4, FMOD_INIT_NORMAL, NULL);
 
 
-    pSystem->createSound("../sound/Rhapsody.mp3", FMOD_LOOP_NORMAL, NULL, &pSound[0]);
+    pSystem->createSound("../sound/canon.wav", FMOD_LOOP_NORMAL, NULL, &pSound[0]);
 
 
 }

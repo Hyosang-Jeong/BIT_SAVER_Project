@@ -8,8 +8,7 @@ std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(std::string filenam
 {
     //open midi file
 
-    std::ifstream input{ filename, std::ios::in };
-
+    std::ifstream input{ filename, std::ios::binary };
 
 	if (!input)
 	{
@@ -152,7 +151,7 @@ std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(std::string filenam
 
 		if ((bytes[0] & 0xf0) == 0x90 && bytes[bytes.size()-1] != 0)
 		{
-			event.track = (bytes[0] & 0x0f);
+			event.track = (bytes[0] & 0x0f)+1;
 			m_events.push_back(event);
 		}
 	    else if (bytes[0] == 0xff && bytes[1] == 0x2f) {
