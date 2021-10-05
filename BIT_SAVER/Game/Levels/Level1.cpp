@@ -38,16 +38,17 @@ lives(3)*/
 void Level1::Load()
 {
 	MidiEvent m;
-	heroPtr = new Hero({ 0,0 });
+
+	heroPtr = new Hero({ -0.9,0 });
 	bunnyPtr = new Bunny({ 0.5,0.5 });
 	
 	std::map<int, std::vector<long double>> a;
 	a = m.MidiSetUp();
-
+	
 
 	Engine::GetGameStateManager().gameObjectManager.Add(heroPtr);
 	Engine::GetGameStateManager().gameObjectManager.Add(bunnyPtr);
-
+	
 	for (auto& track : a)
 	{
 		Engine::GetGameStateManager().gameObjectManager.Add(new Track(track.first,track.second));

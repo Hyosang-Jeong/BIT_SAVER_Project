@@ -17,9 +17,9 @@ Hero::Hero(glm::vec2 startPos) :
 	moveUpKey(InputKey::Keyboard::Up),
 	moveDownKey(InputKey::Keyboard::Down),
 	jumpKey(InputKey::Keyboard::Up),
-	GameObject(startPos, 0, glm::vec2{ 0.1,0.1 })
+	GameObject(startPos, 0, glm::vec2{ 0.2,0.2 })
 {
-	texture.setup_texobj("../images/chick.png");
+	texture.setup_texobj("../images/stickman.png");
 	
 	//sprite.Load("assets/hero.spt");
 	//currState = &stateIdle;
@@ -32,7 +32,17 @@ void Hero::Update(double dt)
 	GameObject::Update(dt);
 
 	UpdateXVelocity( dt);
+	if (Getposition().y > 0.5)
+	{
+		SetVelocity({ 0, 0 });
+		SetPosition({ Getposition().x,0.5 });
+	}
+	if (Getposition().y < -0.3)
+	{
+		SetVelocity({ 0, 0 });
+		SetPosition({ Getposition().x,-0.29 });
 
+	}
 }
 
 void Hero::Draw()
@@ -46,32 +56,33 @@ glm::vec2 Hero::Getposition()
 	return GameObject::GetPosition();
 }
 
-void Hero::UpdateXVelocity(double dt)
+void Hero::UpdateXVelocity([[maybe_unused]]double dt)
 {
 
-	if (moveLeftKey.IsKeyDown() == true && move_release_frag[0] == false)
-	{
-		UpdatePosition({ -0.5, 0 });
-		move_release_frag[0] = true;
-		SetScale(glm::vec2{ 0.1, 0.1 });
-	}
+	//if (moveLeftKey.IsKeyDown() == true && move_release_frag[0] == false)
+	//{
+	//	//UpdateVelocity({ -5,0 });
+	//	//UpdatePosition({ -0.5, 0 });
+	//	move_release_frag[0] = true;
+	//	SetScale(glm::vec2{ 0.1, 0.1 });
+	//}
 
-	 if (moveRightKey.IsKeyDown() == true && move_release_frag[1] == false)
-	{
-		UpdatePosition({ 0.5, 0 });
-		move_release_frag[1] = true;
-		SetScale(glm::vec2{ -0.1, 0.1 });
-	}
+	// if (moveRightKey.IsKeyDown() == true && move_release_frag[1] == false)
+	//{
+	//	UpdatePosition({ 0.5, 0 });
+	//	move_release_frag[1] = true;
+	//	SetScale(glm::vec2{ -0.1, 0.1 });
+	//}
 
 	if (moveUpKey.IsKeyDown() == true && move_release_frag[2] == false)
 	{
-		UpdatePosition({ 0,0.5});
+		UpdateVelocity({ 0,10 });
 		move_release_frag[2] = true;
 	}
 
 	 if (moveDownKey.IsKeyDown() == true && move_release_frag[3] == false)
 	{
-		UpdatePosition({ 0,-0.5 });
+		 UpdateVelocity({ 0,-10 });
 		move_release_frag[3] = true;
 	}
 

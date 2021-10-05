@@ -18,25 +18,37 @@ void GameObjectManager::Add(GameObject* obj)
 
 void GameObjectManager::Unload()
 {
-	for (int i = 0; i < static_cast<int>(gameObjects.size()); i++)
+	for (GameObject* a : gameObjects)
 	{
-		delete gameObjects[i];
+		delete a;
 	}
+
 	gameObjects.clear();
 }
 
 void GameObjectManager::UpdateAll(double dt)
 {
-	for (int i = 0; i < static_cast<int>(gameObjects.size()); i++)
+	std::list<GameObject* > removelist;
+	for (GameObject* a : gameObjects)
 	{
-		gameObjects[i]->Update(dt);
+		a->Update(dt);
+		if (a->Destroy() == true)
+		{
+			removelist.push_back(a);
+		}
+	}
+
+	for (GameObject* remove : removelist)
+	{
+		gameObjects.remove(remove);
+		delete remove;
 	}
 }
 
 void GameObjectManager::DrawAll()
 {
-	for (int i = 0; i < static_cast<int>(gameObjects.size()); i++)
+	for (GameObject* a : gameObjects)
 	{
-		gameObjects[i]->Draw();
+		a->Draw();
 	}
 }

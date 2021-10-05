@@ -17,16 +17,22 @@ Creation date: 2/10/2021
 #include "..\Engine\Logger\Logger.h"
 #include"..\Engine\GLModel\GLModel.h"
 #include"..\Engine\GLShader\glslshader.h"
+#include"..\Engine\Texture\TextureManager.h"
 #include<map>
 //#include"TextureManager.h"
 //#include "SpriteFont.h"
-class Engine {
+class Engine 
+{
 public:
-    static Engine& Instance() { static Engine instance; return instance; }
+    static Engine& Instance() 
+    { 
+        static Engine instance; return instance; 
+    }
     static Logger& GetLogger() { return Instance().logger; };
     static Input& GetInput() { return Instance().input; }
     static Window& GetWindow() { return Instance().window; }
     static GameStateManager& GetGameStateManager() { return Instance().gameStateManager; }
+    static TextureManager& GetTextureManager() { return Instance().texturemanager; }
     static  std::map<std::string, GLModel>& GetGLModel () { return Instance().models; }
     static  std::map<std::string, GLSLShader>& GetGLShader() { return Instance().shdrpgms; }
     //static CS230::TextureManager& GetTextureManager() { return Instance().texturemanager; }
@@ -41,7 +47,7 @@ public:
    // template<typename T>
    // static T* GetGSComponent() { return GetGameStateManager().GetGSComponent<T>(); }
 
-private:
+public:
     Engine();
     ~Engine();
 
@@ -55,7 +61,7 @@ private:
    Window window;
    std::map<std::string, GLModel> models;
    std::map<std::string, GLSLShader> shdrpgms;
-
+   TextureManager texturemanager;
  //   CS230::TextureManager texturemanager;
     static constexpr double Target_FPS = 60.0;
     static constexpr int FPS_IntervalSec = 5;

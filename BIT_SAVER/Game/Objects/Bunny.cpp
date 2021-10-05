@@ -10,7 +10,7 @@ Creation date: 3/14/2021
 #include"Bunny.h"
 #include"../Engine/Engine.h" //get window
 #include"..\Levels\Level1.h"  // Level1's gravity
-#include <glm/gtc/type_ptr.hpp> // for glm::value_ptr
+
 
 Bunny::Bunny(glm::vec2 startPos) :
 	moveLeftKey(InputKey::Keyboard::Left),

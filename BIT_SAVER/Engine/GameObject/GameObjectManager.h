@@ -9,7 +9,7 @@ Creation date: 2/14/2021
 -----------------------------------------------------------------*/
 #pragma once
 #include <vector>
-
+#include<list>
 namespace math 
 { 
 	class TransformMatrix; 
@@ -26,7 +26,7 @@ public:
 	void UpdateAll(double dt);
 	void DrawAll();
 private:
-	std::vector<GameObject*> gameObjects;
+	std::list<GameObject*> gameObjects;
 };
 
 

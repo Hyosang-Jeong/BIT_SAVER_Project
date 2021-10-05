@@ -11,10 +11,10 @@ Creation date: 2/11/2021
 
 #include "Texture.h"
 #include <fstream>
-#define STB_IMAGE_IMPLEMENTATION
-#include "..\Image\stb_image.h"
-#include <glm/gtc/type_ptr.hpp> // for glm::value_ptr
+//#define STB_IMAGE_IMPLEMENTATION
+//#include "..\Image\stb_image.h"
 #include "..\Engine.h"
+
 using Image = unsigned char*;
 
 
@@ -24,7 +24,6 @@ using Image = unsigned char*;
 
 void Texture::Draw(glm::mat3  displayMatrix, std::string mdl_name, std::string shdr_name)
 {
-
 	std::map<std::string, GLModel>::iterator mdl_ref;
 	std::map<std::string, GLSLShader>::iterator shd_ref;
 	mdl_ref = Engine::GetGLModel().find(mdl_name);
@@ -49,7 +48,7 @@ void Texture::Draw(glm::mat3  displayMatrix, std::string mdl_name, std::string s
 	GLint uniform_var_loc1 = glGetUniformLocation(shd_ref->second.GetHandle(), "uModelToNDC");
 	if (uniform_var_loc1 >= 0)
 	{
-		glUniformMatrix3fv(uniform_var_loc1, 1, GL_FALSE, glm::value_ptr(displayMatrix));
+		glUniformMatrix3fv(uniform_var_loc1, 1, GL_FALSE,&displayMatrix[0].x);
 	}
 	else
 	{
@@ -66,24 +65,7 @@ void Texture::Draw(glm::mat3  displayMatrix, std::string mdl_name, std::string s
 
 void Texture::setup_texobj(const char* pathname)
 {
-	stbi_set_flip_vertically_on_load(true);
-    int width{ 0 }, height{ 0 }, col_chanel{ 0 };
-    Image image = stbi_load(pathname, &width, &height, &col_chanel, 4);
-
-    if (image)
-    {
-        glCreateTextures(GL_TEXTURE_2D, 1, &tex_obj);
-        // allocate GPU storage for texture image data loaded from file
-        glTextureStorage2D(tex_obj, 1, GL_RGBA8, width, height);
-        glTextureSubImage2D(tex_obj, 0, 0, 0, width, height,
-            GL_RGBA, GL_UNSIGNED_BYTE, image);
-    }
-    else
-    {
-        Engine::GetLogger().LogDebug("Failed to load image");
-        std::exit(EXIT_FAILURE);
-    }
-    stbi_image_free(image);
+	tex_obj = Engine::GetTextureManager().Load(pathname);
 }
 
 //void CS230::Texture::Draw(math::TransformMatrix displayMatrix, math::ivec2 texelPos, math::ivec2 frameSize) {

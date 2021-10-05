@@ -14,13 +14,14 @@ Creation date: 3/14/2021
 
 Track::Track(int input_track_num, std::vector<long double> input_time) : track_num(input_track_num),GameObject({ 0,0 }, 0, glm::vec2{ 0.1,0.1 })
 {
-
-
-
+	double t = 2.0;
 	for (int i=0; i<input_time.size(); i++)
 	{
-		time.push_back(input_time[i]);
+		time.push_back(input_time[i] - t);
 	}
+
+
+	
 }
 
 
@@ -29,19 +30,24 @@ void Track::Update(double dt)
 	GameObject::Update(dt);
 
 	timer += dt;
-}
 
-void Track::Draw()
-{
 	for (auto& i : time)
 	{
 		if (timer > i)
 		{
-			Engine::GetGameStateManager().gameObjectManager.Add(new Note({ 1,(track_num/6.0) - 0.5 }));
-			std::cout << "Track num: "<<track_num << "      time: " << i << "       timer: " << timer << std::endl;
+			Engine::GetGameStateManager().gameObjectManager.Add(new Note({ 1,-1 + track_num * 0.7 }));
+
+			std::cout << "Track num: " << track_num << "      time: " << i << "       timer: " << timer << std::endl;
+
 			time.erase(time.begin());
 		}
 	}
+}
+
+void Track::Draw()
+{
+	// 1 ~6   -> -0.8~0.8  
+
 	//texture.Draw(mdl_to_ndc_xform, "Duck", "Duck");
 }
 

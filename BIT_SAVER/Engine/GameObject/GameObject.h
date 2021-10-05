@@ -9,8 +9,6 @@ Creation date: 2/14/2021
 -----------------------------------------------------------------*/
 #pragma once
 
-//#include "Vec2.h"
-//#include "Sprite.h"
 #include"..\Math\TransformMatrix.h"
 #include<iostream>
 #include <GL/glew.h>
@@ -20,6 +18,7 @@ Creation date: 2/14/2021
 #include"..\GLModel\GLModel.h"
 #include"..\GLShader\glslshader.h"
 #include"..\Texture\Texture.h"
+
 	class GameObject 
 	{
 	public:
@@ -35,7 +34,7 @@ Creation date: 2/14/2021
 		const glm::vec2& GetVelocity() const;
 		const glm::vec2& GetScale() const;
 		double GetRotation() const;
-
+		bool Destroy();
 	protected:
 
 		void SetPosition(glm::vec2 newPosition);
@@ -45,6 +44,7 @@ Creation date: 2/14/2021
 		void SetScale(glm::vec2 newScale);
 		void SetRotation(double newRotationAmount);
 		void UpdateRotation(double newRotationAmount);
+		void set_destroy(bool value);
 
 		//Sprite sprite;
 
@@ -59,6 +59,7 @@ Creation date: 2/14/2021
 		glm::vec2 velocity;
 		glm::vec2 orientation;
 
+		bool is_destroy = false;
 
 	protected:
 		std::map<std::string, GLModel>::iterator mdl_ref;

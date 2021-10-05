@@ -15,13 +15,18 @@ Creation date: 3/14/2021
 Note::Note(glm::vec2 startPos) :  GameObject(startPos, 0, glm::vec2{ 0.1,0.1 })
 {
 	texture.setup_texobj("../images/note1.png");
+	SetVelocity({ -1, 0 });
+
 }
 
 
 void Note::Update(double dt)
 {
 	GameObject::Update(dt);
-	UpdatePosition({ -dt/2.0, 0 });
+	if (GetPosition().x < -1)
+	{
+		set_destroy(true);
+	}
 }
 
 void Note::Draw()

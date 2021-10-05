@@ -21,10 +21,10 @@ void GameObject::Update(double dt)
 {
     //currState->Update(this, dt);
     ////sprite.Update(dt);
-    //if (velocity.x != 0 || velocity.y != 0)
-    //{
-    //    UpdatePosition({ velocity.x * dt, velocity.y * dt });
-    //}
+    if (velocity.x != 0 || velocity.y != 0)
+    {
+        UpdatePosition({ velocity.x * dt, velocity.y * dt });
+    }
     //currState->TestForExit(this);
 
     glm::mat3 scale_matrix
@@ -127,5 +127,15 @@ void GameObject::UpdateRotation(double newRotationAmount)
 {
     rotation += newRotationAmount;
     updateMatrix = true;
+}
+
+void GameObject::set_destroy(bool value)
+{
+    is_destroy = value;
+}
+
+bool GameObject::Destroy()
+{
+    return is_destroy;
 }
 

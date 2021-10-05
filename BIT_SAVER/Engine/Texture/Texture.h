@@ -13,7 +13,8 @@ Creation date: 2/11/2021
 #include"..\Math\TransformMatrix.h"  // display matrix
 #include<GL/glew.h>
 #include<string>
-
+#include<glm/glm.hpp>
+#include<map>
 class Texture
 {
     //friend class TextureManager;
@@ -22,14 +23,14 @@ class Texture
 public:
     Texture() = default;
     void Draw(glm::mat3 displayMatrix,std::string mdl_name, std::string shdr_name);
-    void Draw(math::TransformMatrix displayMatrix, math::ivec2 texelPos, math::ivec2 frameSize);
-    math::ivec2 GetSize();
-    unsigned int GetPixel(math::ivec2 texel);
+    //void Draw(math::TransformMatrix displayMatrix, math::ivec2 texelPos, math::ivec2 frameSize);
+    //math::ivec2 GetSize();
+    //unsigned int GetPixel(math::ivec2 texel);
     void setup_texobj(const char* pathname);
 
 private:
   //  Texture(const std::filesystem::path& filePath);
    // Texture(doodle::Image&& doodleImage);
-
     GLuint tex_obj;
+
 };

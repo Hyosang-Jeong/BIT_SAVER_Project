@@ -93,7 +93,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)sound_lib\studio\inc;$(SolutionDir)sound_lib\core\inc</AdditionalIncludeDirectories>
-      <TreatWarningAsError>false</TreatWarningAsError>
+      <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -112,7 +112,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)sound_lib\studio\inc;$(SolutionDir)sound_lib\core\inc</AdditionalIncludeDirectories>
-      <TreatWarningAsError>false</TreatWarningAsError>
+      <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -131,7 +131,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)sound_lib\studio\inc;$(SolutionDir)sound_lib\core\inc</AdditionalIncludeDirectories>
-      <TreatWarningAsError>false</TreatWarningAsError>
+      <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -150,7 +150,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)sound_lib\studio\inc;$(SolutionDir)sound_lib\core\inc</AdditionalIncludeDirectories>
-      <TreatWarningAsError>false</TreatWarningAsError>
+      <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -175,6 +175,7 @@
     <ClCompile Include="Engine\Music\Midi.cpp" />
     <ClCompile Include="Engine\Music\music.cpp" />
     <ClCompile Include="Engine\Texture\Texture.cpp" />
+    <ClCompile Include="Engine\Texture\TextureManager.cpp" />
     <ClCompile Include="Engine\Window\Window.cpp" />
     <ClCompile Include="Game\Levels\Level1.cpp" />
     <ClCompile Include="Game\Objects\Bunny.cpp" />
@@ -199,6 +200,7 @@
     <ClInclude Include="Engine\Music\Midi.h" />
     <ClInclude Include="Engine\Music\music.h" />
     <ClInclude Include="Engine\Texture\Texture.h" />
+    <ClInclude Include="Engine\Texture\TextureManager.h" />
     <ClInclude Include="Engine\Window\Window.h" />
     <ClInclude Include="Game\Levels\Level1.h" />
     <ClInclude Include="Game\Objects\Bunny.h" />
