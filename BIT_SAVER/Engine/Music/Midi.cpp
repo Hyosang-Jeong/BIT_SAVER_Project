@@ -147,11 +147,12 @@ std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(std::string filenam
 
 	    //event.setMessage(bytes);
 	    event.tick = absticks;
-	    event.track = i;
+	    event.track = 0;
 
 
 		if ((bytes[0] & 0xf0) == 0x90 && bytes[bytes.size()-1] != 0)
 		{
+			event.track = (bytes[0] & 0x0f);
 			m_events.push_back(event);
 		}
 	    else if (bytes[0] == 0xff && bytes[1] == 0x2f) {
