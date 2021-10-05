@@ -11,7 +11,6 @@ class Music
 public:
     void SoundSystem();
     void Play(int Sound_num);
-    void Open();
 private:
     FMOD::System* pSystem;
     FMOD::Sound* pSound[1];

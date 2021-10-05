@@ -1,13 +1,13 @@
 #include "Midi.h"
 #include <fstream>
-#include "../Engine.h"
+#include "..\Engine.h"
 
 int m_ticksPerQuarterNote = 120;
 
-std::map<int, std::vector<long double>> MidiEvent::MidiSetUp()
+std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(std::string filename)
 {
     //open midi file
-    std::ifstream input{ "canon3.mid", std::ios::in };
+    std::ifstream input{ filename, std::ios::in };
 
 
     //check Mthd
@@ -159,7 +159,7 @@ std::map<int, std::vector<long double>> MidiEvent::MidiSetUp()
     one_tick_per_tempo = (tempo_data * 0.000001) / m_ticksPerQuarterNote;
     std::map<int, std::vector<long double>> H;
 
-    for (int i = 1; i < tracks - 1; i++)
+    for (int i = 1; i < tracks; i++)
     {
 	std::vector<long double> A;
 	for (auto& m : m_events)

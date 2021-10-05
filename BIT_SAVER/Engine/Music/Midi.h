@@ -24,7 +24,7 @@ public:
 
 
     //MidiEvent* m_eventlink;  // used to match note-ons and note-offs
-    std::map<int,std::vector<long double>> MidiSetUp();
+    std::map<int,std::vector<long double>> MidiSetUp(std::string filename);
 
     unsigned long       readVLValue(std::istream& inputfile);
     unsigned long       unpackVLV(unsigned char a = 0, unsigned char b = 0, unsigned char c = 0, unsigned char d = 0, unsigned char e = 0);
