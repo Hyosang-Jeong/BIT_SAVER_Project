@@ -7,7 +7,14 @@ int m_ticksPerQuarterNote = 120;
 std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(std::string filename)
 {
     //open midi file
+
     std::ifstream input{ filename, std::ios::in };
+
+
+	if (!input)
+	{
+		exit(EXIT_FAILURE);
+	}
 
 
     //check Mthd
@@ -159,7 +166,9 @@ std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(std::string filenam
     one_tick_per_tempo = (tempo_data * 0.000001) / m_ticksPerQuarterNote;
     std::map<int, std::vector<long double>> H;
 
+
     for (int i = 1; i < tracks; i++)
+
     {
 	std::vector<long double> A;
 	for (auto& m : m_events)

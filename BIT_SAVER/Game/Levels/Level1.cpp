@@ -13,6 +13,7 @@ Creation date: 3/07/2021
 #include"..\Objects\Bunny.h"
 #include"..\Objects\Track.h"
 #include<map>
+#include"..\..\Engine\Music\Midi.h"
 //#include"Screens.h" //Screens::Level2
 //#include"Hero.h" // add Hero
 //#include"Ball.h" // add Ball
@@ -36,28 +37,26 @@ lives(3)*/
 
 void Level1::Load()
 {
+	MidiEvent m;
 	heroPtr = new Hero({ 0,0 });
 	bunnyPtr = new Bunny({ 0.5,0.5 });
 	
-	std::map<int, std::vector<double>> a;
-	std::vector<double> ex1 = { 1,2,3,4,5 };
-	std::vector<double> ex2 = { 1,3,6,8,5 };
-
-	a[1] = ex1;
-	a[2] = ex2;
+	std::map<int, std::vector<long double>> a;
+	a = m.MidiSetUp();
 
 
-	Engine::GetGameStateManager().GetGameObjectManager().Add(heroPtr);
-	Engine::GetGameStateManager().GetGameObjectManager().Add(bunnyPtr);
+	Engine::GetGameStateManager().gameObjectManager.Add(heroPtr);
+	Engine::GetGameStateManager().gameObjectManager.Add(bunnyPtr);
+
 	for (auto& track : a)
 	{
-		Engine::GetGameStateManager().GetGameObjectManager().Add(new Track(track.first,track.second));
+		Engine::GetGameStateManager().gameObjectManager.Add(new Track(track.first,track.second));
 	}
 
 }
 void Level1::Update(double dt)
 {
-	Engine::GetGameStateManager().GetGameObjectManager().UpdateAll(dt);
+	Engine::GetGameStateManager().gameObjectManager.UpdateAll(dt);
 
 #ifdef _DEBUG
 	if (reload.IsKeyReleased() == true)
@@ -71,7 +70,7 @@ void Level1::Update(double dt)
 
 void Level1::Unload()
 {
-	Engine::GetGameStateManager().GetGameObjectManager().Unload();
+	Engine::GetGameStateManager().gameObjectManager.Unload();
 	heroPtr = nullptr;
 }
 
@@ -82,7 +81,7 @@ void Level1::Draw()
 	//math::TransformMatrix cameraMatrix = camera.GetMatrix();
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClearColor(1.0, 1.0, 1.0, 1.0);
-	Engine::GetGameStateManager().GetGameObjectManager().DrawAll();
+	Engine::GetGameStateManager().gameObjectManager.DrawAll();
 	//math::ivec2 winSize = Engine::GetWindow().GetSize();
 	
 }

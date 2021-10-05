@@ -12,14 +12,14 @@ Creation date: 3/14/2021
 #include"Notes.h"
 
 
-Track::Track(int input_track_num, std::vector<double> input_time) : track_num(input_track_num),GameObject({ 0,0 }, 0, glm::vec2{ 0.1,0.1 })
+Track::Track(int input_track_num, std::vector<long double> input_time) : track_num(input_track_num),GameObject({ 0,0 }, 0, glm::vec2{ 0.1,0.1 })
 {
 
-	time.push_back(input_time[0]);
 
-	for (int i=1; i<input_time.size(); i++)
+
+	for (int i=0; i<input_time.size(); i++)
 	{
-		time.push_back(input_time[i] + time[i - 1]);
+		time.push_back(input_time[i]);
 	}
 }
 
@@ -37,7 +37,7 @@ void Track::Draw()
 	{
 		if (timer > i)
 		{
-			Engine::GetGameStateManager().GetGameObjectManager().Add(new Note({ 1,0 }));
+			Engine::GetGameStateManager().gameObjectManager.Add(new Note({ 1,(track_num/6.0) - 0.5 }));
 			std::cout << "Track num: "<<track_num << "      time: " << i << "       timer: " << timer << std::endl;
 			time.erase(time.begin());
 		}

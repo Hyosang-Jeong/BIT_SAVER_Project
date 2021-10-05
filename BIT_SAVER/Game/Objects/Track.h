@@ -16,12 +16,12 @@ Creation date: 2/11/2021
 class Track : public GameObject
 {
 public:
-    Track(int track_num, std::vector<double> input_time);
+    Track(int track_num, std::vector<long double> input_time);
     void Update(double dt) override;
     glm::vec2 Getposition();
     void Draw() override;
 private:
     int track_num;
-    std::vector<double> time;
+    std::vector<long double> time;
     double timer = 0;
 };

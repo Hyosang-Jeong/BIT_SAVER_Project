@@ -14,6 +14,7 @@ int main()
 
     Music music;
     music.SoundSystem();
+
     Level1 level1;
     engine.GetGameStateManager().AddGameState(level1);
 
