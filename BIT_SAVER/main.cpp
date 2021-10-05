@@ -30,6 +30,7 @@ int main()
 		music.Play(0);
 	}
 
+
 	//_CrtDumpMemoryLeaks();
 	return 0;
 	// cleanup();

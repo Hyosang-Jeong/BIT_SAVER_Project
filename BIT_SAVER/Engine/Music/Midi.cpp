@@ -1,19 +1,22 @@
 #include "Midi.h"
 #include <fstream>
-#include "../Engine.h"
+#include "..\Engine.h"
 
 int m_ticksPerQuarterNote = 120;
 
-std::map<int, std::vector<long double>> MidiEvent::MidiSetUp()
+std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(std::string filename)
 {
     //open midi file
-    std::ifstream input{ "canon.mid", std::ios::in };
+
+    std::ifstream input{ filename, std::ios::binary };
+
 	if (!input)
 	{
 		exit(EXIT_FAILURE);
 	}
 
-    //check Mthd
+
+	//================================================================================================= Header Start
     int    character;
     character = input.get();//'M'
     character = input.get();//'T'
@@ -100,7 +103,7 @@ std::map<int, std::vector<long double>> MidiEvent::MidiSetUp()
     else {
 	m_ticksPerQuarterNote = shortdata;
     }
-
+	//================================================================================================= Track Start
     unsigned char runningCommand;
     MidiEvent event;
     std::vector<unsigned char> bytes;
@@ -143,17 +146,21 @@ std::map<int, std::vector<long double>> MidiEvent::MidiSetUp()
 
 	    //event.setMessage(bytes);
 	    event.tick = absticks;
-	    event.track = i;
+	    event.track = 0;
 
-	    if (bytes[0] == 0xff && bytes[1] == 0x2f) {
+
+		if ((bytes[0] & 0xf0) == 0x90 && bytes[bytes.size()-1] != 0)
+		{
+			event.track = (bytes[0] & 0x0f)+1;
+			m_events.push_back(event);
+		}
+	    else if (bytes[0] == 0xff && bytes[1] == 0x2f) {
 		// end-of-track message
 		// comment out the following line if you don't want to see the
 		// end of track message (which is always required, and will added
 		// automatically when a MIDI is written, so it is not necessary.
-		m_events.push_back(event);
 		break;
 	    }
-	    m_events.push_back(event);
 	}
 	//m_theTimeState = TIME_STATE_ABSOLUTE;
 	//markSequence();
@@ -162,21 +169,18 @@ std::map<int, std::vector<long double>> MidiEvent::MidiSetUp()
     one_tick_per_tempo = (tempo_data * 0.000001) / m_ticksPerQuarterNote;
     std::map<int, std::vector<long double>> H;
 
-    for (int i = 1; i < tracks ; i++)
-    {
-	std::vector<long double> A;
-	for (auto& m : m_events)
+	for (int i = 1; i < tracks; i++)
 	{
-	    if (m.track == i)
-	    {
-		if (m.tick != 0)
+		std::vector<long double> A;
+		for (auto& m : m_events)
 		{
-		    A.push_back(m.tick * one_tick_per_tempo);
+			if (m.track == i)
+			{
+				A.push_back(m.tick * one_tick_per_tempo);
+			}
 		}
-	    }
+		H.emplace(i, A);
 	}
-	H.emplace(i, A);
-    }
 
     input.close();
 
@@ -270,10 +274,10 @@ int MidiEvent::extractMidiData(std::istream& input, std::vector<unsigned char>& 
     switch (runningCommand & 0xf0) {
     case 0x80:        // note off (2 more bytes)
     case 0x90:        // note on (2 more bytes)
-
     case 0xA0:        // aftertouch (2 more bytes)
     case 0xB0:        // cont. controller (2 more bytes)
     case 0xE0:        // pitch wheel (2 more bytes)
+
 
 	byte = readByte(input);
 
@@ -305,7 +309,8 @@ int MidiEvent::extractMidiData(std::istream& input, std::vector<unsigned char>& 
 	break;
     case 0xF0:
 	switch (runningCommand) {
-	case 0xff:                 // meta event
+	//============================================================================================ meta event start
+	case 0xff:                 
 	{
 	    if (!runningQ) {
 		byte = readByte(input); // meta type
