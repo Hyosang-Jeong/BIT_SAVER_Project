@@ -12,16 +12,42 @@ Creation date: 3/14/2021
 #include"Notes.h"
 
 
-Track::Track(int input_track_num, std::vector<long double> input_time) : track_num(input_track_num),GameObject({ 0,0 }, 0, glm::vec2{ 0.1,0.1 })
+Track::Track(std::map<int, std::vector<long double>> mid_info) : GameObject({ 0,0 }, 0, glm::vec2{ 0.1,0.1 })
 {
-	double t = 2.0;
-	for (int i=0; i<input_time.size(); i++)
+	std::vector<long double> time;
+
+	for (auto& track : mid_info)
 	{
-		time.push_back(input_time[i] - t);
+		for (auto& time_t : track.second)
+		{
+			time.push_back(time_t);
+		}
+	}
+	std::sort(begin(time), end(time));
+
+	long double t{ time[0] };
+	time.erase(std::remove_if(begin(time) + 1, end(time), [&](auto time_t)
+		{
+			if (time_t - t < 0.2)
+				return true;
+			else {
+				t = time_t;
+				return false;
+			}
+		}), end(time));
+
+
+
+	for (auto& time_t : time)
+	{
+		int T = static_cast<int>(time_t * 10000);
+		if (T % 2 == 0)
+			track_info[T % 2].push_back(time_t);
+		if (T % 2 == 1)
+			track_info[T % 2].push_back(time_t);
+
 	}
 
-
-	
 }
 
 
@@ -31,15 +57,20 @@ void Track::Update(double dt)
 
 	timer += dt;
 
-	for (auto& i : time)
+
+	for (auto& i : track_info)
 	{
-		if (timer > i)
+		for (auto& j : i.second)
 		{
-			Engine::GetGameStateManager().gameObjectManager.Add(new Note({ 1,(track_num*0.138) - 0.9 }));
-			std::cout << "Track num: "<<track_num << "      time: " << i << "       timer: " << timer << std::endl;
-			time.erase(time.begin());
+			if (timer > j)
+			{
+				Engine::GetGameStateManager().gameObjectManager.Add(new Note({ 3,(i.first * 5) - 5 }));
+				//std::cout << "Track num: "<<track_num << "      time: " << i << "       timer: " << timer << std::endl;
+				i.second.erase(i.second.begin());
+			}
 		}
 	}
+
 }
 
 void Track::Draw()

@@ -42,17 +42,15 @@ void Level1::Load()
 	heroPtr = new Hero({ -6,0 });
 	bunnyPtr = new Bunny({ 0.5,0.5 });
 	
-	std::map<int, std::vector<long double>> a;
+	std::map<int, std::vector<long double>> mid_info;
 
-	a = m.MidiSetUp(Engine::GetMusic().MUSIC_CANON);
+	mid_info = m.MidiSetUp(Engine::GetMusic().MUSIC_CANON);
 
 	Engine::GetGameStateManager().gameObjectManager.Add(heroPtr);
 	Engine::GetGameStateManager().gameObjectManager.Add(bunnyPtr);
-	
-	for (auto& track : a)
-	{
-		Engine::GetGameStateManager().gameObjectManager.Add(new Track(track.first,track.second));
-	}
+
+
+	Engine::GetGameStateManager().gameObjectManager.Add(new Track(mid_info));
 
 }
 void Level1::Update(double dt)
