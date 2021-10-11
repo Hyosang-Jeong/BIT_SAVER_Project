@@ -17,7 +17,7 @@
     class TextureManager 
     {
     public:
-        GLuint Load(const char* filePath);
+        GLuint Load(const char* filePath, glm::vec2& texture_size);
         void Unload();
 
     private:

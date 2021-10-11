@@ -59,6 +59,9 @@
     <ClCompile Include="Engine\Texture\TextureManager.cpp">
       <Filter>Engine\Texture</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Objects\Note_collisionBox.cpp">
+      <Filter>Game\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\GameObject\GameObject.h">
@@ -126,6 +129,12 @@
     </ClInclude>
     <ClInclude Include="Engine\Texture\TextureManager.h">
       <Filter>Engine\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Objects\Note_collisionBox.h">
+      <Filter>Game\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Objects\GameObjectType.h">
+      <Filter>Game\Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

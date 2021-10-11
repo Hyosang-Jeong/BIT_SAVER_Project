@@ -27,7 +27,7 @@ int main()
 	while (!glfwWindowShouldClose(engine.GetWindow().ptr_window))
 	{
 		engine.Update();
-		//music.Play(0);
+		music.Play(0);
 	}
 
 

@@ -7,46 +7,38 @@ Project: CS230
 Author: Hyosang Jung
 Creation date: 3/14/2021
 -----------------------------------------------------------------*/
-#include"Notes.h"
+#include"Note_collisionBox.h"
 #include"../Engine/Engine.h" //get window
+#include"..\Levels\Level1.h"  // Level1's gravity
 
-
-
-Note::Note(glm::vec2 startPos,glm::vec2 velocity) :  GameObject(startPos, 0, glm::vec2{ 2,1 })
+Note_box::Note_box(glm::vec2 startPos) : GameObject(startPos, 0, glm::vec2{ 1,10})
 {
-	texture.setup_texobj("../images/note1.png");
-	SetVelocity(velocity);
+	texture.setup_texobj("../images/Note_collision_box.png");
+	mdl_ref = Engine::GetGLModel().find("Basic_model");
+	shd_ref = Engine::GetGLShader().find("Collision");
+	collision_box.min.x = -5.5;
+	collision_box.min.y = -10;
+	collision_box.max.x = -2.5;
+	collision_box.max.y = 10;
 }
 
 
-void Note::Update(double dt)
+void Note_box::Update(double dt)
 {
 	GameObject::Update(dt);
-	collision_box.min.x = Getposition().x - 0.5f;
-	collision_box.min.y = Getposition().y- 1.f;
-	collision_box.max.x = Getposition().x + 0.5f;
-	collision_box.max.y = Getposition().y + 1.f;
-	std::cout << collision_box.max.x << "       " << collision_box.max.y << std::endl;
-
-	if (GetPosition().x < -10)
-	{
-		set_destroy(true);
-	}
 }
 
-void Note::Draw()
+void Note_box::Draw()
 {
 	texture.Draw(mdl_to_ndc_xform, "Basic_model", "Hero");
-	//texture.Draw(mdl_to_ndc_xform, "Duck", "Duck");
+
 }
 
 
-glm::vec2 Note::Getposition()
+glm::vec2 Note_box::Getposition()
 {
 	return GameObject::GetPosition();
 }
-
-
 
 //void Hero::State_Jumping::Enter([[maybe_unused]] GameObject* object)
 //{

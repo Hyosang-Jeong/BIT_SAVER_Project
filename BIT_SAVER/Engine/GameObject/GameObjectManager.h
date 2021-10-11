@@ -8,13 +8,8 @@ Author: Kevin Wright
 Creation date: 2/14/2021
 -----------------------------------------------------------------*/
 #pragma once
-#include <vector>
 #include<list>
-namespace math 
-{ 
-	class TransformMatrix; 
-}
-
+#include"../../Game/Objects/GameObjectType.h"
 class GameObject;
 
 class GameObjectManager
@@ -25,8 +20,12 @@ public:
 
 	void UpdateAll(double dt);
 	void DrawAll();
+	bool collision_check(GameObject* object1, GameObject*object2);
+
+	std::list<GameObject*> GetgameObjects() { return gameObjects; }
 private:
 	std::list<GameObject*> gameObjects;
+	
 };
 
 

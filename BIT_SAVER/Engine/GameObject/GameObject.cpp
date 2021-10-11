@@ -8,13 +8,14 @@ Author: Hyosang Jung
 Creation date: 4/16/2021
 -----------------------------------------------------------------*/
 #include"GameObject.h"
-
+#include"../Engine.h"
 GameObject::GameObject(glm::vec2 position) : GameObject(position, 0, { 1, 1 }) {}
 
 GameObject::GameObject(glm::vec2 position, double rotation, glm::vec2 scale)
     : velocity{ 0,0 }, position(position), updateMatrix(true),
     scale(scale), rotation(rotation)
 {
+
 }
 
 void GameObject::Update(double dt)
@@ -56,6 +57,19 @@ void GameObject::Update(double dt)
        0,  1 / world_range ,0,
        0,0,1
    };
+
+   glm::vec2 texture_size = texture.GetSize();
+   glm::vec2 winsize = Engine::GetWindow().GetSize();
+  
+
+  
+   texture_size.x = ((world_range*2) * texture_size.x) / winsize.x;
+   texture_size.y = ((world_range*2) * texture_size.y) / winsize.y;
+
+
+   //collision_box.min = { position.x - (texture_size.x / 2), position.y - (texture_size.y / 2) };
+   //collision_box.max = { position.x + (texture_size.x / 2), position.y + (texture_size.y / 2) };
+
     mdl_to_ndc_xform = ndcscale_matrix* trans_matrix  *rotation_matrix* scale_matrix;
 
 }
@@ -94,6 +108,11 @@ const glm::vec2& GameObject::GetVelocity() const
 const glm::vec2& GameObject::GetScale() const
 {
     return scale;
+}
+
+const AABB& GameObject::GetAABB() const
+{
+    return collision_box;
 }
 
 double GameObject::GetRotation() const

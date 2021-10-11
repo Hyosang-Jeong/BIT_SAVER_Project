@@ -63,9 +63,14 @@ void Texture::Draw(glm::mat3  displayMatrix, std::string mdl_name, std::string s
 }
 
 
+glm::vec2 Texture::GetSize()
+{
+	return texture_size;
+}
+
 void Texture::setup_texobj(const char* pathname)
 {
-	tex_obj = Engine::GetTextureManager().Load(pathname);
+	tex_obj = Engine::GetTextureManager().Load(pathname,texture_size);
 }
 
 //void CS230::Texture::Draw(math::TransformMatrix displayMatrix, math::ivec2 texelPos, math::ivec2 frameSize) {

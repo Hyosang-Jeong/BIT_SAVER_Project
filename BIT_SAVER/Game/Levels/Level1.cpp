@@ -12,20 +12,9 @@ Creation date: 3/07/2021
 #include"..\Objects\Hero.h"
 #include"..\Objects\Bunny.h"
 #include"..\Objects\Track.h"
-#include<map>
 #include"..\..\Engine\Music\Midi.h"
-//#include"Screens.h" //Screens::Level2
-//#include"Hero.h" // add Hero
-//#include"Ball.h" // add Ball
-//#include"Bunny.h" //add bunny
-//#include "Fonts.h" //Font1
-//#include "Score.h" //score
-//#include "Timer.h" //timer
-//#include"TreeStump.h" //add TreeStump
-//#include"../Engine/ShowCollision.h" //collision box
-//#include"Gravity.h" //hero,ball gravity
-//#include"Exit.h"
-//#include"GameParticles.h"
+#include"..\Objects\Note_collisionBox.h"
+#include<map>
 
 Level1::Level1() : mainMenu(InputKey::Keyboard::Escape),
 reload(InputKey::Keyboard::R), heroPtr(nullptr), bunnyPtr(nullptr)
@@ -40,15 +29,16 @@ void Level1::Load()
 	MidiEvent m;
 
 	heroPtr = new Hero({ -6,0 });
-	bunnyPtr = new Bunny({ 0.5,0.5 });
+	//bunnyPtr = new Bunny({ 0.5,0.5 });
 	
 	std::map<int, std::vector<long double>> a;
 
 	a = m.MidiSetUp("canon.mid");
 
 	Engine::GetGameStateManager().gameObjectManager.Add(heroPtr);
-	Engine::GetGameStateManager().gameObjectManager.Add(bunnyPtr);
-	
+	//Engine::GetGameStateManager().gameObjectManager.Add(bunnyPtr);
+	Engine::GetGameStateManager().gameObjectManager.Add(new Note_box({-4,0}));
+
 	for (auto& track : a)
 	{
 		Engine::GetGameStateManager().gameObjectManager.Add(new Track(track.first,track.second));

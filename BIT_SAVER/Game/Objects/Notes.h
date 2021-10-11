@@ -11,14 +11,18 @@ Creation date: 2/11/2021
 //#include "..\Engine\Sprite.h" //sprite
 #include "..\Engine\Input\Input.h" //input key
 #include "..\Engine\GameObject\GameObject.h" // GameObject inheritance
-
+#include"GameObjectType.h"
 
 class Note : public GameObject
 {
 public:
-    Note(glm::vec2 startPos);
+    Note(glm::vec2 startPos,glm::vec2 velocity);
     void Update(double dt) override;
     glm::vec2 Getposition();
+    GameObjectType GetObjectType() override
+    {
+        return GameObjectType::Note;
+    }
     void Draw() override;
 private:
    //int track_num;

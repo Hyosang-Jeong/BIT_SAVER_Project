@@ -11,7 +11,7 @@ Creation date: 2/11/2021
 //#include "..\Engine\Sprite.h" //sprite
 #include "..\Engine\Input\Input.h" //input key
 #include "..\Engine\GameObject\GameObject.h" // GameObject inheritance
-
+#include"GameObjectType.h"
 
 class Track : public GameObject
 {
@@ -20,6 +20,10 @@ public:
     void Update(double dt) override;
     glm::vec2 Getposition();
     void Draw() override;
+    GameObjectType GetObjectType() override
+    {
+        return GameObjectType::Track;
+    }
 private:
     int track_num;
     std::vector<long double> time;

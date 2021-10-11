@@ -52,3 +52,22 @@ void GameObjectManager::DrawAll()
 		a->Draw();
 	}
 }
+
+bool GameObjectManager::collision_check(GameObject* object1, GameObject* object2)
+{
+	AABB Box1 = object1->GetAABB();
+	AABB Box2 = object2->GetAABB();
+
+
+	if (Box1.max.x < Box2.min.x || Box1.min.x > Box2.max.x)
+	{
+		return false;
+	}
+
+	if ((Box1.max.y < Box2.min.y || Box1.min.y > Box2.max.y))
+	{
+		return false;
+	}
+	return true;
+}
+

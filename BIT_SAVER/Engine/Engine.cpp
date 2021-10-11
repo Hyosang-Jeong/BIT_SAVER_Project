@@ -31,7 +31,7 @@ void Engine::Init(std::string windowName)
 
 	time_t seed = time(NULL);
 	logger.LogEvent("Engine Init");
-	window.Init(1920, 1080,windowName);
+	window.Init(1600, 1000,windowName);
 
 	init_shdrpgms();
 
@@ -41,9 +41,9 @@ void Engine::Init(std::string windowName)
 
 
 	GLModel model;
-	model.set_name("Duck");
+	model.set_name("Basic_model");
 	model.init();
-	models["Duck"] = model;
+	models["Basic_model"] = model;
 }
 
 void Engine::Shutdown()
@@ -81,8 +81,8 @@ void Engine::init_shdrpgms()
 {
 	std::vector<std::pair<GLenum, std::string>> shdr_files
 	{
-		std::make_pair(GL_VERTEX_SHADER, "../shaders/tutorial-5.vert"),
-		std::make_pair(GL_FRAGMENT_SHADER,  "../shaders/tutorial-5.frag")
+		std::make_pair(GL_VERTEX_SHADER, "../shaders/Hero.vert"),
+		std::make_pair(GL_FRAGMENT_SHADER,  "../shaders/Hero.frag")
 	};
 	GLSLShader shdr_pgm;
 	shdr_pgm.CompileLinkValidate(shdr_files);
@@ -94,7 +94,7 @@ void Engine::init_shdrpgms()
 	}
 	// add compiled, linked, and validated shader program to
 	// std::map container GLApp::shdrpgms
-	shdrpgms["Duck"] = shdr_pgm;
+	shdrpgms["Hero"] = shdr_pgm;
 
 	//collision box shader
 

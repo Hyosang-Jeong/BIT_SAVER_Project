@@ -11,7 +11,7 @@ Creation date: 2/11/2021
 //#include "..\Engine\Sprite.h" //sprite
 #include "..\Engine\Input\Input.h" //input key
 #include "..\Engine\GameObject\GameObject.h" // GameObject inheritance
-
+#include"GameObjectType.h"
 
 class Hero : public GameObject 
 {
@@ -20,13 +20,17 @@ public:
     void Update(double dt) override;
     glm::vec2 Getposition();
     void Draw() override;
+    GameObjectType GetObjectType() override
+    {
+        return GameObjectType::Hero;
+    }
 private:
     InputKey moveUpKey;
     InputKey moveDownKey;
    InputKey moveLeftKey;
    InputKey moveRightKey;
 
-   InputKey jumpKey;
+   InputKey AttackKey;
 
     static constexpr double acceleration = 1;
     static constexpr double drag = 500;
@@ -35,6 +39,7 @@ private:
     //const CS230::Camera& camera;
 
     bool move_release_frag[4] = { false };
+    bool attack_pressed = false;
     void UpdateXVelocity(double dt);     //Change X velocity stuff
-
+    void Attack_Check();
 };

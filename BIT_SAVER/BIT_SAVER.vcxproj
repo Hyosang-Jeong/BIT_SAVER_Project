@@ -181,6 +181,7 @@
     <ClCompile Include="Game\Objects\Bunny.cpp" />
     <ClCompile Include="Game\Objects\Hero.cpp" />
     <ClCompile Include="Game\Objects\Notes.cpp" />
+    <ClCompile Include="Game\Objects\Note_collisionBox.cpp" />
     <ClCompile Include="Game\Objects\Tracks.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -204,8 +205,10 @@
     <ClInclude Include="Engine\Window\Window.h" />
     <ClInclude Include="Game\Levels\Level1.h" />
     <ClInclude Include="Game\Objects\Bunny.h" />
+    <ClInclude Include="Game\Objects\GameObjectType.h" />
     <ClInclude Include="Game\Objects\Hero.h" />
     <ClInclude Include="Game\Objects\Notes.h" />
+    <ClInclude Include="Game\Objects\Note_collisionBox.h" />
     <ClInclude Include="Game\Objects\Track.h" />
   </ItemGroup>
   <ItemGroup>

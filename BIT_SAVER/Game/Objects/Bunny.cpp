@@ -21,8 +21,8 @@ Bunny::Bunny(glm::vec2 startPos) :
 	GameObject(startPos, 0, { 0.1,0.1 })
 {
 	texture.setup_texobj("../images/stickman.png");
-	mdl_ref = Engine::GetGLModel().find("Duck");
-	shd_ref = Engine::GetGLShader().find("Duck");
+	mdl_ref = Engine::GetGLModel().find("Basic_model");
+	shd_ref = Engine::GetGLShader().find("Hero");
 
 }
 
@@ -35,7 +35,7 @@ void Bunny::Update(double dt)
 
 void Bunny::Draw()
 {
-	texture.Draw(mdl_to_ndc_xform, "Duck", "Duck");
+	texture.Draw(mdl_to_ndc_xform, "Basic_model", "Hero");
 }
 
 

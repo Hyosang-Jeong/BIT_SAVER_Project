@@ -8,13 +8,12 @@
 
 using Image = unsigned char*;
 
-GLuint TextureManager::Load(const char* filePath)
+GLuint TextureManager::Load(const char* filePath,glm::vec2& texture_size)
 {
 	texture_info image;
 	stbi_set_flip_vertically_on_load(true);
 	if (images.find(filePath) == images.end())
 	{
-		std::cout << "No" << std::endl;
 		image.img = stbi_load(filePath, &image.width, &image.height, &image.col_chanel, 4);
 		if (!image.img)
 		{
@@ -25,12 +24,12 @@ GLuint TextureManager::Load(const char* filePath)
 		// allocate GPU storage for texture image data loaded from file
 		glTextureStorage2D(image.tex_objhdl, 1, GL_RGBA8, image.width, image.height);
 		glTextureSubImage2D(image.tex_objhdl, 0, 0, 0, image.width, image.height, GL_RGBA, GL_UNSIGNED_BYTE, image.img);
-
+		texture_size = { image.width ,image.height };
 		images[filePath] = image.tex_objhdl;
+
 	}
 	else
 	{
-		std::cout << "yes" << std::endl;
 		return images.find(filePath)->second;
 	}
 

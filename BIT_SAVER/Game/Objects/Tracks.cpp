@@ -14,14 +14,15 @@ Creation date: 3/14/2021
 
 Track::Track(int input_track_num, std::vector<long double> input_time) : track_num(input_track_num),GameObject({ 0,0 }, 0, glm::vec2{ 0.1,0.1 })
 {
-	double t = 2.0;
+	SetVelocity({ -10,0 });
+
+	double Collision_xpos = -5;
+	double target_pos = world_range - Collision_xpos;
+	
 	for (int i=0; i<input_time.size(); i++)
 	{
-		time.push_back(input_time[i] - t);
+		time.push_back(input_time[i]+ (target_pos / GetVelocity().x) );
 	}
-
-
-	
 }
 
 
@@ -35,7 +36,7 @@ void Track::Update(double dt)
 	{
 		if (timer > i)
 		{
-			Engine::GetGameStateManager().gameObjectManager.Add(new Note({ 1,(track_num*0.138) - 0.9 }));
+			Engine::GetGameStateManager().gameObjectManager.Add(new Note({ 10,(track_num*2) -6} , GetVelocity()));
 			std::cout << "Track num: "<<track_num << "      time: " << i << "       timer: " << timer << std::endl;
 			time.erase(time.begin());
 		}

@@ -9,36 +9,21 @@ Creation date: 2/11/2021
 -----------------------------------------------------------------*/
 #pragma once
 //#include "..\Engine\Sprite.h" //sprite
-#include"..\Engine\Input\Input.h"
+#include "..\Engine\Input\Input.h" //input key
 #include "..\Engine\GameObject\GameObject.h" // GameObject inheritance
 #include"GameObjectType.h"
 
-class Bunny : public GameObject
+class Note_box : public GameObject
 {
 public:
-    Bunny(glm::vec2 startPos);
+    Note_box(glm::vec2 startPos);
     void Update(double dt) override;
-    glm::vec2 Getposition();
-    void Draw() override;
     GameObjectType GetObjectType() override
     {
-        return GameObjectType::Bunny;
+        return GameObjectType::Note_collisionBox;
     }
+    glm::vec2 Getposition();
+    void Draw() override;
 private:
-    InputKey moveUpKey;
-    InputKey moveDownKey;
-    InputKey moveLeftKey;
-    InputKey moveRightKey;
-
-    InputKey jumpKey;
-
-    static constexpr double acceleration = 1;
-    static constexpr double drag = 500;
-    static constexpr double max_velocity = 500;
-    static constexpr double jumpVelocity = 1000;
-    //const CS230::Camera& camera;
-
-    void UpdateXVelocity(double dt);     //Change X velocity stuff
-
 
 };
