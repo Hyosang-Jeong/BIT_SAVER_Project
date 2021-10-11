@@ -29,20 +29,19 @@ void Level1::Load()
 	MidiEvent m;
 
 	heroPtr = new Hero({ -6,0 });
-	//bunnyPtr = new Bunny({ 0.5,0.5 });
-	
-	std::map<int, std::vector<long double>> a;
 
-	a = m.MidiSetUp("canon.mid");
+	
+	std::map<int, std::vector<long double>> mid_info;
+
+	mid_info = m.MidiSetUp(Engine::GetMusic().MUSIC_CANON);
 
 	Engine::GetGameStateManager().gameObjectManager.Add(heroPtr);
+
 	//Engine::GetGameStateManager().gameObjectManager.Add(bunnyPtr);
 	Engine::GetGameStateManager().gameObjectManager.Add(new Note_box({-4,0}));
 
-	for (auto& track : a)
-	{
-		Engine::GetGameStateManager().gameObjectManager.Add(new Track(track.first,track.second));
-	}
+	Engine::GetGameStateManager().gameObjectManager.Add(new Track(mid_info));
+
 
 }
 void Level1::Update(double dt)

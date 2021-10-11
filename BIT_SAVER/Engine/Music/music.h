@@ -1,31 +1,39 @@
 #pragma once
-
+//we use fmod library here
 #include<iostream>
 #include"fmod.hpp"
 #include"fmod_errors.h"
-
-
+#include <fmod.h>
+#include <string>
+#include <vector>
+#define SOUND_MAX       1.0f
+#define SOUND_MIN       0.0f
+#define SOUND_DEFAULT   0.5f
+#define SOUND_WEIGHT    0.1f 
 
 class Music
 {
 public:
-    void SoundSystem();
+    enum SOUND_NUM
+    {
+        MUSIC_CANON = 0,
+        MUSIC_END
+    };
+
+    //Music() {}
+    //~Music() {}
+    void Init();
     void Play(int Sound_num);
+    void Stop();
+    void Resume();
+    void Pause();
+    void volumeUp();
+    void volumeDown();
+    void Release();
 private:
+    float volume;
     FMOD::System* pSystem;
-    FMOD::Sound* pSound[1];
-    FMOD::Channel* pChannel[1];
+    FMOD::Sound* pSound[MUSIC_END];
+    FMOD::Channel* pChannel;
+    std::vector<const char*> MusicName;
 };
-//void SoundSystem() {
-//    System_Create(&pSystem);
-//
-//    pSystem->init(4, FMOD_INIT_NORMAL, NULL);
-//
-//    pSystem->createSound("music1.mid", FMOD_LOOP_NORMAL | FMOD_DEFAULT, NULL, &pSound[0]);
-//    //pSystem->createSound("Festival_of_Ghost.wav", FMOD_DEFAULT, NULL, &pSound[1]);
-//}
-//
-//void Play(int Sound_num) {
-//
-//    pSystem->playSound(pSound[Sound_num], NULL, 0, pChannel);
-//}

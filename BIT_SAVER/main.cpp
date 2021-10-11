@@ -18,20 +18,20 @@ int main()
 {
 	engine.Init("Bit_Saver");
 	InputKey exit(InputKey::Keyboard::Enter);
-	Music music;
-	music.SoundSystem();
-	//music.Open();
+
+	
 	Level1 level1;
 	engine.GetGameStateManager().AddGameState(level1);
 
 	while (!glfwWindowShouldClose(engine.GetWindow().ptr_window))
 	{
 		engine.Update();
-		music.Play(0);
+		Engine::GetMusic().Play(Engine::GetMusic().MUSIC_CANON);
 	}
 
 
 	//_CrtDumpMemoryLeaks();
+	engine.Shutdown();
 	return 0;
 	// cleanup();
 }

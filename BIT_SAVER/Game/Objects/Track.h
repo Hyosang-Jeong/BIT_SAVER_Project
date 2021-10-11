@@ -12,11 +12,12 @@ Creation date: 2/11/2021
 #include "..\Engine\Input\Input.h" //input key
 #include "..\Engine\GameObject\GameObject.h" // GameObject inheritance
 #include"GameObjectType.h"
+#include <map>
 
 class Track : public GameObject
 {
 public:
-    Track(int track_num, std::vector<long double> input_time);
+    Track(std::map<int, std::vector<long double>>);
     void Update(double dt) override;
     glm::vec2 Getposition();
     void Draw() override;
@@ -25,7 +26,7 @@ public:
         return GameObjectType::Track;
     }
 private:
-    int track_num;
-    std::vector<long double> time;
+
+    std::map<int, std::vector<long double>> track_info;
     double timer = 0;
 };

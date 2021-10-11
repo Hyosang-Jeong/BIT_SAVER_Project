@@ -43,11 +43,16 @@ void Engine::Init(std::string windowName)
 	GLModel model;
 	model.set_name("Basic_model");
 	model.init();
+
 	models["Basic_model"] = model;
+
+	Engine::GetMusic().Init();
+
 }
 
 void Engine::Shutdown()
 {
+	Engine::GetMusic().Release();
 	logger.LogEvent("Engine Shutdown");
 }
 void Engine::Update()

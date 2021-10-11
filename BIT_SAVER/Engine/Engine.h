@@ -18,22 +18,24 @@ Creation date: 2/10/2021
 #include"..\Engine\GLModel\GLModel.h"
 #include"..\Engine\GLShader\glslshader.h"
 #include"..\Engine\Texture\TextureManager.h"
+#include"..\Engine\Music\music.h"
 #include<map>
 //#include"TextureManager.h"
 //#include "SpriteFont.h"
-class Engine 
+class Engine
 {
 public:
-    static Engine& Instance() 
-    { 
-        static Engine instance; return instance; 
+    static Engine& Instance()
+    {
+        static Engine instance; return instance;
     }
+    static Music& GetMusic() { return Instance().music; };
     static Logger& GetLogger() { return Instance().logger; };
     static Input& GetInput() { return Instance().input; }
     static Window& GetWindow() { return Instance().window; }
     static GameStateManager& GetGameStateManager() { return Instance().gameStateManager; }
     static TextureManager& GetTextureManager() { return Instance().texturemanager; }
-    static  std::map<std::string, GLModel>& GetGLModel () { return Instance().models; }
+    static  std::map<std::string, GLModel>& GetGLModel() { return Instance().models; }
     static  std::map<std::string, GLSLShader>& GetGLShader() { return Instance().shdrpgms; }
 
     void Init(std::string windowName);
@@ -41,9 +43,9 @@ public:
     void Update();
     bool HasGameEnded();
     void init_shdrpgms();
- //   void AddSpriteFont(const std::filesystem::path& fileName);
-   // template<typename T>
-   // static T* GetGSComponent() { return GetGameStateManager().GetGSComponent<T>(); }
+    //   void AddSpriteFont(const std::filesystem::path& fileName);
+      // template<typename T>
+      // static T* GetGSComponent() { return GetGameStateManager().GetGSComponent<T>(); }
 
 public:
     Engine();
@@ -52,19 +54,19 @@ public:
     std::chrono::system_clock::time_point lastTick;
     std::chrono::system_clock::time_point fpsCalcTime;
     int frameCount;
-
-   Logger logger;
-   GameStateManager gameStateManager;
-   Input input;
-   Window window;
-   std::map<std::string, GLModel> models;
-   std::map<std::string, GLSLShader> shdrpgms;
-   TextureManager texturemanager;
+    Music music;
+    Logger logger;
+    GameStateManager gameStateManager;
+    Input input;
+    Window window;
+    std::map<std::string, GLModel> models;
+    std::map<std::string, GLSLShader> shdrpgms;
+    TextureManager texturemanager;
 
     static constexpr double Target_FPS = 60.0;
     static constexpr int FPS_IntervalSec = 5;
     static constexpr int FPS_IntervalFrameCount = static_cast<int>(FPS_IntervalSec * Target_FPS);
-   // std::vector<CS230::SpriteFont> fonts;
+    // std::vector<CS230::SpriteFont> fonts;
 
 };
 
