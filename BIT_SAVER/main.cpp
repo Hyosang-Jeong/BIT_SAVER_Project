@@ -19,8 +19,7 @@ int main()
 	engine.Init("Bit_Saver");
 	InputKey exit(InputKey::Keyboard::Enter);
 	Music music;
-	music.SoundSystem();
-	//music.Open();
+	music.SoundSystem("../sound/canon.wav");
 	Level1 level1;
 	engine.GetGameStateManager().AddGameState(level1);
 
