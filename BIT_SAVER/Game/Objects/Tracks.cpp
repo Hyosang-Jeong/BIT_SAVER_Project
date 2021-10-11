@@ -66,7 +66,7 @@ void Track::Update(double dt)
 
 			if (timer > j)
 			{
-				Engine::GetGameStateManager().gameObjectManager.Add(new Note({ 3,(i.first * 5) - 5 }));
+				Engine::GetGameStateManager().gameObjectManager.Add(new Note({ 3, i.first * 5 }, { -5,0 }));
 				//std::cout << "Track num: "<<track_num << "      time: " << i << "       timer: " << timer << std::endl;
 				i.second.erase(i.second.begin());
 			}
