@@ -13,13 +13,7 @@ public:
     int        track;    // [original] track number of event in MIDI file
     double     seconds;  // calculated time in sec. (after doTimeAnalysis())
     int        seq;      // sorting sequence number of event
- //   for (int = 0; i < track - 1; i++)
- //   {
-	//for (int j = 0; j < (tranck)->배열.size; j++)
-	//{
-	//    Treestump.dt = 배열[j];
-	//}
- //   }
+
     std::vector<MidiEvent> m_events;
 
 
