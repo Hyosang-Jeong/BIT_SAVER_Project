@@ -44,10 +44,12 @@ void Engine::Init(std::string windowName)
 	model.set_name("Duck");
 	model.init();
 	models["Duck"] = model;
+	Engine::GetMusic().Init();
 }
 
 void Engine::Shutdown()
 {
+	Engine::GetMusic().Release();
 	logger.LogEvent("Engine Shutdown");
 }
 void Engine::Update()

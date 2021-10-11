@@ -44,7 +44,7 @@ void Level1::Load()
 	
 	std::map<int, std::vector<long double>> a;
 
-	a = m.MidiSetUp("canon.mid");
+	a = m.MidiSetUp(Engine::GetMusic().MUSIC_CANON);
 
 	Engine::GetGameStateManager().gameObjectManager.Add(heroPtr);
 	Engine::GetGameStateManager().gameObjectManager.Add(bunnyPtr);

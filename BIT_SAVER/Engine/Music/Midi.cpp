@@ -1,13 +1,23 @@
 #include "Midi.h"
 #include <fstream>
 #include "..\Engine.h"
-
+#include "music.h"
 int m_ticksPerQuarterNote = 120; //set default
 
-std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(std::string filename)
+std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
 {
+
+    const char* midi_filename = " ";
+    switch (music_num)
+    {
+    case Music::SOUND_NUM::MUSIC_CANON:
+        midi_filename = "canon.mid";
+        break;
+    default:
+        break;
+    }
     //open the midi file
-    std::ifstream input{ filename, std::ios::binary };
+    std::ifstream input{ midi_filename, std::ios::binary };
     if (!input)
     {
         exit(EXIT_FAILURE);

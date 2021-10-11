@@ -7,7 +7,7 @@ public:
     MidiEvent() {}
     ~MidiEvent() {}
 
-    std::map<int, std::vector<long double>> MidiSetUp(std::string filename);
+    std::map<int, std::vector<long double>> MidiSetUp(int music_num);
 
 private:
     std::vector<MidiEvent> m_events;
