@@ -35,8 +35,6 @@ public:
     static TextureManager& GetTextureManager() { return Instance().texturemanager; }
     static  std::map<std::string, GLModel>& GetGLModel () { return Instance().models; }
     static  std::map<std::string, GLSLShader>& GetGLShader() { return Instance().shdrpgms; }
-    //static CS230::TextureManager& GetTextureManager() { return Instance().texturemanager; }
-    //static CS230::SpriteFont& GetSpriteFont(int index) { return Instance().fonts[index]; }
 
     void Init(std::string windowName);
     void Shutdown();
@@ -62,7 +60,7 @@ public:
    std::map<std::string, GLModel> models;
    std::map<std::string, GLSLShader> shdrpgms;
    TextureManager texturemanager;
- //   CS230::TextureManager texturemanager;
+
     static constexpr double Target_FPS = 60.0;
     static constexpr int FPS_IntervalSec = 5;
     static constexpr int FPS_IntervalFrameCount = static_cast<int>(FPS_IntervalSec * Target_FPS);

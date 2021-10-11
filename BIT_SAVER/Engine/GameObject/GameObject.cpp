@@ -50,13 +50,13 @@ void GameObject::Update(double dt)
          0,1,0,
         position.x,position.y,1
     };
-    //glm::mat3 ndcscale_matrix
-    //{
-    //   1.0 / 10.0  ,0  ,0,
-    //    0,  1 / 10.0 ,0,
-    //    0,0,1
-    //};
-    mdl_to_ndc_xform =  trans_matrix  *rotation_matrix* scale_matrix;
+   glm::mat3 ndcscale_matrix
+   {
+      1.0 / world_range  ,0  ,0,
+       0,  1 / world_range ,0,
+       0,0,1
+   };
+    mdl_to_ndc_xform = ndcscale_matrix* trans_matrix  *rotation_matrix* scale_matrix;
 
 }
 
@@ -65,14 +65,9 @@ void GameObject::Draw()
     //sprite.Draw(cameraMatrix * GetMatrix());
 }
 
-const math::TransformMatrix& GameObject::GetMatrix()
+const glm::mat3& GameObject::GetMatrix()
 {
-    if (updateMatrix == true) 
-    {
-        objectMatrix = math::TranslateMatrix(position) * math::RotateMatrix(rotation) * math::ScaleMatrix(scale);
-        updateMatrix = false;
-    }
-    return objectMatrix;
+    return mdl_to_ndc_xform;
 }
 
 void GameObject::SetPosition(glm::vec2 newPosition) {

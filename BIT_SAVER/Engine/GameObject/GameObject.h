@@ -9,7 +9,6 @@ Creation date: 2/14/2021
 -----------------------------------------------------------------*/
 #pragma once
 
-#include"..\Math\TransformMatrix.h"
 #include<iostream>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -29,7 +28,7 @@ Creation date: 2/14/2021
 		virtual void Update(double dt);
 		virtual void Draw();
 
-		const math::TransformMatrix& GetMatrix();
+		const glm::mat3& GetMatrix();
 		const glm::vec2& GetPosition() const;
 		const glm::vec2& GetVelocity() const;
 		const glm::vec2& GetScale() const;
@@ -49,7 +48,7 @@ Creation date: 2/14/2021
 		//Sprite sprite;
 
 	private:
-		math::TransformMatrix objectMatrix;
+		glm::mat3 objectMatrix;
 		bool updateMatrix;
 
 		double rotation;
@@ -60,7 +59,7 @@ Creation date: 2/14/2021
 		glm::vec2 orientation;
 
 		bool is_destroy = false;
-
+		const double world_range = 10;
 	protected:
 		std::map<std::string, GLModel>::iterator mdl_ref;
 		std::map<std::string, GLSLShader>::iterator shd_ref;

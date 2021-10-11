@@ -17,7 +17,7 @@ Hero::Hero(glm::vec2 startPos) :
 	moveUpKey(InputKey::Keyboard::Up),
 	moveDownKey(InputKey::Keyboard::Down),
 	jumpKey(InputKey::Keyboard::Up),
-	GameObject(startPos, 0, glm::vec2{ 0.2,0.2 })
+	GameObject(startPos, 0, glm::vec2{ 2,2 })
 {
 	texture.setup_texobj("../images/stickman.png");
 	
@@ -41,13 +41,35 @@ void Hero::Update(double dt)
 	{
 		SetVelocity({ 0, 0 });
 		SetPosition({ Getposition().x,-0.29 });
-
 	}
+
 }
 
 void Hero::Draw()
 {
 	texture.Draw(mdl_to_ndc_xform,"Duck","Duck");
+
+	/*mdl_ref = Engine::GetGLModel().find("Duck");
+	shd_ref = Engine::GetGLShader().find("Collision");
+
+	shd_ref->second.Use();
+	 
+	glBindVertexArray(mdl_ref->second.vaoid);
+
+	GLint uniform_var_loc1 = glGetUniformLocation(shd_ref->second.GetHandle(), "uModelToNDC");
+	if (uniform_var_loc1 >= 0)
+	{
+		glUniformMatrix3fv(uniform_var_loc1, 1, GL_FALSE, &mdl_to_ndc_xform[0].x);
+	}
+	else
+	{
+		std::cout << "Uniform variable doesn't exist!!!\n";
+		std::exit(EXIT_FAILURE);
+	}
+
+	glDrawElements(mdl_ref->second.primitive_type, mdl_ref->second.draw_cnt, GL_UNSIGNED_SHORT, NULL);
+	shd_ref->second.UnUse();*/
+
 }
 
 
