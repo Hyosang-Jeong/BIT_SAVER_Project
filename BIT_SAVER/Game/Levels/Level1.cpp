@@ -39,7 +39,7 @@ void Level1::Load()
 {
 	MidiEvent m;
 
-	heroPtr = new Hero({ -0.9,0 });
+	heroPtr = new Hero({ -6,0 });
 	bunnyPtr = new Bunny({ 0.5,0.5 });
 	
 	std::map<int, std::vector<long double>> a;

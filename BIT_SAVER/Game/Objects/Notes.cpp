@@ -12,7 +12,7 @@ Creation date: 3/14/2021
 
 
 
-Note::Note(glm::vec2 startPos) :  GameObject(startPos, 0, glm::vec2{ 0.1,0.1 })
+Note::Note(glm::vec2 startPos) :  GameObject(startPos, 0, glm::vec2{ 2,2 })
 {
 	texture.setup_texobj("../images/note1.png");
 	SetVelocity({ -1, 0 });
