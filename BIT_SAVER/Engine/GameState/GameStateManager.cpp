@@ -3,8 +3,8 @@ Copyright (C) 2021 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 File Name: GameStateManager.cpp
-Project: CS230
-Author: Hyosang Jung
+Project: BIT_SAVER
+Author: 
 Creation date: 2021-03-07
 -----------------------------------------------------------------*/
 

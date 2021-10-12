@@ -4,8 +4,8 @@ Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 File Name: Engine.h
 Purpose: This is the service provider for our games engine services
-Project: CS230
-Author: Kevin Wright
+Project: BIT_SAVER
+Author: 
 Creation date: 2/10/2021
 -----------------------------------------------------------------*/
 #pragma once
@@ -43,9 +43,6 @@ public:
     void Update();
     bool HasGameEnded();
     void init_shdrpgms();
-    //   void AddSpriteFont(const std::filesystem::path& fileName);
-      // template<typename T>
-      // static T* GetGSComponent() { return GetGameStateManager().GetGSComponent<T>(); }
 
 public:
     Engine();
@@ -66,7 +63,5 @@ public:
     static constexpr double Target_FPS = 60.0;
     static constexpr int FPS_IntervalSec = 5;
     static constexpr int FPS_IntervalFrameCount = static_cast<int>(FPS_IntervalSec * Target_FPS);
-    // std::vector<CS230::SpriteFont> fonts;
-
 };
 

@@ -35,13 +35,3 @@ GLuint TextureManager::Load(const char* filePath,glm::vec2& texture_size)
 
 	return images[filePath];
 }
-
-//void TextureManager::Unload()
-//{
-//	for (const std::pair<std::filesystem::path, Texture*>& i : pathToTexture)
-//	{
-//		delete i.second;
-//	}
-//	pathToTexture.clear();
-//	Engine::GetLogger().LogEvent("Clear Textures");
-//}

@@ -4,8 +4,8 @@ Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 File Name: Input.cpp
 Purpose: Interface between doodle and our engine
-Project: CS230
-Author: Hyosang Jung
+Project: BIT_SAVER
+Author: 
 Creation date: 2021-03-07
 -----------------------------------------------------------------*/
 #include"Input.h"

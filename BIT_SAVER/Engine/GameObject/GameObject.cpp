@@ -3,8 +3,8 @@ Copyright (C) 2021 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 File Name: GameObject.cpp
-Project: CS230
-Author: Hyosang Jung
+Project: BIT_SAVER
+Author: 
 Creation date: 4/16/2021
 -----------------------------------------------------------------*/
 #include"GameObject.h"
@@ -14,20 +14,14 @@ GameObject::GameObject(glm::vec2 position) : GameObject(position, 0, { 1, 1 }) {
 GameObject::GameObject(glm::vec2 position, double rotation, glm::vec2 scale)
     : velocity{ 0,0 }, position(position), updateMatrix(true),
     scale(scale), rotation(rotation)
-{
-
-}
+{}
 
 void GameObject::Update(double dt)
 {
-    //currState->Update(this, dt);
-    ////sprite.Update(dt);
     if (velocity.x != 0 || velocity.y != 0)
     {
         UpdatePosition({ velocity.x * dt, velocity.y * dt });
     }
-    //currState->TestForExit(this);
-
     glm::mat3 scale_matrix
     {
         scale.x,0,0,
@@ -36,7 +30,6 @@ void GameObject::Update(double dt)
     };
     double PI = 3.14159265359;
     orientation.x += orientation.y * (GLfloat)dt;
-
 
     glm::mat3 rotation_matrix
     {
@@ -58,26 +51,18 @@ void GameObject::Update(double dt)
        0,0,1
    };
 
-   glm::vec2 texture_size = texture.GetSize();
-   glm::vec2 winsize = Engine::GetWindow().GetSize();
-  
-
-  
-   texture_size.x = ((world_range*2) * texture_size.x) / winsize.x;
-   texture_size.y = ((world_range*2) * texture_size.y) / winsize.y;
-
-
-   //collision_box.min = { position.x - (texture_size.x / 2), position.y - (texture_size.y / 2) };
-   //collision_box.max = { position.x + (texture_size.x / 2), position.y + (texture_size.y / 2) };
+   texture_ndc = scale * 2.f;
+   collision_box.min = { position.x - (texture_ndc.x/2.f), position.y - (texture_ndc.y/2.f) };
+   collision_box.max = { position.x + (texture_ndc.x/2.f ), position.y + (texture_ndc.y/2.f) };
 
     mdl_to_ndc_xform = ndcscale_matrix* trans_matrix  *rotation_matrix* scale_matrix;
-
 }
 
 void GameObject::Draw() 
 {
-    //sprite.Draw(cameraMatrix * GetMatrix());
 }
+
+
 
 const glm::mat3& GameObject::GetMatrix()
 {
@@ -110,6 +95,11 @@ const glm::vec2& GameObject::GetScale() const
     return scale;
 }
 
+const glm::vec2& GameObject::GetTexturetoNDC() const
+{
+    return texture_ndc;
+}
+
 const AABB& GameObject::GetAABB() const
 {
     return collision_box;
@@ -128,6 +118,14 @@ void GameObject::UpdateVelocity(glm::vec2 adjustPosition)
 void GameObject::SetScale(glm::vec2 newScale)
 {
     scale = newScale;
+    glm::mat3 scale_matrix
+    {
+        newScale.x,0,0,
+        0,newScale.y,0,
+        0,0,1
+    };
+
+    mdl_to_ndc_xform *= scale_matrix;
     updateMatrix = true;
 }
 

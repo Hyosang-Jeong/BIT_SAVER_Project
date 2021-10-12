@@ -17,8 +17,6 @@ struct GLModel
 	GLuint draw_cnt;
 	std::string name;
 
-	void setup_vao();
-	void setup_shdrpgm();
 	void set_name(std::string model_name);
-	void init(); // read mesh data from file ...
+	void init(); 
 };

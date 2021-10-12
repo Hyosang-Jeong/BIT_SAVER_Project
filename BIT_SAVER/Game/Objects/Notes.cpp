@@ -2,9 +2,9 @@
 Copyright (C) 2021 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
-File Name: Hero.cpp
-Project: CS230
-Author: Hyosang Jung
+File Name: Notes.cpp
+Project: 
+Author: 
 Creation date: 3/14/2021
 -----------------------------------------------------------------*/
 #include"Notes.h"
@@ -12,7 +12,7 @@ Creation date: 3/14/2021
 
 
 
-Note::Note(glm::vec2 startPos,glm::vec2 velocity) :  GameObject(startPos, 0, glm::vec2{ 2,1 })
+Note::Note(glm::vec2 startPos,glm::vec2 velocity) :  GameObject(startPos, 0, glm::vec2{ 0.1,1 })
 {
 	texture.setup_texobj("../images/note1.png");
 	SetVelocity(velocity);
@@ -22,12 +22,6 @@ Note::Note(glm::vec2 startPos,glm::vec2 velocity) :  GameObject(startPos, 0, glm
 void Note::Update(double dt)
 {
 	GameObject::Update(dt);
-	collision_box.min.x = Getposition().x - 0.5f;
-	collision_box.min.y = Getposition().y- 1.f;
-	collision_box.max.x = Getposition().x + 0.5f;
-	collision_box.max.y = Getposition().y + 1.f;
-	std::cout << collision_box.max.x << "       " << collision_box.max.y << std::endl;
-
 	if (GetPosition().x < -10)
 	{
 		set_destroy(true);
@@ -37,7 +31,6 @@ void Note::Update(double dt)
 void Note::Draw()
 {
 	texture.Draw(mdl_to_ndc_xform, "Basic_model", "Hero");
-	//texture.Draw(mdl_to_ndc_xform, "Duck", "Duck");
 }
 
 

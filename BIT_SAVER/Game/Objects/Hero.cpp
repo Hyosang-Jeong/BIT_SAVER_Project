@@ -3,8 +3,8 @@ Copyright (C) 2021 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 File Name: Hero.cpp
-Project: CS230
-Author: Hyosang Jung
+Project: BIT_SAVER
+Author: 
 Creation date: 3/14/2021
 -----------------------------------------------------------------*/
 #include"Hero.h"
@@ -20,6 +20,8 @@ Hero::Hero(glm::vec2 startPos) :
 	GameObject(startPos, 0, glm::vec2{ 1,1 })
 {
 	texture.setup_texobj("../images/extra1.png");
+	Hit_tex.setup_texobj("../images/Hit_star.png");
+	Miss_tex.setup_texobj("../images/miss.png");
 }
 
 
@@ -29,14 +31,29 @@ void Hero::Update(double dt)
 
 	UpdateXVelocity(dt);
 	Attack_Check();
-
-	//std::cout << Getposition().x << "       " << Getposition().y << std::endl;
-
 }
 
 void Hero::Draw()
 {
 	texture.Draw(mdl_to_ndc_xform, "Basic_model", "Hero");
+
+	if (Hit[0] == true )
+	{
+		Hit_tex.Draw(world_range, "Basic_model", "Hero",{ Hit_pos[0].x,  Hit_pos[0].y });
+	} 
+	if (Hit[1] == true)
+	{
+		Hit_tex.Draw(world_range, "Basic_model", "Hero", { Hit_pos[1].x,  Hit_pos[1].y });
+	}
+
+	if (Hit[0] == false)
+	{
+		Miss_tex.Draw(world_range, "Basic_model", "Hero", { Hit_pos[0].x+1,  Hit_pos[0].y });
+	}
+	if (Hit[1] == false)
+	{
+		Miss_tex.Draw(world_range, "Basic_model", "Hero", { Hit_pos[1].x+1,  Hit_pos[1].y });
+	}
 }
 
 glm::vec2 Hero::Getposition()
@@ -48,14 +65,12 @@ void Hero::UpdateXVelocity([[maybe_unused]] double dt)
 {
 	if (moveUpKey.IsKeyDown() == true)
 	{
-		//SetPosition({ Getposition().x, 5 });
-		UpdatePosition({ 0,dt });
+		SetPosition({ Getposition().x, 5 });
 	}
 
 	else if (moveDownKey.IsKeyDown() == true)
 	{
-		//SetPosition({ Getposition().x, -5 });
-		UpdatePosition({ 0,-dt });
+		SetPosition({ Getposition().x, -5 });
 	}
 
 	else if (moveLeftKey.IsKeyDown() == true)
@@ -70,9 +85,6 @@ void Hero::UpdateXVelocity([[maybe_unused]] double dt)
 
 void Hero::Attack_Check()
 {
-	if (AttackKey.IsKeyDown() == true && attack_pressed == false)
-	{
-
 		//find collision box position
 		GameObject* Note_collision_box = nullptr;
 
@@ -84,7 +96,7 @@ void Hero::Attack_Check()
 				break;
 			}
 		}
-
+		std::cout << Getposition().x << "         " /*<< Getposition().x*/ << std::endl;
 		//Collision check
 		for (auto& object : Engine::GetGameStateManager().gameObjectManager.GetgameObjects())
 		{
@@ -92,16 +104,45 @@ void Hero::Attack_Check()
 			{
 				if (Engine::GetGameStateManager().gameObjectManager.collision_check(Note_collision_box, object) == true)
 				{
-					object->set_destroy(true);
+					if (object->GetPosition().y == Getposition().y && AttackKey.IsKeyDown() == true)
+					{
+						if (Getposition().y == 5)  
+						{
+							Hit[0] = true;
+							Hit_pos[0] = object->GetPosition();
+						}
+						else
+						{
+							Hit[1] = true;
+							Hit_pos[1] = object->GetPosition();
+				     	}
+						object->set_destroy(true);
+					}
+				}
+				if (Note_collision_box != nullptr)
+				{
+					if (object->GetAABB().max.x < Note_collision_box->GetAABB().min.x) //miss
+					{
+						if (object->GetPosition().y == 5)  //up track
+						{
+							Hit[0] = false;
+							Hit_pos[0].x = Note_collision_box->GetPosition().x - Note_collision_box->GetTexturetoNDC().x / 2.0f;
+							Hit_pos[0].y = object->GetPosition().y;
+						}
+						else
+						{
+							Hit_pos[1].x = Note_collision_box->GetPosition().x - Note_collision_box->GetTexturetoNDC().x / 2.0f;
+							Hit_pos[1].y = object->GetPosition().y;
+						}
+					}
 				}
 			}
 		}
 		attack_pressed = true;
-	}
-
-	if (AttackKey.IsKeyReleased() == true)
-	{
-		attack_pressed = false;
-	}
-
+		if (AttackKey.IsKeyReleased() == true)
+		{
+			attack_pressed = false;
+		}
 }
+
+

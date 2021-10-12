@@ -3,8 +3,8 @@ Copyright (C) 2021 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 File Name: Hero.cpp
-Project: CS230
-Author: Hyosang Jung
+Project: BIT_SAVER
+Author: 
 Creation date: 3/14/2021
 -----------------------------------------------------------------*/
 #include"Bunny.h"
@@ -30,7 +30,6 @@ Bunny::Bunny(glm::vec2 startPos) :
 void Bunny::Update(double dt)
 {
 	GameObject::Update(dt);
-	//UpdateXVelocity(dt);
 }
 
 void Bunny::Draw()
@@ -68,154 +67,3 @@ void Bunny::UpdateXVelocity(double dt)
 		UpdatePosition({ 0,-dt });
 	}
 }
-
-
-//void Bunny::ChangeState(State* newState)
-//{
-//	Engine::GetLogger().LogDebug("Leaving State: " + currState->GetName() + " Entering State: " + newState->GetName());
-//	currState = newState;
-//	currState->Enter(this);
-//}
-//
-//void Bunny::State_Jumping::Enter([[maybe_unused]]GameObject* object)
-//{
-//
-//}
-//void Bunny::State_Jumping::Update([[maybe_unused]] GameObject* object, [[maybe_unused]] double dt) {
-//
-//}
-//void Bunny::State_Jumping::TestForExit([[maybe_unused]] GameObject* object) {
-//
-//}
-//
-//void Bunny::State_Idle::Enter([[maybe_unused]] GameObject* object)
-//{
-//	
-//}
-//
-//void Bunny::State_Idle::Update([[maybe_unused]] GameObject* object, [[maybe_unused]] double dt)
-//{
-//
-//}
-//
-//void Bunny::State_Idle::TestForExit([[maybe_unused]] GameObject* object)
-//{
-//
-//}
-//
-//
-//
-//void Bunny::State_Running::Enter([[maybe_unused]] GameObject* object)
-//{
-//	
-//	//hero->sprite.PlayAnimation(static_cast<int>(Hero_Anim::Hero_Run_Anim));
-//}
-//
-//void Bunny::State_Running::Update([[maybe_unused]] GameObject* object, [[maybe_unused]] double dt)
-//{
-//	
-//}
-//
-//
-//void Bunny::State_Running::TestForExit([[maybe_unused]] GameObject* object)
-//{
-//
-//}
-//
-//void Bunny::State_Skidding::Enter([[maybe_unused]] GameObject* object)
-//{
-//	//Bunny* hero = static_cast<Bunny*>(object);
-//	//hero->sprite.PlayAnimation(static_cast<int>(Hero_Anim::Hero_Skid_Anim));
-//}
-//
-//void Bunny::State_Skidding::Update([[maybe_unused]] GameObject* object, [[maybe_unused]] double dt)
-//{
-//	//Bunny* hero = static_cast<Bunny*>(object);
-//	//if (hero->GetVelocity().x < 0)
-//	//{
-//	//	hero->UpdateVelocity(glm::vec2{ (drag * 2 * dt) ,0 });
-//	//}
-//	//else if (hero->GetVelocity().x > 0)
-//	//{
-//	//	hero->UpdateVelocity(glm::vec2{ -(drag * 2 * dt) ,0 });
-//	//}
-//
-//}
-//
-//void Bunny::State_Skidding::TestForExit([[maybe_unused]] GameObject* object)
-//{
-//	//Bunny* hero = static_cast<Bunny*>(object);
-//	//if (hero->jumpKey.IsKeyDown() == true)
-//	//{
-//	//	hero->ChangeState(&hero->stateJumping);
-//	//}
-//	//else if (hero->moveLeftKey.IsKeyDown() == true)
-//	//{
-//	//	if (hero->GetVelocity().x <= 0)
-//	//	{
-//	//		hero->ChangeState(&hero->stateRunning);
-//	//	}
-//	//}
-//	//else if (hero->moveRightKey.IsKeyDown() == true)
-//	//{
-//	//	if (hero->GetVelocity().x >= 0)
-//	//	{
-//	//		hero->ChangeState(&hero->stateRunning);
-//	//	}
-//	//}
-//	//else if (hero->moveRightKey.IsKeyDown() == false && hero->moveLeftKey.IsKeyDown() == false)
-//	//{
-//	//	hero->ChangeState(&hero->stateRunning);
-//	//}
-//}
-//
-//void Bunny::State_Falling::Enter([[maybe_unused]] GameObject* object)
-//{
-//	//Bunny* hero = static_cast<Bunny*>(object);
-//	//hero->sprite.PlayAnimation(static_cast<int>(Hero_Anim::Hero_Fall_Anim));
-//}
-//
-//
-//void Bunny::State_Falling::Update([[maybe_unused]] GameObject* object, [[maybe_unused]] double dt)
-//{
-//	//Bunny* hero = static_cast<Bunny*>(object);
-//	//hero->UpdateVelocity(math::vec2{ 0,-(Level1::gravity * dt) });
-//	//hero->UpdateXVelocity(dt);
-//}
-//
-//
-//void Bunny::State_Falling::TestForExit([[maybe_unused]] GameObject* object)
-//{
-//	//Bunny* hero = static_cast<Bunny*>(object);
-//	/*if (hero->GetPosition().y <= Level1::floor)
-//	{
-//		hero->SetVelocity(math::vec2{ hero->GetVelocity().x,0 });
-//		hero->SetPosition(math::vec2{ hero->GetPosition().x,Level1::floor });
-//		if (hero->GetVelocity().x > 0)
-//		{
-//			if (hero->moveLeftKey.IsKeyDown() == false)
-//			{
-//				hero->ChangeState(&hero->stateRunning);
-//			}
-//			else if (hero->moveLeftKey.IsKeyDown() == true)
-//			{
-//				hero->ChangeState(&hero->stateSkidding);
-//			}
-//		}
-//		else if (hero->GetVelocity().x < 0)
-//		{
-//			if (hero->moveRightKey.IsKeyDown() == false)
-//			{
-//				hero->ChangeState(&hero->stateRunning);
-//			}
-//			else if (hero->moveRightKey.IsKeyDown() == true)
-//			{
-//				hero->ChangeState(&hero->stateSkidding);
-//			}
-//		}
-//		else if (hero->GetVelocity().x == 0)
-//		{
-//			hero->ChangeState(&hero->stateIdle);
-//		}
-//	}*/
-//}

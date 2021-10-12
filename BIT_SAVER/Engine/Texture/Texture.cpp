@@ -4,23 +4,16 @@ Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 File Name: Texture.cpp
 Purpose: Wrapper class for doodle::Image
-Project: CS230
-Author: Kevin Wright
+Project: BIT_SAVER
+Author: 
 Creation date: 2/11/2021
 -----------------------------------------------------------------*/
 
 #include "Texture.h"
 #include <fstream>
-//#define STB_IMAGE_IMPLEMENTATION
-//#include "..\Image\stb_image.h"
 #include "..\Engine.h"
 
 using Image = unsigned char*;
-
-
-//Texture::Texture(doodle::Image&& doodleImage) {
-//    image = std::move(doodleImage);
-//}
 
 void Texture::Draw(glm::mat3  displayMatrix, std::string mdl_name, std::string shdr_name)
 {
@@ -62,6 +55,39 @@ void Texture::Draw(glm::mat3  displayMatrix, std::string mdl_name, std::string s
 	glBindVertexArray(0);
 }
 
+void Texture::Draw(double world_range, std::string mdl_name, std::string shdr_name, glm::vec2 pos , glm::vec2 scale, glm::vec2 rotate)
+{
+	glm::mat3 scale_matrix
+	{
+		scale.x,0,0,
+		0,scale.y,0,
+		0,0,1
+	};
+	double PI = 3.14159265359;
+
+	glm::mat3 rotation_matrix
+	{
+		cos(rotate.x * (float)PI / (float)180),sin(rotate.x * (float)PI / (float)180),0,
+	   -sin(rotate.x * (float)PI / (float)180),cos(rotate.x * (float)PI / (float)180),0,
+		0,0,1
+	};
+
+	glm::mat3 trans_matrix
+	{
+		1,0,0,
+		 0,1,0,
+		pos.x,pos.y,1
+	};
+	glm::mat3 ndcscale_matrix
+	{
+	   1.0 / world_range  ,0  ,0,
+		0,  1 / world_range ,0,
+		0,0,1
+	};
+	glm::mat3 mdl_to_ndc_xform = ndcscale_matrix * trans_matrix * rotation_matrix * scale_matrix;
+	Draw(mdl_to_ndc_xform, mdl_name, shdr_name);
+}
+
 
 glm::vec2 Texture::GetSize()
 {
@@ -72,20 +98,3 @@ void Texture::setup_texobj(const char* pathname)
 {
 	tex_obj = Engine::GetTextureManager().Load(pathname,texture_size);
 }
-
-//void CS230::Texture::Draw(math::TransformMatrix displayMatrix, math::ivec2 texelPos, math::ivec2 frameSize) {
-//    doodle::push_settings();
-//    doodle::apply_matrix(displayMatrix[0][0], displayMatrix[1][0], displayMatrix[0][1], displayMatrix[1][1], displayMatrix[0][2], displayMatrix[1][2]);
-//    doodle::draw_image(image, 0, 0, static_cast<double>(frameSize.x), static_cast<double>(frameSize.y), texelPos.x, texelPos.y);
-//    doodle::pop_settings();
-//}
-//
-//math::ivec2 CS230::Texture::GetSize() { return { image.GetWidth(), image.GetHeight() }; }
-//
-//unsigned int CS230::Texture::GetPixel(math::ivec2 texel) {
-//    int index = texel.y * GetSize().x + texel.x;
-//    return (static_cast<int>(image[index].red)) << 24 |
-//        (static_cast<int>(image[index].green)) << 16 |
-//        (static_cast<int>(image[index].blue)) << 8 |
-//        (static_cast<int>(image[index].alpha));
-//}

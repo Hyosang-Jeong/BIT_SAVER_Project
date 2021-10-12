@@ -3,8 +3,8 @@ Copyright (C) 2021 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 File Name: Level1.cpp
-Project: CS230
-Author: Hyosang Jung
+Project: BIT_SAVER
+Author: 
 Creation date: 3/07/2021
 -----------------------------------------------------------------*/
 #include "../Engine/Engine.h"	//GetGameStateManage
@@ -18,10 +18,6 @@ Creation date: 3/07/2021
 
 Level1::Level1() : mainMenu(InputKey::Keyboard::Escape),
 reload(InputKey::Keyboard::R), heroPtr(nullptr), bunnyPtr(nullptr)
-/*background(nullptr),
-),bunnyPtr(nullptr)
-gameObjectManager(nullptr)
-lives(3)*/
 {}
 
 void Level1::Load()
@@ -30,18 +26,15 @@ void Level1::Load()
 
 	heroPtr = new Hero({ -6,0 });
 
-	
 	std::map<int, std::vector<long double>> mid_info;
 
 	mid_info = m.MidiSetUp(Engine::GetMusic().MUSIC_CANON);
 
 	Engine::GetGameStateManager().gameObjectManager.Add(heroPtr);
 
-	//Engine::GetGameStateManager().gameObjectManager.Add(bunnyPtr);
 	Engine::GetGameStateManager().gameObjectManager.Add(new Note_box({-4,0}));
 
 	Engine::GetGameStateManager().gameObjectManager.Add(new Track(mid_info));
-
 
 }
 void Level1::Update(double dt)
@@ -66,12 +59,7 @@ void Level1::Unload()
 
 void Level1::Draw()
 {
-
-	//background.Draw(camera);
-	//math::TransformMatrix cameraMatrix = camera.GetMatrix();
 	glClear(GL_COLOR_BUFFER_BIT);
-	glClearColor(1.0, 1.0, 1.0, 1.0);
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	Engine::GetGameStateManager().gameObjectManager.DrawAll();
-	//math::ivec2 winSize = Engine::GetWindow().GetSize();
-	
 }

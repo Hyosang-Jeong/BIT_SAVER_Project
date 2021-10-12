@@ -4,8 +4,8 @@ Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 File Name: Engine.cpp
 Purpose: This is the service provider for our games engine services
-Project: CS230
-Author: Hyosang Jung
+Project: BIT_SAVER
+Author: 
 Creation date: 2021-03-07
 -----------------------------------------------------------------*/
 #include"Engine.h"
@@ -23,22 +23,12 @@ Engine::~Engine() {}
 
 void Engine::Init(std::string windowName)
 {
-	//if (!GLHelper::init(1780, 980, "BIT_SAVER"))
-	//{
-	//	std::cout << "Unable to create OpenGL context" << std::endl;
-	//	std::exit(EXIT_FAILURE);
-	//}
-
-	time_t seed = time(NULL);
 	logger.LogEvent("Engine Init");
 	window.Init(1600, 1000,windowName);
 
 	init_shdrpgms();
 
 	fpsCalcTime = lastTick;
-	srand(static_cast<unsigned int>(seed));
-	logger.LogEvent("Seed = " + std::to_string(seed));
-
 
 	GLModel model;
 	model.set_name("Basic_model");
@@ -47,7 +37,6 @@ void Engine::Init(std::string windowName)
 	models["Basic_model"] = model;
 
 	Engine::GetMusic().Init();
-
 }
 
 void Engine::Shutdown()
@@ -125,9 +114,4 @@ void Engine::init_shdrpgms()
 //bool Engine::HasGameEnded()
 //{
 //	//return  gameStateManager.HasGameEnded();
-//}
-
-//void Engine::AddSpriteFont(const std::filesystem::path& fileName)
-//{
-//	//fonts.push_back(fileName);
 //}

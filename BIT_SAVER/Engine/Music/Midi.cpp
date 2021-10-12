@@ -163,7 +163,7 @@ std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
     one_tick_per_tempo = (tempo_data * 0.000001) / m_ticksPerQuarterNote;
 
     std::map<int, std::vector<long double>> track_seconds_;
-    for (int i = 1; i < tracks; i++)
+    for (int i = 1; i < tracks+1; i++)
     {
         std::vector<long double> dt_to_seconds;
         for (auto& m : m_events)

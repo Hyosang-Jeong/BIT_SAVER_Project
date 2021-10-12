@@ -3,13 +3,12 @@ Copyright (C) 2021 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 File Name: GameObjectManager.cpp
-Project: CS230
-Author: Hyosang Jung
+Project: BIT_SAVER
+Author: 
 Creation date: 4/15/2021
 -----------------------------------------------------------------*/
 #include"GameObjectManager.h"
 #include"GameObject.h"   // gameobject
-#include"..\Math\TransformMatrix.h"  //TransformMatrix
 
 void GameObjectManager::Add(GameObject* obj)
 {

@@ -3,8 +3,8 @@ Copyright (C) 2021 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 File Name: Hero.h
-Project: CS230
-Author: Kevin Wright
+Project: BIT_SAVER
+Author: 
 Creation date: 2/11/2021
 -----------------------------------------------------------------*/
 #pragma once
@@ -29,17 +29,21 @@ private:
     InputKey moveDownKey;
    InputKey moveLeftKey;
    InputKey moveRightKey;
-
    InputKey AttackKey;
 
+   Texture Hit_tex;
+   Texture Miss_tex;
     static constexpr double acceleration = 1;
     static constexpr double drag = 500;
     static constexpr double max_velocity = 500;
     static constexpr double jumpVelocity = 1000;
-    //const CS230::Camera& camera;
+    //const BIT_SAVER::Camera& camera;
 
     bool move_release_frag[4] = { false };
     bool attack_pressed = false;
+
+    bool Hit[2] = { false };   //Hit check flag
+    glm::vec2 Hit_pos[2] = { {-20,-20},{-20,-20} }; //Track1 and Track2  // intial pos -20,-20 => not to draw initail state 
     void UpdateXVelocity(double dt);     //Change X velocity stuff
     void Attack_Check();
 };

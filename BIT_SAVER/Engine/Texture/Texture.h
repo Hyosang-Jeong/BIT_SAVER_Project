@@ -4,8 +4,8 @@ Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 File Name: Texture.h
 Purpose: Wrapper class for doodle::Image
-Project: CS230
-Author: Kevin Wright
+Project: BIT_SAVER
+Author: 
 Creation date: 2/11/2021
 -----------------------------------------------------------------*/
 #pragma once
@@ -17,17 +17,15 @@ Creation date: 2/11/2021
 #include<map>
 class Texture
 {
-    //friend class TextureManager;
 public:
     Texture() = default;
     void Draw(glm::mat3 displayMatrix,std::string mdl_name, std::string shdr_name);
-    //void Draw(math::TransformMatrix displayMatrix, math::ivec2 texelPos, math::ivec2 frameSize);
+    void Draw(double world_range, std::string mdl_name, std::string shdr_name, glm::vec2 pos, glm::vec2 scale = { 1,1 }, glm::vec2 rotate = { 0,0 });
     glm::vec2 GetSize();
     void setup_texobj(const char* pathname);
 
 private:
-  //  Texture(const std::filesystem::path& filePath);
-   // Texture(doodle::Image&& doodleImage);
     GLuint tex_obj;
     glm::vec2 texture_size{ 0,0 };
+
 };

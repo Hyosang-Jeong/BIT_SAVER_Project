@@ -4,14 +4,12 @@
 #include<vector>
 void GLModel::set_name(std::string model_name)
 {
-    //Author: Hyosang Jung
-   //Set model's name
     name = model_name;
 }
 
-void GLModel::init() //now for hero only
+void GLModel::init()
 {
-    // author: Hyosang Jung
+
    // init model from meshes file 
     std::array<glm::vec2, 4> pos_vtx
     {
