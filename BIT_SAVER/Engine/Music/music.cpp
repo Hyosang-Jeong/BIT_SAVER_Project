@@ -4,41 +4,60 @@
 #include <sstream>
 #include <vector>
 #include "../../Engine/Input/Input.h"
+#include "../Engine.h"
 
 using namespace std;
 
 void Music::Init()
 {
-    MusicName.push_back("../sound/boss.mp3");
-    //MusicName.push_back("something");
+    result = FMOD::System_Create(&pSystem[0]);
+    result = FMOD::System_Create(&pSystem[1]);
+    if (result != FMOD_OK) {
+        Engine::GetLogger().LogError("Error: FMOD_system are not created!");
+        exit(EXIT_FAILURE);
+    }
 
-    System_Create(&pSystem);
-    pSystem->init(MUSIC_END+1, FMOD_INIT_NORMAL, NULL);
+    MusicName.push_back("../sound/boss.mp3");
+    MusicName.push_back("../sound/button1.mp3");
+
+    for (int i = 0; i < MUSIC_END; i++)
+    {
+        result = pSystem[i]->init(MUSIC_END, FMOD_INIT_NORMAL, NULL);
+        if (result != FMOD_OK) {
+            Engine::GetLogger().LogError("Error: FMOD_system are not initiated!");
+            exit(EXIT_FAILURE);
+        }
+    }
+
     for (int i = 0; i < MusicName.size(); i++)
     {
-        pSystem->createSound(MusicName[i], FMOD_DEFAULT, NULL, &pSound[i]);
+        result = pSystem[i]->createSound(MusicName[i], FMOD_DEFAULT, NULL, &pSound[i]);
+        if (result != FMOD_OK) {
+            Engine::GetLogger().LogError("Error: FMOD_system are not created sound at track num: ");
+            std::cout << i;
+            exit(EXIT_FAILURE);
+        }
     }
-    
 }
 
 void Music::Play(int Sound_num)
 {
-    pSystem->playSound(pSound[Sound_num], NULL, 0, &pChannel);
+    pSystem[Sound_num]->playSound(pSound[Sound_num], NULL, 0, &pChannel[Sound_num]);
 }
 
 void Music::Stop()
 {
-    pChannel->stop();
+    pChannel[0]->stop();
 }
 
 void Music::Resume()
 {
-    pChannel->setPaused(false);
+    pChannel[0]->setPaused(false);
 }
 
 void Music::Pause()
 {
-    pChannel->setPaused(true);
+    pChannel[0]->setPaused(true);
 }
 
 void Music::volumeUp()
@@ -46,7 +65,7 @@ void Music::volumeUp()
     if (volume < SOUND_MAX) {
         volume += SOUND_WEIGHT;
     }
-    pChannel->setVolume(volume);
+    pChannel[0]->setVolume(volume);
 }
 
 void Music::volumeDown()
@@ -54,13 +73,17 @@ void Music::volumeDown()
     if (volume > SOUND_MIN) {
         volume -= SOUND_WEIGHT;
     }
-    pChannel->setVolume(volume);
+    pChannel[0]->setVolume(volume);
 }
 
 void Music::Release()
 {
-    pSystem->close();
-    pSystem->release();
+    for (int i = 0; i < MusicName.size(); i++)
+    {
+        pSystem[i]->close();
+        pSystem[i]->release();
+    }
+
 }
 
 

@@ -104,7 +104,13 @@ void Hero::Attack_Check()
 				{
 					Engine::GetLogger().LogEvent("Note and Note box collided");
 					if (object->GetPosition().y == Getposition().y && AttackKey.IsKeyDown() == true && attack_pressed == false)
-					{
+					{  
+					    while (true)
+					    {
+						Engine::GetMusic().Play(1);
+						Engine::GetMusic().pSystem[1]->update();
+						break;
+					    }
 						if (Getposition().y == 5)  
 						{
 							Hit[0] = true;
