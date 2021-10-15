@@ -13,6 +13,9 @@ std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
     case Music::SOUND_NUM::MUSIC_CANON:
         midi_filename = "boss.mid";
         break;
+    case Music::SOUND_NUM::ENERGY:
+        midi_filename = "energy.mid";
+        break;
     default:
         break;
     }
@@ -20,6 +23,7 @@ std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
     std::ifstream input{ midi_filename, std::ios::binary };
     if (!input)
     {
+        Engine::GetLogger().LogError("MIDI file cannot open!");
         exit(EXIT_FAILURE);
     }
     int        character;//for extract MThd or Mtrk
@@ -166,6 +170,21 @@ std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
     if (music_num == Music::SOUND_NUM::MUSIC_CANON)
     {
         for (int i = 3; i < 17; i++)
+        {
+            std::vector<long double> dt_to_seconds;
+            for (auto& m : m_events)
+            {
+                if (m.track == i)
+                {
+                    dt_to_seconds.push_back(m.tick * one_tick_per_tempo);
+                }
+            }
+            track_seconds_.emplace(i, dt_to_seconds);
+        }
+    }
+    if (music_num == Music::SOUND_NUM::ENERGY)
+    {
+        for (int i = 1; i < 21; i++)
         {
             std::vector<long double> dt_to_seconds;
             for (auto& m : m_events)

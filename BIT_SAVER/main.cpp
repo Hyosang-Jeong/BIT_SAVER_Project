@@ -21,8 +21,7 @@ int main()
 
 	{
 		engine.Update();
-		Engine::GetMusic().Play(0);
-		Engine::GetMusic().pSystem[0]->update();
+
 	}
 
 	engine.Shutdown();

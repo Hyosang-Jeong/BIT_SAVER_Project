@@ -10,24 +10,18 @@ using namespace std;
 
 void Music::Init()
 {
-    result = FMOD::System_Create(&pSystem[0]);//Music
-    result = FMOD::System_Create(&pSystem[1]);//SFX
-    if (result != FMOD_OK) {
-        Engine::GetLogger().LogError("Error: FMOD_system are not created!");
-        exit(EXIT_FAILURE);
-    }
 
-    MusicName.push_back("../sound/boss.mp3");
-    MusicName.push_back("../sound/button1.mp3");
+
     for (int i = 0; i < MUSIC_END; i++)
     {
+        result = FMOD::System_Create(&pSystem[i]);
         result = pSystem[i]->init(MUSIC_END, FMOD_INIT_NORMAL, NULL);
     }
 
-    if (result != FMOD_OK) {
-        Engine::GetLogger().LogError("Error: FMOD_system are not initiated!");
-        exit(EXIT_FAILURE);
-    }
+    MusicName.push_back("../sound/boss.mp3");
+    MusicName.push_back("../sound/Energy.mp3");
+    MusicName.push_back("../sound/button1.mp3");
+
 
     for (int i = 0; i < MusicName.size(); i++)
     {

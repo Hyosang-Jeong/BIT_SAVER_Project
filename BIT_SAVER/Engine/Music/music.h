@@ -18,6 +18,7 @@ public:
     enum SOUND_NUM
     {
         MUSIC_CANON = 0,
+        ENERGY,
         SOUND_EFFECT1,
         MUSIC_END
     };
@@ -32,10 +33,10 @@ public:
     void volumeUp();
     void volumeDown();
     void Release();
-    FMOD::Channel* pChannel[MUSIC_END]{};
-    FMOD_RESULT result;
     FMOD::System* pSystem[MUSIC_END]{};
+    FMOD::Channel* pChannel[MUSIC_END]{};
     FMOD::Sound* pSound[MUSIC_END]{};
+    FMOD_RESULT result;
 private:
     float volume;
 
