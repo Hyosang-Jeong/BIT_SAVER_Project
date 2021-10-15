@@ -27,14 +27,15 @@ void Note_box::ResolveCollision(GameObject* test_obj)
 	{
 		if (test_obj->GetPosition().y == attack_ypos)
 		{
+		    while (true)
+		    {
+			Engine::GetMusic().Play(Music::SOUND_NUM::SOUND_EFFECT1);
+			Engine::GetMusic().pSystem[Music::SOUND_NUM::SOUND_EFFECT1]->update();
+			break;
+		    }
 			if (attack_ypos == 5)
 			{
-				while (true)
-				{
-					Engine::GetMusic().Play(1);
-					Engine::GetMusic().pSystem[1]->update();
-					break;
-				}
+
 				Hit[0] = true;
 				Hit_pos[0] = test_obj->GetPosition();
 				test_obj->set_destroy(true);
