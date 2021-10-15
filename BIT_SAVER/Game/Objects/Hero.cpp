@@ -20,7 +20,7 @@ Hero::Hero(glm::vec2 startPos) :
     AttackKey(InputKey::Keyboard::Space),
     VolumeUp(InputKey::Keyboard::U),
     VolumeDown(InputKey::Keyboard::D),
-    GameObject(startPos, 0, glm::vec2{ 2,2 })
+    GameObject(startPos,  glm::vec2{ 2,2 })
 {
 	texture.setup_texobj("../images/extra1.png");
 }

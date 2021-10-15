@@ -60,4 +60,8 @@ void Camera::Dynamic_movement(bool start, double dt)
         pos *= -1;
         dynamic_move = true;
     }
+    if (timer < 0)
+    {
+        position = { 0,0 };
+    }
 }
