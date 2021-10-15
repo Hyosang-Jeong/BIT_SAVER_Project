@@ -9,8 +9,6 @@ Author:
 Creation date: 2/11/2021
 -----------------------------------------------------------------*/
 #pragma once
-
-#include"..\Math\TransformMatrix.h"  // display matrix
 #include<GL/glew.h>
 #include<string>
 #include<glm/glm.hpp>

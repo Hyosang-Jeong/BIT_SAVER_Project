@@ -17,6 +17,7 @@ void Window::Init(GLint wid, GLint hei,std::string windowName)
     Window::height = hei;
     Window::title = windowName;
     windowSize = { width,height };
+
     if (!glfwInit()) 
     {
         std::cout << "GLFW init has failed - abort program!!!" << std::endl; 

@@ -17,7 +17,7 @@ Hero::Hero(glm::vec2 startPos) :
 	moveUpKey(InputKey::Keyboard::Up),
 	moveDownKey(InputKey::Keyboard::Down),
 	AttackKey(InputKey::Keyboard::Space),
-	GameObject(startPos, 0, glm::vec2{ 1,1 })
+	GameObject(startPos, 0, glm::vec2{ 2,2 })
 {
 	texture.setup_texobj("../images/extra1.png");
 	Hit_tex.setup_texobj("../images/Hit_star.png");
@@ -96,15 +96,14 @@ void Hero::Attack_Check()
 				break;
 			}
 		}
-		std::cout << Getposition().x << "         " /*<< Getposition().x*/ << std::endl;
-		//Collision check
 		for (auto& object : Engine::GetGameStateManager().gameObjectManager.GetgameObjects())
 		{
 			if (object->GetObjectType() == GameObjectType::Note)
 			{
 				if (Engine::GetGameStateManager().gameObjectManager.collision_check(Note_collision_box, object) == true)
 				{
-					if (object->GetPosition().y == Getposition().y && AttackKey.IsKeyDown() == true)
+					Engine::GetLogger().LogEvent("Note and Note box collided");
+					if (object->GetPosition().y == Getposition().y && AttackKey.IsKeyDown() == true && attack_pressed == false)
 					{
 						if (Getposition().y == 5)  
 						{
@@ -117,6 +116,7 @@ void Hero::Attack_Check()
 							Hit_pos[1] = object->GetPosition();
 				     	}
 						object->set_destroy(true);
+						attack_pressed = true;
 					}
 				}
 				if (Note_collision_box != nullptr)
@@ -131,6 +131,7 @@ void Hero::Attack_Check()
 						}
 						else
 						{
+							Hit[1] = false;
 							Hit_pos[1].x = Note_collision_box->GetPosition().x - Note_collision_box->GetTexturetoNDC().x / 2.0f;
 							Hit_pos[1].y = object->GetPosition().y;
 						}
@@ -138,7 +139,7 @@ void Hero::Attack_Check()
 				}
 			}
 		}
-		attack_pressed = true;
+
 		if (AttackKey.IsKeyReleased() == true)
 		{
 			attack_pressed = false;

@@ -20,9 +20,6 @@
     <ClCompile Include="Engine\Input\Input.cpp">
       <Filter>Engine\Input</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Math\TransformMatrix.cpp">
-      <Filter>Engine\Math</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Music\music.cpp">
       <Filter>Engine\Music</Filter>
     </ClCompile>
@@ -90,12 +87,6 @@
     </ClInclude>
     <ClInclude Include="Engine\Texture\Texture.h">
       <Filter>Engine\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Math\TransformMatrix.h">
-      <Filter>Engine\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Math\Vec2.h">
-      <Filter>Engine\Math</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Music\music.h">
       <Filter>Engine\Music</Filter>
@@ -168,9 +159,6 @@
     <Filter Include="Engine\Logger">
       <UniqueIdentifier>{7ef0ac42-7e6a-4e80-bc43-d03296eb5e0e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Math">
-      <UniqueIdentifier>{40e02902-b89e-4913-a01d-22f066132359}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Music">
       <UniqueIdentifier>{eca965c5-c808-4fee-bbfa-9855ff33f04e}</UniqueIdentifier>
     </Filter>
@@ -183,10 +171,5 @@
     <Filter Include="Game\Objects">
       <UniqueIdentifier>{5cc8c5b7-fe08-46e8-a483-cef650b1f2e8}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Engine\Math\Vec2.inl">
-      <Filter>Engine\Math</Filter>
-    </None>
   </ItemGroup>
 </Project>

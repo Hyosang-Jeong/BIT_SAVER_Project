@@ -9,7 +9,7 @@ using namespace std;
 
 void Music::Init()
 {
-    MusicName.push_back("../sound/canon.wav");
+    MusicName.push_back("../sound/boss.mp3");
     //MusicName.push_back("something");
 
     System_Create(&pSystem);

@@ -11,7 +11,7 @@ std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
     switch (music_num)
     {
     case Music::SOUND_NUM::MUSIC_CANON:
-        midi_filename = "canon.mid";
+        midi_filename = "boss.mid";
         break;
     default:
         break;

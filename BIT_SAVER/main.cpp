@@ -6,9 +6,9 @@
 #include"Game\Levels\Level1.h"
 #include"Engine/Input/Input.h"
 
-Engine& engine = Engine::Instance();
 int main()
 {
+	Engine& engine = Engine::Instance();
 	engine.Init("Bit_Saver");
 	InputKey exit(InputKey::Keyboard::Enter);
 

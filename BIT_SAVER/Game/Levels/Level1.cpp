@@ -60,6 +60,6 @@ void Level1::Unload()
 void Level1::Draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClearColor(0.36f, 0.36f, 0.52f, 1.0f);
 	Engine::GetGameStateManager().gameObjectManager.DrawAll();
 }

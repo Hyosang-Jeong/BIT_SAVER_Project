@@ -26,16 +26,16 @@ Track::Track(std::map<int, std::vector<long double>> mid_info) : GameObject({ 0,
 	}
 	std::sort(begin(time), end(time));
 
-	//long double t{ time[0] };
-	//time.erase(std::remove_if(begin(time) + 1, end(time), [&](auto time_t)
-	//	{
-	//		if (time_t - t < 0.5)
-	//			return true;
-	//		else {
-	//			t = time_t;
-	//			return false;
-	//		}
-	//	}), end(time));
+	long double t{ time[0] };
+	time.erase(std::remove_if(begin(time) + 1, end(time), [&](auto time_t)
+		{
+			if (time_t - t < 0.35)
+				return true;
+			else {
+				t = time_t;
+				return false;
+			}
+		}), end(time));
 
 	double target_time = 14.0 / -10;
 
