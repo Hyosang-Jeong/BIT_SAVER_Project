@@ -7,18 +7,18 @@ Project: BIT_SAVER
 Author: 
 Creation date: 3/14/2021
 -----------------------------------------------------------------*/
-#include"Bunny.h"
+#include"Boss.h"
 #include"../Engine/Engine.h" //get window
 #include"..\Levels\Level1.h"  // Level1's gravity
 
 
-Bunny::Bunny(glm::vec2 startPos) :
+Boss::Boss(glm::vec2 startPos) :
 	moveLeftKey(InputKey::Keyboard::Left),
 	moveRightKey(InputKey::Keyboard::Right),
 	moveUpKey(InputKey::Keyboard::Up),
 	moveDownKey(InputKey::Keyboard::Down),
 	jumpKey(InputKey::Keyboard::Up),
-	GameObject(startPos, 0, { 0.1,0.1 })
+	GameObject(startPos, glm::vec2{ -2,2 })
 {
 	texture.setup_texobj("../images/stickman.png");
 	mdl_ref = Engine::GetGLModel().find("Basic_model");
@@ -27,43 +27,18 @@ Bunny::Bunny(glm::vec2 startPos) :
 }
 
 
-void Bunny::Update(double dt)
+void Boss::Update(double dt)
 {
 	GameObject::Update(dt);
 }
 
-void Bunny::Draw()
+void Boss::Draw(glm::mat3 )
 {
-	texture.Draw(mdl_to_ndc_xform, "Basic_model", "Hero");
+	texture.Draw(mdl_to_ndc_xform , "Basic_model", "Hero");
 }
 
 
-glm::vec2 Bunny::Getposition()
+glm::vec2 Boss::Getposition()
 {
 	return GameObject::GetPosition();
-}
-
-void Bunny::UpdateXVelocity(double dt)
-{
-	if (moveLeftKey.IsKeyDown() == true)
-	{
-		UpdatePosition({ -dt, 0 });
-		SetScale(glm::vec2{ 0.1, 0.1 });
-	}
-
-	else if (moveRightKey.IsKeyDown() == true)
-	{
-		UpdatePosition({ dt, 0 });
-		SetScale(glm::vec2{ -0.1, 0.1 });
-	}
-
-	if (moveUpKey.IsKeyDown() == true)
-	{
-		UpdatePosition({ 0,dt });
-	}
-
-	else if (moveDownKey.IsKeyDown() == true)
-	{
-		UpdatePosition({ 0,-dt });
-	}
 }

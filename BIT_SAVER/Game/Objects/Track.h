@@ -19,13 +19,17 @@ public:
     Track(std::map<int, std::vector<long double>>);
     void Update(double dt) override;
     glm::vec2 Getposition();
-    void Draw() override;
+    const bool GetNote_flag() const;
+    std::pair<glm::vec2, glm::vec2>GetNoteinfo();
+    void Set_Note_flag(bool value);
     GameObjectType GetObjectType() override
     {
         return GameObjectType::Track;
     }
 private:
-
     std::map<int, std::vector<long double>> track_info;
-    double timer = 0;
+    bool generate_note{ false };
+    glm::vec2 note_pos{ 0 };
+    glm::vec2 note_vel{ 0 };
+    double timer{ 0 };
 };

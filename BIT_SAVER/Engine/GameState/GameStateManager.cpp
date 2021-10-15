@@ -82,10 +82,7 @@ void GameStateManager::Update(double dt)
 	case State::UNLOAD:
 	{
 		Engine::GetLogger().LogEvent("Unload " + currGameState->GetName());
-		//if (currGameState != nextGameState)
-		//{
-		//	Engine::GetTextureManager().Unload();
-		//}
+
 		currGameState->Unload();
 
 		if (nextGameState == nullptr)
@@ -103,5 +100,7 @@ void GameStateManager::Update(double dt)
 		state = State::EXIT;
 		break;
 	}
+
+
 	}
 }

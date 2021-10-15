@@ -4,7 +4,7 @@ Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 File Name: GameObjectManager.cpp
 Project: BIT_SAVER
-Author: 
+Author:
 Creation date: 4/15/2021
 -----------------------------------------------------------------*/
 #include"GameObjectManager.h"
@@ -31,12 +31,12 @@ void GameObjectManager::UpdateAll(double dt)
 	for (GameObject* a : gameObjects)
 	{
 		a->Update(dt);
+		collision_check(a);
 		if (a->Destroy() == true)
 		{
 			removelist.push_back(a);
 		}
 	}
-
 	for (GameObject* remove : removelist)
 	{
 		gameObjects.remove(remove);
@@ -44,29 +44,34 @@ void GameObjectManager::UpdateAll(double dt)
 	}
 }
 
-void GameObjectManager::DrawAll()
+void GameObjectManager::DrawAll(glm::mat3 camera_matrix)
 {
 	for (GameObject* a : gameObjects)
 	{
-		a->Draw();
+		a->Draw(camera_matrix);
 	}
 }
 
-bool GameObjectManager::collision_check(GameObject* object1, GameObject* object2)
+void GameObjectManager::collision_check(GameObject* object)
 {
-	AABB Box1 = object1->GetAABB();
-	AABB Box2 = object2->GetAABB();
+	AABB Box1 = object->GetCollisionbox();
 
-
-	if (Box1.max.x < Box2.min.x || Box1.min.x > Box2.max.x)
+	for (auto& test_object : gameObjects)
 	{
-		return false;
+		bool is_collided = true;
+		AABB Box2 = test_object->GetCollisionbox();
+		if (Box1.max.x < Box2.min.x || Box1.min.x > Box2.max.x)
+		{
+			is_collided = false;
+		}
+		if ((Box1.max.y < Box2.min.y || Box1.min.y > Box2.max.y))
+		{
+			is_collided = false;
+		}
+		if (is_collided == true)
+		{
+			object->ResolveCollision(test_object);
+		}
 	}
-
-	if ((Box1.max.y < Box2.min.y || Box1.min.y > Box2.max.y))
-	{
-		return false;
-	}
-	return true;
 }
 

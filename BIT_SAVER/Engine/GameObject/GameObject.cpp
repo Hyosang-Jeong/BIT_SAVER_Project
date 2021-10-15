@@ -9,12 +9,17 @@ Creation date: 4/16/2021
 -----------------------------------------------------------------*/
 #include"GameObject.h"
 #include"../Engine.h"
-GameObject::GameObject(glm::vec2 position) : GameObject(position, 0, { 1, 1 }) {}
+GameObject::GameObject(glm::vec2 position) : GameObject(position,  { 1, 1 }) {}
 
-GameObject::GameObject(glm::vec2 position, double rotation, glm::vec2 scale)
+GameObject::GameObject(glm::vec2 position, glm::vec2 scale)
     : velocity{ 0,0 }, position(position), updateMatrix(true),
-    scale(scale), rotation(rotation)
+    scale(scale),collision(scale)
 {}
+
+void GameObject::ResolveCollision(GameObject* )
+{
+    return;
+}
 
 void GameObject::Update(double dt)
 {
@@ -50,19 +55,14 @@ void GameObject::Update(double dt)
        0,  1 / world_range ,0,
        0,0,1
    };
-
-   texture_ndc = scale * 2.f;
-   collision_box.min = { position.x - (texture_ndc.x/2.f), position.y - (texture_ndc.y/2.f) };
-   collision_box.max = { position.x + (texture_ndc.x/2.f ), position.y + (texture_ndc.y/2.f) };
-
+   collision.UpdateCollision(position);
+   texture_ndc = scale / 2.f;
     mdl_to_ndc_xform = ndcscale_matrix* trans_matrix  *rotation_matrix* scale_matrix;
 }
 
-void GameObject::Draw() 
+void GameObject::Draw(glm::mat3 )
 {
 }
-
-
 
 const glm::mat3& GameObject::GetMatrix()
 {
@@ -100,14 +100,9 @@ const glm::vec2& GameObject::GetTexturetoNDC() const
     return texture_ndc;
 }
 
-const AABB& GameObject::GetAABB() const
+const AABB GameObject::GetCollisionbox() const
 {
-    return collision_box;
-}
-
-double GameObject::GetRotation() const
-{
-    return rotation;
+    return collision.GetAABB();
 }
 
 void GameObject::UpdateVelocity(glm::vec2 adjustPosition)
@@ -126,18 +121,6 @@ void GameObject::SetScale(glm::vec2 newScale)
     };
 
     mdl_to_ndc_xform *= scale_matrix;
-    updateMatrix = true;
-}
-
-void GameObject::SetRotation(double newRotationAmount)
-{
-    rotation = newRotationAmount;
-    updateMatrix = true;
-}
-
-void GameObject::UpdateRotation(double newRotationAmount)
-{
-    rotation += newRotationAmount;
     updateMatrix = true;
 }
 

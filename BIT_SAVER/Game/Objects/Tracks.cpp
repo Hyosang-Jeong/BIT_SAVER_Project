@@ -8,11 +8,9 @@ Author:
 Creation date: 3/14/2021
 -----------------------------------------------------------------*/
 #include"Track.h"
-#include"../Engine/Engine.h" //get window
-#include"Notes.h"
+#include<algorithm>
 
-
-Track::Track(std::map<int, std::vector<long double>> mid_info) : GameObject({ 0,0 }, 0, glm::vec2{ 0.1,0.1 })
+Track::Track(std::map<int, std::vector<long double>> mid_info) : GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 })
 {
 
 	std::vector<long double> time;
@@ -63,22 +61,31 @@ void Track::Update(double dt)
 		{
 			if (timer > j)
 			{
-				//0 ->-5    1-> 5
-				Engine::GetGameStateManager().gameObjectManager.Add(new Note({ 10, (i.first-0.5) * 10 }, { -10,0 }));
-				//std::cout << "Track num: "<<track_num << "      time: " << i << "       timer: " << timer << std::endl;
+				generate_note = true;
+				note_pos = { 10, (i.first - 0.5) * 10 };
+				note_vel = { -10,0 };
 				i.second.erase(i.second.begin());
 			}
 		}
 	}
-
 }
-
-void Track::Draw()
-{
-}
-
 
 glm::vec2 Track::Getposition()
 {
 	return GameObject::GetPosition();
+}
+
+const bool Track::GetNote_flag() const
+{
+	return generate_note;
+}
+
+std::pair<glm::vec2, glm::vec2> Track::GetNoteinfo()
+{
+	return { note_pos, note_vel };
+}
+
+void Track::Set_Note_flag(bool value)
+{
+	generate_note = value;
 }

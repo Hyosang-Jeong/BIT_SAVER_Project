@@ -35,7 +35,7 @@
     <ClCompile Include="Engine\Engine.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Objects\Bunny.cpp">
+    <ClCompile Include="Game\Objects\Boss.cpp">
       <Filter>Game\Objects</Filter>
     </ClCompile>
     <ClCompile Include="Game\Objects\Hero.cpp">
@@ -58,6 +58,12 @@
     </ClCompile>
     <ClCompile Include="Game\Objects\Note_collisionBox.cpp">
       <Filter>Game\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Physics\Collision.cpp">
+      <Filter>Engine\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Physics\Camera.cpp">
+      <Filter>Engine\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -100,7 +106,7 @@
     <ClInclude Include="Engine\Engine.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Objects\Bunny.h">
+    <ClInclude Include="Game\Objects\Boss.h">
       <Filter>Game\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Game\Objects\Hero.h">
@@ -126,6 +132,12 @@
     </ClInclude>
     <ClInclude Include="Game\Objects\GameObjectType.h">
       <Filter>Game\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Physics\Collision.h">
+      <Filter>Engine\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Physics\Camera.h">
+      <Filter>Engine\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +182,9 @@
     </Filter>
     <Filter Include="Game\Objects">
       <UniqueIdentifier>{5cc8c5b7-fe08-46e8-a483-cef650b1f2e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Physics">
+      <UniqueIdentifier>{a9bf34ab-70f9-4d48-844d-54443924aefe}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

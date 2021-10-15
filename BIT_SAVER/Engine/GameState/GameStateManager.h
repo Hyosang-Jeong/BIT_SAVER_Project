@@ -25,9 +25,9 @@ Creation date: 2/10/2021
 		void ReloadState();
 		bool HasGameEnded() { return state == State::EXIT; }
 
-		GameObjectManager gameObjectManager;
 	private:
-		enum class State {
+		enum class State
+		{
 			START,
 			LOAD,
 			UPDATE,

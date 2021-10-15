@@ -10,6 +10,7 @@ Creation date: 2/14/2021
 #pragma once
 #include<list>
 #include"../../Game/Objects/GameObjectType.h"
+#include<glm/glm.hpp>
 class GameObject;
 
 class GameObjectManager
@@ -19,8 +20,8 @@ public:
 	void Unload();
 
 	void UpdateAll(double dt);
-	void DrawAll();
-	bool collision_check(GameObject* object1, GameObject*object2);
+	void DrawAll(glm::mat3 camera_matrix);
+	void collision_check(GameObject* object);
 
 	std::list<GameObject*> GetgameObjects() { return gameObjects; }
 private:

@@ -10,9 +10,11 @@ Creation date: 3/07/2021
 #include "..\Engine\GameState\GameState.h" // BIT_SAVER::GameState
 #include "..\Engine\GameObject\GameObjectManager.h" // gameobjectmanager
 #include"..\Engine\Input\Input.h"  //input key
-
+#include"..\..\Engine\Physics\Camera.h"
 class Hero;
-class Bunny;
+class Boss;
+class Track;
+class Note_box;
 class Level1 : public GameState
 {
 public:
@@ -25,9 +27,11 @@ public:
 private:
 	static constexpr double floor = 126.0f;
 	InputKey mainMenu;
-	InputKey reload;
 
 	Hero* heroPtr;
-	Bunny* bunnyPtr;
-
+	Boss* bossPtr;
+	Track* trackPtr;
+	Note_box* notebox;
+	Camera camera;
+	GameObjectManager gameObjectManager;
 };

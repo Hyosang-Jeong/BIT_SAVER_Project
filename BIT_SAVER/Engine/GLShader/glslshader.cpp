@@ -1,38 +1,19 @@
-/* !
-@file    glslshader.h
-@author  pghali@digipen.edu
-@date    06/11/2016
-
-Note: The contents of this file must not be updated by students. Otherwise,
-something that works for you will not work for me. If you want something to be
-modified, updated, or altered and it is useful for the entire class, please
-speak to me.
-
-This file contains definitions of member functions of class GLShader.
-Please see the class declaration for information about these functions.
-
-*//*__________________________________________________________________________*/
-
 #include"glslshader.h"
-GLint
-GLSLShader::GetUniformLocation(GLchar const *name) {
+GLint GLSLShader::GetUniformLocation(GLchar const *name) {
   return glGetUniformLocation(pgm_handle, name); 
 }
 
-GLboolean
-GLSLShader::FileExists(std::string const& file_name) {
+GLboolean GLSLShader::FileExists(std::string const& file_name) {
   std::ifstream infile(file_name); return infile.good();
 }
 
-void
-GLSLShader::DeleteShaderProgram() {
+void GLSLShader::DeleteShaderProgram() {
   if (pgm_handle > 0) {
     glDeleteProgram(pgm_handle);
   }
 }
 
-GLboolean
-GLSLShader::CompileLinkValidate(std::vector<std::pair<GLenum, std::string>> vec) {
+GLboolean GLSLShader::CompileLinkValidate(std::vector<std::pair<GLenum, std::string>> vec) {
   for (auto& elem : vec) {
     if (GL_FALSE == CompileShaderFromFile(elem.first, elem.second.c_str())) {
       return GL_FALSE;
@@ -50,8 +31,7 @@ GLSLShader::CompileLinkValidate(std::vector<std::pair<GLenum, std::string>> vec)
   return GL_TRUE;
 }
 
-GLboolean
-GLSLShader::CompileShaderFromFile(GLenum shader_type, const std::string& file_name) {
+GLboolean GLSLShader::CompileShaderFromFile(GLenum shader_type, const std::string& file_name) {
   if (GL_FALSE == FileExists(file_name)) {
     log_string = "File not found";
     return GL_FALSE;
@@ -75,8 +55,7 @@ GLSLShader::CompileShaderFromFile(GLenum shader_type, const std::string& file_na
   return CompileShaderFromString(shader_type, buffer.str());
 }
 
-GLboolean
-GLSLShader::CompileShaderFromString(GLenum shader_type, 
+GLboolean GLSLShader::CompileShaderFromString(GLenum shader_type, 
   const std::string&                       shader_src) {
   if (pgm_handle <= 0) {
     pgm_handle = glCreateProgram();

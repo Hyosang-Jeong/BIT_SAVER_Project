@@ -20,7 +20,7 @@ void Window::Init(GLint wid, GLint hei,std::string windowName)
 
     if (!glfwInit()) 
     {
-        std::cout << "GLFW init has failed - abort program!!!" << std::endl; 
+        Engine::GetLogger().LogError("GLFW init has failed - abort program!!!");
     }
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -37,32 +37,20 @@ void Window::Init(GLint wid, GLint hei,std::string windowName)
 
    glfwSetFramebufferSizeCallback(ptr_window, fbsize_cb);
    glfwSetKeyCallback(ptr_window, key_cb);
-  // glfwSetMouseButtonCallback(ptr_window,mousebutton_cb);
-//   glfwSetCursorPosCallback(ptr_window, mousepos_cb);
- //  glfwSetScrollCallback(ptr_window, mousescroll_cb);
 
    // this is the default setting ...
    glfwSetInputMode(ptr_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
-   // Part 2: Initialize entry points to OpenGL functions and extensions
    GLenum err = glewInit();
 
    if (GLEW_OK != err) 
    {
-       std::cerr << "Unable to initialize GLEW - error: ";
-       //    << glewGetErrorString(err) << " abort program" << std::endl;
-       //return false;
+       Engine::GetLogger().LogError("Unable to initialize GLEW - error: ");
    }
-   if (GLEW_VERSION_4_5) {
-       std::cout << "Using glew version: " << glewGetString(GLEW_VERSION) << std::endl;
-       std::cout << "Driver supports OpenGL 4.5\n" << std::endl;
-   }
-   else 
+   if (!GLEW_VERSION_4_5) 
    {
-       std::cerr << "Driver doesn't support OpenGL 4.5 - abort program" << std::endl;
-       //return false;
+       Engine::GetLogger().LogError("Driver doesn't support OpenGL 4.5 - abort program");
    }
-   //return true;
 }
 void Window::Update() 
 {
@@ -84,11 +72,6 @@ glm::vec2 Window::GetSize()
     return windowSize;
 }
 
-//void Window::Clear(unsigned int color)
-//{
-//    doodle::clear_background(doodle::HexColor{ color });
-//}
-
 InputKey::Keyboard GLKEY_TO_GAME(int button)
 {
     if (button == GLFW_KEY_ENTER) {
@@ -109,11 +92,12 @@ InputKey::Keyboard GLKEY_TO_GAME(int button)
     else if (button == GLFW_KEY_UP) {
         return InputKey::Keyboard::Up;
     }
-    else if (button == GLFW_KEY_DOWN) {
+    else if (button == GLFW_KEY_DOWN) 
+    {
         return InputKey::Keyboard::Down;
     }
-
-    else if (button >= GLFW_KEY_A && button <= GLFW_KEY_Z) {
+    else if (button >= GLFW_KEY_A && button <= GLFW_KEY_Z) 
+    {
         int offset = static_cast<int>(button) - static_cast<int>(GLFW_KEY_A);
         return static_cast<InputKey::Keyboard>(static_cast<int>(InputKey::Keyboard::A) + offset);
     }
@@ -121,8 +105,7 @@ InputKey::Keyboard GLKEY_TO_GAME(int button)
 }
 
 
-
-void Window::key_cb(GLFWwindow* pwin, int key, [[maybe_unused]] int scancode, int action, [[maybe_unused]] int mod)
+void Window::key_cb([[maybe_unused]] GLFWwindow* pwin, [[maybe_unused]] int key, [[maybe_unused]] int scancode, int action, [[maybe_unused]] int mod)
 {
     if (GLFW_PRESS == action)
     {
@@ -147,14 +130,7 @@ void Window::key_cb(GLFWwindow* pwin, int key, [[maybe_unused]] int scancode, in
             Engine::GetLogger().LogDebug("on_key_released");
             Engine::GetInput().SetKeyDown(button, false);
         }
-
     }
-
-    if (GLFW_KEY_ESCAPE == key && GLFW_PRESS == action)
-    {
-        glfwSetWindowShouldClose(pwin, GLFW_TRUE);
-    }
-
 }
 
 void Window::mousebutton_cb([[maybe_unused]] GLFWwindow* pwin, int button, int action, [[maybe_unused]] int mod)
@@ -163,12 +139,12 @@ void Window::mousebutton_cb([[maybe_unused]] GLFWwindow* pwin, int button, int a
     {
     case GLFW_MOUSE_BUTTON_LEFT:
 #ifdef _DEBUG
-        std::cout << "Left mouse button ";
+        Engine::GetLogger().LogDebug("Left mouse button ");
 #endif
         break;
     case GLFW_MOUSE_BUTTON_RIGHT:
 #ifdef _DEBUG
-        std::cout << "Right mouse button ";
+        Engine::GetLogger().LogDebug("Right mouse button ");
 #endif
         break;
     }
@@ -176,12 +152,13 @@ void Window::mousebutton_cb([[maybe_unused]] GLFWwindow* pwin, int button, int a
     {
     case GLFW_PRESS:
 #ifdef _DEBUG
-        std::cout << "pressed!!!" << std::endl;
+        Engine::GetLogger().LogDebug("pressed! ");
+
 #endif
         break;
     case GLFW_RELEASE:
 #ifdef _DEBUG
-        std::cout << "released!!!" << std::endl;
+        Engine::GetLogger().LogDebug("released! ");
 #endif
         break;
     }
@@ -194,9 +171,7 @@ void Window::mousepos_cb([[maybe_unused]] GLFWwindow* pwin, [[maybe_unused]] dou
 }
 
 
-void Window::fbsize_cb([[maybe_unused]] GLFWwindow* ptr_win, int width, int height) {
-    std::cout << "fbsize_cb getting called!!!" << std::endl;
-    // use the entire framebuffer as drawing region
+void Window::fbsize_cb([[maybe_unused]] GLFWwindow* ptr_win, int width, int height) 
+{
     glViewport(0, 0, width, height);
-    // later, if working in 3D, we'll have to set the projection matrix here ...
 }

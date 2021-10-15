@@ -22,6 +22,6 @@ public:
     {
         return GameObjectType::Note;
     }
-    void Draw() override;
+    void Draw(glm::mat3 camera_matrix) override;
 private:
 };
