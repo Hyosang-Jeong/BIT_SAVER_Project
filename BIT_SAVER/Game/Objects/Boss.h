@@ -13,13 +13,13 @@ Creation date: 2/11/2021
 #include "..\Engine\GameObject\GameObject.h" // GameObject inheritance
 #include"GameObjectType.h"
 
-class Bunny : public GameObject
+class Boss : public GameObject
 {
 public:
-    Bunny(glm::vec2 startPos);
+    Boss(glm::vec2 startPos);
     void Update(double dt) override;
     glm::vec2 Getposition();
-    void Draw() override;
+    void Draw(glm::mat3 camera_matrix) override;
     GameObjectType GetObjectType() override
     {
         return GameObjectType::Bunny;

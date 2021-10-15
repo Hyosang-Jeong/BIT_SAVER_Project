@@ -17,8 +17,6 @@ logger(Logger::Severity::Debug, true, lastTick)
 logger(Logger::Severity::Event, false, lastTick)
 #endif
 {}
-
-
 Engine::~Engine() {}
 
 void Engine::Init(std::string windowName)
@@ -27,13 +25,11 @@ void Engine::Init(std::string windowName)
 	window.Init(1600, 1000,windowName);
 
 	init_shdrpgms();
-
 	fpsCalcTime = lastTick;
 
 	GLModel model;
 	model.set_name("Basic_model");
 	model.init();
-
 	models["Basic_model"] = model;
 
 	Engine::GetMusic().Init();
@@ -86,12 +82,10 @@ void Engine::init_shdrpgms()
 		std::cout << shdr_pgm.GetLog() << "\n";
 		std::exit(EXIT_FAILURE);
 	}
-	// add compiled, linked, and validated shader program to
-	// std::map container GLApp::shdrpgms
+
 	shdrpgms["Hero"] = shdr_pgm;
 
 	//collision box shader
-
 	std::vector<std::pair<GLenum, std::string>> shdr_file
 	{
 		std::make_pair(GL_VERTEX_SHADER, "../shaders/collision.vert"),
@@ -105,13 +99,9 @@ void Engine::init_shdrpgms()
 		std::cout << shdr_pgm.GetLog() << "\n";
 		std::exit(EXIT_FAILURE);
 	}
-	// add compiled, linked, and validated shader program to
-	// std::map container GLApp::shdrpgms
 	shdrpgms["Collision"] = shdr_pgm1;
-
-
 }
-//bool Engine::HasGameEnded()
-//{
-//	//return  gameStateManager.HasGameEnded();
-//}
+bool Engine::HasGameEnded()
+{
+	return  gameStateManager.HasGameEnded();
+}

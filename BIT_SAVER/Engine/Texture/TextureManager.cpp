@@ -21,12 +21,11 @@ GLuint TextureManager::Load(const char* filePath,glm::vec2& texture_size)
 		    std::exit(EXIT_FAILURE);
 		}
 		glCreateTextures(GL_TEXTURE_2D, 1, &image.tex_objhdl);
-		// allocate GPU storage for texture image data loaded from file
+
 		glTextureStorage2D(image.tex_objhdl, 1, GL_RGBA8, image.width, image.height);
 		glTextureSubImage2D(image.tex_objhdl, 0, 0, 0, image.width, image.height, GL_RGBA, GL_UNSIGNED_BYTE, image.img);
 		texture_size = { image.width ,image.height };
 		images[filePath] = image.tex_objhdl;
-
 	}
 	else
 	{
