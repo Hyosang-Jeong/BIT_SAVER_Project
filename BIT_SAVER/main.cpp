@@ -16,11 +16,10 @@ int main()
 	Level1 level1;
 	engine.GetGameStateManager().AddGameState(level1);
 	
-
 	while (!glfwWindowShouldClose(engine.GetWindow().ptr_window))
 	{
 		engine.Update();
-		Engine::GetMusic().Play(Engine::GetMusic().MUSIC_CANON);
+		Engine::GetMusic().Play(0);
 		Engine::GetMusic().pSystem[0]->update();
 	}
 
