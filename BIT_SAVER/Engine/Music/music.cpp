@@ -37,7 +37,12 @@ void Music::Init()
 void Music::Play(int Sound_num)
 {
 
-    pSystem[Sound_num]->playSound(pSound[Sound_num], NULL, 0, &pChannel[Sound_num]);
+    while (true)
+    {
+        pSystem[Sound_num]->playSound(pSound[Sound_num], NULL, 0, &pChannel[Sound_num]);
+        Engine::GetMusic().pSystem[Music::SOUND_NUM::SOUND_EFFECT1]->update();
+        break;
+    }
 }
 
 void Music::Stop()
