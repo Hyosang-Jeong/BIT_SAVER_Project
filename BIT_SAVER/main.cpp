@@ -16,10 +16,12 @@ int main()
 	engine.GetGameStateManager().AddGameState(level1);
 	
 
+
 	while (engine.HasGameEnded() == false)
+
 	{
 		engine.Update();
-		Engine::GetMusic().Play(Engine::GetMusic().MUSIC_CANON);
+		Engine::GetMusic().Play(0);
 		Engine::GetMusic().pSystem[0]->update();
 	}
 

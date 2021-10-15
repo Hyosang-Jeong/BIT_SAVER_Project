@@ -10,8 +10,8 @@ using namespace std;
 
 void Music::Init()
 {
-    result = FMOD::System_Create(&pSystem[0]);
-    result = FMOD::System_Create(&pSystem[1]);
+    result = FMOD::System_Create(&pSystem[0]);//Music
+    result = FMOD::System_Create(&pSystem[1]);//SFX
     if (result != FMOD_OK) {
         Engine::GetLogger().LogError("Error: FMOD_system are not created!");
         exit(EXIT_FAILURE);
@@ -19,14 +19,14 @@ void Music::Init()
 
     MusicName.push_back("../sound/boss.mp3");
     MusicName.push_back("../sound/button1.mp3");
-
     for (int i = 0; i < MUSIC_END; i++)
     {
         result = pSystem[i]->init(MUSIC_END, FMOD_INIT_NORMAL, NULL);
-        if (result != FMOD_OK) {
-            Engine::GetLogger().LogError("Error: FMOD_system are not initiated!");
-            exit(EXIT_FAILURE);
-        }
+    }
+
+    if (result != FMOD_OK) {
+        Engine::GetLogger().LogError("Error: FMOD_system are not initiated!");
+        exit(EXIT_FAILURE);
     }
 
     for (int i = 0; i < MusicName.size(); i++)
@@ -75,16 +75,13 @@ void Music::volumeDown()
         volume -= SOUND_WEIGHT;
     }
     pChannel[0]->setVolume(volume);
+
 }
 
 void Music::Release()
 {
-    for (int i = 0; i < MusicName.size(); i++)
-    {
-        pSystem[i]->close();
-        pSystem[i]->release();
-    }
-
+    pSystem[0]->close();
+    pSystem[0]->release();
 }
 
 

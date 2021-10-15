@@ -35,10 +35,10 @@ public:
     FMOD::Channel* pChannel[MUSIC_END]{};
     FMOD_RESULT result;
     FMOD::System* pSystem[MUSIC_END]{};
+    FMOD::Sound* pSound[MUSIC_END]{};
 private:
     float volume;
 
-    FMOD::Sound* pSound[MUSIC_END]{};
     
     std::vector<const char*> MusicName{};
 };

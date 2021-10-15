@@ -4,7 +4,7 @@ Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 File Name: Hero.h
 Project: BIT_SAVER
-Author: 
+Author:
 Creation date: 2/11/2021
 -----------------------------------------------------------------*/
 #pragma once
@@ -13,7 +13,7 @@ Creation date: 2/11/2021
 #include "..\Engine\GameObject\GameObject.h" // GameObject inheritance
 #include"GameObjectType.h"
 
-class Hero : public GameObject 
+class Hero : public GameObject
 {
 public:
     Hero(glm::vec2 startPos);
@@ -28,9 +28,12 @@ public:
 private:
     InputKey moveUpKey;
     InputKey moveDownKey;
-   InputKey moveLeftKey;
-   InputKey moveRightKey;
-   InputKey AttackKey;
+    InputKey moveLeftKey;
+    InputKey moveRightKey;
+    InputKey AttackKey;
+    InputKey VolumeUp;
+    InputKey VolumeDown;
+
 
     static constexpr double acceleration = 1;
     static constexpr double drag = 500;
