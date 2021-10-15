@@ -8,7 +8,11 @@ Author:
 Creation date: 3/14/2021
 -----------------------------------------------------------------*/
 #include"Track.h"
+#include"..\..\Engine\Music\Midi.h"
 #include<algorithm>
+
+Track::Track(int music_num) :  Track(MidiEvent{}.MidiSetUp(music_num))
+{}
 
 Track::Track(std::map<int, std::vector<long double>> mid_info) : GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 })
 {

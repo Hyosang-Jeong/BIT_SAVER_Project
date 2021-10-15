@@ -6,7 +6,6 @@ int m_ticksPerQuarterNote = 120; //set default
 
 std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
 {
-
     const char* midi_filename = " ";
     switch (music_num)
     {

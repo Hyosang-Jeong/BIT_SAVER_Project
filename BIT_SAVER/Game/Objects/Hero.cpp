@@ -34,9 +34,9 @@ void Hero::Update(double dt)
     Attack_Check();
 }
 
-void Hero::Draw(glm::mat3 )
+void Hero::Draw(glm::mat3 camera_matrix)
 {
-	texture.Draw(mdl_to_ndc_xform , "Basic_model", "Hero");
+	texture.Draw(mdl_to_ndc_xform * camera_matrix, "Basic_model", "Hero");
 }
 
 glm::vec2 Hero::Getposition()
