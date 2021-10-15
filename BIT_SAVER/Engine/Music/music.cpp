@@ -42,6 +42,7 @@ void Music::Init()
 
 void Music::Play(int Sound_num)
 {
+
     pSystem[Sound_num]->playSound(pSound[Sound_num], NULL, 0, &pChannel[Sound_num]);
 }
 

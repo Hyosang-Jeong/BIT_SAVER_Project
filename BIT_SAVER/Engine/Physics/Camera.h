@@ -18,7 +18,7 @@ public:
 	void Update(const glm::vec2& followObjPos,double dt);
 	const glm::vec2& GetPosition() const;
 	glm::mat3 GetMatrix();
-	void Dynamic_movement(bool start);
+	void Dynamic_movement(bool start, double dt);
 private:
 	glm::mat3 mdl_to_ndc_xform;
 	glm::vec2 position;

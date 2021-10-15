@@ -37,10 +37,12 @@ void Level1::Load()
 	gameObjectManager.Add(notebox);
 	gameObjectManager.Add(trackPtr);
 	camera.SetPosition({ 0,0 });
+
 }
 void Level1::Update(double dt)
 {
 	gameObjectManager.UpdateAll(dt);
+
 	if (trackPtr->GetNote_flag() == true) // To generate note with track's info
 	{
 		glm::vec2 pos = trackPtr->GetNoteinfo().first;
@@ -49,11 +51,9 @@ void Level1::Update(double dt)
 		trackPtr->Set_Note_flag(false);
 	}
 	notebox->set_attack_flag(heroPtr->Get_Attack_flag().first, heroPtr->Get_Attack_flag().second);
+
+	camera.Dynamic_movement(notebox->GetDestroyed(),dt);
 	camera.Update({ 0,0 },dt);
-	if (notebox->GetDestroyed() == false)
-	{	
-		camera.Dynamic_movement(true);
-	}
 
 	if (mainMenu.IsKeyReleased() == true)
 	{

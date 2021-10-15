@@ -71,6 +71,7 @@ void Hero::Attack_Check()
 {
 		if (AttackKey.IsKeyDown() == true)
 		{
+
 			attack_pressed = true;
 		}
 		if (AttackKey.IsKeyReleased() == true)
