@@ -8,7 +8,7 @@ Author:
 Creation date: 10/10/2021
 -----------------------------------------------------------------*/
 #include"Note_collisionBox.h"
-
+#include"../../Engine/Engine.h"
 Note_box::Note_box(glm::vec2 startPos) : GameObject(startPos, glm::vec2{ 1,20 })
 {
 	texture.setup_texobj("../images/Note_collision_box.png");
@@ -29,6 +29,12 @@ void Note_box::ResolveCollision(GameObject* test_obj)
 		{
 			if (attack_ypos == 5)
 			{
+				while (true)
+				{
+					Engine::GetMusic().Play(1);
+					Engine::GetMusic().pSystem[1]->update();
+					break;
+				}
 				Hit[0] = true;
 				Hit_pos[0] = test_obj->GetPosition();
 				test_obj->set_destroy(true);
@@ -50,7 +56,8 @@ void Note_box::ResolveCollision(GameObject* test_obj)
 		if (test_obj->GetPosition().y == 5)  //up track
 		{
 			if (test_obj->GetPosition().x + test_obj ->GetTexturetoNDC().x/2.0< GetPosition().x - GetTexturetoNDC().x / 2.0)
-			{//set miss texture's pos
+			{
+				//set miss texture's pos
 				Hit[0] = false;
 				Hit_pos[0].x = GetPosition().x;
 				Hit_pos[0].y = test_obj->GetPosition().y;
@@ -78,9 +85,7 @@ const bool Note_box::GetDestroyed() const
 
 void Note_box::Draw(glm::mat3 camera_matrix)
 {
-
 	texture.Draw(mdl_to_ndc_xform*camera_matrix, "Basic_model", "Hero");
-
 	if (Hit[0] == true)
 	{
 		Hit_tex.Draw(world_range, "Basic_model", "Hero", { Hit_pos[0].x,  Hit_pos[0].y });
