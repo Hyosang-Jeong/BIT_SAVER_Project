@@ -23,7 +23,7 @@ public:
     void setup_texobj(const char* pathname);
 
 private:
-    GLuint tex_obj;
+    GLuint tex_obj{ 0 };
     glm::vec2 texture_size{ 0,0 };
 
 };

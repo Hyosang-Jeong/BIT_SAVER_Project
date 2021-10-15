@@ -40,6 +40,5 @@ public:
 private:
     float volume;
 
-    
     std::vector<const char*> MusicName{};
 };
