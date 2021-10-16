@@ -186,8 +186,6 @@ std::vector<long double> MidiEvent::MidiSetUp(int music_num)
     int trackTo = 0;
     switch (music_num)
     {
-
-        break;
     case Music::SOUND_NUM::REWIND:
         trackFrom = 1;
         trackTo = 2;

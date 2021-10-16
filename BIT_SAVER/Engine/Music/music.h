@@ -21,8 +21,6 @@ public:
         ENERGY = 0,
         REWIND,
         SOUND_EFFECT1,
-        BOSS,
-        ENERGY,
         SOUND_EFFECT2,
         MUSIC_END
     };
