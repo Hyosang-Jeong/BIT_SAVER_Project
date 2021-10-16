@@ -28,9 +28,9 @@ void Level1::Load()
 {
 	heroPtr = new Hero({ -6,0 });
 
-	Engine::GetMusic().Play(Music::SOUND_NUM::REWIND);
+	Engine::GetMusic().Play(Music::SOUND_NUM::ENERGY);
 
-	trackPtr = new Track(Music::SOUND_NUM::REWIND);
+	trackPtr = new Track(Music::SOUND_NUM::ENERGY);
 
 	notebox = new Note_box({ -4,0 });
 	bossPtr = new Boss({ 8,0 });
