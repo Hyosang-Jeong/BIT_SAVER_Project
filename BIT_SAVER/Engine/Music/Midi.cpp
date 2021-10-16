@@ -171,30 +171,40 @@ std::vector<long double> MidiEvent::MidiSetUp(int music_num)
     //make seconds from dt and ticks
     one_tick_per_tempo = (tempo_data * 0.000001) / m_ticksPerQuarterNote;
 
-    std::map<int, std::vector<long double>> track_seconds_;
+    //std::map<int, std::vector<long double>> track_seconds_;
+    std::vector<long double> dt_to_seconds;
     int trackFrom = 0;
     int trackTo = 0;
     switch (music_num)
     {
-    case Music::SOUND_NUM::BOSS:
-        trackFrom = 3;
-        trackTo = 17;
-        break;
+    //case Music::SOUND_NUM::BOSS:
+    //    trackFrom = 3;
+    //    trackTo = 17;
+    //    break;
     case Music::SOUND_NUM::REWIND:
         trackFrom = 1;
         trackTo = 2;
         break;
-    case Music::SOUND_NUM::BPM120:
-        trackFrom = 10;
-        trackTo = 11;
-        break;
+    //case Music::SOUND_NUM::BPM120:
+    //    trackFrom = 10;
+    //    trackTo = 11;
+    //    break;
     default:
         Engine::GetLogger().LogError("Error! :There are not track infor(midi.cppLine189)");
         exit(EXIT_FAILURE);
         break;
     }
     for (int i = trackFrom; i < trackTo; i++)
+    {
 
+        for (auto& m : m_events)
+        {
+            if (m.track == i)
+            {
+                dt_to_seconds.push_back(m.tick * one_tick_per_tempo);
+            }
+        }
+    }
     input.close();
 
     /*return track_seconds_;*/
