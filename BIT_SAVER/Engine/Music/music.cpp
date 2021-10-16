@@ -24,16 +24,10 @@ void Music::Init()
 
 void Music::Load()
 {
-    result = FMOD_System_CreateSound(pSystem, "../sound/boss.mp3", FMOD_DEFAULT, nullptr, &pSound[BOSS]);
-    ErrorCheck(result);
-
-    result = FMOD_System_CreateSound(pSystem, "../sound/Energy.mp3", FMOD_DEFAULT, nullptr, &pSound[ENERGY]);
-    ErrorCheck(result);
-
     result = FMOD_System_CreateSound(pSystem, "../sound/button2.mp3", FMOD_DEFAULT, nullptr, &pSound[SOUND_EFFECT1]);
     ErrorCheck(result);
 
-    result = FMOD_System_CreateSound(pSystem, "../sound/120.mp3", FMOD_DEFAULT, nullptr, &pSound[BPM120]);
+    result = FMOD_System_CreateSound(pSystem, "../sound/rewind.mp3", FMOD_DEFAULT, nullptr, &pSound[REWIND]);
     ErrorCheck(result);
 
     //result = FMOD_System_CreateSoundGroup(pSystem, "BGM", &bgm_group);
