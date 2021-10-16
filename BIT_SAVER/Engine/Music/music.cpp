@@ -18,10 +18,10 @@ void Music::Init()
         result = pSystem[i]->init(MUSIC_END, FMOD_INIT_NORMAL, NULL);
     }
 
-    MusicName.push_back("../sound/boss.mp3");
-    MusicName.push_back("../sound/Energy.mp3");
+    //MusicName.push_back("../sound/boss.mp3");
+    MusicName.push_back("../sound/rewind.mp3");
     MusicName.push_back("../sound/button2.mp3");
-    MusicName.push_back("../sound/120.mp3");
+    //MusicName.push_back("../sound/120.mp3");
 
 
     for (int i = 0; i < MusicName.size(); i++)

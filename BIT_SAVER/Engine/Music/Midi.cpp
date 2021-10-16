@@ -4,20 +4,20 @@
 #include "music.h"
 int m_ticksPerQuarterNote = 120; //set default
 
-std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
+std::vector<long double> MidiEvent::MidiSetUp(int music_num)
 {
     const char* midi_filename = " ";
     switch (music_num)
     {
-    case Music::SOUND_NUM::BOSS:
+    /*case Music::SOUND_NUM::BOSS:
         midi_filename = "boss.mid";
+        break;*/
+    case Music::SOUND_NUM::REWIND:
+        midi_filename = "rewind.mid";
         break;
-    case Music::SOUND_NUM::ENERGY:
-        midi_filename = "energy.mid";
-        break;
-    case Music::SOUND_NUM::BPM120:
+    /*case Music::SOUND_NUM::BPM120:
         midi_filename = "120.mid";
-        break;
+        break;*/
     default:
         break;
     }
@@ -155,7 +155,10 @@ std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
 
             if ((bytes[0] & 0xf0) == 0x90 && bytes[bytes.size() - 1] != 0)
             {
-                event.track = (bytes[0] & 0x0f) + 1;
+                if(music_num == Music::SOUND_NUM::REWIND)
+                    event.track = 1;
+                else
+                    event.track = (bytes[0] & 0x0f) + 1;
                 m_events.push_back(event);
             }
             else if (bytes[0] == 0xff && bytes[1] == 0x2f) {
@@ -168,8 +171,9 @@ std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
     //make seconds from dt and ticks
     one_tick_per_tempo = (tempo_data * 0.000001) / m_ticksPerQuarterNote;
 
-    std::map<int, std::vector<long double>> track_seconds_;
-    if (music_num == Music::SOUND_NUM::BOSS)
+   /* std::map<int, std::vector<long double>> track_seconds_;*/
+    std::vector<long double> dt_to_seconds;
+   /* if (music_num == Music::SOUND_NUM::BOSS)
     {
         for (int i = 3; i < 17; i++)
         {
@@ -183,12 +187,11 @@ std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
             }
             track_seconds_.emplace(i, dt_to_seconds);
         }
-    }
-    if (music_num == Music::SOUND_NUM::ENERGY)
+    }*/
+    if (music_num == Music::SOUND_NUM::REWIND)
     {
-        for (int i = 9; i < 10; i++)
+        for (int i = 1; i < 2; i++)
         {
-            std::vector<long double> dt_to_seconds;
             for (auto& m : m_events)
             {
                 if (m.track == i)
@@ -196,10 +199,9 @@ std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
                     dt_to_seconds.push_back(m.tick * one_tick_per_tempo);
                 }
             }
-            track_seconds_.emplace(i, dt_to_seconds);
         }
     }
-    if (music_num == Music::SOUND_NUM::BPM120)
+   /* if (music_num == Music::SOUND_NUM::BPM120)
     {
         for (int i = 10; i < 11; i++)
         {
@@ -213,10 +215,11 @@ std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
             }
             track_seconds_.emplace(i, dt_to_seconds);
         }
-    }
+    }*/
     input.close();
 
-    return track_seconds_;
+    /*return track_seconds_;*/
+    return dt_to_seconds;
 }
 
 //read Bytes

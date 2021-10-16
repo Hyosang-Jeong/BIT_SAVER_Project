@@ -29,7 +29,7 @@ void Level1::Load()
 {
 	heroPtr = new Hero({ -6,0 });
 
-	trackPtr = new Track(Music::SOUND_NUM::ENERGY);
+	trackPtr = new Track(Music::SOUND_NUM::REWIND);
 	notebox = new Note_box({ -4,0 });
 	bossPtr = new Boss({ 8,0 });
 	gameObjectManager.Add(heroPtr);
@@ -40,7 +40,7 @@ void Level1::Load()
 void Level1::Update(double dt)
 {
 	gameObjectManager.UpdateAll(dt);
-	Engine::GetMusic().Play(Music::SOUND_NUM::ENERGY);
+	Engine::GetMusic().Play(Music::SOUND_NUM::REWIND);
 	if (trackPtr->GetNote_flag() == true) // To generate note with track's info
 	{
 		glm::vec2 pos = trackPtr->GetNoteinfo().first;

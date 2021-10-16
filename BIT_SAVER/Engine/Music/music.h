@@ -17,10 +17,8 @@ class Music
 public:
     enum SOUND_NUM
     {
-        BOSS = 0,
-        ENERGY,
+        REWIND = 0,
         SOUND_EFFECT1,
-        BPM120,
         MUSIC_END
     };
 
