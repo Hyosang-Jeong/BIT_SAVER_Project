@@ -23,7 +23,7 @@ void Note_box::Update(double dt)
 
 void Note_box::ResolveCollision(GameObject* test_obj)
 {
-	if (test_obj->GetObjectType() == GameObjectType::Note && attack_pressed == true)
+	if (test_obj->GetObjectType() == GameObjectType::Note && attack_pressed == true && is_repeated == false)
 	{
 		if (test_obj->GetPosition().y == attack_ypos)
 		{
@@ -32,21 +32,20 @@ void Note_box::ResolveCollision(GameObject* test_obj)
 			{
 				Hit[0] = true;
 				Hit_pos[0] = test_obj->GetPosition();
-				test_obj->set_destroy(true);
-				is_destroyed = true;
 			}
 			else
 			{
 				Hit[1] = true;
 				Hit_pos[1] = test_obj->GetPosition();
-				test_obj->set_destroy(true);
-				is_destroyed = true;
 			}
+			test_obj->set_destroy(true);
+			is_destroyed = true;
+			is_repeated = true;
 		}
 		return;
 	}
 
-	if (test_obj->GetObjectType() == GameObjectType::Note && attack_pressed == false) // for miss
+	else// for miss
 	{
 		if (test_obj->GetPosition().y == 5)  //up track
 		{
@@ -107,7 +106,12 @@ glm::vec2 Note_box::Getposition()
 
 void Note_box::set_attack_flag(bool value,GLfloat ypos)
 {
-	attack_pressed = value;
-	attack_ypos = ypos;
+	if (value == false)
+	{
+		is_repeated = false;
+	}
+
+		attack_pressed = value;
+		attack_ypos = ypos;
 }
 

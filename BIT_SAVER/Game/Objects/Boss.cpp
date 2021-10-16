@@ -23,9 +23,7 @@ Boss::Boss(glm::vec2 startPos) :
 	texture.setup_texobj("../images/stickman.png");
 	mdl_ref = Engine::GetGLModel().find("Basic_model");
 	shd_ref = Engine::GetGLShader().find("Hero");
-
 }
-
 
 void Boss::Update(double dt)
 {

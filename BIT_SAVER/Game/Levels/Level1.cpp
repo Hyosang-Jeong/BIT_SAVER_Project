@@ -16,8 +16,14 @@ Creation date: 3/07/2021
 #include"..\Objects\Note_collisionBox.h"
 #include<map>
 
-Level1::Level1() : mainMenu(InputKey::Keyboard::Escape), camera({ 0,0 }),heroPtr(nullptr), trackPtr(nullptr)
-{}
+Level1::Level1() : mainMenu(InputKey::Keyboard::Escape), camera({ 0,0 })
+{
+	camera = glm::vec2{ 0,0 };
+	heroPtr = nullptr;
+	trackPtr = nullptr;
+	bossPtr = nullptr;
+	notebox = nullptr;
+}
 
 void Level1::Load()
 {
@@ -25,12 +31,10 @@ void Level1::Load()
 	trackPtr = new Track(Music::SOUND_NUM::ENERGY);
 	notebox = new Note_box({ -4,0 });
 	bossPtr = new Boss({ 8,0 });
-
 	gameObjectManager.Add(heroPtr);
 	gameObjectManager.Add(bossPtr);
 	gameObjectManager.Add(notebox);
 	gameObjectManager.Add(trackPtr);
-
 }
 void Level1::Update(double dt)
 {
@@ -47,6 +51,7 @@ void Level1::Update(double dt)
 
 	camera.Dynamic_movement(notebox->GetDestroyed(),dt);
 	camera.Update({ 0,0 },dt);
+
 	if (mainMenu.IsKeyReleased() == true)
 	{
 		Engine::GetGameStateManager().Shutdown();

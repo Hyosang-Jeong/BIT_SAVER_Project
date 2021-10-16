@@ -31,9 +31,6 @@ private:
     InputKey moveLeftKey;
     InputKey moveRightKey;
     InputKey AttackKey;
-    InputKey VolumeUp;
-    InputKey VolumeDown;
-
 
     static constexpr double acceleration = 1;
     static constexpr double drag = 500;

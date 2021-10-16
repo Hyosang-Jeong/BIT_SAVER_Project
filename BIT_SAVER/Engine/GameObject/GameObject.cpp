@@ -14,7 +14,8 @@ GameObject::GameObject(glm::vec2 position) : GameObject(position,  { 1, 1 }) {}
 GameObject::GameObject(glm::vec2 position, glm::vec2 scale)
     : velocity{ 0,0 }, position(position), updateMatrix(true),
     scale(scale),collision(scale)
-{}
+{
+}
 
 void GameObject::ResolveCollision(GameObject* )
 {
