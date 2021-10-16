@@ -61,7 +61,7 @@ void Level1::Update(double dt)
 void Level1::Draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
-	glClearColor(0.36f, 0.36f, 0.52f, 1.0f);
+	glClearColor(1.0f, 0.5f, 1.0f, 1.0f);
 	gameObjectManager.DrawAll(camera.GetMatrix());
 }
 void Level1::Unload()
