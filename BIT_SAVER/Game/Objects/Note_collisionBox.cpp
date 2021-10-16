@@ -9,7 +9,8 @@ Creation date: 10/10/2021
 -----------------------------------------------------------------*/
 #include"Note_collisionBox.h"
 #include"../../Engine/Engine.h"
-Note_box::Note_box(glm::vec2 startPos) : GameObject(startPos, glm::vec2{ 1,20 })
+Note_box::Note_box(glm::vec2 startPos) :
+GameObject(startPos, glm::vec2{ 1,20 })
 {
 	texture.setup_texobj("../images/Note_collision_box.png");
 	Hit_tex.setup_texobj("../images/Hit_star.png");
@@ -114,7 +115,6 @@ void Note_box::set_attack_flag(bool value,GLfloat ypos)
 	{
 		is_repeated = false;
 	}
-
 		attack_pressed = value;
 		attack_ypos = ypos;
 }

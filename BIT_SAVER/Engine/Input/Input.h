@@ -18,7 +18,7 @@ Creation date: 2/10/2021
 			None, Enter, Escape, Space, Left, Up, Right, Down,
 			A, B, C, D, E, F, G, H, I, J,
 			K, L, M, N, O, P, Q, R, S, T,
-			U, V, W, X, Y, Z,
+			U, V, W, X, Y, Z,NUM_1,NUM_2,
 			Count
 		};
 

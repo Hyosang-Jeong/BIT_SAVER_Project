@@ -2,22 +2,22 @@
 Copyright (C) 2021 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
-File Name: Level1.cpp
+File Name: Level2.cpp
 Project: BIT_SAVER
 Author:
 Creation date: 3/07/2021
 -----------------------------------------------------------------*/
 #include "../Engine/Engine.h"	//GetGameStateManage
-#include"Level1.h"
+#include"Level2.h"
 #include"..\Objects\Hero.h"
 #include"..\Objects\Track.h"
 #include"..\Objects\Notes.h"
 #include"..\Objects\Boss.h"
 #include"..\Objects\Note_collisionBox.h"
 
-Level1::Level1() : 
-mainMenu(InputKey::Keyboard::Escape), 
-camera({ 0,0 })
+Level2::Level2() :
+	mainMenu(InputKey::Keyboard::Escape),
+	camera({ 0,0 })
 {
 	camera = glm::vec2{ 0,0 };
 	heroPtr = nullptr;
@@ -26,7 +26,7 @@ camera({ 0,0 })
 	notebox = nullptr;
 }
 
-void Level1::Load()
+void Level2::Load()
 {
 	heroPtr = new Hero({ -6,0 });
 	Engine::GetMusic().Play(Music::SOUND_NUM::REWIND);
@@ -38,7 +38,7 @@ void Level1::Load()
 	gameObjectManager.Add(notebox);
 	gameObjectManager.Add(trackPtr);
 }
-void Level1::Update(double dt)
+void Level2::Update(double dt)
 {
 	gameObjectManager.UpdateAll(dt);
 
@@ -51,8 +51,8 @@ void Level1::Update(double dt)
 	}
 	notebox->set_attack_flag(heroPtr->Get_Attack_flag().first, heroPtr->Get_Attack_flag().second);
 
-	camera.Dynamic_movement(notebox->GetDestroyed(),dt);
-	camera.Update({ 0,0 },dt);
+	camera.Dynamic_movement(notebox->GetDestroyed(), dt);
+	camera.Update({ 0,0 }, dt);
 
 	if (mainMenu.IsKeyReleased() == true)
 	{
@@ -60,13 +60,13 @@ void Level1::Update(double dt)
 	}
 }
 
-void Level1::Draw()
+void Level2::Draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
-	glClearColor(1.0f, 0.5f, 1.0f, 1.0f);
+	glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
 	gameObjectManager.DrawAll(camera.GetMatrix());
 }
-void Level1::Unload()
+void Level2::Unload()
 {
 	heroPtr = nullptr;
 	trackPtr = nullptr;

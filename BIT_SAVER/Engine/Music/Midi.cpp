@@ -9,15 +9,9 @@ std::vector<long double> MidiEvent::MidiSetUp(int music_num)
     const char* midi_filename = " ";
     switch (music_num)
     {
-        /*case Music::SOUND_NUM::BOSS:
-            midi_filename = "boss.mid";
-            break;*/
     case Music::SOUND_NUM::REWIND:
         midi_filename = "../MIDI/rewind.mid";
         break;
-        /*case Music::SOUND_NUM::BPM120:
-            midi_filename = "120.mid";
-            break;*/
     default:
         break;
     }

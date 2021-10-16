@@ -8,35 +8,40 @@ Author:
 Creation date: 3/07/2021
 -----------------------------------------------------------------*/
 #include "../Engine/Engine.h"	//GetGameStateManage
-#include"Mainmenu.h"
+#include"Splash.h"
 #include"State.h"
 
-Mainmenu::Mainmenu() : 
-Level1(InputKey::Keyboard::NUM_1),
-Level2(InputKey::Keyboard::NUM_2)
+Splash::Splash() : PlayKey(InputKey::Keyboard::Enter)
 {
-	Logo.setup_texobj("../images/Mainmenu.png");
+	Digipen_Splash.setup_texobj("../images/DigiPen_BLACK_1024px.png");
+
+	Logo.setup_texobj("../images/LOGO.png");
 }
 
-void Mainmenu::Load()
+void Splash::Load()
 {}
 
-void Mainmenu::Update([[maybe_unused]]double dt)
+void Splash::Update(double dt)
 {
-	if (Level1.IsKeyReleased() == true)
+	timer -= dt;
+	if (PlayKey.IsKeyReleased() == true)
 	{
-			Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Level1));
+		if (timer <3)
+		{
+			Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
+		}
 	}
-	if (Level2.IsKeyReleased() == true)
+	if (timer < 0)
 	{
-		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Level2));
+		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
 	}
 }
 
-void Mainmenu::Draw()
+void Splash::Draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	//to alpha effect
 	std::map<std::string, GLSLShader>::iterator shd_ref;
 	shd_ref = Engine::GetGLShader().find("Mainmenu");
 	shd_ref->second.Use();
@@ -46,9 +51,16 @@ void Mainmenu::Draw()
 	{
 		Engine::GetLogger().LogError("Uniform value doesn't exist! ");
 	}
-	glUniform1f(alpha, 1);
-	Logo.Draw(glm::mat3{ 1,0,0,0,1,0,0,0,1 }, "Basic_model", "Mainmenu");
+	glUniform1f(alpha, static_cast<float>(timer) / 3.0f);
+	if (timer > 3)
+	{
+		Digipen_Splash.Draw(glm::mat3{ 2 / 3.0,0,0,0,1 / 3.0,0,0,0,1 }, "Basic_model", "Mainmenu");
+	}
+	else
+	{
+		Logo.Draw(glm::mat3{ 1,0,0,0,1,0,0,0,1 }, "Basic_model", "Mainmenu");
+	}
 }
-void Mainmenu::Unload()
+void Splash::Unload()
 {
 }

@@ -9,7 +9,8 @@ Creation date: 3/14/2021
 -----------------------------------------------------------------*/
 #include"Notes.h"
 
-Note::Note(glm::vec2 startPos,glm::vec2 velocity) :  GameObject(startPos, glm::vec2{ 0.5,1 })
+Note::Note(glm::vec2 startPos,glm::vec2 velocity) :  
+GameObject(startPos, glm::vec2{ 0.5,1 })
 {
 	texture.setup_texobj("../images/hit_star.png");
 	SetVelocity(velocity);

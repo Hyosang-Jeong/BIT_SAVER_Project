@@ -14,12 +14,10 @@ InputKey::InputKey(Keyboard button)
 {
 	InputKey::button = button;
 }
-
 bool InputKey::IsKeyDown() const
 {
 	return Engine::GetInput().IsKeyDown(button);
 }
-
 bool InputKey::IsKeyReleased() const
 {
 	return Engine::GetInput().IsKeyReleased(button);

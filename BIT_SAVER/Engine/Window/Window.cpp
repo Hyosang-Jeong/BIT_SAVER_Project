@@ -97,6 +97,14 @@ InputKey::Keyboard GLKEY_TO_GAME(int button)
     {
         return InputKey::Keyboard::Down;
     }
+    else if (button == GLFW_KEY_1)
+    {
+        return InputKey::Keyboard::NUM_1;
+    }
+    else if (button == GLFW_KEY_2)
+    {
+        return InputKey::Keyboard::NUM_2;
+    }
     else if (button >= GLFW_KEY_A && button <= GLFW_KEY_Z) 
     {
         int offset = static_cast<int>(button) - static_cast<int>(GLFW_KEY_A);
