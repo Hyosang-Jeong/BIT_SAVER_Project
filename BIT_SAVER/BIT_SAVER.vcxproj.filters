@@ -68,6 +68,12 @@
     <ClCompile Include="Game\Levels\Mainmenu.cpp">
       <Filter>Game\Levels</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Levels\Splash.cpp">
+      <Filter>Game\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Levels\Level2.cpp">
+      <Filter>Game\Levels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\GameObject\GameObject.h">
@@ -146,6 +152,12 @@
       <Filter>Game\Levels</Filter>
     </ClInclude>
     <ClInclude Include="Game\Levels\State.h">
+      <Filter>Game\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Levels\Splash.h">
+      <Filter>Game\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Levels\Level2.h">
       <Filter>Game\Levels</Filter>
     </ClInclude>
   </ItemGroup>

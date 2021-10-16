@@ -11,10 +11,12 @@ Creation date: 3/14/2021
 #include"..\..\Engine\Music\Midi.h"
 #include<algorithm>
 
-Track::Track(int music_num) :  Track(MidiEvent{}.MidiSetUp(music_num))
+Track::Track(int music_num) :  
+Track(MidiEvent{}.MidiSetUp(music_num))
 {}
 
-Track::Track(std::vector<long double> mid_info) : GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 })
+Track::Track(std::vector<long double> mid_info) : 
+GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 })
 {
 	std::vector<long double> time;
 

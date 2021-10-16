@@ -12,7 +12,6 @@ Creation date: 3/14/2021
 #include"..\Levels\Level1.h"  // Level1's gravity
 #define VOL 0.5f;
 Hero::Hero(glm::vec2 startPos) :
-
     moveLeftKey(InputKey::Keyboard::Left),
     moveRightKey(InputKey::Keyboard::Right),
     moveUpKey(InputKey::Keyboard::Up),
@@ -50,7 +49,6 @@ void Hero::UpdateXVelocity([[maybe_unused]] double dt)
 {
     if (moveUpKey.IsKeyDown() == true)
     {
-
         SetPosition({ Getposition().x, 5 });
     }
 

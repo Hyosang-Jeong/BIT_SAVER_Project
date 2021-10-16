@@ -2,7 +2,7 @@
 Copyright (C) 2021 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
-File Name: MainMenu.h
+File Name: Splash.h
 Project: BIT_SAVER
 Author:
 Creation date:
@@ -14,19 +14,20 @@ Creation date:
 #include"..\Engine\Input\Input.h"  //input key
 #include"..\..\Engine\Physics\Camera.h"
 #include"../../Engine/Texture/Texture.h"
-class Mainmenu : public GameState
+class Splash : public GameState
 {
 public:
 
-	Mainmenu();
+	Splash();
 	void Load() override;
 	void Update(double dt) override;
 	void Unload() override;
 	void Draw() override;
 	std::string GetName() override { return "Splash"; }
 	Texture Logo;
-	InputKey Level1;
-	InputKey Level2;
+	Texture Digipen_Splash;
+	InputKey PlayKey;
 private:
+	double timer{ 6 };
 };
 

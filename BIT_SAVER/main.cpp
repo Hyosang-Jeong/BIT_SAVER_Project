@@ -4,6 +4,8 @@
 #include"Engine/Engine.h"
 #include "..\BIT_SAVER\Engine\Music\music.h"
 #include"Game\Levels\Level1.h"
+#include"Game\Levels\Level2.h"
+#include"Game\Levels\Splash.h"
 #include"Game\Levels\Mainmenu.h"
 #include"Engine/Input/Input.h"
 
@@ -12,10 +14,14 @@ int main()
 	Engine& engine = Engine::Instance();
 	engine.Init("Bit_Saver");
 	InputKey exit(InputKey::Keyboard::Enter);
-	MainMenu main_menu;
+	Splash splash;
+	Mainmenu main_menu;
 	Level1 level1;
+	Level2 level2;
+	engine.GetGameStateManager().AddGameState(splash);
 	engine.GetGameStateManager().AddGameState(main_menu);
 	engine.GetGameStateManager().AddGameState(level1);
+	engine.GetGameStateManager().AddGameState(level2);
 	
 	while (engine.HasGameEnded() == false)
 	{
