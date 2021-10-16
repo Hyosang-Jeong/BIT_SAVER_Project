@@ -14,10 +14,10 @@ void Music::Init()
     result = FMOD_System_Init(pSystem, MUSIC_END, FMOD_INIT_NORMAL, nullptr);
     ErrorCheck(result);
 
-    MusicName.push_back("../sound/boss.mp3");
-    MusicName.push_back("../sound/Energy.mp3");
+    //MusicName.push_back("../sound/boss.mp3");
+    MusicName.push_back("../sound/rewind.mp3");
     MusicName.push_back("../sound/button2.mp3");
-    MusicName.push_back("../sound/120.mp3");
+    //MusicName.push_back("../sound/120.mp3");
 
     Load();
 }

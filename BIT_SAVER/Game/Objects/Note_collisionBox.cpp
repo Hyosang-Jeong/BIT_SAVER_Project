@@ -41,6 +41,7 @@ void Note_box::ResolveCollision(GameObject* test_obj)
 			test_obj->set_destroy(true);
 			is_destroyed = true;
 			is_repeated = true;
+			Engine::GetLogger().LogEvent("Note destroyed!");
 		}
 		return;
 	}
@@ -53,6 +54,8 @@ void Note_box::ResolveCollision(GameObject* test_obj)
 			{
 				//set miss texture's pos
 				Hit[0] = false;
+				Engine::GetLogger().LogEvent("Note miss!");
+
 				Hit_pos[0].x = GetPosition().x;
 				Hit_pos[0].y = test_obj->GetPosition().y;
 				is_destroyed = false;
@@ -63,6 +66,7 @@ void Note_box::ResolveCollision(GameObject* test_obj)
 			if (test_obj->GetPosition().x + test_obj->GetTexturetoNDC().x / 2.0 < GetPosition().x - GetTexturetoNDC().x / 2.0)
 			{
 				Hit[1] = false;
+				Engine::GetLogger().LogEvent("Note miss!");
 				Hit_pos[1].x = GetPosition().x - GetTexturetoNDC().x / 2.0f;
 				Hit_pos[1].y = test_obj->GetPosition().y;
 				is_destroyed = false;

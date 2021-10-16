@@ -14,24 +14,20 @@ Creation date: 3/14/2021
 Track::Track(int music_num) :  Track(MidiEvent{}.MidiSetUp(music_num))
 {}
 
-Track::Track(std::map<int, std::vector<long double>> mid_info) : GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 })
+Track::Track(std::vector<long double> mid_info) : GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 })
 {
-
 	std::vector<long double> time;
 
-	for (auto& track : mid_info)
+	for (auto& time_t : mid_info)
 	{
-		for (auto& time_t : track.second)
-		{
-			time.push_back(time_t);
-		}
+		time.push_back(time_t);
 	}
-	std::sort(begin(time), end(time));
+	//std::sort(begin(time), end(time));
 
 	long double t{ time[0] };
 	time.erase(std::remove_if(begin(time) + 1, end(time), [&](auto time_t)
 		{
-			if (time_t - t < 0.5)
+			if (time_t - t < 0.1)
 				return true;
 			else {
 				t = time_t;

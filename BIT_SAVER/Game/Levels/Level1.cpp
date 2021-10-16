@@ -14,7 +14,6 @@ Creation date: 3/07/2021
 #include"..\Objects\Notes.h"
 #include"..\Objects\Boss.h"
 #include"..\Objects\Note_collisionBox.h"
-#include<map>
 
 Level1::Level1() : mainMenu(InputKey::Keyboard::Escape), camera({ 0,0 })
 {
@@ -28,8 +27,11 @@ Level1::Level1() : mainMenu(InputKey::Keyboard::Escape), camera({ 0,0 })
 void Level1::Load()
 {
 	heroPtr = new Hero({ -6,0 });
-	Engine::GetMusic().Play(Music::SOUND_NUM::ENERGY);
-	trackPtr = new Track(Music::SOUND_NUM::ENERGY);
+
+	Engine::GetMusic().Play(Music::SOUND_NUM::REWIND);
+
+	trackPtr = new Track(Music::SOUND_NUM::REWIND);
+
 	notebox = new Note_box({ -4,0 });
 	bossPtr = new Boss({ 8,0 });
 	gameObjectManager.Add(heroPtr);
@@ -40,7 +42,7 @@ void Level1::Load()
 void Level1::Update(double dt)
 {
 	gameObjectManager.UpdateAll(dt);
-	
+
 	if (trackPtr->GetNote_flag() == true) // To generate note with track's info
 	{
 		glm::vec2 pos = trackPtr->GetNoteinfo().first;

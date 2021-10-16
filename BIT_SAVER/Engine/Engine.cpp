@@ -71,13 +71,13 @@ void Engine::Update()
 }
 void Engine::init_shdrpgms()
 {
-	std::vector<std::pair<GLenum, std::string>> shdr_files
+	std::vector<std::pair<GLenum, std::string>> shdr_file0
 	{
 		std::make_pair(GL_VERTEX_SHADER, "../shaders/Hero.vert"),
 		std::make_pair(GL_FRAGMENT_SHADER,  "../shaders/Hero.frag")
 	};
 	GLSLShader shdr_pgm;
-	shdr_pgm.CompileLinkValidate(shdr_files);
+	shdr_pgm.CompileLinkValidate(shdr_file0);
 	if (GL_FALSE == shdr_pgm.IsLinked())
 	{
 		std::cout << "Unable to compile/link/validate shader programs\n";
@@ -88,13 +88,13 @@ void Engine::init_shdrpgms()
 	shdrpgms["Hero"] = shdr_pgm;
 
 	//collision box shader
-	std::vector<std::pair<GLenum, std::string>> shdr_file
+	std::vector<std::pair<GLenum, std::string>> shdr_file1
 	{
 		std::make_pair(GL_VERTEX_SHADER, "../shaders/collision.vert"),
 		std::make_pair(GL_FRAGMENT_SHADER,  "../shaders/collision.frag")
 	};
 	GLSLShader shdr_pgm1;
-	shdr_pgm1.CompileLinkValidate(shdr_file);
+	shdr_pgm1.CompileLinkValidate(shdr_file1);
 	if (GL_FALSE == shdr_pgm1.IsLinked())
 	{
 		std::cout << "Unable to compile/link/validate shader programs\n";
@@ -102,6 +102,22 @@ void Engine::init_shdrpgms()
 		std::exit(EXIT_FAILURE);
 	}
 	shdrpgms["Collision"] = shdr_pgm1;
+
+	std::vector<std::pair<GLenum, std::string>> shdr_file2
+	{
+		std::make_pair(GL_VERTEX_SHADER, "../shaders/Mainmenu.vert"),
+		std::make_pair(GL_FRAGMENT_SHADER,  "../shaders/Mainmenu.frag")
+	};
+	GLSLShader shdr_pgm2;
+	shdr_pgm2.CompileLinkValidate(shdr_file2);
+	if (GL_FALSE == shdr_pgm2.IsLinked())
+	{
+		std::cout << "Unable to compile/link/validate shader programs\n";
+		std::cout << shdr_pgm.GetLog() << "\n";
+		std::exit(EXIT_FAILURE);
+	}
+	shdrpgms["Mainmenu"] = shdr_pgm2;
+
 }
 bool Engine::HasGameEnded()
 {

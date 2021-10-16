@@ -25,7 +25,6 @@ public:
 	std::string GetName() { return "Level1"; }
 	void Draw() override;
 private:
-	static constexpr double floor = 126.0f;
 	InputKey mainMenu;
 
 	Hero* heroPtr;

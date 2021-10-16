@@ -4,20 +4,20 @@
 #include "music.h"
 int m_ticksPerQuarterNote = 120; //set default
 
-std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
+std::vector<long double> MidiEvent::MidiSetUp(int music_num)
 {
     const char* midi_filename = " ";
     switch (music_num)
     {
-    case Music::SOUND_NUM::BOSS:
+    /*case Music::SOUND_NUM::BOSS:
         midi_filename = "boss.mid";
+        break;*/
+    case Music::SOUND_NUM::REWIND:
+        midi_filename = "../MIDI/rewind.mid";
         break;
-    case Music::SOUND_NUM::ENERGY:
-        midi_filename = "energy.mid";
-        break;
-    case Music::SOUND_NUM::BPM120:
+    /*case Music::SOUND_NUM::BPM120:
         midi_filename = "120.mid";
-        break;
+        break;*/
     default:
         break;
     }
@@ -155,7 +155,10 @@ std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
 
             if ((bytes[0] & 0xf0) == 0x90 && bytes[bytes.size() - 1] != 0)
             {
-                event.track = (bytes[0] & 0x0f) + 1;
+                if(music_num == Music::SOUND_NUM::REWIND)
+                    event.track = 1;
+                else
+                    event.track = (bytes[0] & 0x0f) + 1;
                 m_events.push_back(event);
             }
             else if (bytes[0] == 0xff && bytes[1] == 0x2f) {
@@ -177,9 +180,9 @@ std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
         trackFrom = 3;
         trackTo = 17;
         break;
-    case Music::SOUND_NUM::ENERGY:
-        trackFrom = 8;
-        trackTo = 17;
+    case Music::SOUND_NUM::REWIND:
+        trackFrom = 1;
+        trackTo = 2;
         break;
     case Music::SOUND_NUM::BPM120:
         trackFrom = 10;
@@ -191,22 +194,11 @@ std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
         break;
     }
     for (int i = trackFrom; i < trackTo; i++)
-    {
-        std::vector<long double> dt_to_seconds;
-        for (auto& m : m_events)
-        {
-            if (m.track == 9 || m.track == 13||m.track == 14||m.track == 16)
-            {
-                dt_to_seconds.push_back(m.tick * one_tick_per_tempo);
-            }
-        }
-        track_seconds_.emplace(i, dt_to_seconds);
-    }
-
 
     input.close();
 
-    return track_seconds_;
+    /*return track_seconds_;*/
+    return dt_to_seconds;
 }
 
 //read Bytes

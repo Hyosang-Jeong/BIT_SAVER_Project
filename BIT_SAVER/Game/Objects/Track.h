@@ -17,7 +17,7 @@ class Track : public GameObject
 {
 public:
     Track(int music_num);
-    Track(std::map<int, std::vector<long double>>);
+    Track(std::vector<long double>);
     void Update(double dt) override;
     glm::vec2 Getposition();
     const bool GetNote_flag() const;
