@@ -183,7 +183,7 @@ std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
     }
     if (music_num == Music::SOUND_NUM::ENERGY)
     {
-        for (int i = 1; i < 21; i++)
+        for (int i = 9; i < 10; i++)
         {
             std::vector<long double> dt_to_seconds;
             for (auto& m : m_events)
