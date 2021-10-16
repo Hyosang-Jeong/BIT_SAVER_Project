@@ -20,6 +20,9 @@ public:
     {
         REWIND = 0,
         SOUND_EFFECT1,
+        BOSS,
+        ENERGY,
+        SOUND_EFFECT2,
         MUSIC_END
     };
 
