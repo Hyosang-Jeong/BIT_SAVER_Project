@@ -31,7 +31,7 @@ Track::Track(std::map<int, std::vector<long double>> mid_info) : GameObject({ 0,
 	long double t{ time[0] };
 	time.erase(std::remove_if(begin(time) + 1, end(time), [&](auto time_t)
 		{
-			if (time_t - t < 0.2)
+			if (time_t - t < 0.5)
 				return true;
 			else {
 				t = time_t;

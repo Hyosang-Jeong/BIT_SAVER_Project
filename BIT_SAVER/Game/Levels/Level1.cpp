@@ -28,6 +28,7 @@ Level1::Level1() : mainMenu(InputKey::Keyboard::Escape), camera({ 0,0 })
 void Level1::Load()
 {
 	heroPtr = new Hero({ -6,0 });
+
 	trackPtr = new Track(Music::SOUND_NUM::ENERGY);
 	notebox = new Note_box({ -4,0 });
 	bossPtr = new Boss({ 8,0 });
