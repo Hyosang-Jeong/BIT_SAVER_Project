@@ -17,9 +17,10 @@ class Music
 public:
     enum SOUND_NUM
     {
-        MUSIC_CANON = 0,
+        BOSS = 0,
         ENERGY,
         SOUND_EFFECT1,
+        BPM120,
         MUSIC_END
     };
 
@@ -37,9 +38,9 @@ public:
     FMOD::Channel* pChannel[MUSIC_END]{};
     FMOD::Sound* pSound[MUSIC_END]{};
     FMOD_RESULT result;
+    bool isstop = false;
 private:
     float volume;
 
-    
     std::vector<const char*> MusicName{};
 };

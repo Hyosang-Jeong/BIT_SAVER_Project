@@ -2,10 +2,8 @@
 #include <filesystem>
 #include <map>
 #include<GL/glew.h>
-
 #include<glm/glm.hpp>
 
-    class Texture;
     struct texture_info
     {
         unsigned char* img;
@@ -18,7 +16,6 @@
     {
     public:
         GLuint Load(const char* filePath, glm::vec2& texture_size);
-        void Unload();
 
     private:
         std::map<const char*, GLuint > images;

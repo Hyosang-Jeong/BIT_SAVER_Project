@@ -55,7 +55,7 @@ void Camera::Dynamic_movement(bool start, double dt)
     timer -= dt;
     if (timer >= 0)
     {
-        static glm::vec2 pos{ 0,0.2 };
+        static glm::vec2 pos{ 0,0.05 };
         position += pos;
         pos *= -1;
         dynamic_move = true;

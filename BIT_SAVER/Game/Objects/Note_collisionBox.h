@@ -33,6 +33,7 @@ private:
     bool Hit[2] = { false };   //Hit check flag
     glm::vec2 Hit_pos[2] = { {-20,-20},{-20,-20} }; //Track1 and Track2  // intial pos -20,-20 => not to draw initail state
     bool attack_pressed{false};
+    bool is_repeated{ false };
     bool is_destroyed{ true };
     GLfloat attack_ypos{ 0 };
 };

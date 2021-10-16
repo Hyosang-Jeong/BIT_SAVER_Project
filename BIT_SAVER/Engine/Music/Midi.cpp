@@ -9,11 +9,14 @@ std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
     const char* midi_filename = " ";
     switch (music_num)
     {
-    case Music::SOUND_NUM::MUSIC_CANON:
+    case Music::SOUND_NUM::BOSS:
         midi_filename = "boss.mid";
         break;
     case Music::SOUND_NUM::ENERGY:
         midi_filename = "energy.mid";
+        break;
+    case Music::SOUND_NUM::BPM120:
+        midi_filename = "120.mid";
         break;
     default:
         break;
@@ -166,7 +169,7 @@ std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
     one_tick_per_tempo = (tempo_data * 0.000001) / m_ticksPerQuarterNote;
 
     std::map<int, std::vector<long double>> track_seconds_;
-    if (music_num == Music::SOUND_NUM::MUSIC_CANON)
+    if (music_num == Music::SOUND_NUM::BOSS)
     {
         for (int i = 3; i < 17; i++)
         {
@@ -184,6 +187,21 @@ std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
     if (music_num == Music::SOUND_NUM::ENERGY)
     {
         for (int i = 9; i < 10; i++)
+        {
+            std::vector<long double> dt_to_seconds;
+            for (auto& m : m_events)
+            {
+                if (m.track == i)
+                {
+                    dt_to_seconds.push_back(m.tick * one_tick_per_tempo);
+                }
+            }
+            track_seconds_.emplace(i, dt_to_seconds);
+        }
+    }
+    if (music_num == Music::SOUND_NUM::BPM120)
+    {
+        for (int i = 10; i < 11; i++)
         {
             std::vector<long double> dt_to_seconds;
             for (auto& m : m_events)

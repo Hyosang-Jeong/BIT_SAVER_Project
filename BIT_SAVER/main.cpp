@@ -18,6 +18,7 @@ int main()
 	while (engine.HasGameEnded() == false)
 	{
 		engine.Update();
+
 	}
 
 	engine.Shutdown();
