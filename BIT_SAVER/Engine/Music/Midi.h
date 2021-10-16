@@ -1,13 +1,12 @@
 #pragma once
 #include <vector>
-#include <map>
 #include <iostream>
 class MidiEvent {
 public:
     MidiEvent() {}
     ~MidiEvent() {}
 
-    std::map<int, std::vector<long double>> MidiSetUp(int music_num);
+    std::vector<long double> MidiSetUp(int music_num);
 
 private:
     std::vector<MidiEvent> m_events;
