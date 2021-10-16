@@ -25,6 +25,7 @@ public:
 	void Draw() override;
 	std::string GetName() override { return "Splash"; }
 	Texture Logo;
+	InputKey ESCAPE;
 	InputKey Level1;
 	InputKey Level2;
 private:

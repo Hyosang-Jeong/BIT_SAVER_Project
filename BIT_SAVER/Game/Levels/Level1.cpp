@@ -14,7 +14,7 @@ Creation date: 3/07/2021
 #include"..\Objects\Notes.h"
 #include"..\Objects\Boss.h"
 #include"..\Objects\Note_collisionBox.h"
-
+#include"../Levels/State.h"
 Level1::Level1() : 
 mainMenu(InputKey::Keyboard::Escape), 
 camera({ 0,0 })
@@ -30,13 +30,8 @@ void Level1::Load()
 {
 	heroPtr = new Hero({ -6,0 });
 
-	Engine::GetMusic().Play(Music::SOUND_NUM::REWIND);
-	trackPtr = new Track(Music::SOUND_NUM::REWIND);
-
-
 	Engine::GetMusic().Play(Music::SOUND_NUM::ENERGY);
 	trackPtr = new Track(Music::SOUND_NUM::ENERGY);
-
 	notebox = new Note_box({ -4,0 });
 	bossPtr = new Boss({ 8,0 });
 	gameObjectManager.Add(heroPtr);
@@ -62,7 +57,7 @@ void Level1::Update(double dt)
 
 	if (mainMenu.IsKeyReleased() == true)
 	{
-		Engine::GetGameStateManager().Shutdown();
+		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
 	}
 }
 
@@ -78,5 +73,6 @@ void Level1::Unload()
 	trackPtr = nullptr;
 	notebox = nullptr;
 	bossPtr = nullptr;
+	Engine::GetMusic().Stop(Music::SOUND_NUM::ENERGY);
 	gameObjectManager.Unload();
 }

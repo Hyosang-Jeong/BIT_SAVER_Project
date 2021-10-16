@@ -14,7 +14,7 @@ Creation date: 3/07/2021
 #include"..\Objects\Notes.h"
 #include"..\Objects\Boss.h"
 #include"..\Objects\Note_collisionBox.h"
-
+#include"../Levels/State.h"
 Level2::Level2() :
 	mainMenu(InputKey::Keyboard::Escape),
 	camera({ 0,0 })
@@ -56,14 +56,14 @@ void Level2::Update(double dt)
 
 	if (mainMenu.IsKeyReleased() == true)
 	{
-		Engine::GetGameStateManager().Shutdown();
+		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
 	}
 }
 
 void Level2::Draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
-	glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+	glClearColor(0.36f, 0.36f, 0.52f, 1.0f);
 	gameObjectManager.DrawAll(camera.GetMatrix());
 }
 void Level2::Unload()
@@ -72,5 +72,6 @@ void Level2::Unload()
 	trackPtr = nullptr;
 	notebox = nullptr;
 	bossPtr = nullptr;
+	Engine::GetMusic().Stop(Music::SOUND_NUM::REWIND);
 	gameObjectManager.Unload();
 }

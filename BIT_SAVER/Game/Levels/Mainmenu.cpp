@@ -12,6 +12,7 @@ Creation date: 3/07/2021
 #include"State.h"
 
 Mainmenu::Mainmenu() : 
+ESCAPE(InputKey::Keyboard::Escape),
 Level1(InputKey::Keyboard::NUM_1),
 Level2(InputKey::Keyboard::NUM_2)
 {
@@ -30,6 +31,10 @@ void Mainmenu::Update([[maybe_unused]]double dt)
 	if (Level2.IsKeyReleased() == true)
 	{
 		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Level2));
+	}
+	if (ESCAPE.IsKeyReleased() == true)
+	{
+		Engine::GetGameStateManager().Shutdown();
 	}
 }
 
