@@ -32,7 +32,8 @@ void Engine::Init(std::string windowName)
 	model.init();
 	models["Basic_model"] = model;
 
-	Engine::GetMusic().Init();
+	GetMusic().Init();
+	GetMusic().Load();
 }
 
 void Engine::Shutdown()
@@ -56,6 +57,7 @@ void Engine::Update()
 		window.Update();
 		gameStateManager.Update(dt);
 		input.Update();
+		GetMusic().Update();
 		frameCount++;
 		if (frameCount >= Engine::FPS_IntervalFrameCount)
 		{

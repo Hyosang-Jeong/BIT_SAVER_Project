@@ -25,7 +25,7 @@ std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
     std::ifstream input{ midi_filename, std::ios::binary };
     if (!input)
     {
-        Engine::GetLogger().LogError("MIDI file cannot open!");
+        Engine::GetLogger().LogError("MIDI file cannot open!(Midi.cppLine 28)");
         exit(EXIT_FAILURE);
     }
     int        character;//for extract MThd or Mtrk
@@ -39,7 +39,7 @@ std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
     input.read((char*)buffer, 4);
     if (input.eof())
     {
-        Engine::GetLogger().LogError("Error: unexpected end of the file.");
+        Engine::GetLogger().LogError("Error: unexpected end of the file.(Midi.cppLine42)");
         exit(EXIT_FAILURE);
     }
     longdata = buffer[3] | (buffer[2] << 8) | (buffer[1] << 16) | (buffer[0] << 24);
@@ -61,7 +61,7 @@ std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
     case 2:
         //There maybe not type 2.
     default:
-        std::cerr << "Error: can't handle a type-" << shortdata << " MIDI file" << std::endl;
+        std::cerr << "Error: can't handle a type-" << shortdata << " MIDI file" << "midi.cppLine64" << std::endl;
     }
 
     //checking track count
@@ -72,7 +72,7 @@ std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
 
     if (type == 0 && shortdata != 1)
     {
-        std::cerr << "Error!: Type 0 MIDI file can only have one track" << std::endl;
+        Engine::GetLogger().LogError("Error!: Type 0 MIDI file can only have one track(Midi.cppLine75)");
         std::cerr << "Instead track count is: " << shortdata << std::endl;
     }
     else
@@ -130,7 +130,7 @@ std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
         input.read((char*)buffer, 4);
         if (input.eof())
         {
-            Engine::GetLogger().LogError("Error! : unexpected end of file.");
+            Engine::GetLogger().LogError("Error! : unexpected end of file.(midi.cppLine133)");
             exit(EXIT_FAILURE);
         }
         longdata = buffer[3] | (buffer[2] << 8) | (buffer[1] << 16) | (buffer[0] << 24);
@@ -169,51 +169,41 @@ std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
     one_tick_per_tempo = (tempo_data * 0.000001) / m_ticksPerQuarterNote;
 
     std::map<int, std::vector<long double>> track_seconds_;
-    if (music_num == Music::SOUND_NUM::BOSS)
+    int trackFrom = 0;
+    int trackTo = 0;
+    switch (music_num)
     {
-        for (int i = 3; i < 17; i++)
-        {
-            std::vector<long double> dt_to_seconds;
-            for (auto& m : m_events)
-            {
-                if (m.track == i)
-                {
-                    dt_to_seconds.push_back(m.tick * one_tick_per_tempo);
-                }
-            }
-            track_seconds_.emplace(i, dt_to_seconds);
-        }
+    case Music::SOUND_NUM::BOSS:
+        trackFrom = 3;
+        trackTo = 17;
+        break;
+    case Music::SOUND_NUM::ENERGY:
+        trackFrom = 8;
+        trackTo = 17;
+        break;
+    case Music::SOUND_NUM::BPM120:
+        trackFrom = 10;
+        trackTo = 11;
+        break;
+    default:
+        Engine::GetLogger().LogError("Error! :There are not track infor(midi.cppLine189)");
+        exit(EXIT_FAILURE);
+        break;
     }
-    if (music_num == Music::SOUND_NUM::ENERGY)
+    for (int i = trackFrom; i < trackTo; i++)
     {
-        for (int i = 9; i < 10; i++)
+        std::vector<long double> dt_to_seconds;
+        for (auto& m : m_events)
         {
-            std::vector<long double> dt_to_seconds;
-            for (auto& m : m_events)
+            if (m.track == 9 || m.track == 13||m.track == 14||m.track == 16)
             {
-                if (m.track == i)
-                {
-                    dt_to_seconds.push_back(m.tick * one_tick_per_tempo);
-                }
+                dt_to_seconds.push_back(m.tick * one_tick_per_tempo);
             }
-            track_seconds_.emplace(i, dt_to_seconds);
         }
+        track_seconds_.emplace(i, dt_to_seconds);
     }
-    if (music_num == Music::SOUND_NUM::BPM120)
-    {
-        for (int i = 10; i < 11; i++)
-        {
-            std::vector<long double> dt_to_seconds;
-            for (auto& m : m_events)
-            {
-                if (m.track == i)
-                {
-                    dt_to_seconds.push_back(m.tick * one_tick_per_tempo);
-                }
-            }
-            track_seconds_.emplace(i, dt_to_seconds);
-        }
-    }
+
+
     input.close();
 
     return track_seconds_;
@@ -225,8 +215,8 @@ unsigned char MidiEvent::readBytes(std::istream& input) {
     input.read((char*)buffer, 1);
     if (input.eof())
     {
-        std::cerr << "Error! : unexpected end of file." << std::endl;
-        return 0;
+        Engine::GetLogger().LogError("Error! :There are no file to read(midi.cppLine218)");
+        exit(EXIT_FAILURE);
     }
     return buffer[0];
 }
@@ -244,8 +234,8 @@ unsigned long MidiEvent::openDtInformation(unsigned char a, unsigned char b, uns
     count++;
     if (count >= 6)
     {
-        std::cerr << "Dt number is too large" << std::endl;
-        return 0;
+        Engine::GetLogger().LogError("Error! :Dt number is too large(midi.cppLine237)");
+        exit(EXIT_FAILURE);
     }
 
     unsigned long output = 0;
@@ -287,8 +277,8 @@ int MidiEvent::extractMidi(std::istream& input, std::vector<unsigned char>& arra
     //if value is the end of file, go return 0
     if (character == EOF)
     {
-        std::cerr << "Error! : unexpected end of file." << std::endl;
-        return 0;
+        Engine::GetLogger().LogError("Error! : unexpected end of file(midi.cppLine280)");
+        exit(EXIT_FAILURE);
     }
     else
     {
@@ -301,15 +291,14 @@ int MidiEvent::extractMidi(std::istream& input, std::vector<unsigned char>& arra
         runningQ = 1;
         if (runningCommand == 0)
         {
-            std::cerr << "Error! : running command with no previous command" << std::endl;
-            return 0;
+            Engine::GetLogger().LogError("Error! : running command with no previous command(midi.cppLine294)");
+            exit(EXIT_FAILURE);
         }
         if (runningCommand >= 0xf0)
         {
-            std::cerr << "Error! : running status not permitted with meta"
-                << " event" << std::endl;
+            Engine::GetLogger().LogError("Error! : running status not permitted with meta(midi.cppLine299)");
             std::cerr << "Byte is 0x" << std::hex << (int)byte << std::dec << std::endl;
-            return 0;
+            exit(EXIT_FAILURE);
         }
     }
     else
@@ -324,7 +313,7 @@ int MidiEvent::extractMidi(std::istream& input, std::vector<unsigned char>& arra
         array.push_back(byte);
     }
 
-    switch (runningCommand & 0xf0) 
+    switch (runningCommand & 0xf0)
     {
     case 0x80:        // note off (2 more bytes)
     case 0x90:        // note on (2 more bytes)
@@ -332,15 +321,15 @@ int MidiEvent::extractMidi(std::istream& input, std::vector<unsigned char>& arra
     case 0xB0:        // extract other thing
     case 0xE0:        // extract other thing
         byte = readBytes(input);
-        if (byte > 0x7f) 
+        if (byte > 0x7f)
         {
             std::cerr << "MIDI data byte is too large: " << (int)byte << std::endl;
         }
         array.push_back(byte);
-        if (!runningQ) 
+        if (!runningQ)
         {
             byte = readBytes(input);
-            if (byte > 0x7f) 
+            if (byte > 0x7f)
             {
                 std::cerr << "MIDI data byte is too large: " << (int)byte << std::endl;
 
@@ -351,7 +340,7 @@ int MidiEvent::extractMidi(std::istream& input, std::vector<unsigned char>& arra
 
     case 0xC0:        // patch change (1 more byte)
     case 0xD0:        // channel pressure (1 more byte)
-        if (!runningQ) 
+        if (!runningQ)
         {
             byte = readBytes(input);
             if (byte > 0x7f)
@@ -368,7 +357,7 @@ int MidiEvent::extractMidi(std::istream& input, std::vector<unsigned char>& arra
             // meta event start//
         case 0xff:
         {
-            if (!runningQ) 
+            if (!runningQ)
             {
                 byte = readBytes(input); // meta type
                 array.push_back(byte);
@@ -383,42 +372,43 @@ int MidiEvent::extractMidi(std::istream& input, std::vector<unsigned char>& arra
             //push back to array
             //for byte 1,2,3,4,5
             array.push_back(byte1);
-            if (byte1 >= 0x80) 
+            if (byte1 >= 0x80)
             {
                 byte2 = readBytes(input);
                 array.push_back(byte2);
-                if (byte2 > 0x80) 
+                if (byte2 > 0x80)
                 {
                     byte3 = readBytes(input);
                     array.push_back(byte3);
-                    if (byte3 >= 0x80) 
+                    if (byte3 >= 0x80)
                     {
                         byte4 = readBytes(input);
                         array.push_back(byte4);
-                        if (byte4 >= 0x80) 
+                        if (byte4 >= 0x80)
                         {
-                            std::cerr << "Error: can't handle large VLVs" << std::endl;
+                            Engine::GetLogger().LogError("Error: can't handle large VLVs(midi.cppLine390)");
+
                         }
-                        else 
+                        else
                         {
                             length = openDtInformation(byte1, byte2, byte3, byte4);
                         }
                     }
-                    else 
+                    else
                     {
                         length = openDtInformation(byte1, byte2, byte3);
                     }
                 }
-                else 
+                else
                 {
                     length = openDtInformation(byte1, byte2);
                 }
             }
-            else 
+            else
             {
                 length = byte1;
             }
-            for (int j = 0; j < (int)length; j++) 
+            for (int j = 0; j < (int)length; j++)
             {
                 byte = readBytes(input); // meta type
                 array.push_back(byte);
@@ -430,7 +420,7 @@ int MidiEvent::extractMidi(std::istream& input, std::vector<unsigned char>& arra
         case 0xf0:// System Exclusive message
         {         // (complete, or start of message)
             int length = (int)readDtValue(input);
-            for (int i = 0; i < length; i++) 
+            for (int i = 0; i < length; i++)
             {
                 byte = readBytes(input);
                 array.push_back(byte);
@@ -440,7 +430,7 @@ int MidiEvent::extractMidi(std::istream& input, std::vector<unsigned char>& arra
         }
         break;
     default:
-        std::cout << "Error! :can't reading midifile" << std::endl;
+        Engine::GetLogger().LogError("Error! :can't reading midifile(midi.cppLine433)");
         std::cout << "Command byte was " << (int)runningCommand << std::endl;
         return 0;
     }

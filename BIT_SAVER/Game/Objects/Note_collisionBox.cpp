@@ -28,7 +28,6 @@ void Note_box::ResolveCollision(GameObject* test_obj)
 		if (test_obj->GetPosition().y == attack_ypos)
 		{
 		    Engine::GetMusic().Play(Music::SOUND_NUM::SOUND_EFFECT1);
-
 			if (attack_ypos == 5)
 			{
 				Hit[0] = true;

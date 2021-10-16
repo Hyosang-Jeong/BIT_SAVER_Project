@@ -2,12 +2,13 @@
 //we use fmod library here
 #include<iostream>
 #include"fmod.hpp"
+
 #include"fmod_errors.h"
 #include <fmod.h>
 #include <string>
 #include <vector>
-//#define SOUND_MAX       1.0f
-#define SOUND_MAX       0.9f
+
+#define SOUND_MAX       1.0f
 #define SOUND_MIN       0.0f
 #define SOUND_DEFAULT   0.5f
 #define SOUND_WEIGHT    0.1f 
@@ -27,20 +28,29 @@ public:
     //Music() {}
     //~Music() {}
     void Init();
-    void Play(int Sound_num);
-    void Stop();
-    void Resume();
-    void Pause();
-    void volumeUp();
-    void volumeDown();
+    void Load();
+    void Update();
+    void Play(int sound_num);
+    void Stop(int sound_num);
+    void Resume(int sound_num);
+    void Pause(int sound_num);
+    void volumeUp(int sound_num);
+    void volumeDown(int sound_num);
+    void ErrorCheck(FMOD_RESULT result);
     void Release();
-    FMOD::System* pSystem[MUSIC_END]{};
-    FMOD::Channel* pChannel[MUSIC_END]{};
-    FMOD::Sound* pSound[MUSIC_END]{};
+
+    
+    FMOD_SYSTEM* pSystem;
+    FMOD_CHANNEL* pChannel[MUSIC_END]{};
+    FMOD_SOUND* pSound[MUSIC_END]{};
     FMOD_RESULT result;
-    bool isstop = false;
+    FMOD_SOUNDGROUP* bgm_group;
+    FMOD_SOUNDGROUP* sfx_group;
+    
 private:
     float volume;
+    float Musicvolume = 0.5f;
+    float SFXvolume = 0.5f;
 
     std::vector<const char*> MusicName{};
 };
