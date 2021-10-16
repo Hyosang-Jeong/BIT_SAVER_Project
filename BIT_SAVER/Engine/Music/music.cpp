@@ -7,87 +7,104 @@
 #include "../Engine.h"
 
 using namespace std;
-
 void Music::Init()
 {
-
-
-    for (int i = 0; i < MUSIC_END; i++)
-    {
-        result = FMOD::System_Create(&pSystem[i]);
-        result = pSystem[i]->init(MUSIC_END, FMOD_INIT_NORMAL, NULL);
-    }
+    result = FMOD_System_Create(&pSystem, FMOD_VERSION);
+    ErrorCheck(result);
+    result = FMOD_System_Init(pSystem, MUSIC_END, FMOD_INIT_NORMAL, nullptr);
+    ErrorCheck(result);
 
     //MusicName.push_back("../sound/boss.mp3");
     MusicName.push_back("../sound/rewind.mp3");
     MusicName.push_back("../sound/button2.mp3");
     //MusicName.push_back("../sound/120.mp3");
 
-
-    for (int i = 0; i < MusicName.size(); i++)
-    {
-        result = pSystem[i]->createSound(MusicName[i], FMOD_DEFAULT, NULL, &pSound[i]);
-        if (result != FMOD_OK) {
-            Engine::GetLogger().LogError("Error: FMOD_system are not created sound at track num: ");
-            std::cout << i;
-            exit(EXIT_FAILURE);
-        }
-    }
+    Load();
 }
 
-void Music::Play(int Sound_num)
+void Music::Load()
 {
+    result = FMOD_System_CreateSound(pSystem, "../sound/boss.mp3", FMOD_DEFAULT, nullptr, &pSound[BOSS]);
+    ErrorCheck(result);
 
-    while (!isstop)
-    {
-        pSystem[Sound_num]->playSound(pSound[Sound_num], NULL, 0, &pChannel[Sound_num]);
-        Engine::GetMusic().pSystem[Sound_num]->update();
-        break;
-    }
+    result = FMOD_System_CreateSound(pSystem, "../sound/Energy.mp3", FMOD_DEFAULT, nullptr, &pSound[ENERGY]);
+    ErrorCheck(result);
 
+    result = FMOD_System_CreateSound(pSystem, "../sound/button2.mp3", FMOD_DEFAULT, nullptr, &pSound[SOUND_EFFECT1]);
+    ErrorCheck(result);
 
+    result = FMOD_System_CreateSound(pSystem, "../sound/120.mp3", FMOD_DEFAULT, nullptr, &pSound[BPM120]);
+    ErrorCheck(result);
+
+    //result = FMOD_System_CreateSoundGroup(pSystem, "BGM", &bgm_group);
+    //ErrorCheck(result);
+    //result = FMOD_System_CreateSoundGroup(pSystem, "SFX", &sfx_group);
+    //ErrorCheck(result);
 
 }
-
-void Music::Stop()
+void Music::Play(int sound_num)
 {
-    if (isstop == false)
-        isstop = true;
-    else if (isstop == true)
-        isstop = false;
+    result = FMOD_System_PlaySound(pSystem, pSound[sound_num], 0, 0, &pChannel[sound_num]);
+    ErrorCheck(result);
 }
 
-void Music::Resume()
+void Music::Stop(int sound_num)
 {
-    pChannel[0]->setPaused(false);
+    result = FMOD_Channel_Stop(pChannel[sound_num]);
+    ErrorCheck(result);
 }
 
-void Music::Pause()
+void Music::Update()
 {
-    pChannel[0]->setPaused(true);
+    result = FMOD_System_Update(pSystem);
 }
 
-void Music::volumeUp()
+void Music::Resume(int sound_num)
+{
+    result = FMOD_Channel_SetPaused(pChannel[sound_num], false);
+    ErrorCheck(result);
+}
+
+void Music::Pause(int sound_num)
+{
+    result = FMOD_Channel_SetPaused(pChannel[sound_num], false);
+    ErrorCheck(result);
+}
+
+void Music::volumeUp(int sound_num)
 {
     if (volume < SOUND_MAX) {
         volume += SOUND_WEIGHT;
     }
-    pChannel[0]->setVolume(volume);
+    result = FMOD_Channel_SetVolume(pChannel[sound_num], volume);
+    ErrorCheck(result);
 }
 
-void Music::volumeDown()
+void Music::volumeDown(int sound_num)
 {
     if (volume > SOUND_MIN) {
         volume -= SOUND_WEIGHT;
     }
-    pChannel[0]->setVolume(volume);
-
+    result = FMOD_Channel_SetVolume(pChannel[sound_num], volume);
+    ErrorCheck(result);
 }
+
 
 void Music::Release()
 {
-    pSystem[0]->close();
-    pSystem[0]->release();
+    FMOD_System_Close(pSystem);
+    FMOD_System_Release(pSystem);
+
+}
+
+void Music::ErrorCheck(FMOD_RESULT results)
+{
+
+    if (results != FMOD_OK) {
+        Engine::GetLogger().LogError("Error: ");
+        exit(EXIT_FAILURE);
+    }
+
 }
 
 

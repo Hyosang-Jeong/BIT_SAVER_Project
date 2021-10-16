@@ -50,6 +50,7 @@ void Hero::UpdateXVelocity([[maybe_unused]] double dt)
 {
     if (moveUpKey.IsKeyDown() == true)
     {
+
         SetPosition({ Getposition().x, 5 });
     }
 
