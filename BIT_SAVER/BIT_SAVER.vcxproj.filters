@@ -65,6 +65,9 @@
     <ClCompile Include="Engine\Physics\Camera.cpp">
       <Filter>Engine\Physics</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Levels\Mainmenu.cpp">
+      <Filter>Game\Levels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\GameObject\GameObject.h">
@@ -138,6 +141,12 @@
     </ClInclude>
     <ClInclude Include="Engine\Physics\Camera.h">
       <Filter>Engine\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Levels\Mainmenu.h">
+      <Filter>Game\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Levels\State.h">
+      <Filter>Game\Levels</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

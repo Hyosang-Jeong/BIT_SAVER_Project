@@ -100,7 +100,5 @@ void GameStateManager::Update(double dt)
 		state = State::EXIT;
 		break;
 	}
-
-
 	}
 }

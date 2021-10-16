@@ -10,13 +10,13 @@ std::map<int, std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
     switch (music_num)
     {
     case Music::SOUND_NUM::BOSS:
-        midi_filename = "boss.mid";
+        midi_filename = "../MIDI/boss.mid";
         break;
     case Music::SOUND_NUM::ENERGY:
-        midi_filename = "energy.mid";
+        midi_filename = "../MIDI/energy.mid";
         break;
     case Music::SOUND_NUM::BPM120:
-        midi_filename = "120.mid";
+        midi_filename = "../MIDI/120.mid";
         break;
     default:
         break;

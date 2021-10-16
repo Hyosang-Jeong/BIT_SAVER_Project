@@ -14,7 +14,6 @@ Creation date: 3/07/2021
 #include"..\Objects\Notes.h"
 #include"..\Objects\Boss.h"
 #include"..\Objects\Note_collisionBox.h"
-#include<map>
 
 Level1::Level1() : mainMenu(InputKey::Keyboard::Escape), camera({ 0,0 })
 {

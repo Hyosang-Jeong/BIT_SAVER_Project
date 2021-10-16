@@ -179,6 +179,7 @@
     <ClCompile Include="Engine\Texture\TextureManager.cpp" />
     <ClCompile Include="Engine\Window\Window.cpp" />
     <ClCompile Include="Game\Levels\Level1.cpp" />
+    <ClCompile Include="Game\Levels\Mainmenu.cpp" />
     <ClCompile Include="Game\Objects\Boss.cpp" />
     <ClCompile Include="Game\Objects\Hero.cpp" />
     <ClCompile Include="Game\Objects\Notes.cpp" />
@@ -205,6 +206,8 @@
     <ClInclude Include="Engine\Texture\TextureManager.h" />
     <ClInclude Include="Engine\Window\Window.h" />
     <ClInclude Include="Game\Levels\Level1.h" />
+    <ClInclude Include="Game\Levels\Mainmenu.h" />
+    <ClInclude Include="Game\Levels\State.h" />
     <ClInclude Include="Game\Objects\Boss.h" />
     <ClInclude Include="Game\Objects\GameObjectType.h" />
     <ClInclude Include="Game\Objects\Hero.h" />
