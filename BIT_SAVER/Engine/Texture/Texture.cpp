@@ -20,7 +20,17 @@ void Texture::Draw(glm::mat3  displayMatrix, std::string mdl_name, std::string s
 	std::map<std::string, GLModel>::iterator mdl_ref;
 	std::map<std::string, GLSLShader>::iterator shd_ref;
 	mdl_ref = Engine::GetGLModel().find(mdl_name);
+	if (mdl_ref == Engine::GetGLModel().end())
+	{
+		Engine::GetLogger().LogError("Model not found!");
+		std::exit(EXIT_FAILURE);
+	}
 	shd_ref = Engine::GetGLShader().find(shdr_name);
+	if (shd_ref == Engine::GetGLShader().end())
+	{
+		Engine::GetLogger().LogError("Shader not found!");
+		std::exit(EXIT_FAILURE);
+	}
 
 	shd_ref->second.Use();
 	glBindVertexArray(mdl_ref->second.vaoid);
@@ -46,6 +56,7 @@ void Texture::Draw(glm::mat3  displayMatrix, std::string mdl_name, std::string s
 	else
 	{
 		Engine::GetLogger().LogError("Uniform variable doesn't exist!!!");
+		std::exit(EXIT_FAILURE);
 	}
 
 	glDrawElements(mdl_ref->second.primitive_type, mdl_ref->second.draw_cnt, GL_UNSIGNED_SHORT, NULL);

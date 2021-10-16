@@ -21,6 +21,7 @@ void Window::Init(GLint wid, GLint hei,std::string windowName)
     if (!glfwInit()) 
     {
         Engine::GetLogger().LogError("GLFW init has failed - abort program!!!");
+        std::exit(EXIT_FAILURE);
     }
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -29,7 +30,7 @@ void Window::Init(GLint wid, GLint hei,std::string windowName)
     glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_TRUE);
     glfwWindowHint(GLFW_RED_BITS, 8); glfwWindowHint(GLFW_GREEN_BITS, 8);
     glfwWindowHint(GLFW_BLUE_BITS, 8); glfwWindowHint(GLFW_ALPHA_BITS, 8);
-    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); // window dimensions are static
+    glfwWindowHint(GLFW_RESIZABLE, GL_TRUE); // window dimensions are static
 
    ptr_window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
 

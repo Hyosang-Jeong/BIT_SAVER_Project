@@ -13,7 +13,9 @@ Creation date: 3/07/2021
 
 MainMenu::MainMenu() : PlayKey(InputKey::Keyboard::Enter)
 {
-	Logo.setup_texobj("../images/Logo.png");
+	Splash.setup_texobj("../images/DigiPen_BLACK_1024px.png");
+
+	Logo.setup_texobj("../images/LOGO.png");
 }
 
 void MainMenu::Load()
@@ -22,11 +24,11 @@ void MainMenu::Load()
 void MainMenu::Update(double dt)
 {
 	timer -= dt;
-	if (PlayKey.IsKeyReleased() == true)
+	if (PlayKey.IsKeyReleased() == true && timer <=0)
 	{
 		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Level1));
 	}
-	if (timer < -0.5)
+	if (timer < 0)
 	{
 		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Level1));
 	}
@@ -46,9 +48,15 @@ void MainMenu::Draw()
 	{
 		Engine::GetLogger().LogError("Uniform value doesn't exist! ");
 	}
-
-	glUniform1f(alpha, static_cast<float>(timer)/3.0f);
-	Logo.Draw(glm::mat3{1,0,0,0,1,0,0,0,1}, "Basic_model", "Mainmenu");
+	glUniform1f(alpha, static_cast<float>(timer) / 3.0f);
+	if (timer > 3)
+	{
+		Splash.Draw(glm::mat3{ 2 / 3.0,0,0,0,1 / 3.0,0,0,0,1 }, "Basic_model", "Mainmenu");
+	}
+	else
+	{
+		Logo.Draw(glm::mat3{ 1,0,0,0,1,0,0,0,1 }, "Basic_model", "Mainmenu");
+	}
 }
 void MainMenu::Unload()
 {

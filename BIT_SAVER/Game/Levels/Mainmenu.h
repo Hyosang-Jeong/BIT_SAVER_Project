@@ -25,8 +25,9 @@ public:
 	void Draw() override;
 	std::string GetName() override { return "MainMenu"; }
 	Texture Logo;
+	Texture Splash;
 	InputKey PlayKey;
 private:
-	double timer{ 4 };
+	double timer{ 6 };
 };
 
