@@ -27,7 +27,7 @@ void Level1::Load()
 	heroPtr = new Hero({ -6,0 });
 
 	std::map<int, std::vector<long double>> mid_info;
-	mid_info = m.MidiSetUp(Music::SOUND_NUM::ENERGY);
+	mid_info = m.MidiSetUp(Music::SOUND_NUM::BPM120);
 	trackPtr = new Track(mid_info);
 	notebox = new Note_box({ -4,0 });
 	bossPtr = new Boss({ 8,0 });
@@ -42,8 +42,10 @@ void Level1::Load()
 void Level1::Update(double dt)
 {
 	gameObjectManager.UpdateAll(dt);
-	Engine::GetMusic().Play(Music::SOUND_NUM::ENERGY);
-	//Engine::GetMusic().pSystem[Engine::GetMusic().ENERGY]->update();
+	if(!Engine::GetMusic().isstop)
+	    Engine::GetMusic().Play(Music::SOUND_NUM::BPM120);
+	
+	
 	if (trackPtr->GetNote_flag() == true) // To generate note with track's info
 	{
 		glm::vec2 pos = trackPtr->GetNoteinfo().first;

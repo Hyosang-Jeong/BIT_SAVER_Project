@@ -20,7 +20,8 @@ void Music::Init()
 
     MusicName.push_back("../sound/boss.mp3");
     MusicName.push_back("../sound/Energy.mp3");
-    MusicName.push_back("../sound/button1.mp3");
+    MusicName.push_back("../sound/button2.mp3");
+    MusicName.push_back("../sound/120.mp3");
 
 
     for (int i = 0; i < MusicName.size(); i++)
@@ -37,17 +38,23 @@ void Music::Init()
 void Music::Play(int Sound_num)
 {
 
-    while (true)
+    while (!isstop)
     {
         pSystem[Sound_num]->playSound(pSound[Sound_num], NULL, 0, &pChannel[Sound_num]);
-        Engine::GetMusic().pSystem[Music::SOUND_NUM::SOUND_EFFECT1]->update();
+        Engine::GetMusic().pSystem[Sound_num]->update();
         break;
     }
+
+
+
 }
 
 void Music::Stop()
 {
-    pChannel[0]->stop();
+    if (isstop == false)
+        isstop = true;
+    else if (isstop == true)
+        isstop = false;
 }
 
 void Music::Resume()
