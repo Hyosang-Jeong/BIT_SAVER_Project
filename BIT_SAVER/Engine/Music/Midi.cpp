@@ -191,8 +191,8 @@ std::vector<long double> MidiEvent::MidiSetUp(int music_num)
         trackTo = 2;
         break;
     case Music::SOUND_NUM::ENERGY:
-        trackFrom = 10;
-        trackTo = 11;
+        trackFrom = 1;
+        trackTo = 2;
         break;
     default:
     {
