@@ -41,6 +41,6 @@ public:
     bool isstop = false;
 private:
     float volume;
-    
+
     std::vector<const char*> MusicName{};
 };

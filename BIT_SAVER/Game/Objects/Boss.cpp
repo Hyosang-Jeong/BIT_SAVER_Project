@@ -32,9 +32,9 @@ void Boss::Update(double dt)
 	GameObject::Update(dt);
 }
 
-void Boss::Draw(glm::mat3 camera_matrix)
+void Boss::Draw(glm::mat3 )
 {
-	texture.Draw(mdl_to_ndc_xform * camera_matrix, "Basic_model", "Hero");
+	texture.Draw(mdl_to_ndc_xform , "Basic_model", "Hero");
 }
 
 

@@ -18,7 +18,6 @@
     {
     public:
         GLuint Load(const char* filePath, glm::vec2& texture_size);
-        void Unload();
 
     private:
         std::map<const char*, GLuint > images;

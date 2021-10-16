@@ -15,13 +15,10 @@ int main()
 	Level1 level1;
 	engine.GetGameStateManager().AddGameState(level1);
 	
-
-
 	while (engine.HasGameEnded() == false)
-
 	{
 		engine.Update();
-		
+
 	}
 
 	engine.Shutdown();
