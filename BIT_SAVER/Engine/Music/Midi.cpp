@@ -9,15 +9,14 @@ std::vector<long double> MidiEvent::MidiSetUp(int music_num)
     const char* midi_filename = " ";
     switch (music_num)
     {
-        case Music::SOUND_NUM::BOSS:
-            midi_filename = "../MIDI/boss.mid";
-            break;
-    case Music::SOUND_NUM::REWIND:
-        midi_filename = "../MIDI/rewind.mid";
-        break;
-        case Music::SOUND_NUM::ENERGY:
-            midi_filename = "../MIDI/energy.mid";
-            break;
+
+	case Music::SOUND_NUM::ENERGY:
+		midi_filename = "../MIDI/energy.mid";
+		break;
+	case Music::SOUND_NUM::REWIND:
+		midi_filename = "../MIDI/rewind.mid";
+		break;
+
     default:
         break;
     }
@@ -157,10 +156,18 @@ std::vector<long double> MidiEvent::MidiSetUp(int music_num)
 
             if ((bytes[0] & 0xf0) == 0x90 && bytes[bytes.size() - 1] != 0)
             {
-                if (music_num == Music::SOUND_NUM::REWIND)
+                if (music_num == Music::SOUND_NUM::ENERGY)
+                {
                     event.track = 1;
+                }
+                else if (music_num == Music::SOUND_NUM::REWIND)
+                {
+                    event.track = 1;
+                }
                 else
+                {
                     event.track = (bytes[0] & 0x0f) + 1;
+                }
                 m_events.push_back(event);
             }
             else if (bytes[0] == 0xff && bytes[1] == 0x2f) 
@@ -179,9 +186,7 @@ std::vector<long double> MidiEvent::MidiSetUp(int music_num)
     int trackTo = 0;
     switch (music_num)
     {
-    case Music::SOUND_NUM::BOSS:
-        trackFrom = 3;
-        trackTo = 17;
+
         break;
     case Music::SOUND_NUM::REWIND:
         trackFrom = 1;
@@ -200,7 +205,6 @@ std::vector<long double> MidiEvent::MidiSetUp(int music_num)
     }
     for (int i = trackFrom; i < trackTo; i++)
     {
-
         for (auto& m : m_events)
         {
             if (m.track == i)

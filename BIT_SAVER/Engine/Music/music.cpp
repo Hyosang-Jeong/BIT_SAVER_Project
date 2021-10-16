@@ -14,6 +14,7 @@ void Music::Init()
     result = FMOD_System_Init(pSystem, MUSIC_END, FMOD_INIT_NORMAL, nullptr);
     ErrorCheck(result);
 
+
     MusicName.push_back("../sound/rewind.mp3");
     MusicName.push_back("../sound/button2.mp3");
     MusicName.push_back("../sound/boss.mp3");
@@ -26,7 +27,9 @@ void Music::Init()
 void Music::Load()
 {
 
+
     result = FMOD_System_CreateSound(pSystem, "../sound/boss.mp3", FMOD_DEFAULT, nullptr, &pSound[BOSS]);
+
     ErrorCheck(result);
 
     result = FMOD_System_CreateSound(pSystem, "../sound/rewind.mp3", FMOD_DEFAULT, nullptr, &pSound[REWIND]);
