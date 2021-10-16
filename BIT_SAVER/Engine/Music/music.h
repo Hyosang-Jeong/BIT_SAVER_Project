@@ -18,8 +18,10 @@ class Music
 public:
     enum SOUND_NUM
     {
-        REWIND = 0,
+        ENERGY = 0,
+        REWIND,
         SOUND_EFFECT1,
+        SOUND_EFFECT2,
         MUSIC_END
     };
 

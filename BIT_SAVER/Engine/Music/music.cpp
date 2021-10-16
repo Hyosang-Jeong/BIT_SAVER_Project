@@ -16,16 +16,25 @@ void Music::Init()
 
     MusicName.push_back("../sound/rewind.mp3");
     MusicName.push_back("../sound/button2.mp3");
+    MusicName.push_back("../sound/button1.mp3");
+    MusicName.push_back("../sound/energy.mp3");
 
     Load();
 }
 
 void Music::Load()
 {
+
     result = FMOD_System_CreateSound(pSystem, "../sound/rewind.mp3", FMOD_DEFAULT, nullptr, &pSound[REWIND]);
     ErrorCheck(result);
 
     result = FMOD_System_CreateSound(pSystem, "../sound/button2.mp3", FMOD_DEFAULT, nullptr, &pSound[SOUND_EFFECT1]);
+    ErrorCheck(result);
+
+    result = FMOD_System_CreateSound(pSystem, "../sound/button1.mp3", FMOD_DEFAULT, nullptr, &pSound[SOUND_EFFECT2]);
+    ErrorCheck(result);
+
+    result = FMOD_System_CreateSound(pSystem, "../sound/energy.mp3", FMOD_DEFAULT, nullptr, &pSound[ENERGY]);
     ErrorCheck(result);
 }
 void Music::Play(int sound_num)
@@ -87,7 +96,8 @@ void Music::ErrorCheck(FMOD_RESULT results)
 {
 
     if (results != FMOD_OK) {
-        Engine::GetLogger().LogError("Error: ");
+        Engine::GetLogger().LogError("Error: there are error in music file");
+        //add result where is exact error happen function
         exit(EXIT_FAILURE);
     }
 

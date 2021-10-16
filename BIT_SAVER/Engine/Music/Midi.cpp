@@ -9,9 +9,12 @@ std::vector<long double> MidiEvent::MidiSetUp(int music_num)
     const char* midi_filename = " ";
     switch (music_num)
     {
-    case Music::SOUND_NUM::REWIND:
-        midi_filename = "../MIDI/rewind.mid";
-        break;
+	case Music::SOUND_NUM::ENERGY:
+		midi_filename = "../MIDI/energy.mid";
+		break;
+	case Music::SOUND_NUM::REWIND:
+		midi_filename = "../MIDI/rewind.mid";
+		break;
     default:
         break;
     }
@@ -45,7 +48,8 @@ std::vector<long double> MidiEvent::MidiSetUp(int music_num)
     input.read((char*)buffer, 2);
     shortdata = buffer[1] | (buffer[0] << 8);
 
-    switch (shortdata) {//To know the type
+    switch (shortdata) 
+    {//To know the type
     case 0:
         type = 0;
         break;
@@ -113,7 +117,8 @@ std::vector<long double> MidiEvent::MidiSetUp(int music_num)
     std::vector<unsigned char> bytes;
     unsigned long tempo_data = 0;
     long double one_tick_per_tempo = 0;
-    for (int i = 0; i < tracks; i++) {
+    for (int i = 0; i < tracks; i++) 
+    {
         runCommand = 0;
 
         character = input.get();//'M'
@@ -149,13 +154,22 @@ std::vector<long double> MidiEvent::MidiSetUp(int music_num)
 
             if ((bytes[0] & 0xf0) == 0x90 && bytes[bytes.size() - 1] != 0)
             {
-                if (music_num == Music::SOUND_NUM::REWIND)
+                if (music_num == Music::SOUND_NUM::ENERGY)
+                {
                     event.track = 1;
+                }
+                else if (music_num == Music::SOUND_NUM::REWIND)
+                {
+                    event.track = 1;
+                }
                 else
+                {
                     event.track = (bytes[0] & 0x0f) + 1;
+                }
                 m_events.push_back(event);
             }
-            else if (bytes[0] == 0xff && bytes[1] == 0x2f) {
+            else if (bytes[0] == 0xff && bytes[1] == 0x2f) 
+            {
                 // end-of-track message
                 break;
             }
@@ -170,26 +184,23 @@ std::vector<long double> MidiEvent::MidiSetUp(int music_num)
     int trackTo = 0;
     switch (music_num)
     {
-    //case Music::SOUND_NUM::BOSS:
-    //    trackFrom = 3;
-    //    trackTo = 17;
-    //    break;
     case Music::SOUND_NUM::REWIND:
         trackFrom = 1;
         trackTo = 2;
         break;
-    //case Music::SOUND_NUM::BPM120:
-    //    trackFrom = 10;
-    //    trackTo = 11;
-    //    break;
+    case Music::SOUND_NUM::ENERGY:
+        trackFrom = 1;
+        trackTo = 2;
+        break;
     default:
+    {
         Engine::GetLogger().LogError("Error! :There are not track infor(midi.cppLine189)");
         exit(EXIT_FAILURE);
+    }
         break;
     }
     for (int i = trackFrom; i < trackTo; i++)
     {
-
         for (auto& m : m_events)
         {
             if (m.track == i)

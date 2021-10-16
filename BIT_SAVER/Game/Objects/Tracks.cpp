@@ -24,13 +24,15 @@ GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 })
 	{
 		time.push_back(time_t);
 	}
-	//std::sort(begin(time), end(time));
+	std::sort(begin(time), end(time));
 
 	long double t{ time[0] };
 	time.erase(std::remove_if(begin(time) + 1, end(time), [&](auto time_t)
 		{
 			if (time_t - t < 0.1)
+			{
 				return true;
+			}
 			else {
 				t = time_t;
 				return false;
@@ -43,9 +45,13 @@ GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 })
 	{
 		int T = static_cast<int>(time_t * 10000);
 		if (T % 2 == 0)
-			track_info[T % 2].push_back(time_t+ target_time);
-		if (T % 2 == 1)
-			track_info[T % 2].push_back(time_t+ target_time);
+		{
+			track_info[T % 2].push_back(time_t + target_time);
+		}
+		else if (T % 2 == 1)
+		{
+			track_info[T % 2].push_back(time_t + target_time);
+		}
 	}
 
 }
