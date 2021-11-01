@@ -7,4 +7,5 @@ enum class GameObjectType {
     Note,
     Note_collisionBox,
     Count,
+    Background,
 };

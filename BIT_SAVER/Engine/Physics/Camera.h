@@ -9,8 +9,8 @@ Creation date: 2/11/2021
 -----------------------------------------------------------------*/
 #pragma once
 #include <glm/glm.hpp>
-
-class Camera 
+#include "..\Component.h"
+class Camera : public Component 
 {
 public:
 	Camera(glm::vec2 newPosition);

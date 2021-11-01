@@ -15,6 +15,11 @@ void GameObjectManager::Add(GameObject* obj)
 	gameObjects.push_back(obj);
 }
 
+void GameObjectManager::Add_front(GameObject* obj)
+{
+	gameObjects.push_front(obj);
+}
+
 void GameObjectManager::Unload()
 {
 	for (GameObject* a : gameObjects)

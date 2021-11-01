@@ -10,13 +10,15 @@ Creation date: 2/14/2021
 #pragma once
 #include<list>
 #include"../../Game/Objects/GameObjectType.h"
+#include "../Component.h"
 #include<glm/glm.hpp>
 class GameObject;
 
-class GameObjectManager
+class GameObjectManager : public Component
 {
 public:
 	void Add(GameObject* obj);
+	void Add_front(GameObject* obj);
 	void Unload();
 
 	void UpdateAll(double dt);
