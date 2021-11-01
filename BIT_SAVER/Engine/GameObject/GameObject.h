@@ -18,14 +18,21 @@ Creation date: 2/14/2021
 #include"..\GLShader\glslshader.h"
 #include"..\Texture\Texture.h"
 #include"../Physics/Collision.h"
+#include"../ComponentManager.h"
+
 enum class GameObjectType;
+
+class Component;
 
 class GameObject
 {
 public:
 	GameObject(glm::vec2 position);
 	GameObject(glm::vec2 position, glm::vec2 scale);
-	virtual ~GameObject() {}
+	virtual ~GameObject() 
+	{
+		ClearGOComponents();
+	}
 	virtual GameObjectType GetObjectType() = 0;
 	virtual void ResolveCollision(GameObject* object);
 	virtual void Update(double dt);
@@ -39,6 +46,9 @@ public:
 	void set_destroy(bool value);
 	bool Destroy();
 
+	template<typename T>
+	T* GetGOComponent() { return components.GetComponent<T>(); }
+
 protected:
 
 	void SetPosition(glm::vec2 newPosition);
@@ -46,6 +56,13 @@ protected:
 	void SetVelocity(glm::vec2 newPosition);
 	void UpdateVelocity(glm::vec2 adjustPosition);
 	void SetScale(glm::vec2 newScale);
+
+	void AddGOComponent(Component* component) { components.AddComponent(component); }
+	void UpdateGOComponents(double dt) { components.UpdateAll(dt); }
+	void ClearGOComponents() { components.Clear(); }
+	template<typename T>
+	void RemoveGOComponent() { components.RemoveComponent<T>(); }
+
 private:
 	glm::mat3 objectMatrix;
 	glm::vec2 scale;
@@ -55,6 +72,8 @@ private:
 
 	bool updateMatrix;
 	bool is_destroy = false;
+
+	ComponentManager components;
 protected:
 	Texture texture;
 	Collision collision;

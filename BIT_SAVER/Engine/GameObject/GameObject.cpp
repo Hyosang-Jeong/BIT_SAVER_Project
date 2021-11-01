@@ -24,6 +24,8 @@ void GameObject::ResolveCollision(GameObject* )
 
 void GameObject::Update(double dt)
 {
+    UpdateGOComponents(dt);
+
     if (velocity.x != 0 || velocity.y != 0)
     {
         UpdatePosition({ velocity.x * dt, velocity.y * dt });
@@ -61,8 +63,12 @@ void GameObject::Update(double dt)
     mdl_to_ndc_xform = ndcscale_matrix* trans_matrix  *rotation_matrix* scale_matrix;
 }
 
-void GameObject::Draw(glm::mat3 )
+void GameObject::Draw([[maybe_unused]]glm::mat3 camera_matrix)
 {
+    /*if (GetGOComponent<Collision>() != nullptr)\
+    {
+        GetGOComponent<Collision>().
+    }*/
 }
 
 const glm::mat3& GameObject::GetMatrix()

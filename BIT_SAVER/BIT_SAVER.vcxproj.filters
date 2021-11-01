@@ -74,6 +74,12 @@
     <ClCompile Include="Game\Levels\Level2.cpp">
       <Filter>Game\Levels</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Objects\Background.cpp">
+      <Filter>Game\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ComponentManager.h">
+      <Filter>Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\GameObject\GameObject.h">
@@ -159,6 +165,12 @@
     </ClInclude>
     <ClInclude Include="Game\Levels\Level2.h">
       <Filter>Game\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Objects\Background.h">
+      <Filter>Game\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Component.h">
+      <Filter>Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

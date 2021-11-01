@@ -14,7 +14,9 @@ Creation date: 3/07/2021
 #include"..\Objects\Notes.h"
 #include"..\Objects\Boss.h"
 #include"..\Objects\Note_collisionBox.h"
+#include"..\Objects\Background.h"
 #include"../Levels/State.h"
+
 Level1::Level1() : 
 mainMenu(InputKey::Keyboard::Escape), 
 camera({ 0,0 })
@@ -24,30 +26,37 @@ camera({ 0,0 })
 	trackPtr = nullptr;
 	bossPtr = nullptr;
 	notebox = nullptr;
+	backPtr = nullptr;
 }
 
 void Level1::Load()
 {
 	heroPtr = new Hero({ -6,0 });
+	gameObjectManager = new GameObjectManager();
 
 	Engine::GetMusic().Play(Music::SOUND_NUM::ENERGY);
 	trackPtr = new Track(Music::SOUND_NUM::ENERGY);
 	notebox = new Note_box({ -4,0 });
 	bossPtr = new Boss({ 8,0 });
-	gameObjectManager.Add(heroPtr);
-	gameObjectManager.Add(bossPtr);
-	gameObjectManager.Add(notebox);
-	gameObjectManager.Add(trackPtr);
+	backPtr = new Background({ 20, 0 }, {-5,0});
+	AddGSComponent(gameObjectManager);
+
+	gameObjectManager->Add(heroPtr);
+	gameObjectManager->Add(backPtr);
+	gameObjectManager->Add(bossPtr);
+	gameObjectManager->Add(notebox);
+	gameObjectManager->Add(trackPtr);
 }
+
 void Level1::Update(double dt)
 {
-	gameObjectManager.UpdateAll(dt);
+	gameObjectManager->UpdateAll(dt);
 
 	if (trackPtr->GetNote_flag() == true) // To generate note with track's info
 	{
 		glm::vec2 pos = trackPtr->GetNoteinfo().first;
 		glm::vec2 vel = trackPtr->GetNoteinfo().second;
-		gameObjectManager.Add(new Note(pos, vel));
+		gameObjectManager->Add(new Note(pos, vel));
 		trackPtr->Set_Note_flag(false);
 	}
 	notebox->set_attack_flag(heroPtr->Get_Attack_flag().first, heroPtr->Get_Attack_flag().second);
@@ -65,7 +74,7 @@ void Level1::Draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClearColor(1.0f, 0.5f, 1.0f, 1.0f);
-	gameObjectManager.DrawAll(camera.GetMatrix());
+	gameObjectManager->DrawAll(camera.GetMatrix());
 }
 void Level1::Unload()
 {
@@ -73,6 +82,7 @@ void Level1::Unload()
 	trackPtr = nullptr;
 	notebox = nullptr;
 	bossPtr = nullptr;
+	backPtr = nullptr;
 	Engine::GetMusic().Stop(Music::SOUND_NUM::ENERGY);
-	gameObjectManager.Unload();
+	gameObjectManager->Unload();
 }

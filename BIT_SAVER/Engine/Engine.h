@@ -19,6 +19,7 @@ Creation date: 2/10/2021
 #include"..\Engine\GLShader\glslshader.h"
 #include"..\Engine\Texture\TextureManager.h"
 #include"..\Engine\Music\music.h"
+#include"..\Engine\Component.h"
 #include<map>
 
 class Engine
@@ -42,6 +43,9 @@ public:
     void Update();
     bool HasGameEnded();
     void init_shdrpgms();
+
+    template<typename T>
+    static T* GetGSComponent() { return GetGameStateManager().GetGSComponent<T>(); }
 
 public:
     Engine();

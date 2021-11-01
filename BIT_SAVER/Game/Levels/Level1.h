@@ -15,6 +15,8 @@ class Hero;
 class Boss;
 class Track;
 class Note_box;
+class Background;
+
 class Level1 : public GameState
 {
 public:
@@ -31,6 +33,7 @@ private:
 	Boss* bossPtr;
 	Track* trackPtr;
 	Note_box* notebox;
+	Background* backPtr;
 	Camera camera;
-	GameObjectManager gameObjectManager;
+	GameObjectManager* gameObjectManager;
 };

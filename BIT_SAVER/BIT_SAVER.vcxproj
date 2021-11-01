@@ -133,6 +133,8 @@
       <AdditionalIncludeDirectories>$(SolutionDir)sound_lib\studio\inc;$(SolutionDir)sound_lib\core\inc</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <EnforceTypeConversionRules>true</EnforceTypeConversionRules>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -163,6 +165,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\ComponentManager.h" />
     <ClCompile Include="Engine\Engine.cpp" />
     <ClCompile Include="Engine\GameObject\GameObject.cpp" />
     <ClCompile Include="Engine\GameObject\GameObjectManager.cpp" />
@@ -182,6 +185,7 @@
     <ClCompile Include="Game\Levels\Level2.cpp" />
     <ClCompile Include="Game\Levels\Mainmenu.cpp" />
     <ClCompile Include="Game\Levels\Splash.cpp" />
+    <ClCompile Include="Game\Objects\Background.cpp" />
     <ClCompile Include="Game\Objects\Boss.cpp" />
     <ClCompile Include="Game\Objects\Hero.cpp" />
     <ClCompile Include="Game\Objects\Notes.cpp" />
@@ -190,6 +194,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\Component.h" />
     <ClInclude Include="Engine\Engine.h" />
     <ClInclude Include="Engine\GameObject\GameObject.h" />
     <ClInclude Include="Engine\GameObject\GameObjectManager.h" />
@@ -212,6 +217,7 @@
     <ClInclude Include="Game\Levels\Mainmenu.h" />
     <ClInclude Include="Game\Levels\Splash.h" />
     <ClInclude Include="Game\Levels\State.h" />
+    <ClInclude Include="Game\Objects\Background.h" />
     <ClInclude Include="Game\Objects\Boss.h" />
     <ClInclude Include="Game\Objects\GameObjectType.h" />
     <ClInclude Include="Game\Objects\Hero.h" />

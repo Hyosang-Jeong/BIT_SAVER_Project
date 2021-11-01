@@ -10,35 +10,40 @@ Creation date: 2/10/2021
 #pragma once
 #include <vector>
 #include"..\GameObject\GameObjectManager.h"
+#include"../GameState/GameState.h"
 
-	class GameState;
+class GameStateManager
+{
+public:
+	GameStateManager();
 
-	class GameStateManager
+	void AddGameState(GameState& gameState);
+	void Update(double dt);
+	void SetNextState(int initState);
+	void Shutdown();
+	void ReloadState();
+	bool HasGameEnded() { return state == State::EXIT; }
+
+	template<typename T>
+	T* GetGSComponent()
+	{ 
+		return currGameState->GetGSComponent<T>(); 
+	}
+
+private:
+	enum class State
 	{
-	public:
-		GameStateManager();
-
-		void AddGameState(GameState& gameState);
-		void Update(double dt);
-		void SetNextState(int initState);
-		void Shutdown();
-		void ReloadState();
-		bool HasGameEnded() { return state == State::EXIT; }
-
-	private:
-		enum class State
-		{
-			START,
-			LOAD,
-			UPDATE,
-			UNLOAD,
-			SHUTDOWN,
-			EXIT,
-		};
-
-		std::vector<GameState*> gameStates;
-		State state;
-		GameState* currGameState;
-		GameState* nextGameState;
+		START,
+		LOAD,
+		UPDATE,
+		UNLOAD,
+		SHUTDOWN,
+		EXIT,
 	};
+
+	std::vector<GameState*> gameStates;
+	State state;
+	GameState* currGameState;
+	GameState* nextGameState;
+};
 

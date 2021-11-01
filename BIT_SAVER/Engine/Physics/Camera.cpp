@@ -44,24 +44,25 @@ glm::mat3 Camera::GetMatrix()
 	return mdl_to_ndc_xform;
 }
 
+static glm::vec2 pos = { 0,0.25 };
+
 void Camera::Dynamic_movement(bool start, double dt)
 {
     dynamic_move = start;
     static double timer = 0;
     if (dynamic_move == false)
     {
-        timer = 0.5;
-    }
-    timer -= dt;
-    if (timer >= 0)
-    {
-        static glm::vec2 pos{ 0,0.05 };
-        position += pos;
-        pos *= -1;
-        dynamic_move = true;
-    }
-    if (timer < 0)
-    {
+        timer = 0.4;
+        pos = { 0.25,0.25 };
         position = { 0,0 };
     }
+    timer -= dt;
+    if (timer > 0)
+    {
+        //pos = { 0,0.25 };
+        position += pos;
+        pos *= -0.9;
+        dynamic_move = true;
+    }
 }
+ 

@@ -7,6 +7,7 @@ Project:
 Author: 
 Creation date: 3/14/2021
 -----------------------------------------------------------------*/
+
 #include"Notes.h"
 
 Note::Note(glm::vec2 startPos,glm::vec2 velocity) :  
@@ -25,9 +26,9 @@ void Note::Update(double dt)
 	}
 }
 
-void Note::Draw(glm::mat3 )
+void Note::Draw(glm::mat3 camera_matrix)
 {
-	texture.Draw(mdl_to_ndc_xform , "Basic_model", "Hero");
+	texture.Draw(mdl_to_ndc_xform * camera_matrix , "Basic_model", "Hero");
 }
 
 glm::vec2 Note::Getposition()

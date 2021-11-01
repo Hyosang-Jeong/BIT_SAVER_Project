@@ -20,6 +20,7 @@ GameObject(startPos, glm::vec2{ 1,20 })
 void Note_box::Update(double dt)
 {
 	GameObject::Update(dt);
+	is_destroyed = true;
 }
 
 void Note_box::ResolveCollision(GameObject* test_obj)

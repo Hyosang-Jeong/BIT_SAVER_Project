@@ -1,4 +1,5 @@
 #include <glm/glm.hpp>
+#include "..\Component.h"
 
 struct AABB
 {
@@ -6,7 +7,7 @@ struct AABB
 	glm::vec2 max{ 0 };
 };
 
-class Collision
+class Collision : Component
 {
 public:
 	Collision() = default;
