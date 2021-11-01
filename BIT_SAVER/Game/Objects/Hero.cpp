@@ -17,9 +17,9 @@ Hero::Hero(glm::vec2 startPos) :
     moveUpKey(InputKey::Keyboard::Up),
     moveDownKey(InputKey::Keyboard::Down),
     AttackKey(InputKey::Keyboard::Space),
-  GameObject(startPos, glm::vec2{ 2,2 })
+  GameObject(startPos, glm::vec2{ 2,1 })
 {
-	texture.setup_texobj("../images/extra1.png");
+	texture.setup_texobj("../images/aaa.jpg");
 }
 
 void Hero::Update(double dt)
