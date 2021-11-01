@@ -16,7 +16,7 @@ Creation date: 2/14/2021
 #include <glm/glm.hpp>
 #include"..\GLModel\GLModel.h"
 #include"..\GLShader\glslshader.h"
-#include"..\Texture\Texture.h"
+#include"..\Sprite\Texture.h"
 #include"../Physics/Collision.h"
 #include"../ComponentManager.h"
 

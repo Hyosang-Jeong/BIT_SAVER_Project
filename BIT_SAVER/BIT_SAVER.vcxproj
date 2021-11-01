@@ -178,8 +178,8 @@
     <ClCompile Include="Engine\Music\music.cpp" />
     <ClCompile Include="Engine\Physics\Camera.cpp" />
     <ClCompile Include="Engine\Physics\Collision.cpp" />
-    <ClCompile Include="Engine\Texture\Texture.cpp" />
-    <ClCompile Include="Engine\Texture\TextureManager.cpp" />
+    <ClCompile Include="Engine\Sprite\Texture.cpp" />
+    <ClCompile Include="Engine\Sprite\TextureManager.cpp" />
     <ClCompile Include="Engine\Window\Window.cpp" />
     <ClCompile Include="Game\Levels\Level1.cpp" />
     <ClCompile Include="Game\Levels\Level2.cpp" />
@@ -209,8 +209,8 @@
     <ClInclude Include="Engine\Music\music.h" />
     <ClInclude Include="Engine\Physics\Camera.h" />
     <ClInclude Include="Engine\Physics\Collision.h" />
-    <ClInclude Include="Engine\Texture\Texture.h" />
-    <ClInclude Include="Engine\Texture\TextureManager.h" />
+    <ClInclude Include="Engine\Sprite\Texture.h" />
+    <ClInclude Include="Engine\Sprite\TextureManager.h" />
     <ClInclude Include="Engine\Window\Window.h" />
     <ClInclude Include="Game\Levels\Level1.h" />
     <ClInclude Include="Game\Levels\Level2.h" />

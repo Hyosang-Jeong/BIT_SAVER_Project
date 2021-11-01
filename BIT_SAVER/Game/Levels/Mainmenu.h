@@ -13,7 +13,7 @@ Creation date:
 #include "..\Engine\GameObject\GameObjectManager.h" // gameobjectmanager
 #include"..\Engine\Input\Input.h"  //input key
 #include"..\..\Engine\Physics\Camera.h"
-#include"../../Engine/Texture/Texture.h"
+#include"../../Engine/Sprite/Texture.h"
 class Mainmenu : public GameState
 {
 public:

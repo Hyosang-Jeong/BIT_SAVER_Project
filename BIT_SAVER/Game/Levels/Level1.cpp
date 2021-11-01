@@ -41,8 +41,8 @@ void Level1::Load()
 	backPtr = new Background({ 20, 0 }, {-5,0});
 	AddGSComponent(gameObjectManager);
 
-	gameObjectManager->Add(heroPtr);
 	gameObjectManager->Add(backPtr);
+	gameObjectManager->Add(heroPtr);
 	gameObjectManager->Add(bossPtr);
 	gameObjectManager->Add(notebox);
 	gameObjectManager->Add(trackPtr);

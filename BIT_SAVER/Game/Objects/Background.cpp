@@ -21,24 +21,21 @@ Background::Background(glm::vec2 startPos, glm::vec2 velocity) :
 void Background::Update(double dt)
 {
 	GameObject::Update(dt);
-	if (GetPosition().x < -10 && back_alive == true)
+	if (GetPosition().x < 0 && back_alive == true)
 	{
-		static Background* new_back = new Background({ 20, 0 }, { -5,0 });
+		Background* new_back = new Background({ 20, 0 }, { -5,0 });
 		Engine::GetGSComponent<GameObjectManager>()->Add_front(new_back);
-
 		back_alive = false;
 	}
-	if (GetPosition().x < -30)
+	if (GetPosition().x < -20)
 	{
 		set_destroy(true);
-		back_alive = true;
-
 	}
 }
 
-void Background::Draw(glm::mat3 camera_matrix)
+void Background::Draw(glm::mat3 /*camera_matrix*/)
 {
-	texture.Draw(mdl_to_ndc_xform * camera_matrix, "Basic_model", "Hero");
+	texture.Draw(mdl_to_ndc_xform , "Basic_model", "Hero");
 }
 
 glm::vec2 Background::Getposition()

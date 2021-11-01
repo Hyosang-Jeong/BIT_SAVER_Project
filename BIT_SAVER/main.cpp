@@ -18,10 +18,10 @@ int main()
 	Mainmenu main_menu;
 	Level1 level1;
 	Level2 level2;
-	//engine.GetGameStateManager().AddGameState(splash);
-	//engine.GetGameStateManager().AddGameState(main_menu);
+	engine.GetGameStateManager().AddGameState(splash);
+	engine.GetGameStateManager().AddGameState(main_menu);
 	engine.GetGameStateManager().AddGameState(level1);
-	engine.GetGameStateManager().AddGameState(level2);
+   engine.GetGameStateManager().AddGameState(level2);
 	
 	while (engine.HasGameEnded() == false)
 	{

@@ -17,7 +17,7 @@ Creation date: 2/10/2021
 #include "..\Engine\Logger\Logger.h"
 #include"..\Engine\GLModel\GLModel.h"
 #include"..\Engine\GLShader\glslshader.h"
-#include"..\Engine\Texture\TextureManager.h"
+#include"..\Engine\Sprite\TextureManager.h"
 #include"..\Engine\Music\music.h"
 #include"..\Engine\Component.h"
 #include<map>
