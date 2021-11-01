@@ -13,12 +13,13 @@ Creation date: 2/11/2021
 #include<string>
 #include<glm/glm.hpp>
 #include<map>
+#include"../GLModel/GLModel.h"
 class Texture
 {
 public:
     Texture() = default;
-    void Draw(glm::mat3 displayMatrix,std::string mdl_name, std::string shdr_name);
-    void Draw(double world_range, std::string mdl_name, std::string shdr_name, glm::vec2 pos, glm::vec2 scale = { 1,1 }, glm::vec2 rotate = { 0,0 });
+    void Draw(glm::mat3 displayMatrix, GLModel mdl, std::string shdr_name);
+    void Draw(double world_range, GLModel mdl, std::string shdr_name, glm::vec2 pos, glm::vec2 scale = { 1,1 }, glm::vec2 rotate = { 0,0 });
     glm::vec2 GetSize();
     void setup_texobj(const char* pathname);
 

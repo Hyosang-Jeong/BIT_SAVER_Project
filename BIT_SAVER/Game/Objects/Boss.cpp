@@ -20,9 +20,7 @@ Boss::Boss(glm::vec2 startPos) :
 	jumpKey(InputKey::Keyboard::Up),
 	GameObject(startPos, glm::vec2{ -2,2 })
 {
-	texture.setup_texobj("../images/stickman.png");
-	mdl_ref = Engine::GetGLModel().find("Basic_model");
-	shd_ref = Engine::GetGLShader().find("Hero");
+	AddGOComponent(new Sprite("../spt/boss.spt", this));
 }
 
 void Boss::Update(double dt)
@@ -30,9 +28,9 @@ void Boss::Update(double dt)
 	GameObject::Update(dt);
 }
 
-void Boss::Draw(glm::mat3 )
+void Boss::Draw(glm::mat3 camera_matrix)
 {
-	texture.Draw(mdl_to_ndc_xform , "Basic_model", "Hero");
+	GameObject::Draw(camera_matrix);
 }
 
 

@@ -63,12 +63,14 @@ void GameObject::Update(double dt)
     mdl_to_ndc_xform = ndcscale_matrix* trans_matrix  *rotation_matrix* scale_matrix;
 }
 
-void GameObject::Draw([[maybe_unused]]glm::mat3 camera_matrix)
+void GameObject::Draw(glm::mat3 camera_matrix)
 {
-    /*if (GetGOComponent<Collision>() != nullptr)\
+    Sprite* spritePtr = GetGOComponent<Sprite>();
+
+    if (spritePtr != nullptr)
     {
-        GetGOComponent<Collision>().
-    }*/
+        spritePtr->Draw(mdl_to_ndc_xform * camera_matrix, "Hero");
+    }
 }
 
 const glm::mat3& GameObject::GetMatrix()

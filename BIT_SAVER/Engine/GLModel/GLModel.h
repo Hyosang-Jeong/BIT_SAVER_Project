@@ -3,12 +3,13 @@
 #include <GL/glew.h> 
 #include <GLFW/glfw3.h>
 #include<string>
+#include<vector>
+#include<array>
 struct GLModel
 {
 	struct Vertex
 	{
 		glm::vec2 position;
-		glm::vec3 color;
 		glm::vec2 tex_coord;
 	};
 	GLenum primitive_type;
@@ -16,7 +17,14 @@ struct GLModel
 	GLuint vaoid;
 	GLuint draw_cnt;
 	std::string name;
+	std::array<glm::vec2, 4> pos_vtx;
+	std::array<GLushort, 4> idx_vtx;
+	std::array<glm::vec2, 4>text_cord;
+	std::vector<Vertex> vertices;
+	std::vector<GLshort> indices;
 
 	void set_name(std::string model_name);
-	void init(); 
+	void Hero_init();
+	void update(glm::vec2 min, glm::vec2 frame_size);
+	void init(glm::vec2 size);
 };

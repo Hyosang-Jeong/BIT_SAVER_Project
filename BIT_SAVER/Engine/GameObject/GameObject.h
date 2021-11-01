@@ -14,9 +14,8 @@ Creation date: 2/14/2021
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
-#include"..\GLModel\GLModel.h"
 #include"..\GLShader\glslshader.h"
-#include"..\Sprite\Texture.h"
+#include"..\Sprite\Sprite.h"
 #include"../Physics/Collision.h"
 #include"../ComponentManager.h"
 
@@ -26,6 +25,7 @@ class Component;
 
 class GameObject
 {
+	friend class Sprite;
 public:
 	GameObject(glm::vec2 position);
 	GameObject(glm::vec2 position, glm::vec2 scale);
@@ -56,7 +56,6 @@ protected:
 	void SetVelocity(glm::vec2 newPosition);
 	void UpdateVelocity(glm::vec2 adjustPosition);
 	void SetScale(glm::vec2 newScale);
-
 	void AddGOComponent(Component* component) { components.AddComponent(component); }
 	void UpdateGOComponents(double dt) { components.UpdateAll(dt); }
 	void ClearGOComponents() { components.Clear(); }
@@ -75,9 +74,7 @@ private:
 
 	ComponentManager components;
 protected:
-	Texture texture;
 	Collision collision;
-	std::map<std::string, GLModel>::iterator mdl_ref;
 	std::map<std::string, GLSLShader>::iterator shd_ref;
 	glm::mat3 mdl_xform;
 	glm::mat3 mdl_to_ndc_xform;

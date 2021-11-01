@@ -27,11 +27,6 @@ void Engine::Init(std::string windowName)
 	init_shdrpgms();
 	fpsCalcTime = lastTick;
 
-	GLModel model;
-	model.set_name("Basic_model");
-	model.init();
-	models["Basic_model"] = model;
-
 	GetMusic().Init();
 	GetMusic().Load();
 }

@@ -35,7 +35,6 @@ public:
     static Window& GetWindow() { return Instance().window; }
     static GameStateManager& GetGameStateManager() { return Instance().gameStateManager; }
     static TextureManager& GetTextureManager() { return Instance().texturemanager; }
-    static  std::map<std::string, GLModel>& GetGLModel() { return Instance().models; }
     static  std::map<std::string, GLSLShader>& GetGLShader() { return Instance().shdrpgms; }
 
     void Init(std::string windowName);
@@ -59,7 +58,6 @@ public:
     GameStateManager gameStateManager;
     Input input;
     Window window;
-    std::map<std::string, GLModel> models;
     std::map<std::string, GLSLShader> shdrpgms;
     TextureManager texturemanager;
 
