@@ -19,5 +19,5 @@ class Texture;
 
     private:
         
-        std::map<const char*, Texture* > images;
+        std::map<std::string, Texture* > images;
     };

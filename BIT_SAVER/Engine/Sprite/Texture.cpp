@@ -83,13 +83,15 @@ void Texture::Draw(double world_range, GLModel mdl, std::string shdr_name, glm::
 		 0,1,0,
 		pos.x,pos.y,1
 	};
+
 	glm::mat3 ndcscale_matrix
 	{
 	   1.0 / world_range  ,0  ,0,
 		0,  1 / world_range ,0,
 		0,0,1
 	};
-	glm::mat3 mdl_to_ndc_xform = ndcscale_matrix * trans_matrix * rotation_matrix * scale_matrix;
+	glm::mat3 mdl_to_ndc_xform = ndcscale_matrix * trans_matrix * rotation_matrix * scale_matrix;	
+	
 	Draw(mdl_to_ndc_xform, mdl, shdr_name);
 }
 

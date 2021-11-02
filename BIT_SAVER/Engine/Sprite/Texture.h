@@ -25,5 +25,4 @@ public:
 private:
     GLuint tex_obj{ 0 };
     glm::vec2 texture_size{ 0,0 };
-
 };

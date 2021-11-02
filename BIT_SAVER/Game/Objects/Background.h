@@ -23,17 +23,19 @@ class Background : public Component
 {
 
 public:
-    void Add(const std::filesystem::path& texturePath, int level);
+    void Add(const std::filesystem::path& texturePath, double level);
     void Unload();
     void Update(double dt);
     void Draw(glm::mat3 camera);
-    glm::vec2 Size();
+    //glm::vec2 Size();
 private:
     struct ParallaxInfo {
-        Texture* texture;
+        Texture* texture_front;
+        Texture* texture_back;
         GLModel model;
-        glm::mat3 matrix;
-        int level;
+        float position_front;
+        float position_back;
+        double level;
     };
     std::vector<ParallaxInfo> backgrounds;
 };

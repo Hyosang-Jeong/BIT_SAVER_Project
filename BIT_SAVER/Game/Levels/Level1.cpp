@@ -40,7 +40,12 @@ void Level1::Load()
 	notebox = new Note_box({ -4,0 });
 	bossPtr = new Boss({ 8,0 });
 
-	backPtr->Add("../images/hit_star.png", 1);
+	backPtr->Add("../images/background1.png", 0);
+	backPtr->Add("../images/parallax1-5.png", 0.5);
+	backPtr->Add("../images/parallax1-4.png", 0.8);
+	backPtr->Add("../images/parallax1-3.png", 1.1);
+	backPtr->Add("../images/parallax1-2.png", 1.3);
+	backPtr->Add("../images/parallax1-1.png", 1.5);
 
 
 	AddGSComponent(gameObjectManager);
@@ -73,6 +78,7 @@ void Level1::Draw()
 	GetGSComponent<Background>()->Draw(camera.GetMatrix());
 	gameObjectManager->DrawAll(camera.GetMatrix());
 }
+
 void Level1::Unload()
 {
 	heroPtr = nullptr;
