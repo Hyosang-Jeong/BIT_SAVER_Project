@@ -16,7 +16,7 @@ class Texture;
     {
     public:
         Texture* Load(const char* filePath);
-
+        void Unload();
     private:
         
         std::map<std::string, Texture* > images;

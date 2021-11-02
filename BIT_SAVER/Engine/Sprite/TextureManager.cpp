@@ -15,11 +15,10 @@ Texture* TextureManager::Load(const char* filePath)
 
 	if (images.find(filePath) == images.end())
 	{
-	
 			image.img = stbi_load(filePath, &image.width, &image.height, &image.col_chanel, 4);
 			if (!image.img)
 			{
-				Engine::GetLogger().LogDebug("Failed to load image");
+				Engine::GetLogger().LogError("Failed to load image");
 				std::exit(EXIT_FAILURE);
 			}
 			glCreateTextures(GL_TEXTURE_2D, 1, &image.tex_objhdl);
@@ -27,9 +26,19 @@ Texture* TextureManager::Load(const char* filePath)
 			glTextureStorage2D(image.tex_objhdl, 1, GL_RGBA8, image.width, image.height);
 			glTextureSubImage2D(image.tex_objhdl, 0, 0, 0, image.width, image.height, GL_RGBA, GL_UNSIGNED_BYTE, image.img);
 			images[filePath] = new Texture{ image.tex_objhdl,{ image.width, image.height} };
+			Engine::GetLogger().LogDebug("Image loaded" + std::string(filePath));
 	}
-	std::cout << images.size()<<std::endl;
 	return images[filePath];
+}
+
+void TextureManager::Unload()
+{
+	for (const std::pair<std::string, Texture*>& i : images)
+	{
+		delete i.second;
+	}
+	images.clear();
+	Engine::GetLogger().LogEvent("Clear Textures");
 }
 
 
