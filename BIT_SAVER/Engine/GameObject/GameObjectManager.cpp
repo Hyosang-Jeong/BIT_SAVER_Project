@@ -9,6 +9,7 @@ Creation date: 4/15/2021
 -----------------------------------------------------------------*/
 #include"GameObjectManager.h"
 #include"GameObject.h"   // gameobject
+#include "../Engine.h"
 
 void GameObjectManager::Add(GameObject* obj)
 {
@@ -27,6 +28,23 @@ void GameObjectManager::Unload()
 		delete a;
 	}
 	gameObjects.clear();
+}
+
+GameObject* GameObjectManager::Find(GameObjectType objType)
+{
+    std::list<GameObject*>::iterator it;
+
+    it = std::find_if(gameObjects.begin(), gameObjects.end(),
+	[&, it](GameObject* obj) {return obj->GetObjectType() == objType; });
+
+    if (it != gameObjects.end()) {
+
+	return *it;
+    }
+    else {
+	Engine::GetLogger().LogDebug("Failed to find gameobjects");
+	std::exit(EXIT_FAILURE);
+    }
 }
 
 void GameObjectManager::UpdateAll(double dt)
