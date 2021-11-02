@@ -5,7 +5,7 @@ written consent of DigiPen Institute of Technology is prohibited.
 File Name: Texture.cpp
 Purpose: For draw texture
 Project: BIT_SAVER
-Author: 
+Author:
 Creation date: 2/11/2021
 -----------------------------------------------------------------*/
 
@@ -15,16 +15,10 @@ Creation date: 2/11/2021
 
 using Image = unsigned char*;
 
-void Texture::Draw(glm::mat3  displayMatrix, std::string mdl_name, std::string shdr_name)
+void Texture::Draw(glm::mat3  displayMatrix, GLModel mdl, std::string shdr_name)
 {
-	std::map<std::string, GLModel>::iterator mdl_ref;
 	std::map<std::string, GLSLShader>::iterator shd_ref;
-	mdl_ref = Engine::GetGLModel().find(mdl_name);
-	if (mdl_ref == Engine::GetGLModel().end())
-	{
-		Engine::GetLogger().LogError("Model not found!");
-		std::exit(EXIT_FAILURE);
-	}
+
 	shd_ref = Engine::GetGLShader().find(shdr_name);
 	if (shd_ref == Engine::GetGLShader().end())
 	{
@@ -33,7 +27,7 @@ void Texture::Draw(glm::mat3  displayMatrix, std::string mdl_name, std::string s
 	}
 
 	shd_ref->second.Use();
-	glBindVertexArray(mdl_ref->second.vaoid);
+	glBindVertexArray(mdl.vaoid);
 
 	glTextureParameteri(tex_obj, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // size
 	glTextureParameteri(tex_obj, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
@@ -51,7 +45,7 @@ void Texture::Draw(glm::mat3  displayMatrix, std::string mdl_name, std::string s
 	GLint uniform_var_loc1 = glGetUniformLocation(shd_ref->second.GetHandle(), "uModelToNDC");
 	if (uniform_var_loc1 >= 0)
 	{
-		glUniformMatrix3fv(uniform_var_loc1, 1, GL_FALSE,&displayMatrix[0].x);
+		glUniformMatrix3fv(uniform_var_loc1, 1, GL_FALSE, &displayMatrix[0].x);
 	}
 	else
 	{
@@ -59,14 +53,14 @@ void Texture::Draw(glm::mat3  displayMatrix, std::string mdl_name, std::string s
 		std::exit(EXIT_FAILURE);
 	}
 
-	glDrawElements(mdl_ref->second.primitive_type, mdl_ref->second.draw_cnt, GL_UNSIGNED_SHORT, NULL);
+	glDrawElements(mdl.primitive_type, mdl.draw_cnt, GL_UNSIGNED_SHORT, NULL);
 
 	shd_ref->second.UnUse();
 
 	glBindVertexArray(0);
 }
 
-void Texture::Draw(double world_range, std::string mdl_name, std::string shdr_name, glm::vec2 pos , glm::vec2 scale, glm::vec2 rotate)
+void Texture::Draw(double world_range, GLModel mdl, std::string shdr_name, glm::vec2 pos, glm::vec2 scale, glm::vec2 rotate)
 {
 	glm::mat3 scale_matrix
 	{
@@ -96,16 +90,16 @@ void Texture::Draw(double world_range, std::string mdl_name, std::string shdr_na
 		0,0,1
 	};
 	glm::mat3 mdl_to_ndc_xform = ndcscale_matrix * trans_matrix * rotation_matrix * scale_matrix;
-	Draw(mdl_to_ndc_xform, mdl_name, shdr_name);
+	Draw(mdl_to_ndc_xform, mdl, shdr_name);
 }
 
 
 glm::vec2 Texture::GetSize()
-{
+{ 
 	return texture_size;
 }
 
 void Texture::setup_texobj(const char* pathname)
 {
-	tex_obj = Engine::GetTextureManager().Load(pathname,texture_size);
+	tex_obj = Engine::GetTextureManager().Load(pathname, texture_size);
 }

@@ -14,7 +14,7 @@ Creation date: 3/14/2021
 Background::Background(glm::vec2 startPos, glm::vec2 velocity) :
 	GameObject(startPos, glm::vec2{ 12,12 }), back_alive(true)
 {
-	texture.setup_texobj("../images/background.png");
+	AddGOComponent(new Sprite("../images/background.png", this));
 	SetVelocity(velocity);
 }
 
@@ -33,9 +33,9 @@ void Background::Update(double dt)
 	}
 }
 
-void Background::Draw(glm::mat3 /*camera_matrix*/)
+void Background::Draw(glm::mat3 camera_matrix)
 {
-	texture.Draw(mdl_to_ndc_xform , "Basic_model", "Hero");
+	GameObject::Draw(camera_matrix);
 }
 
 glm::vec2 Background::Getposition()

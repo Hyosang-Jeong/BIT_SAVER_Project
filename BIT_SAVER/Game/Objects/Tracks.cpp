@@ -10,7 +10,8 @@ Creation date: 3/14/2021
 #include"Track.h"
 #include"..\..\Engine\Music\Midi.h"
 #include<algorithm>
-
+#include"../../Engine/Engine.h"
+#include"Notes.h"
 Track::Track(int music_num) :  
 Track(MidiEvent{}.MidiSetUp(music_num))
 {}
@@ -72,6 +73,7 @@ void Track::Update(double dt)
 				generate_note = true;
 				note_pos = { 10, (i.first - 0.5) * 10 };
 				note_vel = { -10,0 };
+				Engine::GetGSComponent<GameObjectManager>()->Add(new Note(note_pos, note_vel));
 				i.second.erase(i.second.begin());
 			}
 		}
@@ -83,17 +85,3 @@ glm::vec2 Track::Getposition()
 	return GameObject::GetPosition();
 }
 
-const bool Track::GetNote_flag() const
-{
-	return generate_note;
-}
-
-std::pair<glm::vec2, glm::vec2> Track::GetNoteinfo()
-{
-	return { note_pos, note_vel };
-}
-
-void Track::Set_Note_flag(bool value)
-{
-	generate_note = value;
-}

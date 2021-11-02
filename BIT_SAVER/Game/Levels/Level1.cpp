@@ -21,7 +21,7 @@ Level1::Level1() :
 mainMenu(InputKey::Keyboard::Escape), 
 camera({ 0,0 })
 {
-	camera = glm::vec2{ 0,0 };
+	//camera = glm::vec2{ 0,0 };
 	heroPtr = nullptr;
 	trackPtr = nullptr;
 	bossPtr = nullptr;
@@ -43,26 +43,17 @@ void Level1::Load()
 
 	gameObjectManager->Add(backPtr);
 	gameObjectManager->Add(heroPtr);
-	gameObjectManager->Add(bossPtr);
-	gameObjectManager->Add(notebox);
-	gameObjectManager->Add(trackPtr);
+	//gameObjectManager->Add(bossPtr);
+	//gameObjectManager->Add(notebox);
+	//gameObjectManager->Add(trackPtr);
 }
 
 void Level1::Update(double dt)
 {
 	gameObjectManager->UpdateAll(dt);
 
-	if (trackPtr->GetNote_flag() == true) // To generate note with track's info
-	{
-		glm::vec2 pos = trackPtr->GetNoteinfo().first;
-		glm::vec2 vel = trackPtr->GetNoteinfo().second;
-		gameObjectManager->Add(new Note(pos, vel));
-		trackPtr->Set_Note_flag(false);
-	}
-	notebox->set_attack_flag(heroPtr->Get_Attack_flag().first, heroPtr->Get_Attack_flag().second);
-
-	camera.Dynamic_movement(notebox->GetDestroyed(),dt);
-	camera.Update({ 0,0 },dt);
+	//camera.Dynamic_movement(notebox->GetDestroyed(),dt);
+	//camera.Update({ 0,0 },dt);
 
 	if (mainMenu.IsKeyReleased() == true)
 	{

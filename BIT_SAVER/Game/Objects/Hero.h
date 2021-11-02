@@ -13,6 +13,11 @@ Creation date: 2/11/2021
 #include "..\Engine\GameObject\GameObject.h" // GameObject inheritance
 #include"GameObjectType.h"
 
+enum class hero_anim
+{
+    hero_run
+};
+
 class Hero : public GameObject
 {
 public:
@@ -26,6 +31,7 @@ public:
         return GameObjectType::Hero;
     }
 private:
+
     InputKey moveUpKey;
     InputKey moveDownKey;
     InputKey moveLeftKey;

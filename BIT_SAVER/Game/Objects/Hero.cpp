@@ -17,22 +17,22 @@ Hero::Hero(glm::vec2 startPos) :
     moveUpKey(InputKey::Keyboard::Up),
     moveDownKey(InputKey::Keyboard::Down),
     AttackKey(InputKey::Keyboard::Space),
-  GameObject(startPos, glm::vec2{ 2,1 })
+  GameObject(startPos, glm::vec2{ 2,2 })
 {
-	texture.setup_texobj("../images/aaa.jpg");
+    AddGOComponent(new Sprite("../spt/hero.spt", this));
+    GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(hero_anim::hero_run));
 }
 
 void Hero::Update(double dt)
 {
-    GameObject::Update(dt);
-
     UpdateXVelocity(dt);
     Attack_Check();
+    GameObject::Update(dt);
 }
 
 void Hero::Draw(glm::mat3 camera_matrix)
 {
-	texture.Draw(mdl_to_ndc_xform * camera_matrix, "Basic_model", "Hero");
+    GameObject::Draw(camera_matrix);
 }
 
 glm::vec2 Hero::Getposition()
@@ -40,10 +40,6 @@ glm::vec2 Hero::Getposition()
     return GameObject::GetPosition();
 }
 
-std::pair<bool, GLfloat> Hero::Get_Attack_flag()
-{
-	return { attack_pressed,GetPosition().y };
-}
 
 void Hero::UpdateXVelocity([[maybe_unused]] double dt)
 {

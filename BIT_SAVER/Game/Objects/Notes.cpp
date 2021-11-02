@@ -13,7 +13,7 @@ Creation date: 3/14/2021
 Note::Note(glm::vec2 startPos,glm::vec2 velocity) :  
 GameObject(startPos, glm::vec2{ 0.5,1 })
 {
-	texture.setup_texobj("../images/hit_star.png");
+	AddGOComponent(new Sprite("../images/hit_star.png", this));
 	SetVelocity(velocity);
 }
 
@@ -28,7 +28,7 @@ void Note::Update(double dt)
 
 void Note::Draw(glm::mat3 camera_matrix)
 {
-	texture.Draw(mdl_to_ndc_xform * camera_matrix , "Basic_model", "Hero");
+	GameObject::Draw(camera_matrix);
 }
 
 glm::vec2 Note::Getposition()
