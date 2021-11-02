@@ -6,6 +6,7 @@ enum class GameObjectType {
     Track,
     Note,
     Note_collisionBox,
+    Energy_bar,
     Count,
     Background,
 };

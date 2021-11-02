@@ -16,6 +16,7 @@ Creation date: 3/07/2021
 #include"..\Objects\Note_collisionBox.h"
 #include"..\Objects\Background.h"
 #include"../Levels/State.h"
+#include "../../Engine/Sprite/EnergyBar.h"
 
 Level1::Level1() : 
 mainMenu(InputKey::Keyboard::Escape), 
@@ -28,6 +29,8 @@ camera({ 0,0 })
 	bossPtr = nullptr;
 	notebox = nullptr;
 	backPtr = nullptr;
+	energyBar = nullptr;
+
 }
 
 void Level1::Load()
@@ -40,6 +43,7 @@ void Level1::Load()
 	trackPtr = new Track(Music::SOUND_NUM::ENERGY);
 	notebox = new Note_box({ -4,0 });
 	bossPtr = new Boss({ 8,0 });
+	energyBar = new EnergyBar({ -6,1.2 });
 
 	backPtr->Add("../images/background1.png", 0);
 	backPtr->Add("../images/parallax1-5.png", 0.5);
@@ -56,6 +60,8 @@ void Level1::Load()
 	gameObjectManager->Add(bossPtr);
 	gameObjectManager->Add(notebox);
 	gameObjectManager->Add(trackPtr);
+	gameObjectManager->Add(energyBar);
+
 }
 
 void Level1::Update(double dt)
@@ -87,6 +93,7 @@ void Level1::Unload()
 	notebox = nullptr;
 	bossPtr = nullptr;
 	backPtr = nullptr;
+	energyBar = nullptr;
 	Engine::GetMusic().Stop(Music::SOUND_NUM::ENERGY);
 	gameObjectManager->Unload();
 }

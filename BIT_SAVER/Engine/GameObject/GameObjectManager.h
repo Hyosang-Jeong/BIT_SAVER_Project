@@ -20,6 +20,7 @@ public:
 	void Add(GameObject* obj);
 	void Add_front(GameObject* obj);
 	void Unload();
+	GameObject* Find(GameObjectType objType);
 
 	void UpdateAll(double dt);
 	void DrawAll(glm::mat3 camera_matrix);

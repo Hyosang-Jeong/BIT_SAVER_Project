@@ -16,6 +16,7 @@ class Boss;
 class Track;
 class Note_box;
 class Background;
+class EnergyBar;
 
 class Level1 : public GameState
 {
@@ -34,6 +35,7 @@ private:
 	Track* trackPtr;
 	Note_box* notebox;
 	Background* backPtr;
+	EnergyBar* energyBar;
 	Camera camera;
 	GameObjectManager* gameObjectManager;
 };
