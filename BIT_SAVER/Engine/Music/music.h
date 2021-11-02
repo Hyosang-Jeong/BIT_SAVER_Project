@@ -36,6 +36,9 @@ public:
     void Pause(int sound_num);
     void volumeUp(int sound_num);
     void volumeDown(int sound_num);
+    void pitchUp(int sound_num);
+    void pitchDefault(int sound_num);
+    void pitchDown(int sound_num);
     void ErrorCheck(FMOD_RESULT result);
     void Release();
 
@@ -49,6 +52,7 @@ public:
     
 private:
     float volume;
+    float pitch = 1.f;
     float Musicvolume = 0.5f;
     float SFXvolume = 0.5f;
 

@@ -84,6 +84,32 @@ void Music::volumeDown(int sound_num)
     ErrorCheck(result);
 }
 
+void Music::pitchUp(int sound_num)
+{
+    //ErrorCheck(FMOD_System_CreateDSPByType(pSystem, FMOD_DSP_TYPE_PITCHSHIFT, &pitch_shift));
+    //ErrorCheck(FMOD_Channel_AddDSP(pChannel[sound_num], 0, pitch_shift));
+    //pitch = 2.0f;
+    //ErrorCheck(FMOD_DSP_SetParameterFloat(pitch_shift, 0, pitch));
+    //ErrorCheck(FMOD_DSP_SetActive(pitch_shift, true));
+    ErrorCheck(FMOD_Channel_GetPitch(pChannel[sound_num], &pitch));
+    pitch = 2.0f;
+    ErrorCheck(FMOD_Channel_SetPitch(pChannel[sound_num], pitch));
+
+}
+
+void Music::pitchDefault(int sound_num)
+{
+    ErrorCheck(FMOD_Channel_GetPitch(pChannel[sound_num], &pitch));
+    pitch = 1.0f;
+    ErrorCheck(FMOD_Channel_SetPitch(pChannel[sound_num], pitch));
+}
+
+void Music::pitchDown(int sound_num)
+{
+    ErrorCheck(FMOD_Channel_GetPitch(pChannel[sound_num], &pitch));
+    pitch = 0.5f;
+    ErrorCheck(FMOD_Channel_SetPitch(pChannel[sound_num], pitch));
+}
 
 void Music::Release()
 {
