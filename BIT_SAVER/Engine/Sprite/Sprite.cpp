@@ -33,7 +33,7 @@ void Sprite::Load(const std::filesystem::path& spriteInfoFile,[[maybe_unused]] G
 
 	if (spriteInfoFile.extension() == ".png") 
 	{
-		texture.setup_texobj(spriteInfoFile.string().c_str());
+		textureptr  = Engine::GetTextureManager().Load(spriteInfoFile.string().c_str());
 		model.init({ 1,1 });
 	}
 	else if (spriteInfoFile.extension() == ".spt")
@@ -46,7 +46,7 @@ void Sprite::Load(const std::filesystem::path& spriteInfoFile,[[maybe_unused]] G
 
 		std::string text;
 		inFile >> text;
-		texture.setup_texobj(text.c_str());
+		textureptr = Engine::GetTextureManager().Load(text.c_str());
 		inFile >> text;
 		while (inFile.eof() == false)
 		{
@@ -94,7 +94,6 @@ glm::vec2 Sprite::GetFrameSize() const
 
 glm::vec2 Sprite::GetFrameTexel(int frameNum) const
 {
-	std::cout << (animations[currAnim]->GetDisplayFrame()) << std::endl;
 	if (frameNum > frameTexel.size() - 1 || frameNum < 0)
 	{
 		Engine::GetLogger().LogError("invalid index!");
@@ -105,7 +104,7 @@ glm::vec2 Sprite::GetFrameTexel(int frameNum) const
 
 void Sprite::Draw(glm::mat3 displayMatrix, std::string shdr_name)
 {
-	texture.Draw(displayMatrix,  model, shdr_name);
+	textureptr->Draw(displayMatrix,  model, shdr_name);
 }
 
 bool Sprite::IsAnimationDone()

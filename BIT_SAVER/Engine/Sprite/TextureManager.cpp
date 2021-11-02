@@ -8,7 +8,7 @@
 
 using Image = unsigned char*;
 
-GLuint TextureManager::Load(const char* filePath,glm::vec2& texture_size)
+Texture* TextureManager::Load(const char* filePath)
 {
 	texture_info image;
 	stbi_set_flip_vertically_on_load(true);
@@ -17,15 +17,14 @@ GLuint TextureManager::Load(const char* filePath,glm::vec2& texture_size)
 		image.img = stbi_load(filePath, &image.width, &image.height, &image.col_chanel, 4);
 		if (!image.img)
 		{
-		    Engine::GetLogger().LogDebug("Failed to load image");
-		    std::exit(EXIT_FAILURE);
+			Engine::GetLogger().LogDebug("Failed to load image");
+			std::exit(EXIT_FAILURE);
 		}
 		glCreateTextures(GL_TEXTURE_2D, 1, &image.tex_objhdl);
 
 		glTextureStorage2D(image.tex_objhdl, 1, GL_RGBA8, image.width, image.height);
 		glTextureSubImage2D(image.tex_objhdl, 0, 0, 0, image.width, image.height, GL_RGBA, GL_UNSIGNED_BYTE, image.img);
-		texture_size = { image.width ,image.height };
-		images[filePath] = image.tex_objhdl;
+		images[filePath] = new Texture{ image.tex_objhdl,{ image.width, image.height} };
 	}
 	else
 	{
@@ -34,3 +33,5 @@ GLuint TextureManager::Load(const char* filePath,glm::vec2& texture_size)
 
 	return images[filePath];
 }
+
+
