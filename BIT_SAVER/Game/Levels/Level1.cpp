@@ -31,21 +31,22 @@ camera({ 0,0 })
 
 void Level1::Load()
 {
-	heroPtr = new Hero({ -6,0 });
+	Engine::GetMusic().Play(Music::SOUND_NUM::ENERGY);
 	gameObjectManager = new GameObjectManager();
 
-	Engine::GetMusic().Play(Music::SOUND_NUM::ENERGY);
+	heroPtr = new Hero({ -6,0 });
+	backPtr = new Background({ 20, 0 }, {-5,0});
 	trackPtr = new Track(Music::SOUND_NUM::ENERGY);
 	notebox = new Note_box({ -4,0 });
 	bossPtr = new Boss({ 8,0 });
-	backPtr = new Background({ 20, 0 }, {-5,0});
+
 	AddGSComponent(gameObjectManager);
 
 	gameObjectManager->Add(backPtr);
 	gameObjectManager->Add(heroPtr);
-	//gameObjectManager->Add(bossPtr);
-	//gameObjectManager->Add(notebox);
-	//gameObjectManager->Add(trackPtr);
+	gameObjectManager->Add(bossPtr);
+	gameObjectManager->Add(notebox);
+	gameObjectManager->Add(trackPtr);
 }
 
 void Level1::Update(double dt)
@@ -57,7 +58,7 @@ void Level1::Update(double dt)
 
 	if (mainMenu.IsKeyReleased() == true)
 	{
-		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
+		Engine::GetGameStateManager().Shutdown();
 	}
 }
 

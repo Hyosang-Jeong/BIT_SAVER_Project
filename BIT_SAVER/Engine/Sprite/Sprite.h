@@ -35,7 +35,7 @@ public:
     glm::vec2 GetFrameSize() const;
 private:
     bool is_playing = false;
-    Texture texture;
+    Texture* textureptr;
     GLModel model;
     glm::vec2 GetFrameTexel(int frameNum) const;
     glm::vec2 frameSize;

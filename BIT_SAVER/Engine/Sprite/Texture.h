@@ -18,6 +18,7 @@ class Texture
 {
 public:
     Texture() = default;
+    Texture(GLuint obj, glm::vec2 size) : tex_obj(obj), texture_size(size) {};
     void Draw(glm::mat3 displayMatrix, GLModel mdl, std::string shdr_name);
     void Draw(double world_range, GLModel mdl, std::string shdr_name, glm::vec2 pos, glm::vec2 scale = { 1,1 }, glm::vec2 rotate = { 0,0 });
     glm::vec2 GetSize();
