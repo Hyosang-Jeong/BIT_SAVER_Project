@@ -95,7 +95,7 @@ void Texture::Draw(double world_range, GLModel mdl, std::string shdr_name, glm::
 
 
 glm::vec2 Texture::GetSize()
-{
+{ 
 	return texture_size;
 }
 

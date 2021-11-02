@@ -40,10 +40,6 @@ glm::vec2 Hero::Getposition()
     return GameObject::GetPosition();
 }
 
-std::pair<bool, GLfloat> Hero::Get_Attack_flag()
-{
-	return { attack_pressed,GetPosition().y };
-}
 
 void Hero::UpdateXVelocity([[maybe_unused]] double dt)
 {

@@ -31,8 +31,8 @@ private:
 
 	Hero* heroPtr;
 	Boss* bossPtr;
-	//Track* trackPtr;
-	//Note_box* notebox;
+	Track* trackPtr;
+	Note_box* notebox;
 	Background* backPtr;
 	Camera camera;
 	GameObjectManager* gameObjectManager;

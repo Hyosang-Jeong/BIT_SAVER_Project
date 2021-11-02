@@ -45,6 +45,7 @@ void GameObjectManager::UpdateAll(double dt)
 	for (GameObject* remove : removelist)
 	{
 		gameObjects.remove(remove);
+		
 		delete remove;
 	}
 }

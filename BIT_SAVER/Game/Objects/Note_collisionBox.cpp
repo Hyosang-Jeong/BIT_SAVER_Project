@@ -12,9 +12,7 @@ Creation date: 10/10/2021
 Note_box::Note_box(glm::vec2 startPos) :
 GameObject(startPos, glm::vec2{ 1,20 })
 {
-	texture.setup_texobj("../images/Note_collision_box.png");
-	Hit_tex.setup_texobj("../images/Hit_star.png");
-	Miss_tex.setup_texobj("../images/miss.png");
+	AddGOComponent(new Sprite("../images/Note_collision_box.png", this));
 }
 
 void Note_box::Update(double dt)
@@ -85,24 +83,24 @@ const bool Note_box::GetDestroyed() const
 
 void Note_box::Draw(glm::mat3 camera_matrix)
 {
-	texture.Draw(mdl_to_ndc_xform*camera_matrix, "Basic_model", "Hero");
-	if (Hit[0] == true)
-	{
-		Hit_tex.Draw(world_range, "Basic_model", "Hero", { Hit_pos[0].x,  Hit_pos[0].y });
-	}
-	if (Hit[1] == true)
-	{
-		Hit_tex.Draw(world_range, "Basic_model", "Hero", { Hit_pos[1].x,  Hit_pos[1].y });
-	}
+	GameObject::Draw(camera_matrix);
+	//if (Hit[0] == true)
+	//{
+	//	Hit_tex.Draw(world_range, "Basic_model", "Hero", { Hit_pos[0].x,  Hit_pos[0].y });
+	//}
+	//if (Hit[1] == true)
+	//{
+	//	Hit_tex.Draw(world_range, "Basic_model", "Hero", { Hit_pos[1].x,  Hit_pos[1].y });
+	//}
 
-	if (Hit[0] == false)
-	{
-		Miss_tex.Draw(world_range, "Basic_model", "Hero", { Hit_pos[0].x,  Hit_pos[0].y });
-	}
-	if (Hit[1] == false)
-	{
-		Miss_tex.Draw(world_range, "Basic_model", "Hero", { Hit_pos[1].x,  Hit_pos[1].y });
-	}
+	//if (Hit[0] == false)
+	//{
+	//	Miss_tex.Draw(world_range, "Basic_model", "Hero", { Hit_pos[0].x,  Hit_pos[0].y });
+	//}
+	//if (Hit[1] == false)
+	//{
+	//	Miss_tex.Draw(world_range, "Basic_model", "Hero", { Hit_pos[1].x,  Hit_pos[1].y });
+	//}
 }
 
 glm::vec2 Note_box::Getposition()

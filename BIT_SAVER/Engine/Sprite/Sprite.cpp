@@ -94,7 +94,6 @@ glm::vec2 Sprite::GetFrameSize() const
 
 glm::vec2 Sprite::GetFrameTexel(int frameNum) const
 {
-	std::cout << (animations[currAnim]->GetDisplayFrame()) << std::endl;
 	if (frameNum > frameTexel.size() - 1 || frameNum < 0)
 	{
 		Engine::GetLogger().LogError("invalid index!");
