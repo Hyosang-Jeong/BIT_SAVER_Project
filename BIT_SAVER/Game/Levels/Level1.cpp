@@ -75,7 +75,7 @@ void Level1::Draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClearColor(1.0f, 0.5f, 1.0f, 1.0f);
-	GetGSComponent<Background>()->Draw(camera.GetMatrix());
+GetGSComponent<Background>()->Draw(camera.GetMatrix());
 	gameObjectManager->DrawAll(camera.GetMatrix());
 }
 
