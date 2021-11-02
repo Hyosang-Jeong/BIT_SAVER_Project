@@ -28,6 +28,7 @@ public:
 	std::list<GameObject*> GetgameObjects() { return gameObjects; }
 private:
 	std::list<GameObject*> gameObjects;
+	
 };
 
 

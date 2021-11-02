@@ -26,7 +26,6 @@ void GameObjectManager::Unload()
 	{
 		delete a;
 	}
-
 	gameObjects.clear();
 }
 
