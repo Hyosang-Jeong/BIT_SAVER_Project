@@ -21,27 +21,18 @@ class Sprite;
 
 class Background : public Component
 {
-//public:
-//    Background(glm::vec2 startPos, glm::vec2 velocity);
-//    void Update(double dt) override;
-//    glm::vec2 Getposition();
-//    //GameObjectType GetObjectType() override
-//    //{
-//    //    return GameObjectType::Background;
-//    //}
-//    void Draw(glm::mat3 camera_matrix) override;
-//private:
-//    bool back_alive;
 
 public:
     void Add(const std::filesystem::path& texturePath, int level);
     void Unload();
-    void Update();
+    void Update(double dt);
     void Draw(glm::mat3 camera);
     glm::vec2 Size();
 private:
     struct ParallaxInfo {
-        Sprite texture;
+        Texture* texture;
+        GLModel model;
+        glm::mat3 matrix;
         int level;
     };
     std::vector<ParallaxInfo> backgrounds;

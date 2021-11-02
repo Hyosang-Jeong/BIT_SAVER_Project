@@ -13,69 +13,51 @@ Creation date: 3/14/2021
 #include "../../Engine/Sprite/Sprite.h"
 #include "../../Engine/Physics/Camera.h"
 
-//Background::Background(glm::vec2 startPos, glm::vec2 velocity) :
-//	GameObject(startPos, glm::vec2{ 12,12 }), back_alive(true)
-//{
-//	AddGOComponent(new Sprite("../images/background.png", this));
-//	SetVelocity(velocity);
-//}
-//
-//void Background::Update(double dt)
-//{
-//	GameObject::Update(dt);
-//	if (GetPosition().x < 0 && back_alive == true)
-//	{
-//		Background* new_back = new Background({ 20, 0 }, { -5,0 });
-//		Engine::GetGSComponent<GameObjectManager>()->Add_front(new_back);
-//		back_alive = false;
-//	}
-//	if (GetPosition().x < -20)
-//	{
-//		set_destroy(true);
-//	}
-//}
-//
-//void Background::Draw(glm::mat3 camera_matrix)
-//{
-//	GameObject::Draw(camera_matrix);
-//}
-//
-//glm::vec2 Background::Getposition()
-//{
-//	return GameObject::GetPosition();
-//}
-
-void Background::Add(const std::filesystem::path& texturePath, int level) 
+void Background::Add(const std::filesystem::path& texturePath, int level)
 {
-    backgrounds.push_back({ Texture{}, level });
-    backgrounds.back().texture.setup_texobj(texturePath.string().c_str());
+    GLModel model;
+    model.init({ 1,1 });
+    glm::mat3 matrix =
+    {
+        1,0,0,
+        0,1,0,
+        0,0,1
+    };
+    backgrounds.push_back({ Engine::GetTextureManager().Load(texturePath.string().c_str()), model,matrix,level });
 }
 
 glm::vec2 Background::Size() {
     for (ParallaxInfo& levelInfo : backgrounds) {
         if (levelInfo.level == 1) {
-            return levelInfo.texture.GetSize();
+            return levelInfo.texture->GetSize();
         }
     }
     return { 0,0 };
 }
 
-void Background::Update()
+void Background::Update(double dt)
 {
-    
+    for (ParallaxInfo& levelInfo : backgrounds)
+    {
+        glm::mat3 trans_matrix
+        {
+            1,0,0,
+             0,1,0,
+            -(levelInfo.level*dt),0,1
+        };
+        levelInfo.matrix *= trans_matrix;
+    }
 }
 
-void Background::Unload() {
+void Background::Unload() 
+{
     backgrounds.clear();
 }
 
-
-//void Texture::Draw(double world_range, GLModel mdl, std::string shdr_name, glm::vec2 pos, glm::vec2 scale, glm::vec2 rotate)
-//void Texture::Draw(glm::mat3  displayMatrix, GLModel mdl, std::string shdr_name)
-
-
-void Background::Draw(const Camera& camera) {
-    for (ParallaxInfo& levelInfo : backgrounds) {
-        levelInfo.texture.Draw(math::TranslateMatrix(-math::vec2{ camera.GetPosition().x / levelInfo.level, camera.GetPosition().y }));
+void Background::Draw(glm::mat3 camera)
+{
+    for (ParallaxInfo& levelInfo : backgrounds)
+    {
+        levelInfo.texture->Draw(levelInfo.matrix*camera,levelInfo.model, "Hero");
     }
 }

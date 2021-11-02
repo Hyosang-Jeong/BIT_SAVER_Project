@@ -35,14 +35,17 @@ void Level1::Load()
 	gameObjectManager = new GameObjectManager();
 
 	heroPtr = new Hero({ -6,0 });
-	backPtr = new Background({ 20, 0 }, {-5,0});
+	backPtr = new Background();
 	trackPtr = new Track(Music::SOUND_NUM::ENERGY);
 	notebox = new Note_box({ -4,0 });
 	bossPtr = new Boss({ 8,0 });
 
-	AddGSComponent(gameObjectManager);
+	backPtr->Add("../images/hit_star.png", 1);
 
-	gameObjectManager->Add(backPtr);
+
+	AddGSComponent(gameObjectManager);
+	AddGSComponent(backPtr);
+
 	gameObjectManager->Add(heroPtr);
 	gameObjectManager->Add(bossPtr);
 	gameObjectManager->Add(notebox);
@@ -51,6 +54,7 @@ void Level1::Load()
 
 void Level1::Update(double dt)
 {
+	GetGSComponent<Background>()->Update(dt);
 	gameObjectManager->UpdateAll(dt);
 
 	//camera.Dynamic_movement(notebox->GetDestroyed(),dt);
@@ -66,6 +70,7 @@ void Level1::Draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClearColor(1.0f, 0.5f, 1.0f, 1.0f);
+	GetGSComponent<Background>()->Draw(camera.GetMatrix());
 	gameObjectManager->DrawAll(camera.GetMatrix());
 }
 void Level1::Unload()
