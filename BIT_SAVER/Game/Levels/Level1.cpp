@@ -35,12 +35,12 @@ camera({ 0,0 })
 
 void Level1::Load()
 {
-	Engine::GetMusic().Play(Music::SOUND_NUM::ENERGY);
+	Engine::GetMusic().Play(Music::SOUND_NUM::REWIND);
 	gameObjectManager = new GameObjectManager();
 
 	heroPtr = new Hero({ -6,0 });
 	backPtr = new Background();
-	trackPtr = new Track(Music::SOUND_NUM::ENERGY);
+	trackPtr = new Track(Music::SOUND_NUM::REWIND);
 	notebox = new Note_box({ -4,0 });
 	bossPtr = new Boss({ 8,0 });
 	energyBar = new EnergyBar({ -6,1.2 });

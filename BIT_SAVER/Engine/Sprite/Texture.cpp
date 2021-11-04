@@ -36,6 +36,7 @@ void Texture::Draw(glm::mat3  displayMatrix, GLModel mdl, std::string shdr_name)
 	glActiveTexture(GL_TEXTURE0);
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
+	//glDisable(GL_DEPTH);
 	glBindTexture(GL_TEXTURE_2D, tex_obj);
 	glBindTextureUnit(0, tex_obj);
 
