@@ -29,5 +29,6 @@ private:
     InputKey moveUpKey;
     InputKey moveDownKey;
     bool isMiss;
+
     EnergyBar* energy;
 };
