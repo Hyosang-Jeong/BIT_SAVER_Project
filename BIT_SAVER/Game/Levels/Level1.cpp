@@ -16,7 +16,7 @@ Creation date: 3/07/2021
 #include"..\Objects\Note_collisionBox.h"
 #include"..\Objects\Background.h"
 #include"../Levels/State.h"
-#include "../../Engine/Sprite/EnergyBar.h"
+#include "../Objects/EnergyBar.h"
 
 Level1::Level1() : 
 mainMenu(InputKey::Keyboard::Escape), 

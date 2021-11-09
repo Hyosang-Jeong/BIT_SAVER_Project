@@ -22,6 +22,7 @@ public:
         REWIND,
         SOUND_EFFECT1,
         SOUND_EFFECT2,
+        asd,
         MUSIC_END
     };
 

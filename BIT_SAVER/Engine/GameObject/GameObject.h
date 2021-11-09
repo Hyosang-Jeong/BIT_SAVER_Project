@@ -43,6 +43,9 @@ public:
 	const glm::vec2& GetScale() const;
 	const glm::vec2& GetTexturetoNDC() const;
 	const AABB GetCollisionbox() const;
+	void UpdatePosition(glm::vec2 adjustPosition);
+	void SetScale(glm::vec2 newScale);
+	void SetPosition(glm::vec2 newPosition);
 	void set_destroy(bool value);
 	bool Destroy();
 
@@ -51,11 +54,8 @@ public:
 
 protected:
 
-	void SetPosition(glm::vec2 newPosition);
-	void UpdatePosition(glm::vec2 adjustPosition);
 	void SetVelocity(glm::vec2 newPosition);
 	void UpdateVelocity(glm::vec2 adjustPosition);
-	void SetScale(glm::vec2 newScale);
 	void AddGOComponent(Component* component) { components.AddComponent(component); }
 	void UpdateGOComponents(double dt) { components.UpdateAll(dt); }
 	void ClearGOComponents() { components.Clear(); }

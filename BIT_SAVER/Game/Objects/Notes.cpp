@@ -10,10 +10,13 @@ Creation date: 3/14/2021
 
 #include"Notes.h"
 #include"../../Engine/Engine.h"
+#include "EnergyBar.h"
+#include "../../Engine/Music/music.h"
 Note::Note(glm::vec2 startPos, glm::vec2 velocity) :
     moveUpKey(InputKey::Keyboard::Up),
     moveDownKey(InputKey::Keyboard::Down),
     isMiss(false),
+    energy(static_cast<EnergyBar*>(Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Energy_bar))),
 GameObject(startPos, glm::vec2{ 0.5,1 })
 {
 	AddGOComponent(new Sprite("../images/hit_star.png", this));
@@ -28,6 +31,20 @@ void Note::Update(double dt)
 		set_destroy(true);
 	}
 	Hit_Check();
+	if (isMiss == true)
+	{
+	    if (energy->GetScale().x > 0)
+	    {
+		energy->SetScale(glm::vec2{ energy->GetScale().x - (dt / 10),energy->GetScale().y });
+		energy->UpdatePosition(glm::vec2{ -(dt / 10),0 });
+	    }
+	    else
+	    {
+		std::cout << "End";
+	    }
+
+	}
+
 }
 
 void Note::Draw(glm::mat3 camera_matrix)
@@ -110,7 +127,3 @@ void Note::Hit_Check()
     }
 }
 
-bool Note::GetisMiss()
-{
-    return isMiss;
-}

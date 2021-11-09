@@ -28,7 +28,7 @@ void Engine::Init(std::string windowName)
 	fpsCalcTime = lastTick;
 
 	GetMusic().Init();
-	GetMusic().Load();
+	//GetMusic().Load();
 }
 
 void Engine::Shutdown()
