@@ -23,5 +23,10 @@ public:
         return GameObjectType::Note;
     }
     void Draw(glm::mat3 camera_matrix) override;
+    void Hit_Check();
+    bool GetisMiss();
 private:
+    InputKey moveUpKey;
+    InputKey moveDownKey;
+    bool isMiss;
 };
