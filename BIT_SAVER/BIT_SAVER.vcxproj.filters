@@ -86,8 +86,8 @@
     <ClCompile Include="Engine\Sprite\Sprite.cpp">
       <Filter>Engine\Sprite</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Sprite\EnergyBar.cpp">
-      <Filter>Engine\Sprite</Filter>
+    <ClCompile Include="Game\Objects\EnergyBar.cpp">
+      <Filter>Game\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -187,8 +187,8 @@
     <ClInclude Include="Engine\Sprite\Sprite.h">
       <Filter>Engine\Sprite</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Sprite\EnergyBar.h">
-      <Filter>Engine\Sprite</Filter>
+    <ClInclude Include="Game\Objects\EnergyBar.h">
+      <Filter>Game\Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
