@@ -26,8 +26,10 @@ Hero::Hero(glm::vec2 startPos) :
 void Hero::Update(double dt)
 {
     UpdateXVelocity(dt);
-    Attack_Check();
     GameObject::Update(dt);
+    GetGOComponent<Collision>()->UpdateCollision(GetPosition(),GetScale());
+   std::cout<< GetGOComponent<Collision>()->GetAABB().min.x << "          " << GetPosition().x << GetGOComponent<Collision>()->GetAABB().max.x <<std::endl;
+    //std::cout << GetPosition().x << std::endl;
 }
 
 void Hero::Draw(glm::mat3 camera_matrix)
@@ -43,14 +45,31 @@ glm::vec2 Hero::Getposition()
 
 void Hero::UpdateXVelocity([[maybe_unused]] double dt)
 {
-    if (moveUpKey.IsKeyDown() == true)
+    if (Getposition().y >=5)
     {
+        SetVelocity({ 0,0 });
         SetPosition({ Getposition().x, 5 });
     }
 
+    else if (Getposition().y <=-5)
+    {
+        SetVelocity({ 0,0 });
+        SetPosition({ Getposition().x, -5 });
+    }
+
+    if (moveUpKey.IsKeyDown() == true)
+    {
+        if (Getposition().y <5)
+        {
+            SetVelocity({ 0,80 });
+        }
+    }
     else if (moveDownKey.IsKeyDown() == true)
     {
-        SetPosition({ Getposition().x, -5 });
+        if (Getposition().y > -5)
+        {
+            SetVelocity({ 0,-80 });
+        }
     }
 
     else if (moveLeftKey.IsKeyDown() == true)
@@ -63,16 +82,5 @@ void Hero::UpdateXVelocity([[maybe_unused]] double dt)
     }
 }
 
-void Hero::Attack_Check()
-{
-		if (AttackKey.IsKeyDown() == true)
-		{
-			attack_pressed = true;
-		}
-		if (AttackKey.IsKeyReleased() == true)
-		{
-			attack_pressed = false;
-		}
-}
 
 

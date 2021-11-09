@@ -21,7 +21,8 @@ public:
         Clear();
     }
     void UpdateAll(double dt) {
-        for (Component* component : components) {
+        for (Component* component : components) 
+        {
             component->Update(dt);
         }
     }

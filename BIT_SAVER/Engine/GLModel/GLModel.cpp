@@ -64,7 +64,6 @@ void GLModel::init(glm::vec2 size)
     glBindVertexArray(0);
 }
 
-
 void GLModel::Hero_init()
 {
     // init model from meshes file 

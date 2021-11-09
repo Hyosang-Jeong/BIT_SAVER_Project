@@ -24,7 +24,6 @@ public:
     Hero(glm::vec2 startPos);
     void Update(double dt) override;
     glm::vec2 Getposition();
-    std::pair<bool,GLfloat> Get_Attack_flag();
     void Draw(glm::mat3 camera_matrix) override;
     GameObjectType GetObjectType() override
     {
@@ -43,8 +42,5 @@ private:
     static constexpr double max_velocity = 500;
     static constexpr double jumpVelocity = 1000;
 
-    bool attack_pressed = false;
- 
     void UpdateXVelocity(double dt);     //Change X velocity stuff
-    void Attack_Check();
 };

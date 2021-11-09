@@ -39,6 +39,7 @@ private:
     GLModel model;
     glm::vec2 GetFrameTexel(int frameNum) const;
     glm::vec2 frameSize;
+    glm::vec2 ndc_frameSize;
     int currAnim = 0;
     std::vector<Animation*> animations;
     std::vector<glm::vec2> frameTexel;

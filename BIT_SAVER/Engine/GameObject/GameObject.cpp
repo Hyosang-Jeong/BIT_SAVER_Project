@@ -13,7 +13,7 @@ GameObject::GameObject(glm::vec2 position) : GameObject(position,  { 1, 1 }) {}
 
 GameObject::GameObject(glm::vec2 position, glm::vec2 scale)
     : velocity{ 0,0 }, position(position), updateMatrix(true),
-    scale(scale),collision(scale)
+    scale(scale)
 {
 }
 
@@ -58,7 +58,7 @@ void GameObject::Update(double dt)
        0,  1 / world_range ,0,
        0,0,1
    };
-   collision.UpdateCollision(position);
+   //collision.UpdateCollision(position);
    texture_ndc = scale / 2.f;
     mdl_to_ndc_xform = ndcscale_matrix* trans_matrix  *rotation_matrix* scale_matrix;
 }
@@ -66,10 +66,14 @@ void GameObject::Update(double dt)
 void GameObject::Draw(glm::mat3 camera_matrix)
 {
     Sprite* spritePtr = GetGOComponent<Sprite>();
-
+    Collision* collisionPtr = GetGOComponent<Collision>();
     if (spritePtr != nullptr)
     {
         spritePtr->Draw(mdl_to_ndc_xform * camera_matrix, "Hero");
+    }
+    if (collisionPtr != nullptr)
+    {
+        collisionPtr->Draw();
     }
 }
 

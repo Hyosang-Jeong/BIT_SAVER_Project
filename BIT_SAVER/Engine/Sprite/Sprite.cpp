@@ -55,20 +55,27 @@ void Sprite::Load(const std::filesystem::path& spriteInfoFile,[[maybe_unused]] G
 				inFile >> text;
 				animations.push_back(new Animation(text));
 			}
-			else if (text == "FrameSize") {
+			else if (text == "FrameSize") 
+			{
 				inFile >> frameSize.x;
 				inFile >> frameSize.y;
-				model.init(frameSize);
 			}
-			else if (text == "NumFrames") {
+			else if (text == "NumFrames") 
+			{
 				int numFrames;
 				inFile >> numFrames;
+				float ndc_frame_size = 1.0f / static_cast<float>(numFrames);
+
+				ndc_frameSize.x = ndc_frame_size;
+				ndc_frameSize.y = 1.0f;
+				object->AddGOComponent(new Collision(ndc_frameSize));
+
+				model.init({ ndc_frame_size,1 });
 				for (int i = 0; i < numFrames; i++)
 				{
-					frameTexel.push_back({ frameSize.x * i, 0 });
+					frameTexel.push_back({ ndc_frame_size * i, 0 });
 				}
 			}
-
 			else
 			{
 				Engine::GetLogger().LogError("Unknown spt command " + text);
@@ -84,7 +91,7 @@ void Sprite::Load(const std::filesystem::path& spriteInfoFile,[[maybe_unused]] G
 	{
 		animations.push_back(new Animation());
 	}
-
+	
 }
 
 glm::vec2 Sprite::GetFrameSize() const
@@ -122,7 +129,7 @@ void Sprite::Update(double dt)
 {
 	if (is_playing == true)
 	{
-		model.update(GetFrameTexel(animations[currAnim]->GetDisplayFrame()), frameSize);
+		model.update(GetFrameTexel(animations[currAnim]->GetDisplayFrame()), ndc_frameSize);
 	}
 	animations[currAnim]->Update(dt);
 }

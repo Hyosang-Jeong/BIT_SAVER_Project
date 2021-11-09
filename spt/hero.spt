@@ -1,4 +1,4 @@
 ../images/hero.png
-FrameSize 0.1428571428571429 1
+FrameSize 800 720
 NumFrames 7
 Anim ../anm/hero_run.anm
