@@ -9,13 +9,36 @@ Creation date: 5/01/2021
 -----------------------------------------------------------------*/
 #include "Score.h"
 #include "../Engine/Engine.h"
+#include "Notes.h"
 
-Score::Score() :
-score(0),combo(0)
-{}
+
+Score::Score()
+{
+	score = 0;
+	combo = 0;
+	score_count = {0,0,0,0};
+}
 
 void Score::AddScore(int newPoints)
 {
+	switch (static_cast<SCORE>(newPoints))
+	{
+	case SCORE::PERFECT:
+		score_count[newPoints]++;
+		break;
+	case SCORE::GOOD:
+		score_count[newPoints]++;
+		break;
+	case SCORE::BAD:
+		score_count[newPoints]++;
+		break;
+	case SCORE::MISS:
+		score_count[newPoints]++;
+		break;
+	default:
+		break;
+	}
+
 	combo++;
 	if (newPoints == 0)
 	{
@@ -31,7 +54,23 @@ void Score::Draw(glm::vec2 location)
 	//RenderText();
 	//scoreTexture.Draw(math::TranslateMatrix(math::ivec2(location.x, location.y - scoreTexture.GetSize().y)));
 
-	scoreTexture.Draw("Score: "+std::to_string(score), location.x, location.y, 1.f, glm::vec3(0.2, 0.8, 0.4));
+	scoreTexture.Draw("Score: " + std::to_string(score), location.x+5, location.y+5, 1.f, glm::vec3(0.f, 0.f, 0.f));
+	scoreTexture.Draw("Score: " + std::to_string(score), location.x, location.y, 1.f, glm::vec3(1.f,1.f,1.f));
+
+	scoreTexture.Draw("Perfect: " + std::to_string(score_count[static_cast<int>(SCORE::PERFECT)]), location.x + 5, location.y + 5 + 50, 1.f, glm::vec3(0.f, 0.f, 0.f));
+	scoreTexture.Draw("Perfect: " + std::to_string(score_count[static_cast<int>(SCORE::PERFECT)]), location.x, location.y + 50, 1.f, glm::vec3(1.f, 1.f, 1.f));
+
+	scoreTexture.Draw("Good: " + std::to_string(score_count[static_cast<int>(SCORE::GOOD)]), location.x + 5, location.y + 5 + 100, 1.f, glm::vec3(0.f, 0.f, 0.f));
+	scoreTexture.Draw("Good: " + std::to_string(score_count[static_cast<int>(SCORE::GOOD)]), location.x, location.y + 100, 1.f, glm::vec3(1.f, 1.f, 1.f));
+
+	scoreTexture.Draw("Bad: " + std::to_string(score_count[static_cast<int>(SCORE::BAD)]), location.x + 5, location.y + 5 + 150, 1.f, glm::vec3(0.f, 0.f, 0.f));
+	scoreTexture.Draw("Bad: " + std::to_string(score_count[static_cast<int>(SCORE::BAD)]), location.x, location.y + 150, 1.f, glm::vec3(1.f, 1.f, 1.f));
+
+	scoreTexture.Draw("Miss: " + std::to_string(score_count[static_cast<int>(SCORE::MISS)]), location.x + 5, location.y + 5 + 200, 1.f, glm::vec3(0.f, 0.f, 0.f));
+	scoreTexture.Draw("Miss: " + std::to_string(score_count[static_cast<int>(SCORE::MISS)]), location.x, location.y + 200, 1.f, glm::vec3(1.f, 1.f, 1.f));
+
+	scoreTexture.Draw("Combo: " + std::to_string(combo), location.x + 5, location.y + 5 + 250, 1.f, glm::vec3(0.f, 0.f, 0.f));
+	scoreTexture.Draw("Combo: " + std::to_string(combo), location.x, location.y + 250, 1.f, glm::vec3(1.f, 1.f, 1.f));
 }
 
 void Score::RenderText()

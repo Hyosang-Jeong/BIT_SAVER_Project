@@ -172,7 +172,7 @@ void Level1::Draw()
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	GetGSComponent<Background>()->Draw(camera.GetMatrix());
-	GetGSComponent<Score>()->Draw({ 0,500 });
+	GetGSComponent<Score>()->Draw({ 0,100 });
 	gameObjectManager->DrawAll(camera.GetMatrix());
 	
 	//selectedIndex.x 0.sound 1.restart 2.quit
