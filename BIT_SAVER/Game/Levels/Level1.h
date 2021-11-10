@@ -30,6 +30,7 @@ public:
 	
 private:
 	InputKey mainMenu;
+	InputKey optionMenu;
 
 	Hero* heroPtr;
 	Boss* bossPtr;
@@ -41,4 +42,6 @@ private:
 	Camera camera;
 	GameObjectManager* gameObjectManager;
 	int curr_state;
+	int combo;
+	bool isOption;
 };
