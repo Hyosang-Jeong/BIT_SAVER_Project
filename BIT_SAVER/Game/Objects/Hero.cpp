@@ -81,6 +81,7 @@ void Hero::Update(double dt)
 
 void Hero::Draw(glm::mat3 camera_matrix)
 {
+    std::cout << camera_matrix[0].x << std::endl;
    GameObject::Draw(camera_matrix);
 }
 
@@ -90,9 +91,8 @@ glm::vec2 Hero::Getposition()
 }
 
 
-void Hero::UpdateXVelocity([[maybe_unused]] double dt)
+void Hero::UpdateXVelocity([[maybe_unused]]double dt)
 {
-
     if (Getposition().y >5)
     {
         SetVelocity({ 0,-10});

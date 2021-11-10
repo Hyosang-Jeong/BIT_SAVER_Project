@@ -23,11 +23,12 @@ public:
 	void Update(double dt) override;
 	void Unload() override;
 	void Draw() override;
-	std::string GetName() override { return "Splash"; }
-	Texture Logo;
+	std::string GetName() override { return "MainMenu"; }
+	Texture* mainmenu;
 	InputKey ESCAPE;
 	InputKey Level1;
 	InputKey Level2;
+	GLModel model;
 private:
 };
 

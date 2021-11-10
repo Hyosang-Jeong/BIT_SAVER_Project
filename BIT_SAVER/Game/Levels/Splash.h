@@ -24,8 +24,8 @@ public:
 	void Unload() override;
 	void Draw() override;
 	std::string GetName() override { return "Splash"; }
-	Texture Logo;
-	Texture Digipen_Splash;
+	Texture* Logo;
+	Texture* Digipen_Splash;
 	InputKey PlayKey;
 private:
 	double timer{ 6 };

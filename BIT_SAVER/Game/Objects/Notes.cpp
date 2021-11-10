@@ -16,7 +16,7 @@ Creation date: 3/14/2021
 #include "../../Game/Levels/State.h"
 #include "../../Engine/Window/Window.h"
 #include"Score.h"
-
+#include"../../Engine/Physics/Camera.h"
 Note::Note(glm::vec2 startPos, glm::vec2 velocity) :
 	UpAttackKey1(InputKey::Keyboard::F),
 	UpAttackKey2(InputKey::Keyboard::Up),
@@ -39,6 +39,7 @@ void Note::Update(double dt)
 		set_destroy(true);
 	}
 	Hit_Check();
+	
 	if (isMiss == true)
 	{
 	    if (energy->GetScale().x > 0)
@@ -50,9 +51,8 @@ void Note::Update(double dt)
 	    {
 		//Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
 	    }
-
 	}
-
+	
 }
 
 void Note::Draw(glm::mat3 camera_matrix)
