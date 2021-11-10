@@ -25,6 +25,7 @@ public:
     }
     void Draw(glm::mat3 camera_matrix) override;
     void Hit_Check();
+    int Score_check();
 private:
     InputKey UpAttackKey1;
     InputKey UpAttackKey2;
@@ -33,4 +34,12 @@ private:
     bool isMiss;
 
     EnergyBar* energy;
+};
+
+enum class SCORE
+{
+    PERFECT = 0,
+    GOOD,
+    BAD,
+    MISS
 };

@@ -19,16 +19,20 @@ Creation date: 3/07/2021
 #include "..\Objects\EnergyBar.h"
 #include "..\Objects\stage_bar.h"
 #include"../../Engine/Sprite/GameParticles.h"
+
 enum class STATE
 {
 	EXTRA,
 	GENERATING,
+	OPTION,
 	FINISH
 };
 
 
 Level1::Level1() : 
 mainMenu(InputKey::Keyboard::Escape), 
+optionMenu(InputKey::Keyboard::O),
+isOption(false),
 camera({ 0,0 })
 {
 	//camera = glm::vec2{ 0,0 };
@@ -41,6 +45,7 @@ camera({ 0,0 })
 	energyBar = nullptr;
 	stageBar = nullptr;
 	curr_state = 0;
+	combo = 0;
 }
 
 void Level1::Load()
@@ -53,7 +58,7 @@ void Level1::Load()
 	trackPtr = new Track(Music::SOUND_NUM::REWIND);
 	notebox = new Note_box({ -4,0 });
 	bossPtr = new Boss({ 12,0 });
-	energyBar = new EnergyBar({ -6,1.2 });
+	energyBar = new EnergyBar({ -4,1.2 });
 	stageBar = new Stage_bar({ -10,9 },204,82);   // total music time 204  ,  extra time 82
 
 	backPtr->Add("../images/background1.png", 0);
@@ -79,9 +84,26 @@ void Level1::Load()
 
 void Level1::Update(double dt)
 {
+    if (isOption == false && optionMenu.IsKeyDown() == true)
+    {
+	Engine::GetMusic().Pause(Music::SOUND_NUM::REWIND);
+
+    }
+    if (isOption == false && optionMenu.IsKeyReleased() == true)
+    {
+	isOption = true;
+    }
+    else if (isOption == true && optionMenu.IsKeyDown() == true)
+    {
+	isOption = false;
+	Engine::GetMusic().Resume(Music::SOUND_NUM::REWIND);
+
+    }
+    if (isOption != true)
+    {
 	GetGSComponent<Background>()->Update(dt);
 	gameObjectManager->UpdateAll(dt);
-
+    }
 	//camera.Dynamic_movement(notebox->GetDestroyed(),dt);
 	//camera.Update({ 0,0 },dt);
 

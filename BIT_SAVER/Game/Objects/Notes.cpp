@@ -12,6 +12,7 @@ Creation date: 3/14/2021
 #include"../../Engine/Sprite/GameParticles.h"
 #include "EnergyBar.h"
 #include "../../Engine/Music/music.h"
+#include "../../Engine/Engine.h"
 Note::Note(glm::vec2 startPos, glm::vec2 velocity) :
 	UpAttackKey1(InputKey::Keyboard::F),
 	UpAttackKey2(InputKey::Keyboard::Up),
@@ -62,9 +63,7 @@ glm::vec2 Note::Getposition()
 
 void Note::Hit_Check()
 {
-	if (GetPosition().x - Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero)->GetPosition().x < 0.3
-		&& Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero)->GetPosition().x - GetPosition().x < 0.3
-		&& GetPosition().y > 0)
+	if (Score_check()== static_cast<int>(SCORE::PERFECT) && GetPosition().y > 0)
 	{
 		if (UpAttackKey1.IsKeyDown() == true || UpAttackKey2.IsKeyDown() == true)
 		{
@@ -73,8 +72,7 @@ void Note::Hit_Check()
 			set_destroy(true);
 		}
 	}
-	else if (GetPosition().x - Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero)->GetPosition().x < 0.4
-		&& Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero)->GetPosition().x - GetPosition().x < 0.4
+	else if (Score_check() == static_cast<int>(SCORE::GOOD)
 		&& GetPosition().y > 0)
 	{
 		if (UpAttackKey1.IsKeyDown() == true || UpAttackKey2.IsKeyDown() == true)
@@ -85,8 +83,7 @@ void Note::Hit_Check()
 			set_destroy(true);
 		}
 	}
-	else if (GetPosition().x - Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero)->GetPosition().x < 0.5
-		&& Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero)->GetPosition().x - GetPosition().x < 0.5
+	else if (Score_check() == static_cast<int>(SCORE::BAD)
 		&& GetPosition().y > 0)
 	{
 		if (UpAttackKey1.IsKeyDown() == true || UpAttackKey2.IsKeyDown() == true)
@@ -98,8 +95,7 @@ void Note::Hit_Check()
 		}
 	}
 
-	if (GetPosition().x - Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero)->GetPosition().x < 0.3
-		&& Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero)->GetPosition().x - GetPosition().x < 0.3
+	if (Score_check() == static_cast<int>(SCORE::PERFECT)
 		&& GetPosition().y < 0)
 	{
 		if (DownAttackKey1.IsKeyDown() == true || DownAttackKey2.IsKeyDown() == true)
@@ -108,8 +104,7 @@ void Note::Hit_Check()
 			set_destroy(true);
 		}
 	}
-	else if (GetPosition().x - Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero)->GetPosition().x < 0.4
-		&& Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero)->GetPosition().x - GetPosition().x < 0.4
+	else if (Score_check() == static_cast<int>(SCORE::GOOD)
 		&& GetPosition().y < 0)
 	{
 		if (DownAttackKey1.IsKeyDown() == true || DownAttackKey2.IsKeyDown() == true)
@@ -118,8 +113,7 @@ void Note::Hit_Check()
 			set_destroy(true);
 		}
 	}
-	else if (GetPosition().x - Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero)->GetPosition().x < 0.5
-		&& Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero)->GetPosition().x - GetPosition().x < 0.5
+	else if (Score_check() == static_cast<int>(SCORE::BAD)
 		&& GetPosition().y < 0)
 	{
 		if (DownAttackKey1.IsKeyDown() == true || DownAttackKey2.IsKeyDown() == true)
@@ -137,8 +131,24 @@ void Note::Hit_Check()
 	}
 }
 
-bool Note::GetisMiss()
+int Note::Score_check()
 {
-	return isMiss;
-}
+    if (GetPosition().x - Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero)->GetPosition().x < 0.3
+	&& Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero)->GetPosition().x - GetPosition().x < 0.3)
+    {
+	return static_cast<int>(SCORE::PERFECT);
+    }
+    else if (GetPosition().x - Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero)->GetPosition().x < 0.4
+	&& Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero)->GetPosition().x - GetPosition().x < 0.4)
+    {
+	return static_cast<int>(SCORE::GOOD);
+    }
+    else if (GetPosition().x - Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero)->GetPosition().x < 0.5
+	&& Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero)->GetPosition().x - GetPosition().x < 0.5)
+    {
+	return static_cast<int>(SCORE::BAD);
+    }
+    return static_cast<int>(SCORE::MISS);
 
+
+}
