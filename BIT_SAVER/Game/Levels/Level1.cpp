@@ -138,10 +138,12 @@ void Level1::Update(double dt)
 		curr_state = static_cast<int>(STATE::FINISH);
 	}
 
+
 	if (escape.IsKeyDown() == true)
 	{
 		Engine::GetGameStateManager().Shutdown();
 	}
+
 }
 
 void Level1::Draw()

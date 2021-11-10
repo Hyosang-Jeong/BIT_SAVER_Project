@@ -70,7 +70,7 @@ glm::vec2 Note::Getposition()
 
 void Note::Hit_Check()
 {
-    //set_destroy(true);
+    
 
 	if (Score_check()== static_cast<int>(SCORE::PERFECT) && GetPosition().y > 0)
 	{
