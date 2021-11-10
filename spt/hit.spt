@@ -1,4 +1,4 @@
 ../images/hit.png
 FrameSize 32 32
-NumFrames 4
+NumFrames 6
 Anim ../anm/hit.anm

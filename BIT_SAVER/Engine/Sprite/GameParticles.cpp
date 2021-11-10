@@ -10,7 +10,7 @@ Creation date: 5/24/2021
 #include"GameParticles.h"
 
 
-HitEmitter::HitEmitter() : ParticleEmitter(1.0)
+HitEmitter::HitEmitter() : ParticleEmitter(0.4)
 {
 	for (int i = 0; i < NumParticles; i++)
 	{

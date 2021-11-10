@@ -13,7 +13,7 @@ Creation date: 3/14/2021
 
 
 Boss::Boss(glm::vec2 startPos) :
-	GameObject(startPos, glm::vec2{ -2,2 })
+	GameObject(startPos, glm::vec2{ 4,4 })
 {
 	AddGOComponent(new Sprite("../spt/boss.spt", this));
 }
@@ -22,11 +22,11 @@ void Boss::Update(double dt)
 {
 	GameObject::Update(dt);
 	UpdateXVelocity(dt);
-	if (GetPosition().x < 8)
+	if (GetPosition().x < 10)
 	{
 		is_generating = false;
 		SetVelocity({ 0,0 });
-		SetPosition({ 8,0 });
+		SetPosition({ 10,-5 });
 	}
 }
 
@@ -39,16 +39,15 @@ void Boss::Draw(glm::mat3 camera_matrix)
 void Boss::GenerateBoss()
 {
 	is_generating = true;
+	GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(boss_anim::spawn));
 }
 
-void Boss::UpdateXVelocity(double dt)
+void Boss::UpdateXVelocity(double )
 {
 	if (is_generating == true)
 	{
-		SetVelocity({ -dt * 50,0 });
+		SetVelocity({-10,0 });
 	}
-
-
 }
 
 

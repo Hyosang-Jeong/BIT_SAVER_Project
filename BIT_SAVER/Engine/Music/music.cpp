@@ -34,6 +34,8 @@ void Music::Load()
     result = FMOD_System_CreateSound(pSystem, "../sound/boss_entrance.mp3", FMOD_DEFAULT, nullptr, &pSound[BOSS_ENTRANCE]);
     ErrorCheck(result);
 
+    result = FMOD_System_CreateSound(pSystem, "../sound/fever.mp3", FMOD_DEFAULT, nullptr, &pSound[FEVER]);
+    ErrorCheck(result);
 }
 void Music::Play(int sound_num)
 {
@@ -81,6 +83,12 @@ void Music::volumeDown(int sound_num)
         volume -= SOUND_WEIGHT;
     }
     result = FMOD_Channel_SetVolume(pChannel[sound_num], volume);
+    ErrorCheck(result);
+}
+
+void Music::SetVolume(int sound_num, float volume_)
+{
+    result = FMOD_Channel_SetVolume(pChannel[sound_num], volume_);
     ErrorCheck(result);
 }
 

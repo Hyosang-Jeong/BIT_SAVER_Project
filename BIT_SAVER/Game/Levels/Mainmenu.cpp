@@ -45,7 +45,7 @@ void Mainmenu::Draw()
 	std::map<std::string, GLSLShader>::iterator shd_ref;
 	shd_ref = Engine::GetGLShader().find("Mainmenu");
 	shd_ref->second.Use();
-	shd_ref = Engine::GetGLShader().find("Mainmenu");
+
 	GLuint alpha = glGetUniformLocation(shd_ref->second.GetHandle(), "alpha");
 	if (alpha < 0)
 	{

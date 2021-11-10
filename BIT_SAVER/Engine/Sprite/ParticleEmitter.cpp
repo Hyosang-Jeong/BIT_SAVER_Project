@@ -21,6 +21,10 @@ ParticleEmitter::~ParticleEmitter()
 void ParticleEmitter::AddParticle(Particle* particleData)
 {
 	particleMemoryPool.push_back(particleData);
+	if (particleData->GetObjectType() == GameObjectType::Hit)
+	{
+		particleData->SetScale({ 2,2 });
+	}
 	Engine::GetGSComponent<GameObjectManager>()->Add(particleData);
 
 }
@@ -69,7 +73,10 @@ void ParticleEmitter::Particle::Revive(glm::vec2 Position, glm::vec2 Velocity, d
 	this->life = Life;
 	SetPosition(Position);
 	SetVelocity(Velocity);
-	//GetGOComponent<Sprite>()->PlayAnimation(0);
+	if (this->GetObjectType() == GameObjectType::Hit)
+	{
+		GetGOComponent<Sprite>()->PlayAnimation(0);
+	}
 }
 
 void ParticleEmitter::Particle::Update(double dt)

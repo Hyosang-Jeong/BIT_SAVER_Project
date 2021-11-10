@@ -20,6 +20,7 @@ class Background;
 class EnergyBar;
 class Stage_bar;
 class GLText;
+class Fever_bar;
 class Level1 : public GameState
 {
 public:
@@ -56,11 +57,12 @@ private:
 	Background* backPtr;
 	EnergyBar* energyBar;
 	Stage_bar* stageBar;
+	Fever_bar* feverBar;
 	Camera camera;
 	GameObjectManager* gameObjectManager;
 	GLText* text;
 	int curr_state;
-	int combo;
+
 	bool isOption;
 	glm::vec2 selectedIndex;
 };

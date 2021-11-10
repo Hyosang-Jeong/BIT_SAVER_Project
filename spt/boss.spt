@@ -1,3 +1,4 @@
-../images/stickman.png
-FrameSize 1 1
-NumFrames 1
+../images/boss.png
+FrameSize 6400 525
+NumFrames 8
+Anim ../anm/boss_spawn.anm

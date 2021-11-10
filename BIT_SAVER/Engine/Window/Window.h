@@ -12,6 +12,7 @@ Creation date: 2/10/2021
 #include <GL/glew.h> 
 #include <GLFW/glfw3.h>
 #include<glm/glm.hpp>
+extern bool isRepeated;
     class Window 
     {
     public:
@@ -26,12 +27,11 @@ Creation date: 2/10/2021
         static void mousebutton_cb(GLFWwindow* pwin, int button, int action, int mod);
         static void mousescroll_cb(GLFWwindow* pwin, double xoffset, double yoffset);
         static void mousepos_cb(GLFWwindow* pwin, double xpos, double ypos);
-
         GLFWwindow* ptr_window;
     private:
         GLint width, height;
         std::string title;
-       glm::vec2 windowSize;
+        glm::vec2 windowSize;
         
     };
 

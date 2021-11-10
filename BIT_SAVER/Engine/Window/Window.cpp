@@ -11,6 +11,7 @@ Creation date: 3/13/2021
 #include "Window.h"
 #include"..\Input\Input.h"
 #include "..\Engine.h"			// GetWindow
+bool isRepeated;
 void Window::Init(GLint wid, GLint hei,std::string windowName)
 {
     Window::width = wid;
@@ -118,6 +119,7 @@ void Window::key_cb([[maybe_unused]] GLFWwindow* pwin, [[maybe_unused]] int key,
 {
     if (GLFW_PRESS == action)
     {
+        isRepeated = false;
         InputKey::Keyboard button = GLKEY_TO_GAME(key);
         if (button != InputKey::Keyboard::None)
         {
@@ -127,12 +129,14 @@ void Window::key_cb([[maybe_unused]] GLFWwindow* pwin, [[maybe_unused]] int key,
     }
     else if (GLFW_REPEAT == action)
     {
+        isRepeated = true;
 #ifdef _DEBUG
         Engine::GetLogger().LogDebug("Key repeated");
 #endif
     }
     else if (GLFW_RELEASE == action)
     {
+        isRepeated = false;
         InputKey::Keyboard button = GLKEY_TO_GAME(key);
         if (button != InputKey::Keyboard::None)
         {

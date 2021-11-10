@@ -9,16 +9,22 @@ Creation date: 3/07/2021
 -----------------------------------------------------------------*/
 #include "../Engine/Engine.h"	//GetGameStateManage
 #include"Level1.h"
-#include"..\Objects\Hero.h"
-#include"..\Objects\Track.h"
-#include"..\Objects\Notes.h"
-#include"..\Objects\Boss.h"
-#include"..\Objects\Note_collisionBox.h"
-#include"..\Objects\Background.h"
+#include"../Objects/Hero.h"
+#include"../Objects/Track.h"
+#include"../Objects/Notes.h"
+#include"../Objects/Boss.h"
+#include"../Objects/Note_collisionBox.h"
+#include"../Objects/Background.h"
 #include"../Levels/State.h"
-#include "..\Objects\EnergyBar.h"
-#include "..\Objects\stage_bar.h"
+#include "../Objects/EnergyBar.h"
+#include "../Objects/stage_bar.h"
 #include"../../Engine/Sprite/GameParticles.h"
+
+
+
+
+#include"../Objects/Score.h"
+#include"../Objects/fever.h"
 
 enum class STATE
 {
@@ -27,8 +33,6 @@ enum class STATE
 	OPTION,
 	FINISH
 };
-
-
 Level1::Level1() : 
 mainMenu(InputKey::Keyboard::Escape), 
 optionMenu(InputKey::Keyboard::O),
@@ -50,20 +54,26 @@ camera({ 0,0 })
 	backPtr = nullptr;
 	energyBar = nullptr;
 	stageBar = nullptr;
+	feverBar = nullptr;
 	curr_state = 0;
-	combo = 0;
+	Engine::GetMusic().Init();
 }
 
 void Level1::Load()
 {
+
 	Engine::GetMusic().Play(Music::SOUND_NUM::REWIND);
 	gameObjectManager = new GameObjectManager();
+	isOption = false;
+	selectedIndex = glm::vec2{ 0,1 };
 
-	heroPtr = new Hero({ -4,0 });
+
+	heroPtr = new Hero({ -4,-5 });
+
 	backPtr = new Background();
 	trackPtr = new Track(Music::SOUND_NUM::REWIND);
 	notebox = new Note_box({ -4,0 });
-	bossPtr = new Boss({ 12,0 });
+	bossPtr = new Boss({ 15,-5 });
 	energyBar = new EnergyBar({ -4,1.2 });
 	stageBar = new Stage_bar({ -10,9 },204,10);   // total music time 204  ,  extra time 82
 	text = new GLText();
@@ -78,7 +88,7 @@ void Level1::Load()
 	GLModel tempModel;
 	tempModel.init({ 1,1 });
 	model = tempModel;
-
+	curr_state = static_cast<int>(STATE::EXTRA);
 	backPtr->Add("../images/background1.png", 0);
 	backPtr->Add("../images/parallax1-5.png", 0.5);
 	backPtr->Add("../images/parallax1-4.png", 0.8);
@@ -96,13 +106,12 @@ void Level1::Load()
 	gameObjectManager->Add(trackPtr);
 	gameObjectManager->Add(energyBar);
 	gameObjectManager->Add(stageBar);
-
 	AddGSComponent(new HitEmitter());
 	AddGSComponent(new PerfectEmitter());
 	AddGSComponent(new GoodEmitter());
 	AddGSComponent(new BadEmitter());
 	AddGSComponent(new MissEmitter());
-	//text->init(camera.GetMatrix());
+	AddGSComponent(new Score());
 }
 
 void Level1::Update(double dt)
@@ -124,9 +133,6 @@ void Level1::Update(double dt)
 	GetGSComponent<Background>()->Update(dt);
 	gameObjectManager->UpdateAll(dt);
     }
-
-
-
 		//camera.Dynamic_movement(notebox->GetDestroyed(),dt);
 		//camera.Update({ 0,0 },dt);
     
@@ -144,12 +150,16 @@ void Level1::Update(double dt)
 		Engine::GetMusic().Play(Music::SOUND_NUM::BOSS_ENTRANCE);
 		Engine::GetMusic().volumeUp(Music::SOUND_NUM::BOSS_ENTRANCE);
 	}
-	if (curr_state == static_cast<int>(STATE::GENERATING)&&bossPtr->GetPosition().x == 8)
+	if (curr_state == static_cast<int>(STATE::GENERATING) && bossPtr->GetVelocity().x == 0)
 	{
 		Engine::GetMusic().Resume(Music::SOUND_NUM::REWIND);
 		Engine::GetMusic().pitchUp(Music::SOUND_NUM::REWIND);
 		trackPtr->SetUpdate(true);
 		stageBar->SetUpdate(true);
+
+		feverBar = new Fever_bar({ -20,-9 });
+		gameObjectManager->Add(feverBar);
+
 		curr_state = static_cast<int>(STATE::FINISH);
 	}
 
@@ -158,8 +168,9 @@ void Level1::Update(double dt)
 void Level1::Draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
-	glClearColor(1.0f, 0.5f, 1.0f, 1.0f);
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	GetGSComponent<Background>()->Draw(camera.GetMatrix());
+	GetGSComponent<Score>()->Draw({ 0,0 });
 	gameObjectManager->DrawAll(camera.GetMatrix());
 	text->Draw("Score: 100", 0.0f, 500.0f, 1.f, glm::vec3(0.2, 0.8, 0.4));
 	//selectedIndex.x 0.sound 1.restart 2.quit
@@ -226,26 +237,39 @@ void Level1::Draw()
 	    if (selectedIndex == glm::vec2{ 0,0 })
 	    {
 		sound1->Draw(10, model, "Option", { 0,0 }, { 5,5 });
+		Engine::GetMusic().SetVolume(Engine::GetMusic().REWIND, 0.25);
 	    }
 	    if (selectedIndex == glm::vec2{ 0,1 })
 	    {
 		sound2->Draw(10, model, "Option", { 0,0 }, { 5,5 });
+		Engine::GetMusic().SetVolume(Engine::GetMusic().REWIND, 0.5);
 	    }
 	    if (selectedIndex == glm::vec2{ 0,2 })
 	    {
 		sound3->Draw(10, model, "Option", { 0,0 }, { 5,5 });
+		Engine::GetMusic().SetVolume(Engine::GetMusic().REWIND, 0.75);
+
 	    }
 	    if (selectedIndex == glm::vec2{ 0,3 })
 	    {
 		sound4->Draw(10, model, "Option", { 0,0 }, { 5,5 });
+		Engine::GetMusic().SetVolume(Engine::GetMusic().REWIND, 1);
 	    }
 	    if (selectedIndex.x == 1)
 	    {
 		Restart->Draw(10, model, "Option", { 0,0 }, { 5,5 });
+		if (OptionSelectKey.IsKeyDown()==true)
+		{
+		    Engine::GetGameStateManager().ReloadState();
+		}
 	    }
 	    if (selectedIndex.x == 2)
 	    {
 		Quit->Draw(10, model, "Option", { 0,0 }, { 5,5 });
+		if (OptionSelectKey.IsKeyDown() == true)
+		{
+		    //Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
+		}
 	    }
 	}
 
@@ -261,7 +285,7 @@ void Level1::Unload()
 	backPtr = nullptr;
 	energyBar = nullptr;
 	stageBar = nullptr;
-	Engine::GetMusic().Stop(Music::SOUND_NUM::ENERGY);
-	ClearGSComponent();
+	Engine::GetMusic().Stop(Music::SOUND_NUM::REWIND);
 	gameObjectManager->Unload();
+	ClearGSComponent();
 }

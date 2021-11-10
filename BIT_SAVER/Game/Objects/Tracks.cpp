@@ -31,7 +31,7 @@ GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 })
 	long double t{ time[0] };
 	time.erase(std::remove_if(begin(time) + 1, end(time), [&](auto time_t)
 		{
-			if (time_t - t < 0.1)
+			if (time_t - t < 0.3)
 			{
 				return true;
 			}
