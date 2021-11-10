@@ -19,6 +19,7 @@ class Note_box;
 class Background;
 class EnergyBar;
 class Stage_bar;
+class GLText;
 class Level1 : public GameState
 {
 public:
@@ -57,6 +58,7 @@ private:
 	Stage_bar* stageBar;
 	Camera camera;
 	GameObjectManager* gameObjectManager;
+	GLText* text;
 	int curr_state;
 	int combo;
 	bool isOption;
