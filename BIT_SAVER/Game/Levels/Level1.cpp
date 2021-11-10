@@ -53,7 +53,7 @@ void Level1::Load()
 	trackPtr = new Track(Music::SOUND_NUM::REWIND);
 	notebox = new Note_box({ -4,0 });
 	bossPtr = new Boss({ 12,0 });
-	energyBar = new EnergyBar({ -6,1.2 });
+	energyBar = new EnergyBar({ -4,1.2 });
 	stageBar = new Stage_bar({ -10,9 },204,82);   // total music time 204  ,  extra time 82
 
 	backPtr->Add("../images/background1.png", 0);
@@ -75,6 +75,10 @@ void Level1::Load()
 	gameObjectManager->Add(stageBar);
 
 	AddGSComponent(new HitEmitter());
+	AddGSComponent(new PerfectEmitter());
+	AddGSComponent(new GoodEmitter());
+	AddGSComponent(new BadEmitter());
+	AddGSComponent(new MissEmitter());
 }
 
 void Level1::Update(double dt)

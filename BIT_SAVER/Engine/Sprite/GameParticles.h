@@ -22,6 +22,65 @@ private:
         GameObjectType GetObjectType() { return GameObjectType::Particle; }
         std::string GetObjectTypeName() { return "Hit Particle"; }
     };
-    static constexpr int NumParticles = 10;
+   static constexpr int NumParticles = 10;
 };
 
+class PerfectEmitter : public ParticleEmitter
+{
+public:
+    PerfectEmitter();
+private:
+    class PerfectParticle : public ParticleEmitter::Particle
+    {
+    public:
+        PerfectParticle(std::string spriteFile) : ParticleEmitter::Particle(spriteFile) {}
+        GameObjectType GetObjectType() { return GameObjectType::Particle; }
+        std::string GetObjectTypeName() { return "Perfect Particle"; }
+    };
+    static constexpr int NumParticles = 20;
+};
+
+class GoodEmitter : public ParticleEmitter
+{
+public:
+    GoodEmitter();
+private:
+    class GoodParticle : public ParticleEmitter::Particle
+    {
+    public:
+        GoodParticle(std::string spriteFile) : ParticleEmitter::Particle(spriteFile) {}
+        GameObjectType GetObjectType() { return GameObjectType::Particle; }
+        std::string GetObjectTypeName() { return "Hit GoodParticle"; }
+    };
+    static constexpr int NumParticles = 20;
+};
+
+class BadEmitter : public ParticleEmitter
+{
+public:
+    BadEmitter();
+private:
+    class BadParticle : public ParticleEmitter::Particle
+    {
+    public:
+        BadParticle(std::string spriteFile) : ParticleEmitter::Particle(spriteFile) {}
+        GameObjectType GetObjectType() { return GameObjectType::Particle; }
+        std::string GetObjectTypeName() { return "Hit BadParticle"; }
+    };
+    static constexpr int NumParticles = 20;
+};
+
+class MissEmitter : public ParticleEmitter
+{
+public:
+    MissEmitter();
+private:
+    class MissParticle : public ParticleEmitter::Particle
+    {
+    public:
+        MissParticle(std::string spriteFile) : ParticleEmitter::Particle(spriteFile) {}
+        GameObjectType GetObjectType() { return GameObjectType::Particle; }
+        std::string GetObjectTypeName() { return "Hit MissParticle"; }
+    };
+    static constexpr int NumParticles = 20;
+};

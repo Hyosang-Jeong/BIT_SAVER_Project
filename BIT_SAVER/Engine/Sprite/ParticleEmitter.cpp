@@ -69,7 +69,7 @@ void ParticleEmitter::Particle::Revive(glm::vec2 Position, glm::vec2 Velocity, d
 	this->life = Life;
 	SetPosition(Position);
 	SetVelocity(Velocity);
-	GetGOComponent<Sprite>()->PlayAnimation(0);
+	//GetGOComponent<Sprite>()->PlayAnimation(0);
 }
 
 void ParticleEmitter::Particle::Update(double dt)

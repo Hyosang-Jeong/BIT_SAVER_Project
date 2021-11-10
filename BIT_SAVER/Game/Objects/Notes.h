@@ -25,6 +25,7 @@ public:
     }
     void Draw(glm::mat3 camera_matrix) override;
     void Hit_Check();
+    bool GetisMiss();
 private:
     InputKey UpAttackKey1;
     InputKey UpAttackKey2;
