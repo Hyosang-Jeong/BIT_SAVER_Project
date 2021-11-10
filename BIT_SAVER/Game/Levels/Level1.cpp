@@ -97,6 +97,10 @@ void Level1::Load()
 	gameObjectManager->Add(stageBar);
 
 	AddGSComponent(new HitEmitter());
+	AddGSComponent(new PerfectEmitter());
+	AddGSComponent(new GoodEmitter());
+	AddGSComponent(new BadEmitter());
+	AddGSComponent(new MissEmitter());
 }
 
 void Level1::Update(double dt)

@@ -17,3 +17,35 @@ HitEmitter::HitEmitter() : ParticleEmitter(1.0)
 		AddParticle(new HitParticle("../spt/hit.spt"));
 	}
 }
+
+PerfectEmitter::PerfectEmitter() : ParticleEmitter(1.0)
+{
+	for (int i = 0; i < NumParticles; i++)
+	{
+		AddParticle(new PerfectParticle("../images/perfect.png"));
+	}
+}
+
+GoodEmitter::GoodEmitter() : ParticleEmitter(1.0)
+{
+	for (int i = 0; i < NumParticles; i++)
+	{
+		AddParticle(new GoodParticle("../images/Good.png"));
+	}
+}
+
+BadEmitter::BadEmitter() : ParticleEmitter(1.0)
+{
+	for (int i = 0; i < NumParticles; i++)
+	{
+		AddParticle(new BadParticle("../images/Bad.png"));
+	}
+}
+
+MissEmitter::MissEmitter() : ParticleEmitter(1.0)
+{
+	for (int i = 0; i < NumParticles; i++)
+	{
+		AddParticle(new MissParticle("../images/Miss.png"));
+	}
+}
