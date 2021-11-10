@@ -65,7 +65,7 @@ void Level1::Load()
 	notebox = new Note_box({ -4,0 });
 	bossPtr = new Boss({ 15,-5 });
 	energyBar = new EnergyBar({ -4,1.2 });
-	stageBar = new Stage_bar({ -10,9 }, 204, 82);   // total music time 204  ,  extra time 82
+	stageBar = new Stage_bar({ -10,9 }, 204, 10);   // total music time 204  ,  extra time 82
 
 	textureAll = Engine::GetTextureManager().Load("../images/Pause_screen.png");
 	sound1 = Engine::GetTextureManager().Load("../images/pause_volume1.png");

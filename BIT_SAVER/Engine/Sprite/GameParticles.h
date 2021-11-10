@@ -19,7 +19,7 @@ private:
     {
     public:
         HitParticle(std::string spriteFile) : ParticleEmitter::Particle(spriteFile) {}
-        GameObjectType GetObjectType() { return GameObjectType::Particle; }
+        GameObjectType GetObjectType() { return GameObjectType::Hit; }
         std::string GetObjectTypeName() { return "Hit Particle"; }
     };
    static constexpr int NumParticles = 10;

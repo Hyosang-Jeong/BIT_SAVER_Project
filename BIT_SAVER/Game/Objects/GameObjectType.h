@@ -10,6 +10,7 @@ enum class GameObjectType {
     Stage_bar,
     Fever_bar,
     Background,
+    Hit,
     Particle,
     Count,
 };
