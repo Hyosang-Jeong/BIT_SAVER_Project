@@ -330,7 +330,7 @@ void Sprite::PlayAnimation(int anim)
 
 GLText::GLText()
 {
-	shd_ref = Engine::GetGLShader().find("Text");
+		shd_ref = Engine::GetGLShader().find("Text");
 		if (shd_ref == Engine::GetGLShader().end())
 		{
 			Engine::GetLogger().LogError("Shader not found!");

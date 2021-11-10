@@ -30,7 +30,7 @@ enum class STATE
 	FINISH
 };
 Level1::Level1() : 
-optionMenu(InputKey::Keyboard::Escape),
+escape(InputKey::Keyboard::Escape),
 OptionUpKey(InputKey::Keyboard::Up),
 OptionDownKey(InputKey::Keyboard::Down),
 OptionSoundUpKey(InputKey::Keyboard::Right),
@@ -108,31 +108,12 @@ void Level1::Load()
 	AddGSComponent(new BadEmitter());
 	AddGSComponent(new MissEmitter());
 	AddGSComponent(new Score());
-	AddGSComponent(new Camera({ 0,0 }));
 }
 
 void Level1::Update(double dt)
 {
-
-    if (isOption == false && optionMenu.IsKeyReleased() == true)
-    {
-	Engine::GetMusic().Pause(Music::SOUND_NUM::REWIND);
-	isOption = true;
-	curr_state = static_cast<int>(STATE::OPTION);
-    }
-    else if (isOption == true && optionMenu.IsKeyReleased() == true)
-    {
-	Engine::GetMusic().Resume(Music::SOUND_NUM::REWIND);
-	isOption = false;
-	curr_state = 0;
-    }
-    if (isOption != true)
-    {
 	GetGSComponent<Background>()->Update(dt);
 	gameObjectManager->UpdateAll(dt);
-
-    }
-    
 
 	if (stageBar->Getchangeflag() == 1)
 	{
@@ -156,10 +137,14 @@ void Level1::Update(double dt)
 
 		curr_state = static_cast<int>(STATE::FINISH);
 	}
-	if (stageBar->GetPosition().x >= 9)
+
+
+	if (escape.IsKeyDown() == true)
 	{
-	    Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Clear));
+		Engine::GetGameStateManager().Shutdown();
 	}
+
+
 }
 
 void Level1::Draw()
@@ -175,103 +160,103 @@ void Level1::Draw()
 	//default {x==0,y==1}
 
 
-	if (curr_state == static_cast<int>(STATE::OPTION))
-	{
+	//if (curr_state == static_cast<int>(STATE::OPTION))
+	//{
 
-	    textureAll->Draw(10, model, "Option", { 0,0 }, { 5,5 });
-	    if (OptionUpKey.IsKeyReleased() == true)
-	    {
-		if (selectedIndex.x==0 || selectedIndex.x == 1)
-		{
-		    selectedIndex.x = 0;
-		}
-		else if (selectedIndex.x == 2)
-		{
-		    selectedIndex.x = 1;
-		}
-	    }
-	    if (OptionDownKey.IsKeyReleased() == true)
-	    {
-		if (selectedIndex.x == 0)
-		{
-		    selectedIndex.x = 1;
-		}
-		else if (selectedIndex.x == 1 || selectedIndex.x == 2)
-		{
-		    selectedIndex.x = 2;
-		}
-	    }
-	    if (selectedIndex.x == 0)
-	    {
-		if (OptionSoundUpKey.IsKeyReleased() == true)
-		{
-		    if (selectedIndex.y == 0)
-		    {
-			selectedIndex.y = 1;
-		    }
-		    else if (selectedIndex.y == 1)
-		    {
-			selectedIndex.y = 2;
-		    }
-		    else if (selectedIndex.y == 2 || selectedIndex.y == 3)
-		    {
-			selectedIndex.y = 3;
-		    }
-		}
-		if (OptionSoundDownKey.IsKeyReleased() == true)
-		{
-		    if (selectedIndex.y == 0 || selectedIndex.y == 1)
-		    {
-			selectedIndex.y = 0;
-		    }
-		    else if (selectedIndex.y == 2)
-		    {
-			selectedIndex.y = 1;
-		    }
-		    else if (selectedIndex.y == 3)
-		    {
-			selectedIndex.y = 2;
-		    }
-		}
-	    }
-	    if (selectedIndex == glm::vec2{ 0,0 })
-	    {
-		sound1->Draw(10, model, "Option", { 0,0 }, { 5,5 });
-		Engine::GetMusic().SetVolume(Engine::GetMusic().REWIND, 0.25);
-	    }
-	    if (selectedIndex == glm::vec2{ 0,1 })
-	    {
-		sound2->Draw(10, model, "Option", { 0,0 }, { 5,5 });
-		Engine::GetMusic().SetVolume(Engine::GetMusic().REWIND, 0.5);
-	    }
-	    if (selectedIndex == glm::vec2{ 0,2 })
-	    {
-		sound3->Draw(10, model, "Option", { 0,0 }, { 5,5 });
-		Engine::GetMusic().SetVolume(Engine::GetMusic().REWIND, 0.75);
+	//    textureAll->Draw(10, model, "Option", { 0,0 }, { 5,5 });
+	//    if (OptionUpKey.IsKeyReleased() == true)
+	//    {
+	//	if (selectedIndex.x==0 || selectedIndex.x == 1)
+	//	{
+	//	    selectedIndex.x = 0;
+	//	}
+	//	else if (selectedIndex.x == 2)
+	//	{
+	//	    selectedIndex.x = 1;
+	//	}
+	//    }
+	//    if (OptionDownKey.IsKeyReleased() == true)
+	//    {
+	//	if (selectedIndex.x == 0)
+	//	{
+	//	    selectedIndex.x = 1;
+	//	}
+	//	else if (selectedIndex.x == 1 || selectedIndex.x == 2)
+	//	{
+	//	    selectedIndex.x = 2;
+	//	}
+	//    }
+	//    if (selectedIndex.x == 0)
+	//    {
+	//	if (OptionSoundUpKey.IsKeyReleased() == true)
+	//	{
+	//	    if (selectedIndex.y == 0)
+	//	    {
+	//		selectedIndex.y = 1;
+	//	    }
+	//	    else if (selectedIndex.y == 1)
+	//	    {
+	//		selectedIndex.y = 2;
+	//	    }
+	//	    else if (selectedIndex.y == 2 || selectedIndex.y == 3)
+	//	    {
+	//		selectedIndex.y = 3;
+	//	    }
+	//	}
+	//	if (OptionSoundDownKey.IsKeyReleased() == true)
+	//	{
+	//	    if (selectedIndex.y == 0 || selectedIndex.y == 1)
+	//	    {
+	//		selectedIndex.y = 0;
+	//	    }
+	//	    else if (selectedIndex.y == 2)
+	//	    {
+	//		selectedIndex.y = 1;
+	//	    }
+	//	    else if (selectedIndex.y == 3)
+	//	    {
+	//		selectedIndex.y = 2;
+	//	    }
+	//	}
+	//    }
+	//    if (selectedIndex == glm::vec2{ 0,0 })
+	//    {
+	//	sound1->Draw(10, model, "Option", { 0,0 }, { 5,5 });
+	//	Engine::GetMusic().SetVolume(Engine::GetMusic().REWIND, 0.25);
+	//    }
+	//    if (selectedIndex == glm::vec2{ 0,1 })
+	//    {
+	//	sound2->Draw(10, model, "Option", { 0,0 }, { 5,5 });
+	//	Engine::GetMusic().SetVolume(Engine::GetMusic().REWIND, 0.5);
+	//    }
+	//    if (selectedIndex == glm::vec2{ 0,2 })
+	//    {
+	//	sound3->Draw(10, model, "Option", { 0,0 }, { 5,5 });
+	//	Engine::GetMusic().SetVolume(Engine::GetMusic().REWIND, 0.75);
 
-	    }
-	    if (selectedIndex == glm::vec2{ 0,3 })
-	    {
-		sound4->Draw(10, model, "Option", { 0,0 }, { 5,5 });
-		Engine::GetMusic().SetVolume(Engine::GetMusic().REWIND, 1);
-	    }
-	    if (selectedIndex.x == 1)
-	    {
-		Restart->Draw(10, model, "Option", { 0,0 }, { 5,5 });
-		if (OptionSelectKey.IsKeyDown()==true)
-		{
-		    Engine::GetGameStateManager().ReloadState();
-		}
-	    }
-	    if (selectedIndex.x == 2)
-	    {
-		Quit->Draw(10, model, "Option", { 0,0 }, { 5,5 });
-		if (OptionSelectKey.IsKeyDown() == true)
-		{
-		    Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
-		}
-	    }
-	}
+	//    }
+	//    if (selectedIndex == glm::vec2{ 0,3 })
+	//    {
+	//	sound4->Draw(10, model, "Option", { 0,0 }, { 5,5 });
+	//	Engine::GetMusic().SetVolume(Engine::GetMusic().REWIND, 1);
+	//    }
+	//    if (selectedIndex.x == 1)
+	//    {
+	//	Restart->Draw(10, model, "Option", { 0,0 }, { 5,5 });
+	//	if (OptionSelectKey.IsKeyDown()==true)
+	//	{
+	//	    Engine::GetGameStateManager().ReloadState();
+	//	}
+	//    }
+	//    if (selectedIndex.x == 2)
+	//    {
+	//	Quit->Draw(10, model, "Option", { 0,0 }, { 5,5 });
+	//	if (OptionSelectKey.IsKeyDown() == true)
+	//	{
+	//	    Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
+	//	}
+	//    }
+	//}
 	
 
 }
@@ -285,7 +270,7 @@ void Level1::Unload()
 	backPtr = nullptr;
 	energyBar = nullptr;
 	stageBar = nullptr;
-	Engine::GetMusic().Stop(Music::SOUND_NUM::REWIND);
+	//Engine::GetMusic().Stop(Music::SOUND_NUM::REWIND);
 	gameObjectManager->Unload();
 	ClearGSComponent();
 }

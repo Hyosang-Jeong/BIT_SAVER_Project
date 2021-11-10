@@ -18,14 +18,11 @@ int main()
 	Splash splash;
 	Mainmenu main_menu;
 	Level1 level1;
-	Gameover gameover;
-	Clear Clear;
-//	Level2 level2;
+
+
 	engine.GetGameStateManager().AddGameState(splash);
 	engine.GetGameStateManager().AddGameState(main_menu);
 	engine.GetGameStateManager().AddGameState(level1);
-	engine.GetGameStateManager().AddGameState(gameover);
-	engine.GetGameStateManager().AddGameState(Clear);
 	
 	while (engine.HasGameEnded() == false)
 	{
