@@ -13,13 +13,14 @@ Creation date: 3/07/2021
 
 Splash::Splash() : PlayKey(InputKey::Keyboard::Enter)
 {
-	Digipen_Splash.setup_texobj("../images/DigiPen_BLACK_1024px.png");
-
-	Logo.setup_texobj("../images/LOGO.png");
 }
 
 void Splash::Load()
-{}
+{
+	Digipen_Splash = Engine::GetTextureManager().Load("../images/DigiPen_BLACK_1024px.png");
+
+	Logo = Engine::GetTextureManager().Load("../images/LOGO.png");
+}
 
 void Splash::Update(double dt)
 {
@@ -39,6 +40,8 @@ void Splash::Update(double dt)
 
 void Splash::Draw()
 {
+	GLModel model;
+	model.init({ 1,1 });
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	//to alpha effect
@@ -54,13 +57,14 @@ void Splash::Draw()
 	glUniform1f(alpha, static_cast<float>(timer) / 3.0f);
 	if (timer > 3)
 	{
-		Digipen_Splash.Draw(glm::mat3{ 2 / 3.0,0,0,0,1 / 3.0,0,0,0,1 }, "Basic_model", "Mainmenu");
+		Digipen_Splash->Draw(glm::mat3{ 2 / 3.0,0,0,0,1 / 3.0,0,0,0,1 }, model, "Mainmenu");
 	}
 	else
 	{
-		Logo.Draw(glm::mat3{ 1,0,0,0,1,0,0,0,1 }, "Basic_model", "Mainmenu");
+		Logo->Draw(glm::mat3{ 1,0,0,0,1,0,0,0,1 }, model, "Mainmenu");
 	}
 }
 void Splash::Unload()
 {
+	Logo = nullptr;
 }

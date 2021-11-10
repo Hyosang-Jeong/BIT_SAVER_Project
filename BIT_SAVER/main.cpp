@@ -14,12 +14,12 @@ int main()
 	Engine& engine = Engine::Instance();
 	engine.Init("Bit_Saver");
 	InputKey exit(InputKey::Keyboard::Enter);
-//	Splash splash;
-//	Mainmenu main_menu;
+	Splash splash;
+	Mainmenu main_menu;
 	Level1 level1;
 //	Level2 level2;
-//	engine.GetGameStateManager().AddGameState(splash);
-//	engine.GetGameStateManager().AddGameState(main_menu);
+	engine.GetGameStateManager().AddGameState(splash);
+	engine.GetGameStateManager().AddGameState(main_menu);
 	engine.GetGameStateManager().AddGameState(level1);
 //   engine.GetGameStateManager().AddGameState(level2);
 	

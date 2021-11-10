@@ -22,7 +22,7 @@ private:
         GameObjectType GetObjectType() { return GameObjectType::Hit; }
         std::string GetObjectTypeName() { return "Hit Particle"; }
     };
-   static constexpr int NumParticles = 10;
+   static constexpr int NumParticles = 20;
 };
 
 class PerfectEmitter : public ParticleEmitter

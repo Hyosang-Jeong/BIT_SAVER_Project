@@ -16,11 +16,13 @@ ESCAPE(InputKey::Keyboard::Escape),
 Level1(InputKey::Keyboard::NUM_1),
 Level2(InputKey::Keyboard::NUM_2)
 {
-	Logo.setup_texobj("../images/Mainmenu.png");
+	model.init({ 1,1 });
 }
 
 void Mainmenu::Load()
-{}
+{
+	mainmenu = Engine::GetTextureManager().Load("../images/mainmenu.png");
+}
 
 void Mainmenu::Update([[maybe_unused]]double dt)
 {
@@ -42,17 +44,8 @@ void Mainmenu::Draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	std::map<std::string, GLSLShader>::iterator shd_ref;
-	shd_ref = Engine::GetGLShader().find("Mainmenu");
-	shd_ref->second.Use();
-
-	GLuint alpha = glGetUniformLocation(shd_ref->second.GetHandle(), "alpha");
-	if (alpha < 0)
-	{
-		Engine::GetLogger().LogError("Uniform value doesn't exist! ");
-	}
-	glUniform1f(alpha, 1);
-	Logo.Draw(glm::mat3{ 1,0,0,0,1,0,0,0,1 }, "Basic_model", "Mainmenu");
+	
+	mainmenu->Draw(glm::mat3{ 1,0,0,0,1,0,0,0,1 }, model, "Hero");
 }
 void Mainmenu::Unload()
 {

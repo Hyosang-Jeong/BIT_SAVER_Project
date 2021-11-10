@@ -114,6 +114,7 @@ void Level1::Load()
 	AddGSComponent(new BadEmitter());
 	AddGSComponent(new MissEmitter());
 	AddGSComponent(new Score());
+	AddGSComponent(new Camera({ 0,0 }));
 }
 
 void Level1::Update(double dt)
@@ -135,8 +136,6 @@ void Level1::Update(double dt)
 	GetGSComponent<Background>()->Update(dt);
 	gameObjectManager->UpdateAll(dt);
     }
-		//camera.Dynamic_movement(notebox->GetDestroyed(),dt);
-		//camera.Update({ 0,0 },dt);
     
 	if (mainMenu.IsKeyReleased() == true)
 	{
