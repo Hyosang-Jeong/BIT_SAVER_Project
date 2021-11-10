@@ -25,11 +25,13 @@ void Score::AddScore(int newPoints)
 	score += (combo *newPoints);
 }
 
-void Score::Draw([[maybe_unused]]glm::vec2 location)
+void Score::Draw(glm::vec2 location)
 {
 	//std::cout << "Combo = " << combo << "        Score= " << score<<std::endl;
 	//RenderText();
 	//scoreTexture.Draw(math::TranslateMatrix(math::ivec2(location.x, location.y - scoreTexture.GetSize().y)));
+
+	scoreTexture.Draw("Score: "+std::to_string(score), location.x, location.y, 1.f, glm::vec3(0.2, 0.8, 0.4));
 }
 
 void Score::RenderText()

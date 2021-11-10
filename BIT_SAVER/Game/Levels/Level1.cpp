@@ -76,8 +76,10 @@ void Level1::Load()
 	bossPtr = new Boss({ 15,-5 });
 	energyBar = new EnergyBar({ -4,1.2 });
 	stageBar = new Stage_bar({ -10,9 },204,10);   // total music time 204  ,  extra time 82
+
 	text = new GLText();
 	text->Load("../font/MochiyPopOne-Regular.ttf", 48);
+
 	textureAll = Engine::GetTextureManager().Load("../images/Pause_screen.png");
 	sound1 = Engine::GetTextureManager().Load("../images/pause_volume1.png");
 	sound2 = Engine::GetTextureManager().Load("../images/pause_volume2.png");
@@ -170,9 +172,9 @@ void Level1::Draw()
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	GetGSComponent<Background>()->Draw(camera.GetMatrix());
-	GetGSComponent<Score>()->Draw({ 0,0 });
+	GetGSComponent<Score>()->Draw({ 0,500 });
 	gameObjectManager->DrawAll(camera.GetMatrix());
-	text->Draw("Score: 100", 0.0f, 500.0f, 1.f, glm::vec3(0.2, 0.8, 0.4));
+	
 	//selectedIndex.x 0.sound 1.restart 2.quit
 	//selectedIndex.y 0.sound1, 1.sound2 2.sound3 3. sound4
 	//default {x==0,y==1}
