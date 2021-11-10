@@ -95,8 +95,7 @@ void Note::Hit_Check()
 		}
 	}
 
-	if (Score_check() == static_cast<int>(SCORE::PERFECT)
-		&& GetPosition().y < 0)
+	if (Score_check() == static_cast<int>(SCORE::PERFECT) && GetPosition().y < 0)
 	{
 		if (DownAttackKey1.IsKeyDown() == true || DownAttackKey2.IsKeyDown() == true && isRepeated == false)
 		{
@@ -106,8 +105,7 @@ void Note::Hit_Check()
 		}
 	}
 
-	else if (Score_check() == static_cast<int>(SCORE::GOOD)
-		&& GetPosition().y < 0)
+	else if (Score_check() == static_cast<int>(SCORE::GOOD) && GetPosition().y < 0)
 	{
 		if (DownAttackKey1.IsKeyDown() == true || DownAttackKey2.IsKeyDown() == true && isRepeated == false)
 		{
@@ -116,8 +114,7 @@ void Note::Hit_Check()
 			set_destroy(true);
 		}
 	}
-	else if (Score_check() == static_cast<int>(SCORE::BAD)
-		&& GetPosition().y < 0)
+	else if (Score_check() == static_cast<int>(SCORE::BAD)	&& GetPosition().y < 0)
 	{
 		if (DownAttackKey1.IsKeyDown() == true || DownAttackKey2.IsKeyDown() == true && isRepeated == false)
 		{
