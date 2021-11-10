@@ -193,6 +193,8 @@
     <ClCompile Include="Engine\Sprite\Texture.cpp" />
     <ClCompile Include="Engine\Sprite\TextureManager.cpp" />
     <ClCompile Include="Engine\Window\Window.cpp" />
+    <ClCompile Include="Game\Levels\Clear.cpp" />
+    <ClCompile Include="Game\Levels\Gameover.cpp" />
     <ClCompile Include="Game\Levels\Level1.cpp" />
     <ClCompile Include="Game\Levels\Level2.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -272,6 +274,8 @@
     <ClInclude Include="Engine\Sprite\Texture.h" />
     <ClInclude Include="Engine\Sprite\TextureManager.h" />
     <ClInclude Include="Engine\Window\Window.h" />
+    <ClInclude Include="Game\Levels\Clear.h" />
+    <ClInclude Include="Game\Levels\Gameover.h" />
     <ClInclude Include="Game\Levels\Level1.h" />
     <ClInclude Include="Game\Levels\Level2.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>

@@ -44,7 +44,6 @@ public:
     void pitchDown(int sound_num);
     void ErrorCheck(FMOD_RESULT result);
     void Release();
-
     
     FMOD_SYSTEM* pSystem;
     FMOD_CHANNEL* pChannel[MUSIC_END]{};
@@ -52,7 +51,7 @@ public:
     FMOD_RESULT result;
     FMOD_SOUNDGROUP* bgm_group;
     FMOD_SOUNDGROUP* sfx_group;
-    
+    FMOD_BOOL* isplaying;
     float volume;
     float pitch = 1.f;
     float Musicvolume = 0.5f;

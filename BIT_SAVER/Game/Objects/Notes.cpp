@@ -17,18 +17,21 @@ Creation date: 3/14/2021
 #include "../../Engine/Window/Window.h"
 #include"Score.h"
 #include"../../Engine/Physics/Camera.h"
+
 Note::Note(glm::vec2 startPos, glm::vec2 velocity) :
 	UpAttackKey1(InputKey::Keyboard::F),
 	UpAttackKey2(InputKey::Keyboard::Up),
 	DownAttackKey1(InputKey::Keyboard::J),
 	DownAttackKey2(InputKey::Keyboard::Down),
     isMiss(false),
+
     energy(static_cast<EnergyBar*>(Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Energy_bar))),
 GameObject(startPos, glm::vec2{ 0.5,1 })
 
 {
 	AddGOComponent(new Sprite("../images/hit_star.png", this));
 	SetVelocity(velocity);
+
 }
 
 void Note::Update(double dt)
@@ -49,10 +52,9 @@ void Note::Update(double dt)
 	    }
 	    else
 	    {
-		//Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
+		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Gameover));
 	    }
-	}
-	
+	}	
 }
 
 void Note::Draw(glm::mat3 camera_matrix)
@@ -67,6 +69,8 @@ glm::vec2 Note::Getposition()
 
 void Note::Hit_Check()
 {
+    //set_destroy(true);
+
 	if (Score_check()== static_cast<int>(SCORE::PERFECT) && GetPosition().y > 0)
 	{
 		if (UpAttackKey1.IsKeyDown() == true || UpAttackKey2.IsKeyDown() == true && isRepeated==false)

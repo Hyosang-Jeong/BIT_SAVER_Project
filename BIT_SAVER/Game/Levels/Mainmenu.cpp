@@ -13,31 +13,29 @@ Creation date: 3/07/2021
 
 Mainmenu::Mainmenu() : 
 ESCAPE(InputKey::Keyboard::Escape),
-Level1(InputKey::Keyboard::NUM_1),
-Level2(InputKey::Keyboard::NUM_2)
+Level1(InputKey::Keyboard::P),
 {
 	model.init({ 1,1 });
 }
 
 void Mainmenu::Load()
 {
-	mainmenu = Engine::GetTextureManager().Load("../images/mainmenu.png");
+    text.Load("../font/MochiyPopOne-Regular.ttf", 48);
+	//mainmenu = Engine::GetTextureManager().Load("../images/mainmenu.png");
 }
 
 void Mainmenu::Update([[maybe_unused]]double dt)
 {
 	if (Level1.IsKeyReleased() == true)
 	{
-			Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Level1));
+		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Level1));
 	}
-	if (Level2.IsKeyReleased() == true)
-	{
-		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Level2));
-	}
+
 	if (ESCAPE.IsKeyReleased() == true)
 	{
 		Engine::GetGameStateManager().Shutdown();
 	}
+
 }
 
 void Mainmenu::Draw()
@@ -45,7 +43,9 @@ void Mainmenu::Draw()
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	
-	mainmenu->Draw(glm::mat3{ 1,0,0,0,1,0,0,0,1 }, model, "Hero");
+	//mainmenu->Draw(glm::mat3{ 1,0,0,0,1,0,0,0,1 }, model, "Hero");
+	text.Draw("Press P to play", 0.f, 50.f, 3.f, { 0.5f,0.5f,0.5f });
+
 }
 void Mainmenu::Unload()
 {
