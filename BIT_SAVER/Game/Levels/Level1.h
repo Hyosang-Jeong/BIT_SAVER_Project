@@ -60,7 +60,7 @@ private:
 	Fever_bar* feverBar;
 	Camera camera;
 	GameObjectManager* gameObjectManager;
-	GLText* text;
+	//GLText* text;
 	int curr_state;
 
 	bool isOption;

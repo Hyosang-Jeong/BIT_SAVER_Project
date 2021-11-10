@@ -61,7 +61,6 @@ public:
     GLText();
     void Load(std::string font, unsigned int fontSize);
     void Draw(std::string text, float x, float y, float scale, glm::vec3 color = { 0.f,0.f,0.f });
-    void setup_shdrpgm();
 
 private:
     static std::map<GLchar, Character> Characters;

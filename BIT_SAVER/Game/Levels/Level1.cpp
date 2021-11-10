@@ -77,8 +77,8 @@ void Level1::Load()
 	energyBar = new EnergyBar({ -4,1.2 });
 	stageBar = new Stage_bar({ -10,9 },204,10);   // total music time 204  ,  extra time 82
 
-	text = new GLText();
-	text->Load("../font/MochiyPopOne-Regular.ttf", 48);
+	//text = new GLText();
+	//text->Load("../font/MochiyPopOne-Regular.ttf", 48);
 
 	textureAll = Engine::GetTextureManager().Load("../images/Pause_screen.png");
 	sound1 = Engine::GetTextureManager().Load("../images/pause_volume1.png");
