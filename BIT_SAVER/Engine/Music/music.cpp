@@ -119,12 +119,14 @@ void Music::pitchDown(int sound_num)
     ErrorCheck(FMOD_Channel_SetPitch(pChannel[sound_num], pitch));
 }
 
+
 void Music::Release()
 {
     FMOD_System_Close(pSystem);
     FMOD_System_Release(pSystem);
-
 }
+
+
 
 void Music::ErrorCheck(FMOD_RESULT results)
 {

@@ -104,6 +104,12 @@
     <ClCompile Include="Game\Objects\fever.cpp">
       <Filter>Game\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Levels\Gameover.cpp">
+      <Filter>Game\Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Levels\Clear.cpp">
+      <Filter>Game\Levels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\GameObject\GameObject.h">
@@ -219,6 +225,12 @@
     </ClInclude>
     <ClInclude Include="Game\Objects\fever.h">
       <Filter>Game\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Levels\Gameover.h">
+      <Filter>Game\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Levels\Clear.h">
+      <Filter>Game\Levels</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

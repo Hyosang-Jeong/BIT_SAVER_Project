@@ -11,6 +11,8 @@ Creation date:
 #include "..\Engine\Input\Input.h" //input key
 #include "..\Engine\GameObject\GameObject.h" // GameObject inheritance
 #include"GameObjectType.h"
+
+
 class EnergyBar;
 
 class Note : public GameObject

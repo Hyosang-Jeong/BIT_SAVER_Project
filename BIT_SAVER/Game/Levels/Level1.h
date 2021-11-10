@@ -42,7 +42,6 @@ private:
 	Texture* Quit;
 	GLModel model;
 
-	InputKey mainMenu;
 	InputKey optionMenu;
 	InputKey OptionUpKey;
 	InputKey OptionDownKey;

@@ -19,10 +19,6 @@ Creation date: 3/07/2021
 #include "../Objects/EnergyBar.h"
 #include "../Objects/stage_bar.h"
 #include"../../Engine/Sprite/GameParticles.h"
-
-
-
-
 #include"../Objects/Score.h"
 #include"../Objects/fever.h"
 
@@ -34,8 +30,7 @@ enum class STATE
 	FINISH
 };
 Level1::Level1() : 
-mainMenu(InputKey::Keyboard::Escape), 
-optionMenu(InputKey::Keyboard::O),
+optionMenu(InputKey::Keyboard::Escape),
 OptionUpKey(InputKey::Keyboard::Up),
 OptionDownKey(InputKey::Keyboard::Down),
 OptionSoundUpKey(InputKey::Keyboard::Right),
@@ -61,7 +56,6 @@ camera({ 0,0 })
 
 void Level1::Load()
 {
-
 	Engine::GetMusic().Play(Music::SOUND_NUM::REWIND);
 	gameObjectManager = new GameObjectManager();
 	isOption = false;
@@ -75,7 +69,7 @@ void Level1::Load()
 	notebox = new Note_box({ -4,0 });
 	bossPtr = new Boss({ 15,-5 });
 	energyBar = new EnergyBar({ -4,1.2 });
-	stageBar = new Stage_bar({ -10,9 },204,10);   // total music time 204  ,  extra time 82
+	stageBar = new Stage_bar({ -10,9 },204,82);   // total music time 204  ,  extra time 82
 
 	text = new GLText();
 	text->Load("../font/MochiyPopOne-Regular.ttf", 48);
@@ -119,6 +113,7 @@ void Level1::Load()
 
 void Level1::Update(double dt)
 {
+
     if (isOption == false && optionMenu.IsKeyReleased() == true)
     {
 	Engine::GetMusic().Pause(Music::SOUND_NUM::REWIND);
@@ -135,12 +130,10 @@ void Level1::Update(double dt)
     {
 	GetGSComponent<Background>()->Update(dt);
 	gameObjectManager->UpdateAll(dt);
+
     }
     
-	if (mainMenu.IsKeyReleased() == true)
-	{
-		Engine::GetGameStateManager().Shutdown();
-	}
+
 	if (stageBar->Getchangeflag() == 1)
 	{
 		curr_state = static_cast<int>(STATE::GENERATING);
@@ -163,7 +156,11 @@ void Level1::Update(double dt)
 
 		curr_state = static_cast<int>(STATE::FINISH);
 	}
+	if (stageBar->GetPosition().x >= 10 == false && energyBar->GetScale().x > 0)
+	{
+	    Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Clear));
 
+	}
 }
 
 void Level1::Draw()
@@ -177,8 +174,11 @@ void Level1::Draw()
 	//selectedIndex.x 0.sound 1.restart 2.quit
 	//selectedIndex.y 0.sound1, 1.sound2 2.sound3 3. sound4
 	//default {x==0,y==1}
+
+
 	if (curr_state == static_cast<int>(STATE::OPTION))
 	{
+
 	    textureAll->Draw(10, model, "Option", { 0,0 }, { 5,5 });
 	    if (OptionUpKey.IsKeyReleased() == true)
 	    {
@@ -269,11 +269,11 @@ void Level1::Draw()
 		Quit->Draw(10, model, "Option", { 0,0 }, { 5,5 });
 		if (OptionSelectKey.IsKeyDown() == true)
 		{
-		    //Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
+		    Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
 		}
 	    }
 	}
-
+	
 
 }
 
