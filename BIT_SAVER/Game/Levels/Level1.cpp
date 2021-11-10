@@ -156,11 +156,11 @@ void Level1::Update(double dt)
 
 		curr_state = static_cast<int>(STATE::FINISH);
 	}
-	if (stageBar->GetPosition().x >= 10 == false && energyBar->GetScale().x > 0)
-	{
-	    Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Clear));
+	//if (stageBar->GetPosition().x >= 10 == false && energyBar->GetScale().x > 0)
+	//{
+	//    Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Clear));
 
-	}
+	//}
 }
 
 void Level1::Draw()
