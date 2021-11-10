@@ -14,11 +14,11 @@ void Music::Init()
     result = FMOD_System_Init(pSystem, MUSIC_END, FMOD_INIT_NORMAL, nullptr);
     ErrorCheck(result);
 
-    MusicName.push_back("../sound/energy.mp3");
-    MusicName.push_back("../sound/rewind.mp3");
-    MusicName.push_back("../sound/button1.mp3");
-    MusicName.push_back("../sound/button2.mp3");
-    
+    //MusicName.push_back("../sound/energy.mp3");
+    //MusicName.push_back("../sound/rewind.mp3");
+    //MusicName.push_back("../sound/button1.mp3");
+    //MusicName.push_back("../sound/button2.mp3");
+    //MusicName.push_back("../sound/boss_entrance.mp3");
 
     Load();
 }
@@ -36,6 +36,9 @@ void Music::Load()
     ErrorCheck(result);
 
     result = FMOD_System_CreateSound(pSystem, "../sound/energy.mp3", FMOD_DEFAULT, nullptr, &pSound[ENERGY]);
+    ErrorCheck(result);
+
+    result = FMOD_System_CreateSound(pSystem, "../sound/boss_entrance.mp3", FMOD_DEFAULT, nullptr, &pSound[BOSS_ENTRANCE]);
     ErrorCheck(result);
 }
 void Music::Play(int sound_num)
@@ -63,14 +66,15 @@ void Music::Resume(int sound_num)
 
 void Music::Pause(int sound_num)
 {
-    result = FMOD_Channel_SetPaused(pChannel[sound_num], false);
+    result = FMOD_Channel_SetPaused(pChannel[sound_num], true);
     ErrorCheck(result);
 }
 
 void Music::volumeUp(int sound_num)
 {
-    if (volume < SOUND_MAX) {
-        volume += SOUND_WEIGHT;
+    if (volume < SOUND_MAX) 
+    {
+        volume = SOUND_MAX;
     }
     result = FMOD_Channel_SetVolume(pChannel[sound_num], volume);
     ErrorCheck(result);
@@ -93,7 +97,7 @@ void Music::pitchUp(int sound_num)
     //ErrorCheck(FMOD_DSP_SetParameterFloat(pitch_shift, 0, pitch));
     //ErrorCheck(FMOD_DSP_SetActive(pitch_shift, true));
     ErrorCheck(FMOD_Channel_GetPitch(pChannel[sound_num], &pitch));
-    pitch = 2.0f;
+    pitch = 1.5f;
     ErrorCheck(FMOD_Channel_SetPitch(pChannel[sound_num], pitch));
 
 }

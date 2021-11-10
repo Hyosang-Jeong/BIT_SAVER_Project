@@ -19,9 +19,10 @@ public:
     enum SOUND_NUM
     {
         ENERGY = 0,
-        REWIND,
+        REWIND, 
         SOUND_EFFECT1,
         SOUND_EFFECT2,
+        BOSS_ENTRANCE,
         MUSIC_END
     };
 
@@ -50,11 +51,9 @@ public:
     FMOD_SOUNDGROUP* bgm_group;
     FMOD_SOUNDGROUP* sfx_group;
     
-private:
     float volume;
     float pitch = 1.f;
     float Musicvolume = 0.5f;
     float SFXvolume = 0.5f;
-
-    std::vector<const char*> MusicName{};
+    std::vector<const char*> MusicName;
 };

@@ -26,7 +26,9 @@ public:
     void Hit_Check();
     bool GetisMiss();
 private:
-    InputKey moveUpKey;
-    InputKey moveDownKey;
+    InputKey UpAttackKey1;
+    InputKey UpAttackKey2;
+    InputKey DownAttackKey1;
+    InputKey DownAttackKey2;
     bool isMiss;
 };

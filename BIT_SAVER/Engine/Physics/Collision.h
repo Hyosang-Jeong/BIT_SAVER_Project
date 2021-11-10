@@ -32,6 +32,6 @@ public:
 private:
 	AABB collision_box;
 	glm::vec2 box_size;
-	Render render;
+
 };
 

@@ -17,7 +17,7 @@ class Track;
 class Note_box;
 class Background;
 class EnergyBar;
-
+class Stage_bar;
 class Level1 : public GameState
 {
 public:
@@ -27,6 +27,7 @@ public:
 	void Unload() override;
 	std::string GetName() { return "Level1"; }
 	void Draw() override;
+	
 private:
 	InputKey mainMenu;
 
@@ -36,6 +37,8 @@ private:
 	Note_box* notebox;
 	Background* backPtr;
 	EnergyBar* energyBar;
+	Stage_bar* stageBar;
 	Camera camera;
 	GameObjectManager* gameObjectManager;
+	int curr_state;
 };

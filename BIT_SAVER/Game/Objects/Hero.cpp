@@ -14,8 +14,10 @@ Creation date: 3/14/2021
 Hero::Hero(glm::vec2 startPos) :
     moveLeftKey(InputKey::Keyboard::Left),
     moveRightKey(InputKey::Keyboard::Right),
-    moveUpKey(InputKey::Keyboard::Up),
-    moveDownKey(InputKey::Keyboard::Down),
+    moveUp1Key(InputKey::Keyboard::Up),
+    moveDown1Key(InputKey::Keyboard::Down),
+    moveUp2Key(InputKey::Keyboard::F),
+    moveDown2Key(InputKey::Keyboard::J),
     AttackKey(InputKey::Keyboard::Space),
   GameObject(startPos, glm::vec2{ 2,2 })
 {
@@ -28,13 +30,11 @@ void Hero::Update(double dt)
     UpdateXVelocity(dt);
     GameObject::Update(dt);
     GetGOComponent<Collision>()->UpdateCollision(GetPosition(),GetScale());
-   std::cout<< GetGOComponent<Collision>()->GetAABB().min.x << "          " << GetPosition().x << GetGOComponent<Collision>()->GetAABB().max.x <<std::endl;
-    //std::cout << GetPosition().x << std::endl;
 }
 
 void Hero::Draw(glm::mat3 camera_matrix)
 {
-    GameObject::Draw(camera_matrix);
+   GameObject::Draw(camera_matrix);
 }
 
 glm::vec2 Hero::Getposition()
@@ -57,14 +57,14 @@ void Hero::UpdateXVelocity([[maybe_unused]] double dt)
         SetPosition({ Getposition().x, -5 });
     }
 
-    if (moveUpKey.IsKeyDown() == true)
+    if (moveUp1Key.IsKeyDown() == true || moveUp2Key.IsKeyDown()==true)
     {
         if (Getposition().y <5)
         {
             SetVelocity({ 0,80 });
         }
     }
-    else if (moveDownKey.IsKeyDown() == true)
+    else if (moveDown1Key.IsKeyDown() == true || moveDown2Key.IsKeyDown() == true)
     {
         if (Getposition().y > -5)
         {

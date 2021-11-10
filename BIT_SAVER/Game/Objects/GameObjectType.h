@@ -2,11 +2,13 @@
 
 enum class GameObjectType {
     Hero,
-    Bunny,
+    Boss,
     Track,
     Note,
     Note_collisionBox,
     Energy_bar,
-    Count,
+    Stage_bar,
     Background,
+    Particle,
+    Count,
 };

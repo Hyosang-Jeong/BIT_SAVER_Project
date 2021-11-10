@@ -13,11 +13,6 @@ Creation date: 3/14/2021
 
 
 Boss::Boss(glm::vec2 startPos) :
-	moveLeftKey(InputKey::Keyboard::Left),
-	moveRightKey(InputKey::Keyboard::Right),
-	moveUpKey(InputKey::Keyboard::Up),
-	moveDownKey(InputKey::Keyboard::Down),
-	jumpKey(InputKey::Keyboard::Up),
 	GameObject(startPos, glm::vec2{ -2,2 })
 {
 	AddGOComponent(new Sprite("../spt/boss.spt", this));
@@ -26,11 +21,34 @@ Boss::Boss(glm::vec2 startPos) :
 void Boss::Update(double dt)
 {
 	GameObject::Update(dt);
+	UpdateXVelocity(dt);
+	if (GetPosition().x < 8)
+	{
+		is_generating = false;
+		SetVelocity({ 0,0 });
+		SetPosition({ 8,0 });
+	}
 }
 
 void Boss::Draw(glm::mat3 camera_matrix)
 {
 	GameObject::Draw(camera_matrix);
+
+}
+
+void Boss::GenerateBoss()
+{
+	is_generating = true;
+}
+
+void Boss::UpdateXVelocity(double dt)
+{
+	if (is_generating == true)
+	{
+		SetVelocity({ -dt * 50,0 });
+	}
+
+
 }
 
 
