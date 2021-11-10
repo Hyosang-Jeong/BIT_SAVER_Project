@@ -1,0 +1,4 @@
+../images/hit.png
+FrameSize 32 32
+NumFrames 4
+Anim ../anm/hit.anm

@@ -19,6 +19,7 @@ Track(MidiEvent{}.MidiSetUp(music_num))
 Track::Track(std::vector<long double> mid_info) : 
 GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 })
 {
+	Doupdate = true;
 	std::vector<long double> time;
 
 	for (auto& time_t : mid_info)
@@ -60,21 +61,23 @@ GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 })
 
 void Track::Update(double dt)
 {
-	GameObject::Update(dt);
-
-	timer += dt;
-
-	for (auto& i : track_info)
+	if (Doupdate == true)
 	{
-		for (auto& j : i.second)
+		GameObject::Update(dt);
+
+		timer += dt * Engine::GetMusic().pitch;
+
+		for (auto& i : track_info)
 		{
-			if (timer > j)
+			for (auto& j : i.second)
 			{
-				generate_note = true;
-				note_pos = { 10, (i.first - 0.5) * 10 };
-				note_vel = { -10,0 };
-				Engine::GetGSComponent<GameObjectManager>()->Add(new Note(note_pos, note_vel));
-				i.second.erase(i.second.begin());
+				if (timer > j)
+				{
+					note_pos = { 10, (i.first - 0.5) * 10 };
+					note_vel = { -20,0 };
+					Engine::GetGSComponent<GameObjectManager>()->Add(new Note(note_pos, note_vel));
+					i.second.erase(i.second.begin());
+				}
 			}
 		}
 	}
@@ -85,3 +88,7 @@ glm::vec2 Track::Getposition()
 	return GameObject::GetPosition();
 }
 
+void Track::SetUpdate(bool update)
+{
+	Doupdate = update;
+}

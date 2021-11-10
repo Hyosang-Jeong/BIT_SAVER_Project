@@ -89,6 +89,15 @@
     <ClCompile Include="Game\Objects\EnergyBar.cpp">
       <Filter>Game\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Objects\stage_bar.cpp">
+      <Filter>Game\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Sprite\ParticleEmitter.cpp">
+      <Filter>Engine\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Sprite\GameParticles.cpp">
+      <Filter>Engine\Sprite</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\GameObject\GameObject.h">
@@ -189,6 +198,15 @@
     </ClInclude>
     <ClInclude Include="Game\Objects\EnergyBar.h">
       <Filter>Game\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Objects\stage_bar.h">
+      <Filter>Game\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Sprite\ParticleEmitter.h">
+      <Filter>Engine\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Sprite\GameParticles.h">
+      <Filter>Engine\Sprite</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

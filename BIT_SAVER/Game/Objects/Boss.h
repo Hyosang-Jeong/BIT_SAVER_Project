@@ -22,22 +22,11 @@ public:
     void Draw(glm::mat3 camera_matrix) override;
     GameObjectType GetObjectType() override
     {
-        return GameObjectType::Bunny;
+        return GameObjectType::Boss;
     }
+    void GenerateBoss();
 private:
-    InputKey moveUpKey;
-    InputKey moveDownKey;
-    InputKey moveLeftKey;
-    InputKey moveRightKey;
-
-    InputKey jumpKey;
-
-    static constexpr double acceleration = 1;
-    static constexpr double drag = 500;
-    static constexpr double max_velocity = 500;
-    static constexpr double jumpVelocity = 1000;
-
     void UpdateXVelocity(double dt);     //Change X velocity stuff
-
+    bool is_generating;
 
 };

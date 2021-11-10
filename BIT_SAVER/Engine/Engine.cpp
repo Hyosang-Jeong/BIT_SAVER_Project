@@ -26,9 +26,7 @@ void Engine::Init(std::string windowName)
 
 	init_shdrpgms();
 	fpsCalcTime = lastTick;
-
 	GetMusic().Init();
-	//GetMusic().Load();
 }
 
 void Engine::Shutdown()

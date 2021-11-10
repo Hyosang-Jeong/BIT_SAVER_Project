@@ -9,40 +9,27 @@ Creation date: 2/11/2021
 -----------------------------------------------------------------*/
 #pragma once
 
-#include "..\Engine\Input\Input.h" //input key
+#include"..\Engine\Input\Input.h"
 #include "..\Engine\GameObject\GameObject.h" // GameObject inheritance
 #include"GameObjectType.h"
 
-enum class hero_anim
-{
-    hero_run
-};
-
-class Hero : public GameObject
+class Stage_bar : public GameObject
 {
 public:
-    Hero(glm::vec2 startPos);
+    Stage_bar(glm::vec2 startPos, double total_time, double extra_time);
     void Update(double dt) override;
-    glm::vec2 Getposition();
     void Draw(glm::mat3 camera_matrix) override;
+    int Getchangeflag();
+    void SetUpdate(bool update);
     GameObjectType GetObjectType() override
     {
-        return GameObjectType::Hero;
+        return GameObjectType::Stage_bar;
     }
 private:
-
-    InputKey moveUp1Key;
-    InputKey moveUp2Key;
-    InputKey moveDown1Key;
-    InputKey moveDown2Key;
-    InputKey moveLeftKey;
-    InputKey moveRightKey;
-    InputKey AttackKey;
-
-    static constexpr double acceleration = 1;
-    static constexpr double drag = 500;
-    static constexpr double max_velocity = 500;
-    static constexpr double jumpVelocity = 1000;
-
-    void UpdateXVelocity(double dt);     //Change X velocity stuff
+    int currstate;
+    bool Doupdate;
+    Texture* stage_barPtr;
+    const double extra_stage_time;
+    const double total_time;
+    GLModel stage_barModel;
 };

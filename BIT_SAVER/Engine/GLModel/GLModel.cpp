@@ -121,29 +121,20 @@ void GLModel::Hero_init()
 
 }
 
-void GLModel::update(glm::vec2 min, glm::vec2 frame_size)
+void GLModel::update(glm::vec2 min, glm::vec2 frame_size) // todo process memory fix - hyosang 
 {
-
     vertices[0].tex_coord = min;
     vertices[1].tex_coord = { min.x+frame_size.x,min.y };
     vertices[2].tex_coord = { min.x,min.y+frame_size.y };
     vertices[3].tex_coord = { min.x + frame_size.x,min.y + frame_size.y };
 
-
     GLuint vbo_hdl;
-    GLuint ebo_hdl;
-    glGenVertexArrays(1, &vaoid);
-    glGenBuffers(1, &vbo_hdl);
-    glGenBuffers(1, &ebo_hdl);
 
+    glGenBuffers(1, &vbo_hdl);
     glBindVertexArray(vaoid);
     glBindBuffer(GL_ARRAY_BUFFER, vbo_hdl);
-
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_DYNAMIC_DRAW);
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo_hdl);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
-
     // vertex positions
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
@@ -154,4 +145,5 @@ void GLModel::update(glm::vec2 min, glm::vec2 frame_size)
     primitive_type = GL_TRIANGLE_STRIP;
     draw_cnt = static_cast<GLuint>(idx_vtx.size());
     glBindVertexArray(0);
+    glDeleteBuffers(1, &vbo_hdl);
 }

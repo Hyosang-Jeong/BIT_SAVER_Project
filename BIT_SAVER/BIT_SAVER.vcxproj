@@ -179,6 +179,8 @@
     <ClCompile Include="Engine\Physics\Camera.cpp" />
     <ClCompile Include="Engine\Physics\Collision.cpp" />
     <ClCompile Include="Engine\Sprite\Animation.cpp" />
+    <ClCompile Include="Engine\Sprite\GameParticles.cpp" />
+    <ClCompile Include="Engine\Sprite\ParticleEmitter.cpp" />
     <ClCompile Include="Engine\Sprite\Sprite.cpp" />
     <ClCompile Include="Engine\Sprite\Texture.cpp" />
     <ClCompile Include="Engine\Sprite\TextureManager.cpp" />
@@ -228,6 +230,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Game\Objects\stage_bar.cpp" />
     <ClCompile Include="Game\Objects\Tracks.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -253,6 +256,8 @@
     <ClInclude Include="Engine\Physics\Camera.h" />
     <ClInclude Include="Engine\Physics\Collision.h" />
     <ClInclude Include="Engine\Sprite\Animation.h" />
+    <ClInclude Include="Engine\Sprite\GameParticles.h" />
+    <ClInclude Include="Engine\Sprite\ParticleEmitter.h" />
     <ClInclude Include="Engine\Sprite\Sprite.h" />
     <ClInclude Include="Engine\Sprite\Texture.h" />
     <ClInclude Include="Engine\Sprite\TextureManager.h" />
@@ -304,6 +309,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="Game\Objects\stage_bar.h" />
     <ClInclude Include="Game\Objects\Track.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>

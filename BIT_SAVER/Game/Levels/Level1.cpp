@@ -16,7 +16,16 @@ Creation date: 3/07/2021
 #include"..\Objects\Note_collisionBox.h"
 #include"..\Objects\Background.h"
 #include"../Levels/State.h"
-#include "../Objects/EnergyBar.h"
+#include "..\Objects\EnergyBar.h"
+#include "..\Objects\stage_bar.h"
+#include"../../Engine/Sprite/GameParticles.h"
+enum class STATE
+{
+	EXTRA,
+	GENERATING,
+	FINISH
+};
+
 
 Level1::Level1() : 
 mainMenu(InputKey::Keyboard::Escape), 
@@ -30,7 +39,8 @@ camera({ 0,0 })
 	notebox = nullptr;
 	backPtr = nullptr;
 	energyBar = nullptr;
-
+	stageBar = nullptr;
+	curr_state = 0;
 }
 
 void Level1::Load()
@@ -38,12 +48,13 @@ void Level1::Load()
 	Engine::GetMusic().Play(Music::SOUND_NUM::REWIND);
 	gameObjectManager = new GameObjectManager();
 
-	heroPtr = new Hero({ -6,0 });
+	heroPtr = new Hero({ -4,0 });
 	backPtr = new Background();
 	trackPtr = new Track(Music::SOUND_NUM::REWIND);
 	notebox = new Note_box({ -4,0 });
-	bossPtr = new Boss({ 8,0 });
+	bossPtr = new Boss({ 12,0 });
 	energyBar = new EnergyBar({ -6,1.2 });
+	stageBar = new Stage_bar({ -10,9 },204,82);   // total music time 204  ,  extra time 82
 
 	backPtr->Add("../images/background1.png", 0);
 	backPtr->Add("../images/parallax1-5.png", 0.5);
@@ -61,7 +72,9 @@ void Level1::Load()
 	gameObjectManager->Add(notebox);
 	gameObjectManager->Add(trackPtr);
 	gameObjectManager->Add(energyBar);
+	gameObjectManager->Add(stageBar);
 
+	AddGSComponent(new HitEmitter());
 }
 
 void Level1::Update(double dt)
@@ -76,6 +89,25 @@ void Level1::Update(double dt)
 	{
 		Engine::GetGameStateManager().Shutdown();
 	}
+	if (stageBar->Getchangeflag() == 1)
+	{
+		curr_state = static_cast<int>(STATE::GENERATING);
+		Engine::GetMusic().Pause(Music::SOUND_NUM::REWIND);
+		bossPtr->GenerateBoss();
+		trackPtr->SetUpdate(false);
+		stageBar->SetUpdate(false);
+		Engine::GetMusic().Play(Music::SOUND_NUM::BOSS_ENTRANCE);
+		Engine::GetMusic().volumeUp(Music::SOUND_NUM::BOSS_ENTRANCE);
+	}
+	if (curr_state == static_cast<int>(STATE::GENERATING)&&bossPtr->GetPosition().x == 8)
+	{
+		Engine::GetMusic().Resume(Music::SOUND_NUM::REWIND);
+		Engine::GetMusic().pitchUp(Music::SOUND_NUM::REWIND);
+		trackPtr->SetUpdate(true);
+		stageBar->SetUpdate(true);
+		curr_state = static_cast<int>(STATE::FINISH);
+	}
+
 }
 
 void Level1::Draw()
@@ -94,6 +126,8 @@ void Level1::Unload()
 	bossPtr = nullptr;
 	backPtr = nullptr;
 	energyBar = nullptr;
+	stageBar = nullptr;
 	Engine::GetMusic().Stop(Music::SOUND_NUM::ENERGY);
+	ClearGSComponent();
 	gameObjectManager->Unload();
 }
