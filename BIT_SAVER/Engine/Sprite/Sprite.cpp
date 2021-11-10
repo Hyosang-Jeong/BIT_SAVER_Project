@@ -116,7 +116,6 @@ void Sprite::Draw(glm::mat3 displayMatrix, std::string shdr_name)
 
 bool Sprite::IsAnimationDone()
 {
-	is_playing = false;
 	return animations[currAnim]->IsAnimationDone();
 }
 

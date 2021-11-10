@@ -15,7 +15,20 @@ Creation date: 2/11/2021
 
 enum class hero_anim
 {
-    hero_run
+    hero_run,
+    up_attck,
+    down
+};
+enum Hero_state
+{
+    RUN_ENTER,
+    RUN,
+    UP_ENTER,
+    UP,
+    DOWN_ATTACK_ENTER,
+    DOWN_ATTACK,
+    DOWN_ENTER,
+    DOWN
 };
 
 class Hero : public GameObject
@@ -38,7 +51,7 @@ private:
     InputKey moveLeftKey;
     InputKey moveRightKey;
     InputKey AttackKey;
-
+    Hero_state hero_state;
     static constexpr double acceleration = 1;
     static constexpr double drag = 500;
     static constexpr double max_velocity = 500;

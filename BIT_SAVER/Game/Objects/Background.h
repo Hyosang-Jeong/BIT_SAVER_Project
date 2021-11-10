@@ -27,9 +27,12 @@ public:
     void Unload();
     void Update(double dt);
     void Draw(glm::mat3 camera);
+    void set_fever_mode(bool is_fever_mode_);
     //glm::vec2 Size();
+
 private:
-    struct ParallaxInfo {
+    struct ParallaxInfo 
+    {
         Texture* texture_front;
         Texture* texture_back;
         GLModel model;
@@ -37,5 +40,7 @@ private:
         float position_back;
         double level;
     };
+    float alpha_value=1;
+    bool is_fever_mode=false;
     std::vector<ParallaxInfo> backgrounds;
 };

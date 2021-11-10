@@ -38,8 +38,8 @@ private:
 
 enum class SCORE
 {
-    PERFECT = 0,
-    GOOD,
+    MISS=0,
     BAD,
-    MISS
+    GOOD,
+    PERFECT
 };

@@ -13,6 +13,7 @@ Creation date: 3/14/2021
 #include "EnergyBar.h"
 #include "../../Engine/Music/music.h"
 #include "../../Engine/Engine.h"
+#include"Score.h"
 Note::Note(glm::vec2 startPos, glm::vec2 velocity) :
 	UpAttackKey1(InputKey::Keyboard::F),
 	UpAttackKey2(InputKey::Keyboard::Up),
@@ -42,10 +43,6 @@ void Note::Update(double dt)
 		energy->SetScale(glm::vec2{ energy->GetScale().x - (dt / 10),energy->GetScale().y });
 		energy->UpdatePosition(glm::vec2{ -(dt / 10),0 });
 	    }
-	    else
-	    {
-		std::cout << "End";
-	    }
 
 	}
 
@@ -68,6 +65,7 @@ void Note::Hit_Check()
 		if (UpAttackKey1.IsKeyDown() == true || UpAttackKey2.IsKeyDown() == true)
 		{
 			Engine::GetGSComponent<PerfectEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+			Engine::GetGSComponent<Score>()->AddScore(Score_check());
 			set_destroy(true);
 		}
 	}
@@ -77,6 +75,7 @@ void Note::Hit_Check()
 		if (UpAttackKey1.IsKeyDown() == true || UpAttackKey2.IsKeyDown() == true)
 		{
 			Engine::GetGSComponent<GoodEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+			Engine::GetGSComponent<Score>()->AddScore(Score_check());
 			set_destroy(true);
 		}
 	}
@@ -85,6 +84,7 @@ void Note::Hit_Check()
 		if (UpAttackKey1.IsKeyDown() == true || UpAttackKey2.IsKeyDown() == true)
 		{
 			Engine::GetGSComponent<BadEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+			Engine::GetGSComponent<Score>()->AddScore(Score_check());
 			set_destroy(true);
 		}
 	}
@@ -95,6 +95,7 @@ void Note::Hit_Check()
 		if (DownAttackKey1.IsKeyDown() == true || DownAttackKey2.IsKeyDown() == true)
 		{
 			Engine::GetGSComponent<PerfectEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+			Engine::GetGSComponent<Score>()->AddScore(Score_check());
 			set_destroy(true);
 		}
 	}
@@ -105,6 +106,7 @@ void Note::Hit_Check()
 		if (DownAttackKey1.IsKeyDown() == true || DownAttackKey2.IsKeyDown() == true)
 		{
 			Engine::GetGSComponent<GoodEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+			Engine::GetGSComponent<Score>()->AddScore(Score_check());
 			set_destroy(true);
 		}
 	}
@@ -114,6 +116,7 @@ void Note::Hit_Check()
 		if (DownAttackKey1.IsKeyDown() == true || DownAttackKey2.IsKeyDown() == true)
 		{
 			Engine::GetGSComponent<BadEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+			Engine::GetGSComponent<Score>()->AddScore(Score_check());
 			set_destroy(true);
 		}
 	}
@@ -122,6 +125,7 @@ void Note::Hit_Check()
 	{
 		isMiss = true;
 		Engine::GetGSComponent<MissEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+		Engine::GetGSComponent<Score>()->AddScore(Score_check());
 	}
 }
 

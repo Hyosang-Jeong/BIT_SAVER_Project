@@ -18,6 +18,7 @@ class Note_box;
 class Background;
 class EnergyBar;
 class Stage_bar;
+class Fever_bar;
 class Level1 : public GameState
 {
 public:
@@ -39,6 +40,7 @@ private:
 	Background* backPtr;
 	EnergyBar* energyBar;
 	Stage_bar* stageBar;
+	Fever_bar* feverBar;
 	Camera camera;
 	GameObjectManager* gameObjectManager;
 	int curr_state;
