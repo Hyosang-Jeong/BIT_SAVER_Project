@@ -4,7 +4,8 @@
 #include"Engine/Engine.h"
 #include "..\BIT_SAVER\Engine\Music\music.h"
 #include"Game\Levels\Level1.h"
-#include"Game\Levels\Level2.h"
+#include"Game\Levels\Gameover.h"
+#include"Game\Levels\Clear.h"
 #include"Game\Levels\Splash.h"
 #include"Game\Levels\Mainmenu.h"
 #include"Engine/Input/Input.h"
@@ -17,11 +18,14 @@ int main()
 	Splash splash;
 	Mainmenu main_menu;
 	Level1 level1;
+	Gameover gameover;
+	Clear Clear;
 //	Level2 level2;
 	engine.GetGameStateManager().AddGameState(splash);
 	engine.GetGameStateManager().AddGameState(main_menu);
 	engine.GetGameStateManager().AddGameState(level1);
-//   engine.GetGameStateManager().AddGameState(level2);
+	engine.GetGameStateManager().AddGameState(Clear);
+	engine.GetGameStateManager().AddGameState(gameover);
 	
 	while (engine.HasGameEnded() == false)
 	{

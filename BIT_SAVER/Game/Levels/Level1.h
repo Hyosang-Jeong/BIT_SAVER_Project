@@ -42,7 +42,6 @@ private:
 	Texture* Quit;
 	GLModel model;
 
-	InputKey mainMenu;
 	InputKey optionMenu;
 	InputKey OptionUpKey;
 	InputKey OptionDownKey;
@@ -60,7 +59,7 @@ private:
 	Fever_bar* feverBar;
 	Camera camera;
 	GameObjectManager* gameObjectManager;
-	GLText* text;
+	//GLText* text;
 	int curr_state;
 
 	bool isOption;

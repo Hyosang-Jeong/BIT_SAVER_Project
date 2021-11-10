@@ -338,12 +338,29 @@ GLText::GLText()
 		}
 
 		shd_ref->second.Use();
-	GLuint proj_location = glGetUniformLocation(shd_ref->second.GetHandle(), "projection");
-	glm::mat4 proj = glm::ortho(0.0f, static_cast<float>(Engine::GetWindow().GetSize().x), static_cast<float>(Engine::GetWindow().GetSize().y), 0.0f);
-	glUniformMatrix4fv(proj_location, 1, GL_FALSE, &proj[0].x);
 
-	GLuint text_location = glGetUniformLocation(shd_ref->second.GetHandle(), "text");
-	glUniform1i(text_location, 0);
+	glm::mat4 proj = glm::ortho(0.0f, static_cast<float>(Engine::GetWindow().GetSize().x), static_cast<float>(Engine::GetWindow().GetSize().y), 0.0f);
+
+	GLint uniform_var_loc1 =
+		glGetUniformLocation(shd_ref->second.GetHandle(), "projection");
+	if (uniform_var_loc1 >= 0) {
+		glUniformMatrix4fv(uniform_var_loc1, 1, GL_FALSE, &proj[0].x);
+	}
+	else {
+		std::cout << "Uniform variable doesn't exist!!!\n";
+		std::exit(EXIT_FAILURE);
+	}
+
+	GLint uniform_var_loc2 =
+		glGetUniformLocation(shd_ref->second.GetHandle(), "text");
+	if (uniform_var_loc2 >= 0) {
+		glUniform1i(uniform_var_loc2, 0);
+	}
+	else {
+		std::cout << "Uniform variable doesn't exist!!!\n";
+		std::exit(EXIT_FAILURE);
+	}
+
 	shd_ref->second.UnUse();
 
 	glGenVertexArrays(1, &VAO);
@@ -428,10 +445,20 @@ void GLText::Draw(std::string text, float x, float y, float scale, glm::vec3 col
 {
 	shd_ref->second.Use();
 
-	GLuint texColor_location = glGetUniformLocation(shd_ref->second.GetHandle(), "textColor");
-	glm::vec3 col = glm::vec3(color);
-	glUniform3fv(texColor_location, 1, &col.x);
-	this->shd_ref->second.SetUniform("textColor", color);
+	//GLuint texColor_location = glGetUniformLocation(shd_ref->second.GetHandle(), "textColor");
+	//glm::vec3 col = glm::vec3(color);
+	//glUniform3fv(texColor_location, 1, &color.x);
+	//this->shd_ref->second.SetUniform("textColor", color);
+
+	GLint uniform_var_loc1 =
+		glGetUniformLocation(shd_ref->second.GetHandle(), "textColor");
+	if (uniform_var_loc1 >= 0) {
+		glUniform3fv(uniform_var_loc1, 1, &color.x);
+	}
+	else {
+		std::cout << "Uniform variable doesn't exist!!!\n";
+		std::exit(EXIT_FAILURE);
+	}
 	glActiveTexture(GL_TEXTURE0);
 	glBindVertexArray(this->VAO);
 
@@ -470,16 +497,3 @@ void GLText::Draw(std::string text, float x, float y, float scale, glm::vec3 col
 	glBindTexture(GL_TEXTURE_2D, 0);
 	shd_ref->second.UnUse();
 }
-
-//void GLText::setup_shdrpgm()
-//{
-//	std::vector<std::pair<GLenum, std::string>> shdr_files;
-//	shdr_files.push_back(std::make_pair(GL_VERTEX_SHADER, "../shaders/Text.vert"));
-//	shdr_files.push_back(std::make_pair(GL_FRAGMENT_SHADER, "../shaders/Text.frag"));
-//	shd_ref->second.CompileLinkValidate(shdr_files);
-//	if (GL_FALSE == shd_ref->second.IsLinked()) {
-//		std::cout << "Unable to compile/link/validate shader programs" << "\n";
-//		std::cout << shdr_pgm.GetLog() << std::endl;
-//		std::exit(EXIT_FAILURE);
-//	}
-//}
