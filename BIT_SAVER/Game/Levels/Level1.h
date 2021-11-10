@@ -58,7 +58,7 @@ private:
 	Camera camera;
 	GameObjectManager* gameObjectManager;
 	int curr_state;
-	int combo;
+
 	bool isOption;
 	glm::vec2 selectedIndex;
 };

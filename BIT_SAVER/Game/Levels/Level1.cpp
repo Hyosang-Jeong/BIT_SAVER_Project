@@ -20,6 +20,7 @@ Creation date: 3/07/2021
 #include "..\Objects\stage_bar.h"
 #include"../../Engine/Sprite/GameParticles.h"
 
+
 enum class STATE
 {
 	EXTRA,
@@ -51,14 +52,16 @@ camera({ 0,0 })
 	energyBar = nullptr;
 	stageBar = nullptr;
 	curr_state = 0;
-	combo = 0;
+	Engine::GetMusic().Init();
 }
 
 void Level1::Load()
 {
+
 	Engine::GetMusic().Play(Music::SOUND_NUM::REWIND);
 	gameObjectManager = new GameObjectManager();
-
+	isOption = false;
+	selectedIndex = glm::vec2{ 0,1 };
 	heroPtr = new Hero({ -4,0 });
 	backPtr = new Background();
 	trackPtr = new Track(Music::SOUND_NUM::REWIND);
@@ -77,7 +80,7 @@ void Level1::Load()
 	GLModel tempModel;
 	tempModel.init({ 1,1 });
 	model = tempModel;
-
+	curr_state = static_cast<int>(STATE::EXTRA);
 	backPtr->Add("../images/background1.png", 0);
 	backPtr->Add("../images/parallax1-5.png", 0.5);
 	backPtr->Add("../images/parallax1-4.png", 0.8);
@@ -224,26 +227,39 @@ void Level1::Draw()
 	    if (selectedIndex == glm::vec2{ 0,0 })
 	    {
 		sound1->Draw(10, model, "Option", { 0,0 }, { 5,5 });
+		Engine::GetMusic().SetVolume(Engine::GetMusic().REWIND, 0.25);
 	    }
 	    if (selectedIndex == glm::vec2{ 0,1 })
 	    {
 		sound2->Draw(10, model, "Option", { 0,0 }, { 5,5 });
+		Engine::GetMusic().SetVolume(Engine::GetMusic().REWIND, 0.5);
 	    }
 	    if (selectedIndex == glm::vec2{ 0,2 })
 	    {
 		sound3->Draw(10, model, "Option", { 0,0 }, { 5,5 });
+		Engine::GetMusic().SetVolume(Engine::GetMusic().REWIND, 0.75);
+
 	    }
 	    if (selectedIndex == glm::vec2{ 0,3 })
 	    {
 		sound4->Draw(10, model, "Option", { 0,0 }, { 5,5 });
+		Engine::GetMusic().SetVolume(Engine::GetMusic().REWIND, 1);
 	    }
 	    if (selectedIndex.x == 1)
 	    {
 		Restart->Draw(10, model, "Option", { 0,0 }, { 5,5 });
+		if (OptionSelectKey.IsKeyDown()==true)
+		{
+		    Engine::GetGameStateManager().ReloadState();
+		}
 	    }
 	    if (selectedIndex.x == 2)
 	    {
 		Quit->Draw(10, model, "Option", { 0,0 }, { 5,5 });
+		if (OptionSelectKey.IsKeyDown() == true)
+		{
+		    //Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
+		}
 	    }
 	}
 
@@ -259,7 +275,7 @@ void Level1::Unload()
 	backPtr = nullptr;
 	energyBar = nullptr;
 	stageBar = nullptr;
-	Engine::GetMusic().Stop(Music::SOUND_NUM::ENERGY);
-	ClearGSComponent();
+	Engine::GetMusic().Stop(Music::SOUND_NUM::REWIND);
 	gameObjectManager->Unload();
+	ClearGSComponent();
 }

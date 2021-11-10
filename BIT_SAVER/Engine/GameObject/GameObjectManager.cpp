@@ -23,11 +23,15 @@ void GameObjectManager::Add_front(GameObject* obj)
 
 void GameObjectManager::Unload()
 {
+
 	for (GameObject* a : gameObjects)
 	{
+	    if(a!=nullptr)
 		delete a;
 	}
 	gameObjects.clear();
+    
+
 }
 
 GameObject* GameObjectManager::Find(GameObjectType objType)
