@@ -14,7 +14,6 @@ Creation date: 3/07/2021
 Mainmenu::Mainmenu() : 
 ESCAPE(InputKey::Keyboard::Escape),
 Level1(InputKey::Keyboard::P),
-Level2(InputKey::Keyboard::NUM_2)
 {
 	model.init({ 1,1 });
 }

@@ -28,7 +28,6 @@ public:
 	Texture* mainmenu;
 	InputKey ESCAPE;
 	InputKey Level1;
-	InputKey Level2;
 	GLModel model;
 	GLText text;
 private:
