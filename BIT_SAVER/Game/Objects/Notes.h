@@ -11,6 +11,7 @@ Creation date:
 #include "..\Engine\Input\Input.h" //input key
 #include "..\Engine\GameObject\GameObject.h" // GameObject inheritance
 #include"GameObjectType.h"
+class EnergyBar;
 
 class Note : public GameObject
 {
@@ -24,11 +25,12 @@ public:
     }
     void Draw(glm::mat3 camera_matrix) override;
     void Hit_Check();
-    bool GetisMiss();
 private:
     InputKey UpAttackKey1;
     InputKey UpAttackKey2;
     InputKey DownAttackKey1;
     InputKey DownAttackKey2;
     bool isMiss;
+
+    EnergyBar* energy;
 };

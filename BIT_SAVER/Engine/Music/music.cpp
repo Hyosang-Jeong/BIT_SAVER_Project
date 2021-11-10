@@ -13,13 +13,6 @@ void Music::Init()
     ErrorCheck(result);
     result = FMOD_System_Init(pSystem, MUSIC_END, FMOD_INIT_NORMAL, nullptr);
     ErrorCheck(result);
-
-    //MusicName.push_back("../sound/energy.mp3");
-    //MusicName.push_back("../sound/rewind.mp3");
-    //MusicName.push_back("../sound/button1.mp3");
-    //MusicName.push_back("../sound/button2.mp3");
-    //MusicName.push_back("../sound/boss_entrance.mp3");
-
     Load();
 }
 
@@ -40,6 +33,7 @@ void Music::Load()
 
     result = FMOD_System_CreateSound(pSystem, "../sound/boss_entrance.mp3", FMOD_DEFAULT, nullptr, &pSound[BOSS_ENTRANCE]);
     ErrorCheck(result);
+
 }
 void Music::Play(int sound_num)
 {
@@ -60,6 +54,7 @@ void Music::Update()
 
 void Music::Resume(int sound_num)
 {
+    
     result = FMOD_Channel_SetPaused(pChannel[sound_num], false);
     ErrorCheck(result);
 }

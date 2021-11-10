@@ -10,7 +10,7 @@ Creation date: 11/02/2021
 #include"EnergyBar.h"
 #include"../../Engine/Engine.h"
 #include "../../Game/Objects/Hero.h"
-#include "Notes.h"
+
 EnergyBar::EnergyBar(glm::vec2 startPos) :
     GameObject(startPos, glm::vec2{ 1,0.2 })
 {
@@ -20,15 +20,14 @@ EnergyBar::EnergyBar(glm::vec2 startPos) :
 void EnergyBar::Update(double dt)
 {
     GameObject::Update(dt);
-    SetPosition({Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero)->GetPosition().x,
+
+    SetPosition({GetPosition().x,
 	Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero)->GetPosition().y + 1.2});
 
 }
 
-void EnergyBar::Reduce_Check()
-{
 
-}
+
 //
 //void EnergyBar::ResolveCollision(GameObject* test_obj)
 //{

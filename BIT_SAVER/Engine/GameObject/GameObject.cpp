@@ -126,14 +126,7 @@ void GameObject::UpdateVelocity(glm::vec2 adjustPosition)
 void GameObject::SetScale(glm::vec2 newScale)
 {
     scale = newScale;
-    glm::mat3 scale_matrix
-    {
-        newScale.x,0,0,
-        0,newScale.y,0,
-        0,0,1
-    };
 
-    mdl_to_ndc_xform *= scale_matrix;
     updateMatrix = true;
 }
 
