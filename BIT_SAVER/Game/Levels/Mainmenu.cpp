@@ -13,8 +13,7 @@ Creation date: 3/07/2021
 
 Mainmenu::Mainmenu() : 
 ESCAPE(InputKey::Keyboard::Escape),
-Level1(InputKey::Keyboard::NUM_1),
-Level2(InputKey::Keyboard::NUM_2)
+Level1(InputKey::Keyboard::NUM_1)
 {
 	model.init({ 1,1 });
 }
@@ -29,10 +28,6 @@ void Mainmenu::Update([[maybe_unused]]double dt)
 	if (Level1.IsKeyReleased() == true)
 	{
 			Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Level1));
-	}
-	if (Level2.IsKeyReleased() == true)
-	{
-		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Level2));
 	}
 	if (ESCAPE.IsKeyReleased() == true)
 	{
