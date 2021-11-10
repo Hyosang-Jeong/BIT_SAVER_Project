@@ -38,6 +38,7 @@ public:
     void Pause(int sound_num);
     void volumeUp(int sound_num);
     void volumeDown(int sound_num);
+    void SetVolume(int sound_num,float volume_);
     void pitchUp(int sound_num);
     void pitchDefault(int sound_num);
     void pitchDown(int sound_num);

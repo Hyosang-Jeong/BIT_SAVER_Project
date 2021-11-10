@@ -86,6 +86,12 @@ void Music::volumeDown(int sound_num)
     ErrorCheck(result);
 }
 
+void Music::SetVolume(int sound_num, float volume_)
+{
+    result = FMOD_Channel_SetVolume(pChannel[sound_num], volume_);
+    ErrorCheck(result);
+}
+
 void Music::pitchUp(int sound_num)
 {
     //ErrorCheck(FMOD_System_CreateDSPByType(pSystem, FMOD_DSP_TYPE_PITCHSHIFT, &pitch_shift));

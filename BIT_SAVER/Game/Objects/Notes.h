@@ -33,6 +33,7 @@ private:
     InputKey DownAttackKey2;
     bool isMiss;
 
+
     EnergyBar* energy;
 };
 
