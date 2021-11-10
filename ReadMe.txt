@@ -61,6 +61,8 @@ Run/Build Code:
       * If it happens, the user should rebuild the solution and run it
    * Some recommendation warnings for using enum rather than enum class.
    * GLModel member variables uninitialized warning.
+   * Sometimes clear and game overstate not printed correctly.
+   * When we run release mode, the note generating timing is not correctly. If seems faster than music
 
 
 * What button or command line arguments needed to compile
