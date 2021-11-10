@@ -53,6 +53,8 @@ void Note::Update(double dt)
 
 		else if (energy->GetScale().x < 0)
 		{
+		    Engine::GetLogger().LogEvent("Game Over!");
+
 			Engine::GetGameStateManager().Shutdown();
 		}
 	}	
