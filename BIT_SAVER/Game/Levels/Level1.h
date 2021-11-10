@@ -19,6 +19,7 @@ class Note_box;
 class Background;
 class EnergyBar;
 class Stage_bar;
+class GLText;
 class Fever_bar;
 class Level1 : public GameState
 {
@@ -59,6 +60,7 @@ private:
 	Fever_bar* feverBar;
 	Camera camera;
 	GameObjectManager* gameObjectManager;
+	GLText* text;
 	int curr_state;
 
 	bool isOption;

@@ -8,6 +8,7 @@ enum class GameObjectType {
     Note_collisionBox,
     Energy_bar,
     Stage_bar,
+    Text,
     Fever_bar,
     Background,
     Hit,

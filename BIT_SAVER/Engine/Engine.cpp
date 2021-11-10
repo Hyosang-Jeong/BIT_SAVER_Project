@@ -92,7 +92,7 @@ void Engine::init_shdrpgms()
 	if (GL_FALSE == shdr_pgm1.IsLinked())
 	{
 		std::cout << "Unable to compile/link/validate shader programs\n";
-		std::cout << shdr_pgm.GetLog() << "\n";
+		std::cout << shdr_pgm1.GetLog() << "\n";
 		std::exit(EXIT_FAILURE);
 	}
 	shdrpgms["Collision"] = shdr_pgm1;
@@ -107,7 +107,7 @@ void Engine::init_shdrpgms()
 	if (GL_FALSE == shdr_pgm2.IsLinked())
 	{
 		std::cout << "Unable to compile/link/validate shader programs\n";
-		std::cout << shdr_pgm.GetLog() << "\n";
+		std::cout << shdr_pgm2.GetLog() << "\n";
 		std::exit(EXIT_FAILURE);
 	}
 	shdrpgms["Mainmenu"] = shdr_pgm2;
@@ -122,10 +122,25 @@ void Engine::init_shdrpgms()
 	if (GL_FALSE == shdr_pgm3.IsLinked())
 	{
 	    std::cout << "Unable to compile/link/validate shader programs\n";
-	    std::cout << shdr_pgm.GetLog() << "\n";
+	    std::cout << shdr_pgm3.GetLog() << "\n";
 	    std::exit(EXIT_FAILURE);
 	}
 	shdrpgms["Option"] = shdr_pgm3;
+
+	std::vector<std::pair<GLenum, std::string>> shdr_file4
+	{
+		std::make_pair(GL_VERTEX_SHADER, "../shaders/Text.vert"),
+		std::make_pair(GL_FRAGMENT_SHADER,  "../shaders/Text.frag")
+	};
+	GLSLShader shdr_pgm4;
+	shdr_pgm4.CompileLinkValidate(shdr_file4);
+	if (GL_FALSE == shdr_pgm4.IsLinked())
+	{
+		std::cout << "Unable to compile/link/validate shader programs\n";
+		std::cout << shdr_pgm4.GetLog() << "\n";
+		std::exit(EXIT_FAILURE);
+	}
+	shdrpgms["Text"] = shdr_pgm4;
 }
 bool Engine::HasGameEnded()
 {
