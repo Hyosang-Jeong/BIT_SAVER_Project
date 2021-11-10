@@ -81,7 +81,6 @@ void Hero::Update(double dt)
 
 void Hero::Draw(glm::mat3 camera_matrix)
 {
-    std::cout << camera_matrix[0].x << std::endl;
    GameObject::Draw(camera_matrix);
 }
 
