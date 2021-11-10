@@ -34,6 +34,8 @@ void Music::Load()
     result = FMOD_System_CreateSound(pSystem, "../sound/boss_entrance.mp3", FMOD_DEFAULT, nullptr, &pSound[BOSS_ENTRANCE]);
     ErrorCheck(result);
 
+    result = FMOD_System_CreateSound(pSystem, "../sound/fever.mp3", FMOD_DEFAULT, nullptr, &pSound[FEVER]);
+    ErrorCheck(result);
 }
 void Music::Play(int sound_num)
 {

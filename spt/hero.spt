@@ -1,4 +1,6 @@
 ../images/hero.png
-FrameSize 800 720
-NumFrames 7
+FrameSize 6160 385
+NumFrames 16
 Anim ../anm/hero_run.anm
+Anim ../anm/hero_upattack.anm
+Anim ../anm/hero_down.anm
