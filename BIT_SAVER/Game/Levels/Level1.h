@@ -11,6 +11,7 @@ Creation date: 3/07/2021
 #include "..\Engine\GameObject\GameObjectManager.h" // gameobjectmanager
 #include"..\Engine\Input\Input.h"  //input key
 #include"..\..\Engine\Physics\Camera.h"
+#include"../../Engine/Sprite/Texture.h"
 class Hero;
 class Boss;
 class Track;
@@ -29,8 +30,23 @@ public:
 	void Draw() override;
 	
 private:
+
+	Texture* textureAll;
+	Texture* sound1;
+	Texture* sound2;
+	Texture* sound3;
+	Texture* sound4;
+	Texture* Restart;
+	Texture* Quit;
+	GLModel model;
+
 	InputKey mainMenu;
 	InputKey optionMenu;
+	InputKey OptionUpKey;
+	InputKey OptionDownKey;
+	InputKey OptionSoundUpKey;
+	InputKey OptionSoundDownKey;
+	InputKey OptionSelectKey;
 
 	Hero* heroPtr;
 	Boss* bossPtr;
@@ -44,4 +60,5 @@ private:
 	int curr_state;
 	int combo;
 	bool isOption;
+	glm::vec2 selectedIndex;
 };

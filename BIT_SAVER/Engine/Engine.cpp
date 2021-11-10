@@ -112,6 +112,20 @@ void Engine::init_shdrpgms()
 	}
 	shdrpgms["Mainmenu"] = shdr_pgm2;
 
+	std::vector<std::pair<GLenum, std::string>> shdr_file3
+	{
+		std::make_pair(GL_VERTEX_SHADER, "../shaders/Option.vert"),
+		std::make_pair(GL_FRAGMENT_SHADER,  "../shaders/Option.frag")
+	};
+	GLSLShader shdr_pgm3;
+	shdr_pgm3.CompileLinkValidate(shdr_file3);
+	if (GL_FALSE == shdr_pgm3.IsLinked())
+	{
+	    std::cout << "Unable to compile/link/validate shader programs\n";
+	    std::cout << shdr_pgm.GetLog() << "\n";
+	    std::exit(EXIT_FAILURE);
+	}
+	shdrpgms["Option"] = shdr_pgm3;
 }
 bool Engine::HasGameEnded()
 {
