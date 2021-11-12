@@ -138,13 +138,14 @@ void Level1::Update(double dt)
 		curr_state = static_cast<int>(STATE::FINISH);
 	}
 
-
 	if (escape.IsKeyDown() == true)
 	{
 		Engine::GetGameStateManager().Shutdown();
 	}
-
-
+	if (OptionSoundUpKey.IsKeyDown() == true)
+	{
+	    Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Option));
+	}
 }
 
 void Level1::Draw()
@@ -154,109 +155,6 @@ void Level1::Draw()
 	GetGSComponent<Background>()->Draw(camera.GetMatrix());
 	GetGSComponent<Score>()->Draw({ 0,100 });
 	gameObjectManager->DrawAll(camera.GetMatrix());
-	
-	//selectedIndex.x 0.sound 1.restart 2.quit
-	//selectedIndex.y 0.sound1, 1.sound2 2.sound3 3. sound4
-	//default {x==0,y==1}
-
-
-	//if (curr_state == static_cast<int>(STATE::OPTION))
-	//{
-
-	//    textureAll->Draw(10, model, "Option", { 0,0 }, { 5,5 });
-	//    if (OptionUpKey.IsKeyReleased() == true)
-	//    {
-	//	if (selectedIndex.x==0 || selectedIndex.x == 1)
-	//	{
-	//	    selectedIndex.x = 0;
-	//	}
-	//	else if (selectedIndex.x == 2)
-	//	{
-	//	    selectedIndex.x = 1;
-	//	}
-	//    }
-	//    if (OptionDownKey.IsKeyReleased() == true)
-	//    {
-	//	if (selectedIndex.x == 0)
-	//	{
-	//	    selectedIndex.x = 1;
-	//	}
-	//	else if (selectedIndex.x == 1 || selectedIndex.x == 2)
-	//	{
-	//	    selectedIndex.x = 2;
-	//	}
-	//    }
-	//    if (selectedIndex.x == 0)
-	//    {
-	//	if (OptionSoundUpKey.IsKeyReleased() == true)
-	//	{
-	//	    if (selectedIndex.y == 0)
-	//	    {
-	//		selectedIndex.y = 1;
-	//	    }
-	//	    else if (selectedIndex.y == 1)
-	//	    {
-	//		selectedIndex.y = 2;
-	//	    }
-	//	    else if (selectedIndex.y == 2 || selectedIndex.y == 3)
-	//	    {
-	//		selectedIndex.y = 3;
-	//	    }
-	//	}
-	//	if (OptionSoundDownKey.IsKeyReleased() == true)
-	//	{
-	//	    if (selectedIndex.y == 0 || selectedIndex.y == 1)
-	//	    {
-	//		selectedIndex.y = 0;
-	//	    }
-	//	    else if (selectedIndex.y == 2)
-	//	    {
-	//		selectedIndex.y = 1;
-	//	    }
-	//	    else if (selectedIndex.y == 3)
-	//	    {
-	//		selectedIndex.y = 2;
-	//	    }
-	//	}
-	//    }
-	//    if (selectedIndex == glm::vec2{ 0,0 })
-	//    {
-	//	sound1->Draw(10, model, "Option", { 0,0 }, { 5,5 });
-	//	Engine::GetMusic().SetVolume(Engine::GetMusic().REWIND, 0.25);
-	//    }
-	//    if (selectedIndex == glm::vec2{ 0,1 })
-	//    {
-	//	sound2->Draw(10, model, "Option", { 0,0 }, { 5,5 });
-	//	Engine::GetMusic().SetVolume(Engine::GetMusic().REWIND, 0.5);
-	//    }
-	//    if (selectedIndex == glm::vec2{ 0,2 })
-	//    {
-	//	sound3->Draw(10, model, "Option", { 0,0 }, { 5,5 });
-	//	Engine::GetMusic().SetVolume(Engine::GetMusic().REWIND, 0.75);
-
-	//    }
-	//    if (selectedIndex == glm::vec2{ 0,3 })
-	//    {
-	//	sound4->Draw(10, model, "Option", { 0,0 }, { 5,5 });
-	//	Engine::GetMusic().SetVolume(Engine::GetMusic().REWIND, 1);
-	//    }
-	//    if (selectedIndex.x == 1)
-	//    {
-	//	Restart->Draw(10, model, "Option", { 0,0 }, { 5,5 });
-	//	if (OptionSelectKey.IsKeyDown()==true)
-	//	{
-	//	    Engine::GetGameStateManager().ReloadState();
-	//	}
-	//    }
-	//    if (selectedIndex.x == 2)
-	//    {
-	//	Quit->Draw(10, model, "Option", { 0,0 }, { 5,5 });
-	//	if (OptionSelectKey.IsKeyDown() == true)
-	//	{
-	//	    Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
-	//	}
-	//    }
-	//}
 	
 
 }

@@ -110,6 +110,9 @@
     <ClCompile Include="Game\Levels\Clear.cpp">
       <Filter>Game\Levels</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Levels\Option.cpp">
+      <Filter>Game\Levels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\GameObject\GameObject.h">
@@ -230,6 +233,9 @@
       <Filter>Game\Levels</Filter>
     </ClInclude>
     <ClInclude Include="Game\Levels\Clear.h">
+      <Filter>Game\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Levels\Option.h">
       <Filter>Game\Levels</Filter>
     </ClInclude>
   </ItemGroup>

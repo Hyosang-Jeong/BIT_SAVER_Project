@@ -110,6 +110,7 @@ void Music::pitchDefault(int sound_num)
     ErrorCheck(FMOD_Channel_GetPitch(pChannel[sound_num], &pitch));
     pitch = 1.0f;
     ErrorCheck(FMOD_Channel_SetPitch(pChannel[sound_num], pitch));
+
 }
 
 void Music::pitchDown(int sound_num)
@@ -118,6 +119,14 @@ void Music::pitchDown(int sound_num)
     pitch = 0.5f;
     ErrorCheck(FMOD_Channel_SetPitch(pChannel[sound_num], pitch));
 }
+
+bool Music::isPlaying(int sound_num)
+{
+    result = FMOD_Channel_IsPlaying(pChannel[sound_num],&isplaying);
+
+    return isplaying;
+}
+
 
 
 void Music::Release()
@@ -133,6 +142,7 @@ void Music::ErrorCheck(FMOD_RESULT results)
 
     if (results != FMOD_OK) {
         Engine::GetLogger().LogError("Error: there are error in music file");
+        std::cout << static_cast<int>(results);
         //add result where is exact error happen function
         exit(EXIT_FAILURE);
     }

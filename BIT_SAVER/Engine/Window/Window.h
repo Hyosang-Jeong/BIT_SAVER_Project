@@ -12,7 +12,7 @@ Creation date: 2/10/2021
 #include <GL/glew.h> 
 #include <GLFW/glfw3.h>
 #include<glm/glm.hpp>
-extern bool isRepeated;
+
     class Window 
     {
     public:
