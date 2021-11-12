@@ -81,16 +81,12 @@ void Level1::Load()
 			AddGSComponent(new Score());
 			//}
 		
-	
+			Engine::GetMusic().Play(Music::SOUND_NUM::REWIND);
 }
 void Level1::Update(double dt)
 {
-	static bool hi = false;
-	if (hi == false)
-	{
-		Engine::GetMusic().Play(Music::SOUND_NUM::REWIND);
-		hi = true;
-	}
+
+
 	GetGSComponent<Background>()->Update(dt);
 	gameObjectManager->UpdateAll(dt);
 
@@ -128,10 +124,10 @@ void Level1::Update(double dt)
 		Engine::GetGameStateManager().Shutdown();
 	}
 
-	if (OptionSoundUpKey.IsKeyDown() == true)
-	{
-	    Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Option));
-	}
+	//if (OptionSoundUpKey.IsKeyDown() == true)
+	//{
+	//    Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Option));
+	//}
 
 }
 

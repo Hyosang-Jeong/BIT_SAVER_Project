@@ -6,6 +6,5 @@ enum class State {
 	Level1,
 	Option,
 	Gameover,
-	Option,
 	Clear
 };
