@@ -25,7 +25,9 @@ Texture* TextureManager::Load(const char* filePath)
 
 			glTextureStorage2D(image.tex_objhdl, 1, GL_RGBA8, image.width, image.height);
 			glTextureSubImage2D(image.tex_objhdl, 0, 0, 0, image.width, image.height, GL_RGBA, GL_UNSIGNED_BYTE, image.img);
+
 			images[filePath] = new Texture{ image.tex_objhdl,{ image.width, image.height} };
+			stbi_image_free(image.img);
 			Engine::GetLogger().LogDebug("Image loaded" + std::string(filePath));
 	}
 	return images[filePath];
