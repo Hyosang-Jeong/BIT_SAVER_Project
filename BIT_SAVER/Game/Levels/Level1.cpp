@@ -80,7 +80,7 @@ void Level1::Load()
 			AddGSComponent(new MissEmitter());
 			AddGSComponent(new Score());
 			//}
-		
+		 
 			Engine::GetMusic().Play(Music::SOUND_NUM::REWIND);
 }
 void Level1::Update(double dt)
