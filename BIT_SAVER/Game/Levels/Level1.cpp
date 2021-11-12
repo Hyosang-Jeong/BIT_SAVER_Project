@@ -119,15 +119,15 @@ void Level1::Update(double dt)
 	//}
 
 
+	//if (escape.IsKeyDown() == true)
+	//{
+	//	Engine::GetGameStateManager().Shutdown();
+	//}
+
 	if (escape.IsKeyDown() == true)
 	{
-		Engine::GetGameStateManager().Shutdown();
+	    Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Option));
 	}
-
-	//if (OptionSoundUpKey.IsKeyDown() == true)
-	//{
-	//    Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Option));
-	//}
 
 }
 

@@ -86,7 +86,7 @@ void Option::Draw()
 	    Restart->Draw(10, model, "Option", { 0,0 }, { 5,5 });
 	    if (OptionSelectKey.IsKeyDown() == true)
 	    {
-		//Engine::GetGameStateManager().ReloadState();
+		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Level1));
 	    }
 	}
 	if (selectedIndex.x == 2)
