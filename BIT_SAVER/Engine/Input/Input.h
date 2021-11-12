@@ -21,21 +21,22 @@ Creation date: 2/10/2021
 			U, V, W, X, Y, Z,NUM_1,NUM_2,
 			Count
 		};
-		//enum class Mouse {
-		//    None, Left, Count
-		//};
-		//InputKey(Keyboard button);
-		//InputKey(Mouse mouseButton);
-		//bool IsKeyDown() const;
-		//bool IsKeyReleased() const;
-		//bool MouseIsKeyDown() const;
-		//bool MouseIsKeyReleased() const;
+		enum class Mouse {
+		    None, Left, Count
+		};
 		InputKey(Keyboard button);
+		InputKey(Mouse mouseButton);
+
+		bool MouseIsKeyDown() const;
+		bool MouseIsKeyReleased() const;
+		bool MouseIsKeyReapeated() const;
+
 		bool IsKeyDown() const;
 		bool IsKeyReleased() const;
 		bool IsKeyReapeated() const;
 	private:
 		Keyboard button;
+		Mouse mouseButton;
 	};
 
 	class Input
@@ -47,9 +48,18 @@ Creation date: 2/10/2021
 		bool IsKeyReapeated(InputKey::Keyboard key) const;
 		void SetKeyDown(InputKey::Keyboard key, bool value);
 		void Update();
+
+		bool MouseIsKeyDown(InputKey::Mouse key) const;
+		bool MouseIsKeyReleased(InputKey::Mouse key) const;
+		bool MouseIsKeyReapeated(InputKey::Mouse key) const;
+		void MouseSetKeyDown(InputKey::Mouse key, bool value);
+		void MouseUpdate();
 	private:
 		std::vector<bool> keyDown;
 		std::vector<bool> wasKeyDown;
+
+		std::vector<bool> mouseKeyDown;
+		std::vector<bool> mouseWasKeyDown;
 	};
 
 
