@@ -20,7 +20,7 @@ Level1(InputKey::Keyboard::P)
 
 void Mainmenu::Load()
 {
-	Engine::GetText().Load("../font/MochiyPopOne-Regular.ttf", 48);
+	//Engine::GetText().Load("../font/MochiyPopOne-Regular.ttf", 48);
 	//mainmenu = Engine::GetTextureManager().Load("../images/mainmenu.png");
 }
 
