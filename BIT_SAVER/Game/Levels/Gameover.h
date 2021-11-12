@@ -14,7 +14,6 @@ Creation date:
 #include"..\Engine\Input\Input.h"  //input key
 #include"..\..\Engine\Physics\Camera.h"
 #include"../../Engine/Sprite/Texture.h"
-#include "../../Engine/Sprite/Sprite.h"
 class Gameover : public GameState
 {
 public:
@@ -28,8 +27,6 @@ public:
     Texture* gameover;
     InputKey ESCAPE;
 
-
-    GLText text;
 private:
 };
 

@@ -110,6 +110,9 @@
     <ClCompile Include="Game\Levels\Clear.cpp">
       <Filter>Game\Levels</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Text\GLText.cpp">
+      <Filter>Engine\Text</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\GameObject\GameObject.h">
@@ -232,6 +235,9 @@
     <ClInclude Include="Game\Levels\Clear.h">
       <Filter>Game\Levels</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\Text\GLText.h">
+      <Filter>Engine\Text</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Game">
@@ -278,6 +284,9 @@
     </Filter>
     <Filter Include="Engine\Sprite">
       <UniqueIdentifier>{c63e31bc-278e-4a0c-aa57-a3e435e73301}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Text">
+      <UniqueIdentifier>{b5c7a807-2053-42bb-b70d-7989940c53a9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

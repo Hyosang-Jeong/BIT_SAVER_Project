@@ -20,7 +20,7 @@ Clear::Clear() :
 
 void Clear::Load()
 {
-    text.Load("../font/MochiyPopOne-Regular.ttf", 48);
+    //text.Load("../font/MochiyPopOne-Regular.ttf", 48);
 }
 
 void Clear::Update([[maybe_unused]] double dt)
@@ -38,8 +38,8 @@ void Clear::Draw()
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-    text.Draw("Clear!", 0.f, 50.f, 3.f, { 0.5f,0.5f,0.5f });
-    text.Draw("Press Enter to go MainMenu", 0.f, 250.f, 3.f, { 0.5f,0.5f,0.5f });
+    Engine::GetText().Draw("Clear!", 0.f, 50.f, 3.f, { 0.5f,0.5f,0.5f });
+    Engine::GetText().Draw("Press Enter to go MainMenu", 0.f, 250.f, 3.f, { 0.5f,0.5f,0.5f });
 
 }
 void Clear::Unload()
