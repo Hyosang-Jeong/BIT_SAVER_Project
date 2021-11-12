@@ -9,7 +9,7 @@ Creation date: 2/10/2021
 -----------------------------------------------------------------*/
 #pragma once
 #include <vector>
-
+#include <glm/glm.hpp>
 	class InputKey 
 	{
 	public:
@@ -53,6 +53,10 @@ Creation date: 2/10/2021
 		bool MouseIsKeyReleased(InputKey::Mouse key) const;
 		bool MouseIsKeyReapeated(InputKey::Mouse key) const;
 		void MouseSetKeyDown(InputKey::Mouse key, bool value);
+
+		void MouseSetPosition(glm::vec2 newPosition);
+		glm::vec2 MouseGetPosition() const;
+
 		void MouseUpdate();
 	private:
 		std::vector<bool> keyDown;
@@ -60,6 +64,7 @@ Creation date: 2/10/2021
 
 		std::vector<bool> mouseKeyDown;
 		std::vector<bool> mouseWasKeyDown;
+		glm::vec2 mousePosition;
 	};
 
 

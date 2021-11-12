@@ -98,6 +98,14 @@ void Input::MouseSetKeyDown(InputKey::Mouse key, bool value) {
     mouseKeyDown[static_cast<int>(key)] = value;
 }
 
+void Input::MouseSetPosition(glm::vec2 newPosition) {
+    mousePosition = newPosition;
+}
+
+glm::vec2 Input::MouseGetPosition() const {
+    return mousePosition;
+}
+
 void Input::MouseUpdate() {
     mouseWasKeyDown = mouseKeyDown;
 }
