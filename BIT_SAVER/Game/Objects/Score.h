@@ -10,7 +10,6 @@ Creation date:
 #pragma once
 #include "..\..\Engine\Sprite\Texture.h" 
 #include "..\Engine\Component.h" 
-#include "..\..\Engine\Sprite\Sprite.h"
 
 class Score : public Component
 {
@@ -23,6 +22,5 @@ private:
     void RenderText();
     unsigned int combo;
     unsigned int score;
-    GLText scoreTexture;
     std::array<int,4> score_count;
 };

@@ -20,6 +20,7 @@ Creation date: 2/10/2021
 #include"..\Engine\Sprite\TextureManager.h"
 #include"..\Engine\Music\music.h"
 #include"..\Engine\Component.h"
+#include "..\Engine\Text\GLText.h"
 #include<map>
 
 class Engine
@@ -33,6 +34,7 @@ public:
     static Logger& GetLogger() { return Instance().logger; };
     static Input& GetInput() { return Instance().input; }
     static Window& GetWindow() { return Instance().window; }
+    static GLText& GetText() { return Instance().text; };
     static GameStateManager& GetGameStateManager() { return Instance().gameStateManager; }
     static TextureManager& GetTextureManager() { return Instance().texturemanager; }
     static  std::map<std::string, GLSLShader>& GetGLShader() { return Instance().shdrpgms; }
@@ -55,6 +57,7 @@ public:
     int frameCount;
     Music music;
     Logger logger;
+    GLText text;
     GameStateManager gameStateManager;
     Input input;
     Window window;

@@ -20,7 +20,7 @@ Level1(InputKey::Keyboard::P)
 
 void Mainmenu::Load()
 {
-    text.Load("../font/MochiyPopOne-Regular.ttf", 48);
+	Engine::GetText().Load("../font/MochiyPopOne-Regular.ttf", 48);
 	//mainmenu = Engine::GetTextureManager().Load("../images/mainmenu.png");
 }
 
@@ -44,7 +44,7 @@ void Mainmenu::Draw()
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	
 	//mainmenu->Draw(glm::mat3{ 1,0,0,0,1,0,0,0,1 }, model, "Hero");
-	text.Draw("Press P to play", 0.f, 50.f, 3.f, { 0.5f,0.5f,0.5f });
+	Engine::GetText().Draw("Press P to play", 0.f, 50.f, 3.f, { 0.5f,0.5f,0.5f });
 
 }
 void Mainmenu::Unload()
