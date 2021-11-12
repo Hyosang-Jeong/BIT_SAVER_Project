@@ -192,6 +192,7 @@
     <ClCompile Include="Engine\Sprite\Sprite.cpp" />
     <ClCompile Include="Engine\Sprite\Texture.cpp" />
     <ClCompile Include="Engine\Sprite\TextureManager.cpp" />
+    <ClCompile Include="Engine\Text\GLText.cpp" />
     <ClCompile Include="Engine\Window\Window.cpp" />
     <ClCompile Include="Game\Levels\Clear.cpp" />
     <ClCompile Include="Game\Levels\Gameover.cpp" />
@@ -208,6 +209,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Game\Levels\Option.cpp" />
     <ClCompile Include="Game\Levels\Splash.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -273,6 +275,7 @@
     <ClInclude Include="Engine\Sprite\Sprite.h" />
     <ClInclude Include="Engine\Sprite\Texture.h" />
     <ClInclude Include="Engine\Sprite\TextureManager.h" />
+    <ClInclude Include="Engine\Text\GLText.h" />
     <ClInclude Include="Engine\Window\Window.h" />
     <ClInclude Include="Game\Levels\Clear.h" />
     <ClInclude Include="Game\Levels\Gameover.h" />
@@ -289,6 +292,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="Game\Levels\Option.h" />
     <ClInclude Include="Game\Levels\Splash.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>

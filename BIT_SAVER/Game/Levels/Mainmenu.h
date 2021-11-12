@@ -14,7 +14,6 @@ Creation date:
 #include"..\Engine\Input\Input.h"  //input key
 #include"..\..\Engine\Physics\Camera.h"
 #include"../../Engine/Sprite/Texture.h"
-#include "../../Engine/Sprite/Sprite.h"
 class Mainmenu : public GameState
 {
 public:
@@ -29,7 +28,6 @@ public:
 	InputKey ESCAPE;
 	InputKey Level1;
 	GLModel model;
-	GLText text;
 private:
 };
 

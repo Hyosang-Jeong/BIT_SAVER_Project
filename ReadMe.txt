@@ -61,8 +61,6 @@ Run/Build Code:
       * If it happens, the user should rebuild the solution and run it
    * Some recommendation warnings for using enum rather than enum class.
    * GLModel member variables uninitialized warning.
-   * Sometimes clear and game overstate not printed correctly.
-   * When we run release mode, the note generating timing is not correctly. If seems faster than music
 
 
 * What button or command line arguments needed to compile
@@ -79,17 +77,12 @@ Play:
 * Instructions of how to navigate any menus (Buttons, menus, etc)
    * keyboard (F / up) : move the main character to the Top.
    * keyboard (J / down) : move the main character to the bottom.
-   * keyboard (ESC) : pause button.
-      * Keyboard up, down to switch options
-      * Volume up, down with keyboard left, right
-      * Keyboard enter on restart will restart current stage
-      * Keyboard enter on quit will go back to Main Menu
-      * Pressing pause button once more will resume current stage
+   * keyboard (ESC) : Closes window.
 
 
 * Gameplay instructions (How to play the game)
    * The player has a life bar on top of the character, and every time the node is missed, life decreases.
-   * If it’s life bar disappears(life == 0), the game is over.
+   * If it’s life bar disappears(life == 0), the game is over( Closes window ).
    * In one stage, we have two different scenes.
 
 
@@ -107,18 +100,21 @@ Play:
         
 * Expected final goal/result/boss
    * The playtime will be roughly 3 and a half minutes.
-   * If the small character runs although the end(The song is finished), the stage is cleared and the results, descriptions to go to MainMenu pops up.
+   * If the small character runs although the end(The song is finished) the stage is cleared.
+   * If the song is no longer playing, shut down with ESC.
 
 
 ________________
 
 FAQ/Common Mistakes:
 * Common installation mistakes that people might make
-   * Just unzip it. Open BIT_SAVER.sln. Press Ctrl + F5
+   * Just unzip it. Open BIT_SAVER.sln. Don't set the build mode to Release. Press Ctrl + F5 
 * Any common errors or crashes that may occur
    * In the solution directory, there should be lib files.
 * Gameplay errors
    * The particles that needed to be disappeared popped up randomly.
+   * On some computers, the note generating timing is not correct.
+   * You have to manualy close the window when the stage is cleared(Song is no longer playing) with ESC.
 
 ________________
 

@@ -122,11 +122,17 @@ void Level1::Update(double dt)
 	//	Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Gameover));
 	//}
 
+
 	if (escape.IsKeyDown() == true)
 	{
 		Engine::GetGameStateManager().Shutdown();
 	}
-	
+
+	if (OptionSoundUpKey.IsKeyDown() == true)
+	{
+	    Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Option));
+	}
+
 }
 
 void Level1::Draw()

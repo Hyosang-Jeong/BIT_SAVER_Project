@@ -22,6 +22,10 @@ bool InputKey::IsKeyReleased() const
 {
 	return Engine::GetInput().IsKeyReleased(button);
 }
+bool InputKey::IsKeyReapeated() const
+{
+    return Engine::GetInput().IsKeyReapeated(button);
+}
 
 Input::Input()
 {
@@ -46,6 +50,15 @@ bool Input::IsKeyReleased(InputKey::Keyboard key) const
 		return true;
 	}
 	return false;
+}
+
+bool Input::IsKeyReapeated(InputKey::Keyboard key) const
+{
+    if (keyDown[static_cast<int>(key)] == true && wasKeyDown[static_cast<int>(key)] == false)
+    {
+	return true;
+    }
+    return false;
 }
 
 void  Input::SetKeyDown(InputKey::Keyboard key, bool value)
