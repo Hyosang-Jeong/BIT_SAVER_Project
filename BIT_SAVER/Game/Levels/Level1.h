@@ -21,6 +21,16 @@ class EnergyBar;
 class Stage_bar;
 class GLText;
 class Fever_bar;
+
+
+enum class STATE
+{
+	EXTRA,
+	GENERATING,
+	OPTION,
+	FINISH
+};
+
 class Level1 : public GameState
 {
 public:
@@ -32,22 +42,7 @@ public:
 	void Draw() override;
 	
 private:
-
-	Texture* textureAll;
-	Texture* sound1;
-	Texture* sound2;
-	Texture* sound3;
-	Texture* sound4;
-	Texture* Restart;
-	Texture* Quit;
-	GLModel model;
-
 	InputKey escape;
-	InputKey OptionUpKey;
-	InputKey OptionDownKey;
-	InputKey OptionSoundUpKey;
-	InputKey OptionSoundDownKey;
-	InputKey OptionSelectKey;
 
 	Hero* heroPtr;
 	Boss* bossPtr;
@@ -59,9 +54,6 @@ private:
 	Fever_bar* feverBar;
 	Camera camera;
 	GameObjectManager* gameObjectManager;
+	STATE gamestate;
 	//GLText* text;
-	int curr_state;
-
-	bool isOption;
-	glm::vec2 selectedIndex;
 };

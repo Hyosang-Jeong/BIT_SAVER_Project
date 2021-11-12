@@ -18,7 +18,7 @@ class EnergyBar : public GameObject
 public:
     EnergyBar(glm::vec2 startPos);
     void Update(double dt) override;
-
+    bool Isgameover();
     GameObjectType GetObjectType() override
     {
         return GameObjectType::Energy_bar;

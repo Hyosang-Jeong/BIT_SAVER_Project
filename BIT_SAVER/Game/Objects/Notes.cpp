@@ -50,11 +50,6 @@ void Note::Update(double dt)
 		energy->SetScale(glm::vec2{ energy->GetScale().x - (dt / 10),energy->GetScale().y });
 		energy->UpdatePosition(glm::vec2{ -(dt / 10),0 });
 	    }
-
-		else if (energy->GetScale().x < 0)
-		{
-			Engine::GetGameStateManager().Shutdown();
-		}
 	}	
 }
 

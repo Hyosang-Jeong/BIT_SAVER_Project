@@ -28,7 +28,6 @@ public:
     Texture* gameover;
     InputKey ESCAPE;
 
-
     GLText text;
 private:
 };

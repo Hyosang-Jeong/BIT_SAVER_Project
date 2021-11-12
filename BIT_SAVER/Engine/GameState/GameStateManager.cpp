@@ -36,6 +36,25 @@ void GameStateManager::ReloadState()
 {
 	state = State::UNLOAD;
 }
+GameState* GameStateManager::Find(std::string state_name)
+{
+	for (auto  i = 0; i < gameStates.size(); i++)
+	{
+		if (gameStates[i]->GetName() == state_name)
+		{
+			return gameStates[i];
+		}
+	}
+	return nullptr;
+}
+GameState* GameStateManager::GetCurrstate()
+{
+	return currGameState;
+}
+GameState* GameStateManager::GetNextstate()
+{
+	return nextGameState;
+}
 void GameStateManager::Update(double dt)
 {
 	switch (state)
@@ -79,6 +98,7 @@ void GameStateManager::Update(double dt)
 
 		break;
 	}
+
 	case State::UNLOAD:
 	{
 		Engine::GetLogger().LogEvent("Unload " + currGameState->GetName());
