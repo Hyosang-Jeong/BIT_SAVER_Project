@@ -26,7 +26,6 @@ public:
     std::string GetName() override { return "Gameover"; }
     Texture* gameover;
     InputKey ESCAPE;
-
 private:
 };
 

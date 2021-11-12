@@ -5,22 +5,20 @@ written consent of DigiPen Institute of Technology is prohibited.
 File Name: Gameover.cpp
 Project: BIT_SAVER
 Author:
-Creation date: 3/07/2021
+Creation date: 
 -----------------------------------------------------------------*/
 #include "../Engine/Engine.h"	//GetGameStateManage
-#include"Mainmenu.h"
 #include"State.h"
 #include "Gameover.h"
 
 Gameover::Gameover() :
     ESCAPE(InputKey::Keyboard::Enter)
 {
-
+    gameover = nullptr;
 }
 
 void Gameover::Load()
 {
-
 }
 
 void Gameover::Update([[maybe_unused]] double dt)
@@ -28,7 +26,7 @@ void Gameover::Update([[maybe_unused]] double dt)
 
     if (ESCAPE.IsKeyDown() == true)
     {
-	Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
+	    Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
     }
 
 }
