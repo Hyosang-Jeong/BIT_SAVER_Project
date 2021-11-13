@@ -10,6 +10,7 @@ Creation date: 2021-03-07
 -----------------------------------------------------------------*/
 #include"Engine.h"
 #include<time.h>  //time
+
 Engine::Engine() :frameCount(0), lastTick(std::chrono::system_clock::now()),
 #ifdef _DEBUG				
 logger(Logger::Severity::Debug, true, lastTick)
@@ -27,6 +28,10 @@ void Engine::Init(std::string windowName)
 	init_shdrpgms();
 	fpsCalcTime = lastTick;
 	GetMusic().Init();
+	GetText().Init();
+
+	GetText().Load("../font/MochiyPopOne-Regular.ttf", 48);
+	GetText().Load("../font/PressStart2P-Regular.ttf", 20);
 }
 
 void Engine::Shutdown()

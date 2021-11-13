@@ -23,6 +23,10 @@ public:
 	void Shutdown();
 	void ReloadState();
 	bool HasGameEnded() { return state == State::EXIT; }
+	GameState* Find(std::string state_name);
+	GameState* GetCurrstate();
+	GameState* GetNextstate();
+
 
 	template<typename T>
 	T* GetGSComponent()

@@ -9,7 +9,7 @@ Creation date: 2/10/2021
 -----------------------------------------------------------------*/
 #pragma once
 #include <vector>
-
+#include <glm/glm.hpp>
 	class InputKey 
 	{
 	public:
@@ -21,12 +21,22 @@ Creation date: 2/10/2021
 			U, V, W, X, Y, Z,NUM_1,NUM_2,
 			Count
 		};
-
+		enum class Mouse {
+		    None, Left, Count
+		};
 		InputKey(Keyboard button);
+		InputKey(Mouse mouseButton);
+
+		bool MouseIsKeyDown() const;
+		bool MouseIsKeyReleased() const;
+		bool MouseIsKeyReapeated() const;
+
 		bool IsKeyDown() const;
 		bool IsKeyReleased() const;
+		bool IsKeyReapeated() const;
 	private:
 		Keyboard button;
+		Mouse mouseButton;
 	};
 
 	class Input
@@ -35,11 +45,26 @@ Creation date: 2/10/2021
 		Input();
 		bool IsKeyDown(InputKey::Keyboard key) const;
 		bool IsKeyReleased(InputKey::Keyboard key) const;
+		bool IsKeyReapeated(InputKey::Keyboard key) const;
 		void SetKeyDown(InputKey::Keyboard key, bool value);
 		void Update();
+
+		bool MouseIsKeyDown(InputKey::Mouse key) const;
+		bool MouseIsKeyReleased(InputKey::Mouse key) const;
+		bool MouseIsKeyReapeated(InputKey::Mouse key) const;
+		void MouseSetKeyDown(InputKey::Mouse key, bool value);
+
+		void MouseSetPosition(glm::vec2 newPosition);
+		glm::vec2 MouseGetPosition() const;
+
+		void MouseUpdate();
 	private:
 		std::vector<bool> keyDown;
 		std::vector<bool> wasKeyDown;
+
+		std::vector<bool> mouseKeyDown;
+		std::vector<bool> mouseWasKeyDown;
+		glm::vec2 mousePosition;
 	};
 
 

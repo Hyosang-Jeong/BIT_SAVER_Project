@@ -50,13 +50,6 @@ void Note::Update(double dt)
 		energy->SetScale(glm::vec2{ energy->GetScale().x - (dt / 10),energy->GetScale().y });
 		energy->UpdatePosition(glm::vec2{ -(dt / 10),0 });
 	    }
-
-		else if (energy->GetScale().x < 0)
-		{
-		    Engine::GetLogger().LogEvent("Game Over!");
-
-			Engine::GetGameStateManager().Shutdown();
-		}
 	}	
 }
 
@@ -76,7 +69,8 @@ void Note::Hit_Check()
 
 	if (Score_check()== static_cast<int>(SCORE::PERFECT) && GetPosition().y > 0)
 	{
-		if (UpAttackKey1.IsKeyDown() == true || UpAttackKey2.IsKeyDown() == true && isRepeated==false)
+		if ((UpAttackKey1.IsKeyDown() == true || UpAttackKey2.IsKeyDown() == true) &&
+		    ( UpAttackKey2.IsKeyReapeated()==false && UpAttackKey1.IsKeyReapeated() == false))
 		{
 			Engine::GetGSComponent<HitEmitter>()->Emit(1, GetPosition(), { 0,0 }, { 0,0 }, 0);
 			Engine::GetGSComponent<PerfectEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
@@ -86,7 +80,8 @@ void Note::Hit_Check()
 	}
 	else if (Score_check() == static_cast<int>(SCORE::GOOD) && GetPosition().y > 0)
 	{
-		if (UpAttackKey1.IsKeyDown() == true || UpAttackKey2.IsKeyDown() == true && isRepeated == false)
+	    if ((UpAttackKey1.IsKeyDown() == true || UpAttackKey2.IsKeyDown() == true) &&
+		(UpAttackKey2.IsKeyReapeated() == false && UpAttackKey1.IsKeyReapeated() == false))
 		{
 			Engine::GetGSComponent<HitEmitter>()->Emit(1, GetPosition(), { 0,0 }, { 0,0 }, 0);
 			Engine::GetGSComponent<GoodEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
@@ -96,7 +91,8 @@ void Note::Hit_Check()
 	}
 	else if (Score_check() == static_cast<int>(SCORE::BAD) && GetPosition().y > 0)
 	{
-		if (UpAttackKey1.IsKeyDown() == true || UpAttackKey2.IsKeyDown() == true && isRepeated == false)
+	    if ((UpAttackKey1.IsKeyDown() == true || UpAttackKey2.IsKeyDown() == true) &&
+		(UpAttackKey2.IsKeyReapeated() == false && UpAttackKey1.IsKeyReapeated() == false))
 		{
 			Engine::GetGSComponent<HitEmitter>()->Emit(1, GetPosition(), { 0,0 }, { 0,0 }, 0);
 			Engine::GetGSComponent<BadEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
@@ -107,7 +103,8 @@ void Note::Hit_Check()
 
 	if (Score_check() == static_cast<int>(SCORE::PERFECT) && GetPosition().y < 0)
 	{
-		if (DownAttackKey1.IsKeyDown() == true || DownAttackKey2.IsKeyDown() == true && isRepeated == false)
+		if ((DownAttackKey1.IsKeyDown() == true || DownAttackKey2.IsKeyDown() == true) && 
+		    (DownAttackKey1.IsKeyReapeated() == false && DownAttackKey2.IsKeyReapeated()==false))
 		{
 			Engine::GetGSComponent<HitEmitter>()->Emit(1, GetPosition(), { 0,0 }, { 0,0 }, 0);
 			Engine::GetGSComponent<PerfectEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
@@ -118,7 +115,8 @@ void Note::Hit_Check()
 
 	else if (Score_check() == static_cast<int>(SCORE::GOOD) && GetPosition().y < 0)
 	{
-		if (DownAttackKey1.IsKeyDown() == true || DownAttackKey2.IsKeyDown() == true && isRepeated == false)
+	    if ((DownAttackKey1.IsKeyDown() == true || DownAttackKey2.IsKeyDown() == true) &&
+		(DownAttackKey1.IsKeyReapeated() == false && DownAttackKey2.IsKeyReapeated() == false))
 		{
 			Engine::GetGSComponent<HitEmitter>()->Emit(1, GetPosition(), { 0,0 }, { 0,0 }, 0);
 			Engine::GetGSComponent<GoodEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
@@ -128,11 +126,14 @@ void Note::Hit_Check()
 	}
 	else if (Score_check() == static_cast<int>(SCORE::BAD)	&& GetPosition().y < 0)
 	{
-		if (DownAttackKey1.IsKeyDown() == true || DownAttackKey2.IsKeyDown() == true && isRepeated == false)
+	    if ((DownAttackKey1.IsKeyDown() == true || DownAttackKey2.IsKeyDown() == true) &&
+		(DownAttackKey1.IsKeyReapeated() == false && DownAttackKey2.IsKeyReapeated() == false))
 		{
+
 			Engine::GetGSComponent<BadEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
 			Engine::GetGSComponent<Score>()->AddScore(Score_check());
 			set_destroy(true);
+		    
 		}
 	}
 

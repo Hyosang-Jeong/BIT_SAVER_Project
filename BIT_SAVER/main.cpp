@@ -4,11 +4,13 @@
 #include"Engine/Engine.h"
 #include "..\BIT_SAVER\Engine\Music\music.h"
 #include"Game\Levels\Level1.h"
+#include"Game\Levels\Option.h"
 #include"Game\Levels\Gameover.h"
 #include"Game\Levels\Clear.h"
 #include"Game\Levels\Splash.h"
 #include"Game\Levels\Mainmenu.h"
 #include"Engine/Input/Input.h"
+#include"Game\Levels\Gameover.h"
 
 int main()
 {
@@ -18,11 +20,14 @@ int main()
 	Splash splash;
 	Mainmenu main_menu;
 	Level1 level1;
-
+	Option option;
+	Gameover gameover;
 
 	engine.GetGameStateManager().AddGameState(splash);
 	engine.GetGameStateManager().AddGameState(main_menu);
 	engine.GetGameStateManager().AddGameState(level1);
+	engine.GetGameStateManager().AddGameState(option);
+	engine.GetGameStateManager().AddGameState(gameover);
 	
 	while (engine.HasGameEnded() == false)
 	{
