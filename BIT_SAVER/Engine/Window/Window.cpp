@@ -186,6 +186,8 @@ void Window::mousebutton_cb([[maybe_unused]] GLFWwindow* pwin, int button, int a
 #endif
         break;
     case GLFW_RELEASE:
+        key = GLMOUSEKEY_TO_GAME(button);
+        Engine::GetInput().MouseSetKeyDown(key, false);
 #ifdef _DEBUG
         Engine::GetLogger().LogDebug("released! ");
 #endif
@@ -198,7 +200,7 @@ void Window::mousepos_cb([[maybe_unused]] GLFWwindow* pwin, [[maybe_unused]] dou
 {
     Engine::GetInput().MouseSetPosition({ xpos,ypos });
 #ifdef _DEBUG
-        std::cout << "Mouse cursor position: (" << xpos << ", " << ypos << ")" << std::endl;
+
 #endif
     
 }

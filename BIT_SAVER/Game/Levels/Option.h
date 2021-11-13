@@ -53,6 +53,7 @@ private:
     int curr_state;
 
     bool isOption;
+    bool mouseSwitch;
     glm::vec2 selectedIndex;
     glm::vec2 SoundBallPosition;
     glm::vec2 SoundBallScale;

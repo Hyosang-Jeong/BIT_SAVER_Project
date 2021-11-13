@@ -65,6 +65,7 @@ Creation date: 2/10/2021
 		std::vector<bool> mouseKeyDown;
 		std::vector<bool> mouseWasKeyDown;
 		glm::vec2 mousePosition;
+
 	};
 
 

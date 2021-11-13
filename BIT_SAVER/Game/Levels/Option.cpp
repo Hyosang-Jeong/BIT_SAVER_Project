@@ -20,6 +20,7 @@ Option::Option() :
     OptionSoundDownKey(InputKey::Keyboard::Left),
     OptionSelectKey(InputKey::Keyboard::Enter),
     isOption(false),
+    mouseSwitch(false),
     selectedIndex(glm::vec2{ 0,1 }),
     SoundBallPosition(glm::vec2{ 0,5 }),
     SoundBallScale(glm::vec2{ 0.2,0.2 }),
@@ -64,14 +65,26 @@ void Option::Update([[maybe_unused]] double dt)
     mousePosition = world_to_ndc * glm::vec3(mousePosition,1);
 
     GetIndex();
+
     if (IsInBox(SoundBallPosition))
     {
 	//smallSoundBall->Draw(10, model, "Option", SoundBallPosition, { SoundBallScale.x + 5 ,SoundBallScale.y + 5 });
 	if (MouseKey.MouseIsKeyDown() == true)
 	{
-	std::cout << "AAAAAAAAAAA" << std::endl;
+	    mouseSwitch = true;
+	}
+	else
+	{
+	    mouseSwitch = false;
+	}
+    }
+    if (mouseSwitch == true && MouseKey.MouseIsKeyDown()==true)
+    {
+	if (mousePosition.x > -2.0 && mousePosition.x < 2.0)
+	{
 	    SoundBallPosition.x = mousePosition.x;
 	}
+	Engine::GetMusic().SetVolume(Engine::GetMusic().REWIND, ((mousePosition.x) + 2.f)/4.f);
     }
 }
 
