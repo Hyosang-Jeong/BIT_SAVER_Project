@@ -21,7 +21,7 @@ Creation date: 3/07/2021
 #include"../../Engine/Sprite/GameParticles.h"
 #include"../Objects/Score.h"
 #include"../Objects/fever.h"
-
+#include"../Levels/Option.h"
 Level1::Level1() :
 	escape(InputKey::Keyboard::Escape),
 	camera({ 0,0 })
@@ -42,46 +42,49 @@ Level1::Level1() :
 
 void Level1::Load()
 {
-	//if (static_cast<Option*>(Engine::GetGameStateManager().Find("Option"))->Isresume() != false)
-	
-		//	if (Engine::GetGameStateManager().Find("Option").Isrestart() == true))
-		
-			//	this->Unload();
-		//	}
-			gameObjectManager = new GameObjectManager();
-			heroPtr = new Hero({ -4,-5 });
-			backPtr = new Background();
-			trackPtr = new Track(Music::SOUND_NUM::REWIND);
-			notebox = new Note_box({ -4,0 });
-			bossPtr = new Boss({ 15,-5 });
-			energyBar = new EnergyBar({ -4,1.2 });
-			stageBar = new Stage_bar({ -10,9 }, 204, 82);   // total music time 204  ,  extra time 82
+	if (static_cast<Option*>(Engine::GetGameStateManager().Find("Option"))->GetSelect() != RESUME)
+	{
+		if (static_cast<Option*>(Engine::GetGameStateManager().Find("Option"))->GetSelect() == RESTART)
+		{
+			this->Unload();
+		}
+		gameObjectManager = new GameObjectManager();
+		heroPtr = new Hero({ -4,-5 });
+		backPtr = new Background();
+		trackPtr = new Track(Music::SOUND_NUM::REWIND);
+		notebox = new Note_box({ -4,0 });
+		bossPtr = new Boss({ 15,-5 });
+		energyBar = new EnergyBar({ -4,1.2 });
+		stageBar = new Stage_bar({ -10,9 }, 204, 82);   // total music time 204  ,  extra time 82
 
-			backPtr->Add("../images/background1.png", 0);
-			backPtr->Add("../images/parallax1-5.png", 0.5);
-			backPtr->Add("../images/parallax1-4.png", 0.8);
-			backPtr->Add("../images/parallax1-3.png", 1.1);
-			backPtr->Add("../images/parallax1-2.png", 1.3);
-			backPtr->Add("../images/parallax1-1.png", 1.5);
+		backPtr->Add("../images/background1.png", 0);
+		backPtr->Add("../images/parallax1-5.png", 0.5);
+		backPtr->Add("../images/parallax1-4.png", 0.8);
+		backPtr->Add("../images/parallax1-3.png", 1.1);
+		backPtr->Add("../images/parallax1-2.png", 1.3);
+		backPtr->Add("../images/parallax1-1.png", 1.5);
 
-			AddGSComponent(gameObjectManager);
-			AddGSComponent(backPtr);
+		AddGSComponent(gameObjectManager);
+		AddGSComponent(backPtr);
 
-			gameObjectManager->Add(heroPtr);
-			gameObjectManager->Add(bossPtr);
-			gameObjectManager->Add(notebox);
-			gameObjectManager->Add(trackPtr);
-			gameObjectManager->Add(energyBar);
-			gameObjectManager->Add(stageBar);
-			AddGSComponent(new HitEmitter());
-			AddGSComponent(new PerfectEmitter());
-			AddGSComponent(new GoodEmitter());
-			AddGSComponent(new BadEmitter());
-			AddGSComponent(new MissEmitter());
-			AddGSComponent(new Score());
-			//}
-		 
-			Engine::GetMusic().Play(Music::SOUND_NUM::REWIND);
+		gameObjectManager->Add(heroPtr);
+		gameObjectManager->Add(bossPtr);
+		gameObjectManager->Add(notebox);
+		gameObjectManager->Add(trackPtr);
+		gameObjectManager->Add(energyBar);
+		gameObjectManager->Add(stageBar);
+		AddGSComponent(new HitEmitter());
+		AddGSComponent(new PerfectEmitter());
+		AddGSComponent(new GoodEmitter());
+		AddGSComponent(new BadEmitter());
+		AddGSComponent(new MissEmitter());
+		AddGSComponent(new Score());
+		Engine::GetMusic().Play(Music::SOUND_NUM::REWIND);
+	}
+	else
+	{
+		Engine::GetMusic().Resume(Music::SOUND_NUM::REWIND);
+	}
 }
 void Level1::Update(double dt)
 {
@@ -143,8 +146,8 @@ void Level1::Draw()
 void Level1::Unload()
 {
 	Engine::GetMusic().Pause(Music::SOUND_NUM::REWIND);
-	//if (Engine::GetGameStateManager().GetNextstate()->GetName() != "Option")
-	//{
+	if (Engine::GetGameStateManager().GetNextstate()->GetName() != "Option")
+	{
 		heroPtr = nullptr;
 		trackPtr = nullptr;
 		notebox = nullptr;
@@ -154,5 +157,5 @@ void Level1::Unload()
 		stageBar = nullptr;
 		gameObjectManager->Unload();
 		ClearGSComponent();
-	//}
+	}
 }

@@ -24,6 +24,7 @@ Option::Option() :
 {
     gameObjectManager = nullptr;
     curr_state = 0;
+	select = SOUND;
 }
 
 void Option::Load()
@@ -86,7 +87,8 @@ void Option::Draw()
 	    Restart->Draw(10, model, "Option", { 0,0 }, { 5,5 });
 	    if (OptionSelectKey.IsKeyDown() == true)
 	    {
-		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Level1));
+			select = RESUME;
+			Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Level1));
 	    }
 	}
 	if (selectedIndex.x == 2)
@@ -159,4 +161,9 @@ void Option::GetIndex()
 	    }
 	}
     }
+}
+
+Select Option::GetSelect()
+{
+	return select;
 }

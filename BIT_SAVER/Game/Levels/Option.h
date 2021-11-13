@@ -14,6 +14,16 @@ Creation date: 3/07/2021
 #include"../../Engine/Sprite/Texture.h"
 class GLText;
 
+enum Select
+{
+    SOUND,
+    RESUME,
+    RESTART,
+    MAINMENU,
+    QUIT
+};
+
+
 class Option : public GameState
 {
 public:
@@ -21,9 +31,10 @@ public:
     void Load() override;
     void Update(double dt) override;
     void Unload() override;
-    std::string GetName() { return "Level1"; }
+    std::string GetName() { return "Option"; }
     void Draw() override;
     void GetIndex();
+    Select GetSelect();
 private:
 
     Texture* textureAll;
@@ -47,4 +58,6 @@ private:
 
     bool isOption;
     glm::vec2 selectedIndex;
+
+    Select select;
 };

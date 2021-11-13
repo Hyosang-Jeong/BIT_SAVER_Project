@@ -55,12 +55,13 @@ void GameObject::Update(double dt)
    glm::mat3 ndcscale_matrix
    {
       1.0 / world_range  ,0  ,0,
-       0,  1 / world_range ,0,
+       0,  1 / world_range ,0, 
        0,0,1
    };
    //collision.UpdateCollision(position);
    texture_ndc = scale / 2.f;
     mdl_to_ndc_xform = ndcscale_matrix* trans_matrix  *rotation_matrix* scale_matrix;
+
 }
 
 void GameObject::Draw(glm::mat3 camera_matrix)
