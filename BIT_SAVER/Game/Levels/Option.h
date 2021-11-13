@@ -44,7 +44,12 @@ private:
 
     GLModel model;
 
-
+    InputKey escape;
+    InputKey OptionUpKey;
+    InputKey OptionDownKey;
+    InputKey OptionSoundUpKey;
+    InputKey OptionSoundDownKey;
+    InputKey OptionSelectKey;
     InputKey MouseKey;
 
 
