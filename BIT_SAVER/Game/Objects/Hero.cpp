@@ -34,51 +34,7 @@ Hero::Hero(glm::vec2 startPos) :
 void Hero::Update(double dt)
 {
     GameObject::Update(dt);
-
     UpdateXVelocity(dt);
-    //if (hero_state == RUN_ENTER)
-    //{
-    //    GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(hero_anim::hero_run));
-    //    hero_state = RUN;
-    //}
-
-    //else if (hero_state == UP_ENTER)
-    //{
-    //    GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(hero_anim::up_attck));
-    //    hero_state = UP;
-    //}
-
-    //else if (hero_state == DOWN_ENTER)
-    //{
-    //    if (GetGOComponent<Sprite>()->IsAnimationDone() == true)
-    //    {
-    //        GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(hero_anim::down));
-    //        hero_state = RUN_ENTER;
-    //    }
-    //}
-
-    //else if (hero_state == DOWN_ATTACK_ENTER)
-    //{
-    //    GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(hero_anim::up_attck));
-    //    hero_state = DOWN_ATTACK;
-    //}
-    //else if (hero_state == DOWN_ATTACK)
-    //{
-    //    if (GetGOComponent<Sprite>()->IsAnimationDone() == true)
-    //    {
-    //        GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(hero_anim::up_attck));
-    //        hero_state = RUN_ENTER;
-    //    }
-    //
-    //}
-    //else if (hero_state == DOWN)
-    //{ 
-    //    if (GetPosition().y == -5)
-    //    {
-    //        hero_state = RUN_ENTER;
-    //    }
-    //}
-
     GetGOComponent<Collision>()->UpdateCollision(GetPosition(),GetScale());
 }
 

@@ -16,7 +16,6 @@ class GameStateManager
 {
 public:
 	GameStateManager();
-
 	void AddGameState(GameState& gameState);
 	void Update(double dt);
 	void SetNextState(int initState);
@@ -26,7 +25,6 @@ public:
 	GameState* Find(std::string state_name);
 	GameState* GetCurrstate();
 	GameState* GetNextstate();
-
 
 	template<typename T>
 	T* GetGSComponent()

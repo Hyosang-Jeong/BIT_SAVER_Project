@@ -5,6 +5,6 @@ enum class State {
 	MainMenu,
 	Level1,
 	Option,
-	Gameover,
-	Clear
+	Clear,
+	Gameover
 };

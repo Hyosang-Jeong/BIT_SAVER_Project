@@ -26,7 +26,6 @@ Level1::Level1() :
 	escape(InputKey::Keyboard::Escape),
 	camera({ 0,0 })
 {
-	//camera = glm::vec2{ 0,0 };
 	gameObjectManager = nullptr;
 	heroPtr = nullptr;
 	trackPtr = nullptr;
@@ -89,14 +88,16 @@ void Level1::Load()
 		AddGSComponent(new MissEmitter());
 		AddGSComponent(new Score());
 	}
-	else
+	else // resume
 	{
-		Engine::GetMusic().Resume(Music::SOUND_NUM::REWIND);
+		if (Engine::GetMusic().isPlaying(Music::SOUND_NUM::REWIND) == true)
+		{
+			Engine::GetMusic().Resume(Music::SOUND_NUM::REWIND);
+		}
 	}
 }
 void Level1::Update(double dt)
 {
-
 
 	GetGSComponent<Background>()->Update(dt);
 	gameObjectManager->UpdateAll(dt);
@@ -120,21 +121,18 @@ void Level1::Update(double dt)
 
 		feverBar = new Fever_bar({ -20,-9 });
 		gameObjectManager->Add(feverBar);
-
 		gamestate = STATE::FINISH;
 	}
 
-	//if (energyBar->Isgameover() == true)
-	//{
-	//	Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Gameover));
-	//}
-
-
-	//if (escape.IsKeyDown() == true)
-	//{
-	//	Engine::GetGameStateManager().Shutdown();
-	//}
-
+	if (energyBar->Isgameover() == true)
+	{
+		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Gameover));
+	}
+	
+	if (Engine::GetMusic().isPlaying(Music::SOUND_NUM::REWIND) == false)
+	{
+		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Clear));
+	}
 	if (escape.IsKeyDown() == true)
 	{
 	    Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Option));
@@ -154,11 +152,14 @@ void Level1::Draw()
 
 void Level1::Unload()
 {
-	Engine::GetMusic().Pause(Music::SOUND_NUM::REWIND);
+
+
+	if (Engine::GetMusic().isPlaying(Music::SOUND_NUM::REWIND) == true)
+	{
+		Engine::GetMusic().Pause(Music::SOUND_NUM::REWIND);
+	}
 	if (Engine::GetGameStateManager().GetNextstate() != nullptr)
 	{
-
-
 	    if (Engine::GetGameStateManager().GetNextstate()->GetName() != "Option")
 	    {
 		heroPtr = nullptr;
