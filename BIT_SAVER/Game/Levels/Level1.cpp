@@ -46,7 +46,15 @@ void Level1::Load()
 	{
 		if (static_cast<Option*>(Engine::GetGameStateManager().Find("Option"))->GetSelect() == RESTART)
 		{
-			this->Unload();
+		    heroPtr = nullptr;
+		    trackPtr = nullptr;
+		    notebox = nullptr;
+		    bossPtr = nullptr;
+		    backPtr = nullptr;
+		    energyBar = nullptr;
+		    stageBar = nullptr;
+		    gameObjectManager->Unload();
+		    ClearGSComponent();
 		}
 		gameObjectManager = new GameObjectManager();
 		heroPtr = new Hero({ -4,-5 });
