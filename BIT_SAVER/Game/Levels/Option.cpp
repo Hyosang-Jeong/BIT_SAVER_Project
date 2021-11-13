@@ -32,6 +32,11 @@ Option::Option() :
     MouseKey(InputKey::Mouse::Left)
 {
     select = -1;
+}
+
+void Option::Load()
+{
+	select = 0;
     w = Engine::GetWindow().GetSize().x;
     h = Engine::GetWindow().GetSize().y;
     textureAll = Engine::GetTextureManager().Load("../images/Pause_screen.png");
