@@ -61,6 +61,9 @@ void Option::Update( double dt)
 
 void Option::Draw()
 {
+	const std::string font1{ "../font/MochiyPopOne-Regular.ttf" };
+	const std::string font2{ "../font/PressStart2P-Regular.ttf" };
+
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
@@ -68,29 +71,49 @@ void Option::Draw()
 	textureAll->Draw(10, model, "Option", { 0,0 }, { 10,10 });
 	bigSoundBall->Draw(10, model, "Option", SoundBallPosition, { 0.3,0.3 });
 	smallSoundBall->Draw(10, model, "Option", SoundBallPosition, smallsoundballScale);
-	//
-	//
-	//
-	//
+
+
+	glm::vec2 window_pos = Engine::GetWindow().GetSize();
+	window_pos.x *= 0.5;
+	window_pos.y *= 0.5;
+
+	glm::vec2 offset(50, 100);
+	//int offset_x = 0;
+	//int offset_y = 0;
+
+	Engine::GetText(font2).Draw("RESUME", window_pos.x - offset.x, window_pos.y - offset.y , 1.f, glm::vec3(1.0f, 1.f, 1.f));
+
 
 	if (select == Select::RESUME)
 	{
-	    //Restart->Draw(10, model, "Option", { 0,0 }, { 5,5 });
+		Engine::GetText(font2).Draw("RESUME", window_pos.x - offset.x, window_pos.y - offset.y, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
 
 	}
+	offset.y -= 105;
+
+	Engine::GetText(font2).Draw("RESTART", window_pos.x - offset.x, window_pos.y - offset.y, 1.f, glm::vec3(1.0f, 1.f, 1.f));
 	if (select == Select::RESTART)
 	{
-	    //Restart->Draw(10, model, "Option", { 0,0 }, { 5,5 });
+		Engine::GetText(font2).Draw("RESTART", window_pos.x - offset.x, window_pos.y - offset.y, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
 
 	}
-	if (select == Select::MAINMENU)
-	{
-	    //Quit->Draw(10, model, "Option", { 0,0 }, { 5,5 });
-	}
+
+	offset.y -= 105;
+
+	Engine::GetText(font2).Draw("MAIN MENU", window_pos.x - offset.x, window_pos.y - offset.y, 1.f, glm::vec3(1.0f, 1.f, 1.f));
+
 	if (select == Select::QUIT)
 	{
-	    //Quit->Draw(10, model, "Option", { 0,0 }, { 5,5 });
+		Engine::GetText(font2).Draw("MAIN MENU", window_pos.x - offset.x, window_pos.y - offset.y, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
 	}
+	offset.y -= 105;
+
+	Engine::GetText(font2).Draw("QUIT", window_pos.x - offset.x, window_pos.y - offset.y, 1.f, glm::vec3(1.0f, 1.f, 1.f));
+	if (select == Select::QUIT)
+	{
+		Engine::GetText(font2).Draw("QUIT", window_pos.x - offset.x, window_pos.y - offset.y, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
+	}
+
 }
 
 
