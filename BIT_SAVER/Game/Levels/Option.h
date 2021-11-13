@@ -9,7 +9,6 @@ Creation date: 3/07/2021
 -----------------------------------------------------------------*/
 #pragma once
 #include "..\Engine\GameState\GameState.h" // BIT_SAVER::GameState
-#include "..\Engine\GameObject\GameObjectManager.h" // gameobjectmanager
 #include"..\Engine\Input\Input.h"  //input key
 #include"../../Engine/Sprite/Texture.h"
 #include"../../Engine/Engine.h"
@@ -17,7 +16,6 @@ class GLText;
 
 enum Select
 {
-    SOUND,
     RESUME,
     RESTART,
     MAINMENU,
@@ -35,7 +33,7 @@ public:
     std::string GetName() { return "Option"; }
     void Draw() override;
     void GetIndex();
-    Select GetSelect();
+    int GetSelect();
     bool IsInBox(glm::vec2 pos);
 
 private:
@@ -61,14 +59,14 @@ private:
     InputKey MouseKey;
 
 
-    GameObjectManager* gameObjectManager;
+
     int curr_state;
 
     bool isOption;
     bool mouseSwitch;
     glm::vec2 selectedIndex;
 
-    Select select;
+    int select;
 
     glm::vec2 SoundBallPosition;
     glm::vec2 SoundBallScale;

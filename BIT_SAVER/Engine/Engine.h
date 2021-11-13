@@ -34,7 +34,8 @@ public:
     static Logger& GetLogger() { return Instance().logger; };
     static Input& GetInput() { return Instance().input; }
     static Window& GetWindow() { return Instance().window; }
-    static GLText& GetText() { return Instance().text; };
+    static GLText& GetText(std::string fontpath) { return Instance().texts[fontpath]; };
+    //static GLText& GetText() { return Instance().text; };
     static GameStateManager& GetGameStateManager() { return Instance().gameStateManager; }
     static TextureManager& GetTextureManager() { return Instance().texturemanager; }
     static  std::map<std::string, GLSLShader>& GetGLShader() { return Instance().shdrpgms; }
@@ -44,6 +45,7 @@ public:
     void Update();
     bool HasGameEnded();
     void init_shdrpgms();
+    void init_fonts();
 
     template<typename T>
     static T* GetGSComponent() { return GetGameStateManager().GetGSComponent<T>(); }
@@ -57,11 +59,13 @@ public:
     int frameCount;
     Music music;
     Logger logger;
-    GLText text;
+    //GLText text;
+    //std::vector<GLText> texts;
     GameStateManager gameStateManager;
     Input input;
     Window window;
     std::map<std::string, GLSLShader> shdrpgms;
+    std::map<std::string, GLText> texts;
     TextureManager texturemanager;
 
     static constexpr double Target_FPS = 60.0;

@@ -10,6 +10,7 @@ Creation date: 2021-03-07
 -----------------------------------------------------------------*/
 #include"Engine.h"
 #include<time.h>  //time
+#include <glm/gtc/matrix_transform.hpp>
 
 Engine::Engine() :frameCount(0), lastTick(std::chrono::system_clock::now()),
 #ifdef _DEBUG				
@@ -28,10 +29,18 @@ void Engine::Init(std::string windowName)
 	init_shdrpgms();
 	fpsCalcTime = lastTick;
 	GetMusic().Init();
-	GetText().Init();
 
-	GetText().Load("../font/MochiyPopOne-Regular.ttf", 48);
-	GetText().Load("../font/PressStart2P-Regular.ttf", 20);
+	/*GetText().Init();
+	GetText("../font/MochiyPopOne-Regular.ttf").Init();
+	GetText("../font/PressStart2P-Regular.ttf").Init();
+
+	GetText("../font/MochiyPopOne-Regular.ttf").Load("../font/MochiyPopOne-Regular.ttf", 48);
+	GetText("../font/PressStart2P-Regular.ttf").Load("../font/PressStart2P-Regular.ttf", 20);*/
+	init_fonts();
+
+	GetText("../font/PressStart2P-Regular.ttf").Load("../font/PressStart2P-Regular.ttf", 30);
+	GetText("../font/ MochiyPopOne-Regular.ttf").Load("../font/MochiyPopOne-Regular.ttf", 48);
+
 }
 
 void Engine::Shutdown()
@@ -146,6 +155,97 @@ void Engine::init_shdrpgms()
 		std::exit(EXIT_FAILURE);
 	}
 	shdrpgms["Text"] = shdr_pgm4;
+}
+void Engine::init_fonts()
+{
+	GLText text1 , text2;
+	std::string text2path{ "../font/MochiyPopOne-Regular.ttf" };
+	std::string text1path{ "../font/PressStart2P-Regular.ttf" };
+	glm::mat4 proj = glm::ortho(0.0f, static_cast<float>(Engine::GetWindow().GetSize().x), static_cast<float>(Engine::GetWindow().GetSize().y), 0.0f);
+
+	text1.shd_ref = Engine::GetGLShader().find("Text");
+	if (text1.shd_ref == Engine::GetGLShader().end())
+	{
+		Engine::GetLogger().LogError("Shader not found!");
+		std::exit(EXIT_FAILURE);
+	}
+	text2.shd_ref = Engine::GetGLShader().find("Text");
+
+
+	text1.shd_ref->second.Use();
+
+	GLint uniform_var_loc1 =
+		glGetUniformLocation(text1.shd_ref->second.GetHandle(), "projection");
+	if (uniform_var_loc1 >= 0) {
+		glUniformMatrix4fv(uniform_var_loc1, 1, GL_FALSE, &proj[0].x);
+	}
+	else {
+		std::cout << "Uniform variable doesn't exist!!!\n";
+		std::exit(EXIT_FAILURE);
+	}
+
+	GLint uniform_var_loc2 =
+		glGetUniformLocation(text1.shd_ref->second.GetHandle(), "text");
+	if (uniform_var_loc2 >= 0) {
+		glUniform1i(uniform_var_loc2, 0);
+	}
+	else {
+		std::cout << "Uniform variable doesn't exist!!!\n";
+		std::exit(EXIT_FAILURE);
+	}
+
+	text1.shd_ref->second.UnUse();
+
+
+	text2.shd_ref->second.Use();
+
+	uniform_var_loc1 =
+		glGetUniformLocation(text2.shd_ref->second.GetHandle(), "projection");
+	if (uniform_var_loc1 >= 0) {
+		glUniformMatrix4fv(uniform_var_loc1, 1, GL_FALSE, &proj[0].x);
+	}
+	else {
+		std::cout << "Uniform variable doesn't exist!!!\n";
+		std::exit(EXIT_FAILURE);
+	}
+
+	uniform_var_loc2 =
+		glGetUniformLocation(text2.shd_ref->second.GetHandle(), "text");
+	if (uniform_var_loc2 >= 0) {
+		glUniform1i(uniform_var_loc2, 0);
+	}
+	else {
+		std::cout << "Uniform variable doesn't exist!!!\n";
+		std::exit(EXIT_FAILURE);
+	}
+
+	text2.shd_ref->second.UnUse();
+
+
+
+	glGenVertexArrays(1, &text1.VAO);
+	glGenBuffers(1, &text1.VBO);
+	glBindVertexArray(text1.VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, text1.VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, nullptr, GL_DYNAMIC_DRAW);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+
+	glGenVertexArrays(1, &text2.VAO);
+	glGenBuffers(1, &text2.VBO);
+	glBindVertexArray(text2.VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, text2.VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, nullptr, GL_DYNAMIC_DRAW);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+
+	texts[text1path] = text1;
+	texts[text2path] = text2;
+	
 }
 bool Engine::HasGameEnded()
 {

@@ -27,16 +27,12 @@ Option::Option() :
     smallsoundballScale(glm::vec2{ 0.2,0.2 }),
     MouseKey(InputKey::Mouse::Left)
 {
-    gameObjectManager = nullptr;
     curr_state = 0;
-	select = SOUND;
+    select = -1;
 }
 
 void Option::Load()
 {
-
-    //isOption = false;
-    //selectedIndex = glm::vec2{ 0,1 };
 
 
     textureAll = Engine::GetTextureManager().Load("../images/Pause_screen.png");
@@ -51,6 +47,7 @@ void Option::Load()
     smallSoundBall = Engine::GetTextureManager().Load("../images/sound_smallball.png");
 
     model.init({ 1,1 });
+
      w = Engine::GetWindow().GetSize().x;
      h = Engine::GetWindow().GetSize().y;
     world_to_ndc=
@@ -116,113 +113,75 @@ void Option::Draw()
 
     
 	textureAll->Draw(10, model, "Option", { 0,0 }, { 5,5 });
-
 	soundBar->Draw(10, model, "Option", { 0,5 }, { 2,0.15 });
-
 	bigSoundBall->Draw(10, model, "Option", SoundBallPosition, { 0.3,0.3 });
 	smallSoundBall->Draw(10, model, "Option", SoundBallPosition, smallsoundballScale);
 	
-	if (selectedIndex == glm::vec2{ 0,0 })
-	{
-	    sound1->Draw(10, model, "Option", { 0,0 }, { 5,5 });
-	    Engine::GetMusic().SetVolume(Engine::GetMusic().REWIND, 0.25);
-	}
-	if (selectedIndex == glm::vec2{ 0,1 })
-	{
-	    sound2->Draw(10, model, "Option", { 0,0 }, { 5,5 });
-	    Engine::GetMusic().SetVolume(Engine::GetMusic().REWIND, 0.5);
-	}
-	if (selectedIndex == glm::vec2{ 0,2 })
-	{
-	    sound3->Draw(10, model, "Option", { 0,0 }, { 5,5 });
-	    Engine::GetMusic().SetVolume(Engine::GetMusic().REWIND, 0.75);
-
-	}
-	if (selectedIndex == glm::vec2{ 0,3 })
-	{
-	    sound4->Draw(10, model, "Option", { 0,0 }, { 5,5 });
-	    Engine::GetMusic().SetVolume(Engine::GetMusic().REWIND, 1);
-	}
-	if (selectedIndex.x == 1)
+	if (select == Select::RESUME)
 	{
 	    Restart->Draw(10, model, "Option", { 0,0 }, { 5,5 });
-	    if (OptionSelectKey.IsKeyDown() == true)
-	    {
-			select = RESUME;
-			Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Level1));
-	    }
+
+	}
+	if (select == Select::RESTART)
+	{
+	    Restart->Draw(10, model, "Option", { 0,0 }, { 5,5 });
+
 	}
 	if (selectedIndex.x == 2)
 	{
 	    Quit->Draw(10, model, "Option", { 0,0 }, { 5,5 });
-	    if (OptionSelectKey.IsKeyDown() == true)
-	    {
-		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
-	    }
 	}
 }
 
 
 void Option::GetIndex()
 {
+    std::cout << select << std::endl;
     if (OptionUpKey.IsKeyReleased() == true)
     {
-	if (selectedIndex.x == 0 || selectedIndex.x == 1)
+	if (select > Select::RESUME)
 	{
-	    selectedIndex.x = 0;
+	    select--;
 	}
-	else if (selectedIndex.x == 2)
+	else if (select == Select::RESUME)
 	{
-	    selectedIndex.x = 1;
-	}
-    }
-    if (OptionDownKey.IsKeyReleased() == true)
-    {
-	if (selectedIndex.x == 0)
-	{
-	    selectedIndex.x = 1;
-	}
-	else if (selectedIndex.x == 1 || selectedIndex.x == 2)
-	{
-	    selectedIndex.x = 2;
+	    select = Select::QUIT;
 	}
     }
-    if (selectedIndex.x == 0)
+    else if (OptionDownKey.IsKeyReleased() == true)
     {
-	if (OptionSoundUpKey.IsKeyReleased() == true)
+	if (select < Select::QUIT)
 	{
-	    if (selectedIndex.y == 0)
-	    {
-		selectedIndex.y = 1;
-	    }
-	    else if (selectedIndex.y == 1)
-	    {
-		selectedIndex.y = 2;
-	    }
-	    else if (selectedIndex.y == 2 || selectedIndex.y == 3)
-	    {
-		selectedIndex.y = 3;
-	    }
+	    select++;
 	}
-	if (OptionSoundDownKey.IsKeyReleased() == true)
+	else if (select == Select::QUIT)
 	{
-	    if (selectedIndex.y == 0 || selectedIndex.y == 1)
-	    {
-		selectedIndex.y = 0;
-	    }
-	    else if (selectedIndex.y == 2)
-	    {
-		selectedIndex.y = 1;
-	    }
-	    else if (selectedIndex.y == 3)
-	    {
-		selectedIndex.y = 2;
-	    }
+	    select = Select::RESUME;
+	}
+    }
+    else if (OptionSelectKey.IsKeyDown() == true)
+    {
+	switch (select)
+	{
+	case RESUME:
+            Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Level1));
+	    break;
+	case RESTART:
+	    Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Level1));
+	    break;
+	case MAINMENU:
+	    Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
+	    break;
+	case QUIT:
+	    Engine::GetGameStateManager().Shutdown();
+	    break;
+	default:
+	    break;
 	}
     }
 }
 
-Select Option::GetSelect()
+int Option::GetSelect()
 {
 	return select;
 }
