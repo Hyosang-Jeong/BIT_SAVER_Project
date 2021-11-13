@@ -34,6 +34,7 @@ public:
     void Draw() override;
     void GetIndex();
     int GetSelect();
+    bool IsInBoxSound(glm::vec2 pos);
     bool IsInBox(glm::vec2 pos);
     void changeSound(double dt);
 private:
@@ -67,4 +68,9 @@ private:
     glm::vec2 mousePosition;
 
     glm::vec2 smallsoundballScale;
+
+    glm::vec2 Resume;
+    glm::vec2 Restart;
+    glm::vec2 Mainmenu;
+    glm::vec2 Quit;
 };

@@ -137,6 +137,7 @@ void Level1::Update(double dt)
 	if (escape.IsKeyDown() == true)
 	{
 	    Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Option));
+	    //Engine::GetGameStateManager().Shutdown();
 	}
 
 }
@@ -152,13 +153,16 @@ void Level1::Draw()
 
 void Level1::Unload()
 {
+
+
 	if (Engine::GetMusic().isPlaying(Music::SOUND_NUM::REWIND) == true)
 	{
 		Engine::GetMusic().Pause(Music::SOUND_NUM::REWIND);
 	}
-
-	if (Engine::GetGameStateManager().GetNextstate()->GetName() != "Option")
+	if (Engine::GetGameStateManager().GetNextstate() != nullptr)
 	{
+	    if (Engine::GetGameStateManager().GetNextstate()->GetName() != "Option")
+	    {
 		heroPtr = nullptr;
 		trackPtr = nullptr;
 		notebox = nullptr;
@@ -168,5 +172,6 @@ void Level1::Unload()
 		stageBar = nullptr;
 		gameObjectManager->Unload();
 		ClearGSComponent();
+	    }
 	}
 }
