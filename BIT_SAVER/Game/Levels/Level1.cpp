@@ -45,55 +45,57 @@ void Level1::Load()
 	{
 		if (static_cast<Option*>(Engine::GetGameStateManager().Find("Option"))->GetSelect() == RESTART)
 		{
-		    heroPtr = nullptr;
-		    trackPtr = nullptr;
-		    notebox = nullptr;
-		    bossPtr = nullptr;
-		    backPtr = nullptr;
-		    energyBar = nullptr;
-		    stageBar = nullptr;
-		    gameObjectManager->Unload();
-		    ClearGSComponent();
+			heroPtr = nullptr;
+			trackPtr = nullptr;
+			notebox = nullptr;
+			bossPtr = nullptr;
+			backPtr = nullptr;
+			energyBar = nullptr;
+			stageBar = nullptr;
+			gameObjectManager->Unload();
+			ClearGSComponent();
+
+
+			Engine::GetMusic().Play(Music::SOUND_NUM::REWIND);
+			gameObjectManager = new GameObjectManager();
+			heroPtr = new Hero({ -4,-5 });
+			backPtr = new Background();
+			trackPtr = new Track(Music::SOUND_NUM::REWIND);
+			notebox = new Note_box({ -4,0 });
+			bossPtr = new Boss({ 15,-5 });
+			energyBar = new EnergyBar({ -4,1.2 });
+			stageBar = new Stage_bar({ -10,9 }, 204, 82);   // total music time 204  ,  extra time 82
+
+
+			backPtr->Add(texture_path[Background_1], 0);
+			backPtr->Add(texture_path[Parallax1_5], 0.5);
+			backPtr->Add(texture_path[Parallax1_4], 0.8);
+			backPtr->Add(texture_path[Parallax1_3], 1.1);
+			backPtr->Add(texture_path[Parallax1_2], 1.3);
+			backPtr->Add(texture_path[Parallax1_1], 1.5);
+
+			AddGSComponent(gameObjectManager);
+			AddGSComponent(backPtr);
+
+			gameObjectManager->Add(heroPtr);
+			gameObjectManager->Add(bossPtr);
+			gameObjectManager->Add(notebox);
+			gameObjectManager->Add(trackPtr);
+			gameObjectManager->Add(energyBar);
+			gameObjectManager->Add(stageBar);
+			AddGSComponent(new HitEmitter());
+			AddGSComponent(new PerfectEmitter());
+			AddGSComponent(new GoodEmitter());
+			AddGSComponent(new BadEmitter());
+			AddGSComponent(new MissEmitter());
+			AddGSComponent(new Score());
 		}
-		Engine::GetMusic().Play(Music::SOUND_NUM::REWIND);
-		gameObjectManager = new GameObjectManager();
-		heroPtr = new Hero({ -4,-5 });
-		backPtr = new Background();
-		trackPtr = new Track(Music::SOUND_NUM::REWIND);
-		notebox = new Note_box({ -4,0 });
-		bossPtr = new Boss({ 15,-5 });
-		energyBar = new EnergyBar({ -4,1.2 });
-		stageBar = new Stage_bar({ -10,9 }, 204, 82);   // total music time 204  ,  extra time 82
-
-		
-		backPtr->Add(texture_path[Background_1], 0);
-		backPtr->Add(texture_path[Parallax1_5], 0.5);
-		backPtr->Add(texture_path[Parallax1_4], 0.8);
-		backPtr->Add(texture_path[Parallax1_3], 1.1);
-		backPtr->Add(texture_path[Parallax1_2], 1.3);
-		backPtr->Add(texture_path[Parallax1_1], 1.5);
-
-		AddGSComponent(gameObjectManager);
-		AddGSComponent(backPtr);
-
-		gameObjectManager->Add(heroPtr);
-		gameObjectManager->Add(bossPtr);
-		gameObjectManager->Add(notebox);
-		gameObjectManager->Add(trackPtr);
-		gameObjectManager->Add(energyBar);
-		gameObjectManager->Add(stageBar);
-		AddGSComponent(new HitEmitter());
-		AddGSComponent(new PerfectEmitter());
-		AddGSComponent(new GoodEmitter());
-		AddGSComponent(new BadEmitter());
-		AddGSComponent(new MissEmitter());
-		AddGSComponent(new Score());
-	}
-	else // resume
-	{
-		if (Engine::GetMusic().isPlaying(Music::SOUND_NUM::REWIND) == true)
+		else // resume
 		{
-			Engine::GetMusic().Resume(Music::SOUND_NUM::REWIND);
+			if (Engine::GetMusic().isPlaying(Music::SOUND_NUM::REWIND) == true)
+			{
+				Engine::GetMusic().Resume(Music::SOUND_NUM::REWIND);
+			}
 		}
 	}
 }
@@ -137,6 +139,7 @@ void Level1::Update(double dt)
 	if (escape.IsKeyDown() == true)
 	{
 	    Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Option));
+	    //Engine::GetGameStateManager().Shutdown();
 	}
 
 }
@@ -152,13 +155,16 @@ void Level1::Draw()
 
 void Level1::Unload()
 {
+
+
 	if (Engine::GetMusic().isPlaying(Music::SOUND_NUM::REWIND) == true)
 	{
 		Engine::GetMusic().Pause(Music::SOUND_NUM::REWIND);
 	}
-
-	if (Engine::GetGameStateManager().GetNextstate()->GetName() != "Option")
+	if (Engine::GetGameStateManager().GetNextstate() != nullptr)
 	{
+	    if (Engine::GetGameStateManager().GetNextstate()->GetName() != "Option")
+	    {
 		heroPtr = nullptr;
 		trackPtr = nullptr;
 		notebox = nullptr;
@@ -168,5 +174,6 @@ void Level1::Unload()
 		stageBar = nullptr;
 		gameObjectManager->Unload();
 		ClearGSComponent();
+	    }
 	}
 }
