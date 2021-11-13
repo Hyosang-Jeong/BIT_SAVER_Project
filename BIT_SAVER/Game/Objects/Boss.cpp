@@ -16,6 +16,7 @@ Boss::Boss(glm::vec2 startPos) :
 	GameObject(startPos, glm::vec2{ 4,4 })
 {
 	AddGOComponent(new Sprite("../spt/boss.spt", this));
+	GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(boss_anim::spawn));
 }
 
 void Boss::Update(double dt)
@@ -39,7 +40,6 @@ void Boss::Draw(glm::mat3 camera_matrix)
 void Boss::GenerateBoss()
 {
 	is_generating = true;
-	GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(boss_anim::spawn));
 }
 
 void Boss::UpdateXVelocity(double )

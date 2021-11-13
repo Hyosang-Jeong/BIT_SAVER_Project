@@ -37,6 +37,7 @@ void TextureManager::Unload()
 {
 	for (const std::pair<std::string, Texture*>& i : images)
 	{
+		glDeleteTextures(1, &i.second->tex_obj);
 		delete i.second;
 	}
 	images.clear();

@@ -23,8 +23,8 @@ public:
     void Draw(double world_range, GLModel mdl, std::string shdr_name, glm::vec2 pos, glm::vec2 scale = { 1,1 }, glm::vec2 rotate = { 0,0 });
     glm::vec2 GetSize();
 
-private:
     GLuint tex_obj{ 0 };
     glm::vec2 texture_size{ 0,0 };
+
 
 };

@@ -103,7 +103,6 @@ void GameStateManager::Update(double dt)
 	{
 		Engine::GetLogger().LogEvent("Unload " + currGameState->GetName());
 		currGameState->Unload();
-
 		if (nextGameState == nullptr)
 		{
 			state = State::SHUTDOWN;
