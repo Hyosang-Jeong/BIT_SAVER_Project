@@ -49,52 +49,14 @@ void Option::Load()
     };
 }
 
-void Option::Update([[maybe_unused]] double dt)
+void Option::Update( double dt)
 {
     mousePosition = Engine::GetInput().MouseGetPosition();
     mousePosition = world_to_ndc * glm::vec3(mousePosition,1);
 
     GetIndex();
     std::cout << mousePosition.x << " "<< mousePosition.y << std::endl;
-    if (IsInBox(SoundBallPosition))
-    {
-	if (smallsoundballScale.x < 0.59f)
-	{
-	    smallsoundballScale.x += static_cast<float>(dt);
-	}
-	if (smallsoundballScale.y < 0.59f)
-	{
-	    smallsoundballScale.y += static_cast<float>(dt);
-	}
-
-	if (MouseKey.MouseIsKeyDown() == true)
-	{
-	    mouseSwitch = true;
-	}
-	else
-	{
-	    mouseSwitch = false;
-	}
-    }
-    else if(IsInBox(SoundBallPosition)==false)
-    {
-	if (smallsoundballScale.x > 0.2f)
-	{
-	    smallsoundballScale.x -= static_cast<float>(dt);
-	}
-	if (smallsoundballScale.y > 0.2f)
-	{
-	    smallsoundballScale.y -= static_cast<float>(dt);
-	}
-    }
-    if (mouseSwitch == true && MouseKey.MouseIsKeyDown()==true)
-    {
-	if (mousePosition.x >= -1.5f && mousePosition.x <= 2.3f)
-	{
-	    SoundBallPosition.x = mousePosition.x;
-	}
-	Engine::GetMusic().SetVolume(Engine::GetMusic().REWIND, ((SoundBallPosition.x) + 1.5f)/3.8f);
-    }
+    changeSound(dt);
 }
 
 void Option::Draw()
@@ -106,7 +68,11 @@ void Option::Draw()
 	textureAll->Draw(10, model, "Option", { 0,0 }, { 10,10 });
 	bigSoundBall->Draw(10, model, "Option", SoundBallPosition, { 0.3,0.3 });
 	smallSoundBall->Draw(10, model, "Option", SoundBallPosition, smallsoundballScale);
-	
+	//
+	//
+	//
+	//
+
 	if (select == Select::RESUME)
 	{
 	    //Restart->Draw(10, model, "Option", { 0,0 }, { 5,5 });
@@ -117,7 +83,11 @@ void Option::Draw()
 	    //Restart->Draw(10, model, "Option", { 0,0 }, { 5,5 });
 
 	}
-	if (selectedIndex.x == 2)
+	if (select == Select::MAINMENU)
+	{
+	    //Quit->Draw(10, model, "Option", { 0,0 }, { 5,5 });
+	}
+	if (select == Select::QUIT)
 	{
 	    //Quit->Draw(10, model, "Option", { 0,0 }, { 5,5 });
 	}
@@ -127,6 +97,26 @@ void Option::Draw()
 void Option::GetIndex()
 {
     std::cout << select << std::endl;
+ //   if (IsInBox(resume_position) == true)
+ //   {
+	//select = Select::RESUME
+ //   }
+ //   else if (IsInBox(restart_position) == true)
+ //   {
+	//select = Select::RESTART
+ //   }
+ //   else if (IsInBox(mainmenu_position) == true)
+ //   {
+	//select = Select::MAINMENU
+ //   }
+ //   else if (IsInBox(restart_position) == true)
+ //   {
+	//select = Select::QUIT
+ //   }
+    //else
+    //{
+    //select = -1;
+    //}
     if (OptionUpKey.IsKeyReleased() == true)
     {
 	if (select > Select::RESUME)
@@ -149,7 +139,7 @@ void Option::GetIndex()
 	    select = Select::RESUME;
 	}
     }
-    else if (OptionSelectKey.IsKeyDown() == true)
+    else if (OptionSelectKey.IsKeyDown() == true || MouseKey.MouseIsKeyDown() == true)
     {
 	switch (select)
 	{
@@ -188,7 +178,51 @@ bool Option::IsInBox(glm::vec2 pos)
     return false;
 }
 
+
 void Option::Unload()
 {
 
 } 
+
+void Option::changeSound(double dt)
+{
+    if (IsInBox(SoundBallPosition))
+    {
+	if (smallsoundballScale.x < 0.59f)
+	{
+	    smallsoundballScale.x += static_cast<float>(dt);
+	}
+	if (smallsoundballScale.y < 0.59f)
+	{
+	    smallsoundballScale.y += static_cast<float>(dt);
+	}
+
+	if (MouseKey.MouseIsKeyDown() == true)
+	{
+	    mouseSwitch = true;
+	}
+	else
+	{
+	    mouseSwitch = false;
+	}
+    }
+    else if (IsInBox(SoundBallPosition) == false)
+    {
+	if (smallsoundballScale.x > 0.2f)
+	{
+	    smallsoundballScale.x -= static_cast<float>(dt);
+	}
+	if (smallsoundballScale.y > 0.2f)
+	{
+	    smallsoundballScale.y -= static_cast<float>(dt);
+	}
+    }
+    if (mouseSwitch == true && MouseKey.MouseIsKeyDown() == true)
+    {
+	if (mousePosition.x >= -1.5f && mousePosition.x <= 2.3f)
+	{
+	    SoundBallPosition.x = mousePosition.x;
+	}
+	Engine::GetMusic().SetVolume(Engine::GetMusic().REWIND, ((SoundBallPosition.x) + 1.5f) / 3.8f);
+    }
+}
