@@ -55,7 +55,7 @@ void Option::Update([[maybe_unused]] double dt)
     mousePosition = world_to_ndc * glm::vec3(mousePosition,1);
 
     GetIndex();
-
+    std::cout << mousePosition.x << " "<< mousePosition.y << std::endl;
     if (IsInBox(SoundBallPosition))
     {
 	if (smallsoundballScale.x < 0.59f)
@@ -103,7 +103,7 @@ void Option::Draw()
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
     
-	textureAll->Draw(10, model, "Option", { 0,0 }, { 5,5 });
+	textureAll->Draw(10, model, "Option", { 0,0 }, { 10,10 });
 	bigSoundBall->Draw(10, model, "Option", SoundBallPosition, { 0.3,0.3 });
 	smallSoundBall->Draw(10, model, "Option", SoundBallPosition, smallsoundballScale);
 	
