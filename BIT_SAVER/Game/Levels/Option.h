@@ -35,7 +35,7 @@ public:
     void GetIndex();
     int GetSelect();
     bool IsInBox(glm::vec2 pos);
-
+    void changeSound(double dt);
 private:
 
     Texture* textureAll;
