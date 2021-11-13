@@ -13,7 +13,7 @@ GameObject::GameObject(glm::vec2 position) : GameObject(position,  { 1, 1 }) {}
 
 GameObject::GameObject(glm::vec2 position, glm::vec2 scale)
     : velocity{ 0,0 }, position(position), updateMatrix(true),
-    scale(scale)
+    scale(scale), currState(&state_nothing)
 {
 }
 
@@ -25,7 +25,7 @@ void GameObject::ResolveCollision(GameObject* )
 void GameObject::Update(double dt)
 {
     UpdateGOComponents(dt);
-
+    currState->Update(this, dt);
     if (velocity.x != 0 || velocity.y != 0)
     {
         UpdatePosition({ velocity.x * dt, velocity.y * dt });
@@ -58,9 +58,11 @@ void GameObject::Update(double dt)
        0,  1 / world_range ,0,
        0,0,1
    };
+   currState->TestForExit(this);
    //collision.UpdateCollision(position);
    texture_ndc = scale / 2.f;
     mdl_to_ndc_xform = ndcscale_matrix* trans_matrix  *rotation_matrix* scale_matrix;
+
 }
 
 void GameObject::Draw(glm::mat3 camera_matrix)
@@ -96,7 +98,10 @@ void GameObject::UpdatePosition(glm::vec2 adjustPosition) {
     updateMatrix = true;
 }
 
-const glm::vec2& GameObject::GetPosition() const { return position; }
+const glm::vec2& GameObject::GetPosition() const 
+{ 
+    return position; 
+}
 
 const glm::vec2& GameObject::GetVelocity() const
 {
@@ -106,6 +111,11 @@ const glm::vec2& GameObject::GetVelocity() const
 const glm::vec2& GameObject::GetScale() const
 {
     return scale;
+}
+
+const double GameObject::GetRotation() const
+{
+    return rotation;
 }
 
 const glm::vec2& GameObject::GetTexturetoNDC() const
@@ -128,6 +138,24 @@ void GameObject::SetScale(glm::vec2 newScale)
     scale = newScale;
 
     updateMatrix = true;
+}
+
+void GameObject::SetRotation(double newRotationAmount)
+{
+    rotation = newRotationAmount;
+}
+
+void GameObject::UpdateRotation(double adjustRotation)
+{
+    rotation += adjustRotation;
+    updateMatrix = true;
+}
+
+void GameObject::ChangeState(ObjectState* newState)
+{
+    currState = newState;
+
+    currState->Enter(this);
 }
 
 void GameObject::set_destroy(bool value)
