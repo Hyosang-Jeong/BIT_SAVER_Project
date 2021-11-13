@@ -19,7 +19,6 @@ Option::Option() :
     OptionSoundUpKey(InputKey::Keyboard::Right),
     OptionSoundDownKey(InputKey::Keyboard::Left),
     OptionSelectKey(InputKey::Keyboard::Enter),
-    isOption(false),
     mouseSwitch(false),
     selectedIndex(glm::vec2{ 0,1 }),
     SoundBallPosition(glm::vec2{ 0,5 }),
@@ -27,7 +26,6 @@ Option::Option() :
     smallsoundballScale(glm::vec2{ 0.2,0.2 }),
     MouseKey(InputKey::Mouse::Left)
 {
-    curr_state = 0;
     select = -1;
 }
 
@@ -36,13 +34,6 @@ void Option::Load()
 
 
     textureAll = Engine::GetTextureManager().Load("../images/Pause_screen.png");
-    sound1 = Engine::GetTextureManager().Load("../images/pause_volume1.png");
-    sound2 = Engine::GetTextureManager().Load("../images/pause_volume2.png");
-    sound3 = Engine::GetTextureManager().Load("../images/pause_volume3.png");
-    sound4 = Engine::GetTextureManager().Load("../images/pause_volume4.png");
-    Restart = Engine::GetTextureManager().Load("../images/Pause_Restart.png");
-    Quit = Engine::GetTextureManager().Load("../images/Pause_Quit.png");
-    soundBar = Engine::GetTextureManager().Load("../images/sound_bar.png");
     bigSoundBall = Engine::GetTextureManager().Load("../images/sound_bigball.png");
     smallSoundBall = Engine::GetTextureManager().Load("../images/sound_smallball.png");
 
@@ -113,23 +104,22 @@ void Option::Draw()
 
     
 	textureAll->Draw(10, model, "Option", { 0,0 }, { 5,5 });
-	soundBar->Draw(10, model, "Option", { 0,5 }, { 2,0.15 });
 	bigSoundBall->Draw(10, model, "Option", SoundBallPosition, { 0.3,0.3 });
 	smallSoundBall->Draw(10, model, "Option", SoundBallPosition, smallsoundballScale);
 	
 	if (select == Select::RESUME)
 	{
-	    Restart->Draw(10, model, "Option", { 0,0 }, { 5,5 });
+	    //Restart->Draw(10, model, "Option", { 0,0 }, { 5,5 });
 
 	}
 	if (select == Select::RESTART)
 	{
-	    Restart->Draw(10, model, "Option", { 0,0 }, { 5,5 });
+	    //Restart->Draw(10, model, "Option", { 0,0 }, { 5,5 });
 
 	}
 	if (selectedIndex.x == 2)
 	{
-	    Quit->Draw(10, model, "Option", { 0,0 }, { 5,5 });
+	    //Quit->Draw(10, model, "Option", { 0,0 }, { 5,5 });
 	}
 }
 
