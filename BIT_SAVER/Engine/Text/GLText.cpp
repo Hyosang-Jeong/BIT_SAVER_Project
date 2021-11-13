@@ -5,11 +5,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <ft2build.h>
 #include FT_FREETYPE_H
-std::map<GLchar, Character> GLText::Characters;
-unsigned int GLText::VAO;
-unsigned int GLText::VBO;
-std::map<std::string, GLSLShader>::iterator GLText::shd_ref;
-
 
 
 //GLText::GLText(std::string file)
@@ -184,67 +179,71 @@ std::map<std::string, GLSLShader>::iterator GLText::shd_ref;
 //	shd_ref->second.UnUse();
 //}
 
-void GLText::Init()
-{
-	shd_ref = Engine::GetGLShader().find("Text");
-	if (shd_ref == Engine::GetGLShader().end())
-	{
-		Engine::GetLogger().LogError("Shader not found!");
-		std::exit(EXIT_FAILURE);
-	}
-
-	shd_ref->second.Use();
-
-	glm::mat4 proj = glm::ortho(0.0f, static_cast<float>(Engine::GetWindow().GetSize().x), static_cast<float>(Engine::GetWindow().GetSize().y), 0.0f);
-
-	GLint uniform_var_loc1 =
-		glGetUniformLocation(shd_ref->second.GetHandle(), "projection");
-	if (uniform_var_loc1 >= 0) {
-		glUniformMatrix4fv(uniform_var_loc1, 1, GL_FALSE, &proj[0].x);
-	}
-	else {
-		std::cout << "Uniform variable doesn't exist!!!\n";
-		std::exit(EXIT_FAILURE);
-	}
-
-	GLint uniform_var_loc2 =
-		glGetUniformLocation(shd_ref->second.GetHandle(), "text");
-	if (uniform_var_loc2 >= 0) {
-		glUniform1i(uniform_var_loc2, 0);
-	}
-	else {
-		std::cout << "Uniform variable doesn't exist!!!\n";
-		std::exit(EXIT_FAILURE);
-	}
-
-	shd_ref->second.UnUse();
-
-	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
-	glBindVertexArray(VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, nullptr, GL_DYNAMIC_DRAW);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindVertexArray(0);
-}
+//void GLText::Init()
+//{
+//	shd_ref = Engine::GetGLShader().find("Text");
+//	if (shd_ref == Engine::GetGLShader().end())
+//	{
+//		Engine::GetLogger().LogError("Shader not found!");
+//		std::exit(EXIT_FAILURE);
+//	}
+//
+//	shd_ref->second.Use();
+//
+//	glm::mat4 proj = glm::ortho(0.0f, static_cast<float>(Engine::GetWindow().GetSize().x), static_cast<float>(Engine::GetWindow().GetSize().y), 0.0f);
+//
+//	GLint uniform_var_loc1 =
+//		glGetUniformLocation(shd_ref->second.GetHandle(), "projection");
+//	if (uniform_var_loc1 >= 0) {
+//		glUniformMatrix4fv(uniform_var_loc1, 1, GL_FALSE, &proj[0].x);
+//	}
+//	else {
+//		std::cout << "Uniform variable doesn't exist!!!\n";
+//		std::exit(EXIT_FAILURE);
+//	}
+//
+//	GLint uniform_var_loc2 =
+//		glGetUniformLocation(shd_ref->second.GetHandle(), "text");
+//	if (uniform_var_loc2 >= 0) {
+//		glUniform1i(uniform_var_loc2, 0);
+//	}
+//	else {
+//		std::cout << "Uniform variable doesn't exist!!!\n";
+//		std::exit(EXIT_FAILURE);
+//	}
+//
+//	shd_ref->second.UnUse();
+//
+//	glGenVertexArrays(1, &VAO);
+//	glGenBuffers(1, &VBO);
+//	glBindVertexArray(VAO);
+//	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+//	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, nullptr, GL_DYNAMIC_DRAW);
+//	glEnableVertexAttribArray(0);
+//	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 0);
+//	glBindBuffer(GL_ARRAY_BUFFER, 0);
+//	glBindVertexArray(0);
+//}
 
 void GLText::Load(std::string font, unsigned int fontSize)
 {
+	const std::string font1{ "../font/MochiyPopOne-Regular.ttf" };
+	const std::string font2{ "../font/PressStart2P-Regular.ttf" };
+
 	this->Characters.clear();
 
 	FT_Library ft_lib;
-
+	
 	if (FT_Init_FreeType(&ft_lib)) {
 		Engine::GetLogger().LogError("Can't init Font");
 	}
 
 	FT_Face ft_face;
-
+	
 	if (FT_New_Face(ft_lib, font.c_str(), 0, &ft_face)) {
 		Engine::GetLogger().LogError("Can't Load Font");
 	}
+	
 
 	FT_Set_Pixel_Sizes(ft_face, 0, fontSize);
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
