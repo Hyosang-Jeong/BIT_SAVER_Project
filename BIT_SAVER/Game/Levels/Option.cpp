@@ -34,9 +34,9 @@ Option::Option() :
     select = -1;
     w = Engine::GetWindow().GetSize().x;
     h = Engine::GetWindow().GetSize().y;
-    textureAll = Engine::GetTextureManager().Load("../images/Pause_screen.png");
-    bigSoundBall = Engine::GetTextureManager().Load("../images/sound_bigball.png");
-    smallSoundBall = Engine::GetTextureManager().Load("../images/sound_smallball.png");
+    textureAll = Engine::GetTextureManager().Load(texture_path[Pause]);
+    bigSoundBall = Engine::GetTextureManager().Load(texture_path[Sound_Bigball]);
+    smallSoundBall = Engine::GetTextureManager().Load(texture_path[Sound_Smallball]);
     world_to_ndc =
     {
    20 / w, 0,0,
@@ -64,8 +64,8 @@ void Option::Update(double dt)
 
 void Option::Draw()
 {
-    const std::string font1{ "../font/MochiyPopOne-Regular.ttf" };
-    const std::string font2{ "../font/PressStart2P-Regular.ttf" };
+    const std::string font1{ font_path[MochiyPopOne] };
+    const std::string font2{ font_path[PressStart] };
 
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
