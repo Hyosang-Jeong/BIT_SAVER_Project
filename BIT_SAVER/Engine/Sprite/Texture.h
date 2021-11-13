@@ -14,6 +14,42 @@ Creation date: 2/11/2021
 #include<glm/glm.hpp>
 #include<map>
 #include"../GLModel/GLModel.h"
+
+enum Texture_Path
+{
+    DigipenLogo_Splash,
+    Gamelogo_Splash,
+
+    Pause,
+    Sound_Bigball,
+    Sound_Smallball,
+
+    Background_1,
+    Parallax1_5, 
+    Parallax1_4,
+    Parallax1_3,
+    Parallax1_2,
+    Parallax1_1
+    //Total
+};
+
+static const char* texture_path[] = {
+    "../images/DigiPen_BLACK_1024px.png",
+    "../images/LOGO.png",
+
+    "../images/Pause_screen.png",
+    "../images/sound_bigball.png",
+    "../images/sound_smallball.png",
+
+    "../images/background1.png",
+    "../images/parallax1-5.png",
+    "../images/parallax1-4.png",
+    "../images/parallax1-3.png",
+    "../images/parallax1-2.png",
+    "../images/parallax1-1.png"
+};
+
+
 class Texture
 {
 public:

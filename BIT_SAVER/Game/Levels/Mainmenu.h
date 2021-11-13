@@ -13,7 +13,7 @@ Creation date:
 #include "..\Engine\GameObject\GameObjectManager.h" // gameobjectmanager
 #include"..\Engine\Input\Input.h"  //input key
 #include"..\..\Engine\Physics\Camera.h"
-#include"../../Engine/Sprite/Texture.h"
+
 class Mainmenu : public GameState
 {
 public:
@@ -24,7 +24,7 @@ public:
 	void Unload() override;
 	void Draw() override;
 	std::string GetName() override { return "MainMenu"; }
-	Texture* mainmenu;
+
 	InputKey ESCAPE;
 	InputKey Level1;
 	GLModel model;

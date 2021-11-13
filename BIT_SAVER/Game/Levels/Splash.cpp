@@ -17,9 +17,9 @@ Splash::Splash() : PlayKey(InputKey::Keyboard::Enter)
 
 void Splash::Load()
 {
-	Digipen_Splash = Engine::GetTextureManager().Load("../images/DigiPen_BLACK_1024px.png");
+	Digipen_Splash = Engine::GetTextureManager().Load(texture_path[DigipenLogo_Splash]);
 
-	Logo = Engine::GetTextureManager().Load("../images/LOGO.png");
+	Logo = Engine::GetTextureManager().Load(texture_path[Gamelogo_Splash]);
 }
 
 void Splash::Update(double dt)
@@ -48,7 +48,7 @@ void Splash::Draw()
 	std::map<std::string, GLSLShader>::iterator shd_ref;
 	shd_ref = Engine::GetGLShader().find("Mainmenu");
 	shd_ref->second.Use();
-	shd_ref = Engine::GetGLShader().find("Mainmenu");
+
 	GLuint alpha = glGetUniformLocation(shd_ref->second.GetHandle(), "alpha");
 	if (alpha < 0)
 	{
@@ -63,6 +63,7 @@ void Splash::Draw()
 	{
 		Logo->Draw(glm::mat3{ 1,0,0,0,1,0,0,0,1 }, model, "Mainmenu");
 	}
+	shd_ref->second.UnUse();
 }
 void Splash::Unload()
 {
