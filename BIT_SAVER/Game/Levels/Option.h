@@ -15,6 +15,16 @@ Creation date: 3/07/2021
 #include"../../Engine/Engine.h"
 class GLText;
 
+enum Select
+{
+    SOUND,
+    RESUME,
+    RESTART,
+    MAINMENU,
+    QUIT
+};
+
+
 class Option : public GameState
 {
 public:
@@ -22,10 +32,12 @@ public:
     void Load() override;
     void Update(double dt) override;
     void Unload() override;
-    std::string GetName() { return "Level1"; }
+    std::string GetName() { return "Option"; }
     void Draw() override;
     void GetIndex();
+    Select GetSelect();
     bool IsInBox(glm::vec2 pos);
+
 private:
 
     Texture* textureAll;
@@ -55,11 +67,13 @@ private:
     bool isOption;
     bool mouseSwitch;
     glm::vec2 selectedIndex;
+
+    Select select;
+
     glm::vec2 SoundBallPosition;
     glm::vec2 SoundBallScale;
     float w;
     float h;
     glm::mat3 world_to_ndc;
     glm::vec2 mousePosition;
-
 };

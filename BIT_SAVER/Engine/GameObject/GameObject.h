@@ -34,6 +34,7 @@ public:
 		ClearGOComponents();
 	}
 	virtual GameObjectType GetObjectType() = 0;
+	//virtual std::string GetObjectTypeName() = 0;
 	virtual void ResolveCollision(GameObject* object);
 	virtual void Update(double dt);
 	virtual void Draw(glm::mat3 camera_matrix);
@@ -41,26 +42,53 @@ public:
 	const glm::vec2& GetPosition() const;
 	const glm::vec2& GetVelocity() const;
 	const glm::vec2& GetScale() const;
+	const double GetRotation() const;
 	const glm::vec2& GetTexturetoNDC() const;
 	const AABB GetCollisionbox() const;
-	void UpdatePosition(glm::vec2 adjustPosition);
 	void SetScale(glm::vec2 newScale);
 	void SetPosition(glm::vec2 newPosition);
 	void set_destroy(bool value);
 	bool Destroy();
+
+	void UpdatePosition(glm::vec2 addPosition);
+	void SetVelocity(glm::vec2 newVelocity);
+	void UpdateVelocity(glm::vec2 newVelocity);
+	void SetRotation(double newRotationAmount);
+	void UpdateRotation(double adjustRotation);
 
 	template<typename T>
 	T* GetGOComponent() { return components.GetComponent<T>(); }
 
 protected:
 
-	void SetVelocity(glm::vec2 newPosition);
-	void UpdateVelocity(glm::vec2 adjustPosition);
+
 	void AddGOComponent(Component* component) { components.AddComponent(component); }
 	void UpdateGOComponents(double dt) { components.UpdateAll(dt); }
 	void ClearGOComponents() { components.Clear(); }
 	template<typename T>
 	void RemoveGOComponent() { components.RemoveComponent<T>(); }
+
+
+	class ObjectState {
+	public:
+		virtual void Enter(GameObject* object) = 0;
+		virtual void Update(GameObject* object, double dt) = 0;
+		virtual void TestForExit(GameObject* object) = 0;
+		virtual std::string GetName() = 0;
+	};
+	class State_Nothing : public ObjectState {
+	public:
+		void Enter(GameObject*) override {}
+		void Update(GameObject*, double) override {}
+		void TestForExit(GameObject*) override {}
+		std::string GetName() override { return ""; }
+	};
+	State_Nothing state_nothing;
+
+
+	void ChangeState(ObjectState* newState);
+
+	ObjectState* currState;
 
 private:
 	glm::mat3 objectMatrix;
@@ -68,6 +96,8 @@ private:
 	glm::vec2 position;
 	glm::vec2 velocity;
 	glm::vec2 orientation;
+
+	double rotation;
 
 	bool updateMatrix;
 	bool is_destroy = false;
