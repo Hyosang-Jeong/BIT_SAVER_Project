@@ -24,29 +24,30 @@ Option::Option() :
     SoundBallPosition(glm::vec2{ 0.3,3.5 }),
     SoundBallScale(glm::vec2{ 0.2,0.2 }),
     smallsoundballScale(glm::vec2{ 0.2,0.2 }),
+    Resume(glm::vec2{ 0,0 }),
+    Restart(glm::vec2{ 0,0 }),
+    Mainmenu(glm::vec2{ 0,0 }),
+    Quit(glm::vec2{ 0,0 }),
+    mousePosition(glm::vec2{ 0,0 }),
     MouseKey(InputKey::Mouse::Left)
 {
     select = -1;
+    w = Engine::GetWindow().GetSize().x;
+    h = Engine::GetWindow().GetSize().y;
+    textureAll = Engine::GetTextureManager().Load("../images/Pause_screen.png");
+    bigSoundBall = Engine::GetTextureManager().Load("../images/sound_bigball.png");
+    smallSoundBall = Engine::GetTextureManager().Load("../images/sound_smallball.png");
+    world_to_ndc =
+    {
+	20 / w, 0,0,
+	0,-20 / h,0,
+	-10,10,1
+    };
 }
 
 void Option::Load()
 {
-
-
-    textureAll = Engine::GetTextureManager().Load("../images/Pause_screen.png");
-    bigSoundBall = Engine::GetTextureManager().Load("../images/sound_bigball.png");
-    smallSoundBall = Engine::GetTextureManager().Load("../images/sound_smallball.png");
-
     model.init({ 1,1 });
-
-     w = Engine::GetWindow().GetSize().x;
-     h = Engine::GetWindow().GetSize().y;
-    world_to_ndc=
-    {
-	20/w, 0,0,
-	0,-20/h,0,
-	-10,10,1
-    };
 }
 
 void Option::Update( double dt)
@@ -78,6 +79,7 @@ void Option::Draw()
 	window_pos.y *= 0.5;
 
 	glm::vec2 offset(50, 100);
+
 	//int offset_x = 0;
 	//int offset_y = 0;
 
@@ -89,6 +91,9 @@ void Option::Draw()
 		Engine::GetText(font2).Draw("RESUME", window_pos.x - offset.x, window_pos.y - offset.y, 1.f, glm::vec3(1.f, 1.f, 1.f));
 
 	}
+	Resume = { window_pos.x - offset.x ,window_pos.y - offset.y };
+	Resume = world_to_ndc * glm::vec3(Resume, 1);
+
 	offset.y -= 105;
 
 	Engine::GetText(font2).Draw("RESTART", window_pos.x - offset.x, window_pos.y - offset.y, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
@@ -97,7 +102,8 @@ void Option::Draw()
 		Engine::GetText(font2).Draw("RESTART", window_pos.x - offset.x, window_pos.y - offset.y, 1.f, glm::vec3(1.f, 1.f, 1.f));
 
 	}
-
+	Restart = { window_pos.x - offset.x ,window_pos.y - offset.y };
+	Restart = world_to_ndc * glm::vec3(Restart, 1);
 	offset.y -= 105;
 
 	Engine::GetText(font2).Draw("MAIN MENU", window_pos.x - offset.x, window_pos.y - offset.y, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
@@ -106,6 +112,9 @@ void Option::Draw()
 	{
 		Engine::GetText(font2).Draw("MAIN MENU", window_pos.x - offset.x, window_pos.y - offset.y, 1.f, glm::vec3(1.f, 1.f, 1.f));
 	}
+	Mainmenu = { window_pos.x - offset.x ,window_pos.y - offset.y };
+	Mainmenu = world_to_ndc * glm::vec3(Mainmenu, 1);
+
 	offset.y -= 105;
 
 	Engine::GetText(font2).Draw("QUIT", window_pos.x - offset.x, window_pos.y - offset.y, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
@@ -113,6 +122,8 @@ void Option::Draw()
 	{
 		Engine::GetText(font2).Draw("QUIT", window_pos.x - offset.x, window_pos.y - offset.y, 1.f, glm::vec3(1.f, 1.f, 1.f));
 	}
+	Quit = { window_pos.x - offset.x ,window_pos.y - offset.y };
+	Quit = world_to_ndc * glm::vec3(Quit, 1);
 
 }
 
@@ -120,26 +131,27 @@ void Option::Draw()
 void Option::GetIndex()
 {
     std::cout << select << std::endl;
- //   if (IsInBox(resume_position) == true)
- //   {
-	//select = Select::RESUME
- //   }
- //   else if (IsInBox(restart_position) == true)
- //   {
-	//select = Select::RESTART
- //   }
- //   else if (IsInBox(mainmenu_position) == true)
- //   {
-	//select = Select::MAINMENU
- //   }
- //   else if (IsInBox(restart_position) == true)
- //   {
-	//select = Select::QUIT
- //   }
-    //else
-    //{
-    //select = -1;
-    //}
+    if (IsInBox(Resume) == true)
+    {
+	select = Select::RESUME;
+    }
+    else if (IsInBox(Restart) == true)
+    {
+	select = Select::RESTART;
+    }
+    else if (IsInBox(Mainmenu) == true)
+    {
+	select = Select::MAINMENU;
+    }
+    else if (IsInBox(Quit) == true)
+    {
+	select = Select::QUIT;
+    }
+    else
+    {
+	select = -1;
+    }
+
     if (OptionUpKey.IsKeyReleased() == true)
     {
 	if (select > Select::RESUME)
@@ -189,11 +201,23 @@ int Option::GetSelect()
 	return select;
 }
 
+bool Option::IsInBoxSound(glm::vec2 pos)
+{
+    if (pos.x + 0.5 > mousePosition.x &&
+	pos.x - 0.5 < mousePosition.x &&
+	pos.y + 0.5 > mousePosition.y &&
+	pos.y - 0.5 < mousePosition.y)
+    {
+	return true;
+    }
+    return false;
+}
+
 bool Option::IsInBox(glm::vec2 pos)
 {
-    if (pos.x + 1 > mousePosition.x &&
-	pos.x - 1 < mousePosition.x &&
-	pos.y + 1 > mousePosition.y &&
+    if (pos.x + 2.9 > mousePosition.x &&
+	pos.x - 1.7 < mousePosition.x &&
+	pos.y + 0.8 > mousePosition.y &&
 	pos.y - 1 < mousePosition.y)
     {
 	return true;
@@ -204,12 +228,11 @@ bool Option::IsInBox(glm::vec2 pos)
 
 void Option::Unload()
 {
-
 } 
 
 void Option::changeSound(double dt)
 {
-    if (IsInBox(SoundBallPosition))
+    if (IsInBoxSound(SoundBallPosition))
     {
 	if (smallsoundballScale.x < 0.59f)
 	{
@@ -229,7 +252,7 @@ void Option::changeSound(double dt)
 	    mouseSwitch = false;
 	}
     }
-    else if (IsInBox(SoundBallPosition) == false)
+    else if (IsInBoxSound(SoundBallPosition) == false)
     {
 	if (smallsoundballScale.x > 0.2f)
 	{
