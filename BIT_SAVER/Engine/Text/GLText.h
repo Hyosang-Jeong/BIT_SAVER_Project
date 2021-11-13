@@ -1,6 +1,19 @@
 #pragma once
 #include "../GLShader/glslshader.h"
 
+
+enum Font_Path
+{
+    PressStart,
+    MochiyPopOne
+    //Total
+};
+
+static const char* font_path[] = {
+    "../font/PressStart2P-Regular.ttf",
+    "../font/MochiyPopOne-Regular.ttf"
+};
+
 struct Character {
     unsigned int TextureID; // ID handle of the glyph texture
     glm::vec2   Size;      // Size of glyph

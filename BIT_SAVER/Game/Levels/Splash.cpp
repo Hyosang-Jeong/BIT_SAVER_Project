@@ -17,9 +17,9 @@ Splash::Splash() : PlayKey(InputKey::Keyboard::Enter)
 
 void Splash::Load()
 {
-	Digipen_Splash = Engine::GetTextureManager().Load("../images/DigiPen_BLACK_1024px.png");
+	Digipen_Splash = Engine::GetTextureManager().Load(texture_path[DigipenLogo_Splash]);
 
-	Logo = Engine::GetTextureManager().Load("../images/LOGO.png");
+	Logo = Engine::GetTextureManager().Load(texture_path[Gamelogo_Splash]);
 }
 
 void Splash::Update(double dt)

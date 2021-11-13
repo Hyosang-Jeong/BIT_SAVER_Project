@@ -38,8 +38,8 @@ void Engine::Init(std::string windowName)
 	GetText("../font/PressStart2P-Regular.ttf").Load("../font/PressStart2P-Regular.ttf", 20);*/
 	init_fonts();
 
-	GetText("../font/PressStart2P-Regular.ttf").Load("../font/PressStart2P-Regular.ttf", 20);
-	GetText("../font/ MochiyPopOne-Regular.ttf").Load("../font/MochiyPopOne-Regular.ttf", 48);
+	GetText(font_path[PressStart]).Load(font_path[PressStart], 20);
+	GetText(font_path[MochiyPopOne]).Load(font_path[MochiyPopOne], 48);
 
 }
 
@@ -159,8 +159,9 @@ void Engine::init_shdrpgms()
 void Engine::init_fonts()
 {
 	GLText text1 , text2;
-	std::string text2path{ "../font/MochiyPopOne-Regular.ttf" };
-	std::string text1path{ "../font/PressStart2P-Regular.ttf" };
+	std::string text2path{ font_path[MochiyPopOne] };
+	std::string text1path{ font_path[PressStart] };
+
 	glm::mat4 proj = glm::ortho(0.0f, static_cast<float>(Engine::GetWindow().GetSize().x), static_cast<float>(Engine::GetWindow().GetSize().y), 0.0f);
 
 	text1.shd_ref = Engine::GetGLShader().find("Text");
