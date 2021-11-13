@@ -76,6 +76,7 @@ void Background::Draw([[maybe_unused]]glm::mat3 camera)
         levelInfo.texture_front->Draw(1, levelInfo.model, "Mainmenu", { levelInfo.position_front,0 });
         levelInfo.texture_back->Draw(1, levelInfo.model, "Mainmenu", { levelInfo.position_back,0 });
     }
+    shd_ref->second.UnUse();
 }
 
 void Background::set_fever_mode(bool is_fever_mode_)

@@ -154,28 +154,29 @@ void Option::GetIndex()
         select = -1;
     }
 
-    //   if (OptionUpKey.IsKeyReleased() == true)
-    //   {
-      //if (select > Select::RESUME)
-      //{
-      //    select--;
-      //}
-      //else if (select == Select::RESUME)
-      //{
-      //    select = Select::QUIT;
-      //}
-    //   }
-    //   else if (OptionDownKey.IsKeyReleased() == true)
-    //   {
-      //if (select < Select::QUIT)
-      //{
-      //    select++;
-      //}
-      //else if (select == Select::QUIT)
-      //{
-      //    select = Select::RESUME;
-      //}
-    //   }
+ //   if (OptionUpKey.IsKeyReleased() == true)
+ //   {
+	//if (select > Select::RESUME)
+	//{
+	//    select--;
+	//}
+	//else if (select == Select::RESUME)
+	//{
+	//    select = Select::QUIT;
+	//}
+ //   }
+ //   else if (OptionDownKey.IsKeyReleased() == true)
+ //   {
+	//if (select < Select::QUIT)
+	//{
+	//    select++;
+	//}
+	//else if (select == Select::QUIT)
+	//{
+	//    select = Select::RESUME;
+	//}
+ //   }
+
     if (/*OptionSelectKey.IsKeyDown() == true ||*/ MouseKey.MouseIsKeyDown() == true)
     {
         switch (select)

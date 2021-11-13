@@ -13,7 +13,6 @@ Creation date:
 #include "..\Engine\GameObject\GameObjectManager.h" // gameobjectmanager
 #include"..\Engine\Input\Input.h"  //input key
 #include"..\..\Engine\Physics\Camera.h"
-#include"../../Engine/Sprite/Texture.h"
 class Gameover : public GameState
 {
 public:
@@ -24,7 +23,6 @@ public:
     void Unload() override;
     void Draw() override;
     std::string GetName() override { return "Gameover"; }
-    Texture* gameover;
     InputKey ESCAPE;
 private:
 };

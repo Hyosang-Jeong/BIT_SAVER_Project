@@ -14,6 +14,27 @@ Creation date: 2/11/2021
 #include<glm/glm.hpp>
 #include<map>
 #include"../GLModel/GLModel.h"
+
+enum Texture_Path
+{
+    Background_1,
+    Parallax1_5, 
+    Parallax1_4,
+    Parallax1_3,
+    Parallax1_2,
+    Parallax1_1
+};
+
+static const char* texture_path[] = {
+    "../images/background1.png",
+    "../images/parallax1-5.png",
+    "../images/parallax1-4.png",
+    "../images/parallax1-3.png",
+    "../images/parallax1-2.png",
+    "../images/parallax1-1.png"
+};
+
+
 class Texture
 {
 public:

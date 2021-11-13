@@ -65,12 +65,13 @@ void Level1::Load()
 			energyBar = new EnergyBar({ -4,1.2 });
 			stageBar = new Stage_bar({ -10,9 }, 204, 82);   // total music time 204  ,  extra time 82
 
-			backPtr->Add("../images/background1.png", 0);
-			backPtr->Add("../images/parallax1-5.png", 0.5);
-			backPtr->Add("../images/parallax1-4.png", 0.8);
-			backPtr->Add("../images/parallax1-3.png", 1.1);
-			backPtr->Add("../images/parallax1-2.png", 1.3);
-			backPtr->Add("../images/parallax1-1.png", 1.5);
+
+			backPtr->Add(texture_path[Background_1], 0);
+			backPtr->Add(texture_path[Parallax1_5], 0.5);
+			backPtr->Add(texture_path[Parallax1_4], 0.8);
+			backPtr->Add(texture_path[Parallax1_3], 1.1);
+			backPtr->Add(texture_path[Parallax1_2], 1.3);
+			backPtr->Add(texture_path[Parallax1_1], 1.5);
 
 			AddGSComponent(gameObjectManager);
 			AddGSComponent(backPtr);
