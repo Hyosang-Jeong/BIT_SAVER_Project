@@ -31,7 +31,7 @@ Option::Option() :
 
 void Option::Load()
 {
-
+	select = 0;
 
     textureAll = Engine::GetTextureManager().Load("../images/Pause_screen.png");
     bigSoundBall = Engine::GetTextureManager().Load("../images/sound_bigball.png");
