@@ -13,6 +13,12 @@ Creation date: 3/07/2021
 #include"State.h"
 
 Option::Option() :
+    escape(InputKey::Keyboard::Escape),
+    OptionUpKey(InputKey::Keyboard::Up),
+    OptionDownKey(InputKey::Keyboard::Down),
+    OptionSoundUpKey(InputKey::Keyboard::Right),
+    OptionSoundDownKey(InputKey::Keyboard::Left),
+    OptionSelectKey(InputKey::Keyboard::Enter),
     mouseSwitch(false),
     selectedIndex(glm::vec2{ 0,1 }),
     SoundBallPosition(glm::vec2{ 0.3,3.5 }),
@@ -21,23 +27,26 @@ Option::Option() :
     MouseKey(InputKey::Mouse::Left)
 {
     select = -1;
-    w = Engine::GetWindow().GetSize().x;
-    h = Engine::GetWindow().GetSize().y;
-    world_to_ndc =
-    {
-	20 / w, 0,0,
-	0,-20 / h,0,
-	-10,10,1
-    };
 }
 
 void Option::Load()
 {
+
+
     textureAll = Engine::GetTextureManager().Load("../images/Pause_screen.png");
     bigSoundBall = Engine::GetTextureManager().Load("../images/sound_bigball.png");
     smallSoundBall = Engine::GetTextureManager().Load("../images/sound_smallball.png");
 
     model.init({ 1,1 });
+
+     w = Engine::GetWindow().GetSize().x;
+     h = Engine::GetWindow().GetSize().y;
+    world_to_ndc=
+    {
+	20/w, 0,0,
+	0,-20/h,0,
+	-10,10,1
+    };
 }
 
 void Option::Update([[maybe_unused]] double dt)
@@ -47,7 +56,6 @@ void Option::Update([[maybe_unused]] double dt)
 
     GetIndex();
     std::cout << mousePosition.x << " "<< mousePosition.y << std::endl;
-
     if (IsInBox(SoundBallPosition))
     {
 	if (smallsoundballScale.x < 0.59f)
@@ -111,6 +119,7 @@ void Option::Draw()
 	//int offset_y = 0;
 
 	Engine::GetText(font2).Draw("RESUME", window_pos.x - offset.x, window_pos.y - offset.y , 1.f, glm::vec3(1.0f, 1.f, 1.f));
+
 	if (select == Select::RESUME)
 	{
 		Engine::GetText(font2).Draw("RESUME", window_pos.x - offset.x, window_pos.y - offset.y, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
@@ -144,49 +153,49 @@ void Option::Draw()
 
 void Option::GetIndex()
 {
-
- //   if (OptionUpKey.IsKeyReleased() == true)
- //   {
-	//if (select > Select::RESUME)
-	//{
-	//    select--;
-	//}
-	//else if (select == Select::RESUME)
-	//{
-	//    select = Select::QUIT;
-	//}
- //   }
- //   else if (OptionDownKey.IsKeyReleased() == true)
- //   {
-	//if (select < Select::QUIT)
-	//{
-	//    select++;
-	//}
-	//else if (select == Select::QUIT)
-	//{
-	//    select = Select::RESUME;
-	//}
- //   }
- //   else if (OptionSelectKey.IsKeyDown() == true)
- //   {
-	//switch (select)
-	//{
-	//case RESUME:
- //           Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Level1));
-	//    break;
-	//case RESTART:
-	//    Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Level1));
-	//    break;
-	//case MAINMENU:
-	//    Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
-	//    break;
-	//case QUIT:
-	//    Engine::GetGameStateManager().Shutdown();
-	//    break;
-	//default:
-	//    break;
-	//}
- //   }
+    std::cout << select << std::endl;
+    if (OptionUpKey.IsKeyReleased() == true)
+    {
+	if (select > Select::RESUME)
+	{
+	    select--;
+	}
+	else if (select == Select::RESUME)
+	{
+	    select = Select::QUIT;
+	}
+    }
+    else if (OptionDownKey.IsKeyReleased() == true)
+    {
+	if (select < Select::QUIT)
+	{
+	    select++;
+	}
+	else if (select == Select::QUIT)
+	{
+	    select = Select::RESUME;
+	}
+    }
+    else if (OptionSelectKey.IsKeyDown() == true)
+    {
+	switch (select)
+	{
+	case RESUME:
+            Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Level1));
+	    break;
+	case RESTART:
+	    Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Level1));
+	    break;
+	case MAINMENU:
+	    Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
+	    break;
+	case QUIT:
+	    Engine::GetGameStateManager().Shutdown();
+	    break;
+	default:
+	    break;
+	}
+    }
 }
 
 int Option::GetSelect()
