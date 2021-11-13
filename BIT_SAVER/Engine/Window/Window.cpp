@@ -116,6 +116,16 @@ InputKey::Keyboard GLKEY_TO_GAME(int button)
     return InputKey::Keyboard::None;
 }
 
+InputKey::Mouse GLMOUSEKEY_TO_GAME(int button)
+{
+    if (button == GLFW_KEY_ENTER) {
+        return InputKey::Mouse::None;
+    }
+    else if (button == GLFW_MOUSE_BUTTON_LEFT) {
+        return InputKey::Mouse::Left;
+    }
+    return InputKey::Mouse::None;
+}
 
 void Window::key_cb([[maybe_unused]] GLFWwindow* pwin, [[maybe_unused]] int key, [[maybe_unused]] int scancode, int action, [[maybe_unused]] int mod)
 {
@@ -150,11 +160,13 @@ void Window::key_cb([[maybe_unused]] GLFWwindow* pwin, [[maybe_unused]] int key,
 
 void Window::mousebutton_cb([[maybe_unused]] GLFWwindow* pwin, int button, int action, [[maybe_unused]] int mod)
 {
+    InputKey::Mouse key;
     switch (button)
     {
     case GLFW_MOUSE_BUTTON_LEFT:
 #ifdef _DEBUG
         Engine::GetLogger().LogDebug("Left mouse button ");
+
 #endif
         break;
     case GLFW_MOUSE_BUTTON_RIGHT:
@@ -166,6 +178,8 @@ void Window::mousebutton_cb([[maybe_unused]] GLFWwindow* pwin, int button, int a
     switch (action)
     {
     case GLFW_PRESS:
+        key = GLMOUSEKEY_TO_GAME(button);
+        Engine::GetInput().MouseSetKeyDown(key, true);
 #ifdef _DEBUG
         Engine::GetLogger().LogDebug("pressed! ");
 
@@ -182,6 +196,7 @@ void Window::mousebutton_cb([[maybe_unused]] GLFWwindow* pwin, int button, int a
 
 void Window::mousepos_cb([[maybe_unused]] GLFWwindow* pwin, [[maybe_unused]] double xpos, [[maybe_unused]] double ypos)
 {
+    Engine::GetInput().MouseSetPosition({ xpos,ypos });
 #ifdef _DEBUG
         std::cout << "Mouse cursor position: (" << xpos << ", " << ypos << ")" << std::endl;
 #endif

@@ -20,7 +20,10 @@ Option::Option() :
     OptionSoundDownKey(InputKey::Keyboard::Left),
     OptionSelectKey(InputKey::Keyboard::Enter),
     isOption(false),
-    selectedIndex(glm::vec2{ 0,1 })
+    selectedIndex(glm::vec2{ 0,1 }),
+    SoundBallPosition(glm::vec2{ 0,5 }),
+    SoundBallScale(glm::vec2{ 0.2,0.2 }),
+    MouseKey(InputKey::Mouse::Left)
 {
     gameObjectManager = nullptr;
     curr_state = 0;
@@ -41,16 +44,36 @@ void Option::Load()
     sound4 = Engine::GetTextureManager().Load("../images/pause_volume4.png");
     Restart = Engine::GetTextureManager().Load("../images/Pause_Restart.png");
     Quit = Engine::GetTextureManager().Load("../images/Pause_Quit.png");
+    soundBar = Engine::GetTextureManager().Load("../images/sound_bar.png");
+    bigSoundBall = Engine::GetTextureManager().Load("../images/sound_bigball.png");
+    smallSoundBall = Engine::GetTextureManager().Load("../images/sound_smallball.png");
 
     model.init({ 1,1 });
-
-
+     w = Engine::GetWindow().GetSize().x;
+     h = Engine::GetWindow().GetSize().y;
+    world_to_ndc=
+    {
+	20/w, 0,0,
+	0,-20/h,0,
+	-10,10,1
+    };
 }
 
 void Option::Update([[maybe_unused]] double dt)
 {
-    GetIndex();
+    mousePosition = Engine::GetInput().MouseGetPosition();
+    mousePosition = world_to_ndc * glm::vec3(mousePosition,1);
 
+    GetIndex();
+    if (IsInBox(SoundBallPosition))
+    {
+	//smallSoundBall->Draw(10, model, "Option", SoundBallPosition, { SoundBallScale.x + 5 ,SoundBallScale.y + 5 });
+	if (MouseKey.MouseIsKeyDown() == true)
+	{
+	std::cout << "AAAAAAAAAAA" << std::endl;
+	    SoundBallPosition.x = mousePosition.x;
+	}
+    }
 }
 
 void Option::Draw()
@@ -58,9 +81,14 @@ void Option::Draw()
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-
+    
 	textureAll->Draw(10, model, "Option", { 0,0 }, { 5,5 });
 
+	soundBar->Draw(10, model, "Option", { 0,5 }, { 2,0.15 });
+
+	bigSoundBall->Draw(10, model, "Option", SoundBallPosition, { 0.3,0.3 });
+	smallSoundBall->Draw(10, model, "Option", SoundBallPosition, { 0.2,0.2 });
+	
 	if (selectedIndex == glm::vec2{ 0,0 })
 	{
 	    sound1->Draw(10, model, "Option", { 0,0 }, { 5,5 });
@@ -100,9 +128,7 @@ void Option::Draw()
 	    }
 	}
 }
-void Option::Unload()
-{
-}
+
 
 void Option::GetIndex()
 {
@@ -166,4 +192,21 @@ void Option::GetIndex()
 Select Option::GetSelect()
 {
 	return select;
+}
+
+bool Option::IsInBox(glm::vec2 pos)
+{
+    if (pos.x + 1 > mousePosition.x &&
+	pos.x - 1 < mousePosition.x &&
+	pos.y + 1 > mousePosition.y &&
+	pos.y - 1 < mousePosition.y)
+    {
+	return true;
+    }
+    return false;
+}
+
+void Option::Unload()
+{
+
 }

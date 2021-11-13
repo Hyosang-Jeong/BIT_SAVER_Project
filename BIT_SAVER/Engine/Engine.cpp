@@ -29,6 +29,9 @@ void Engine::Init(std::string windowName)
 	fpsCalcTime = lastTick;
 	GetMusic().Init();
 	GetText().Init();
+
+	GetText().Load("../font/MochiyPopOne-Regular.ttf", 48);
+	GetText().Load("../font/PressStart2P-Regular.ttf", 20);
 }
 
 void Engine::Shutdown()

@@ -12,6 +12,7 @@ Creation date: 3/07/2021
 #include "..\Engine\GameObject\GameObjectManager.h" // gameobjectmanager
 #include"..\Engine\Input\Input.h"  //input key
 #include"../../Engine/Sprite/Texture.h"
+#include"../../Engine/Engine.h"
 class GLText;
 
 enum Select
@@ -35,6 +36,8 @@ public:
     void Draw() override;
     void GetIndex();
     Select GetSelect();
+    bool IsInBox(glm::vec2 pos);
+
 private:
 
     Texture* textureAll;
@@ -44,6 +47,9 @@ private:
     Texture* sound4;
     Texture* Restart;
     Texture* Quit;
+    Texture* soundBar;
+    Texture* bigSoundBall;
+    Texture* smallSoundBall;
     GLModel model;
 
     InputKey escape;
@@ -52,6 +58,8 @@ private:
     InputKey OptionSoundUpKey;
     InputKey OptionSoundDownKey;
     InputKey OptionSelectKey;
+    InputKey MouseKey;
+
 
     GameObjectManager* gameObjectManager;
     int curr_state;
@@ -60,4 +68,11 @@ private:
     glm::vec2 selectedIndex;
 
     Select select;
+
+    glm::vec2 SoundBallPosition;
+    glm::vec2 SoundBallScale;
+    float w;
+    float h;
+    glm::mat3 world_to_ndc;
+    glm::vec2 mousePosition;
 };
