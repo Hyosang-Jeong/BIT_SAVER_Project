@@ -40,11 +40,14 @@ void Mainmenu::Update([[maybe_unused]]double dt)
 
 void Mainmenu::Draw()
 {
+	const std::string font1{ "../font/MochiyPopOne-Regular.ttf" };
+	const std::string font2{ "../font/PressStart2P-Regular.ttf" };
+
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	
 	//mainmenu->Draw(glm::mat3{ 1,0,0,0,1,0,0,0,1 }, model, "Hero");
-	Engine::GetText().Draw("Press P to play", 0.f, 50.f, 3.f, { 0.5f,0.5f,0.5f });
+	Engine::GetText(font2).Draw("Press P to play", 0.f, 50.f, 3.f, { 0.5f,0.5f,0.5f });
 
 }
 void Mainmenu::Unload()
