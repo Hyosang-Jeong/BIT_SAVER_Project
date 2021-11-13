@@ -36,7 +36,7 @@ void Hero::Update(double dt)
     GameObject::Update(dt);
 
     UpdateXVelocity(dt);
-
+    std::cout << currState << std::endl;
     //if (hero_state == RUN_ENTER)
     //{
     //    GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(hero_anim::hero_run));
@@ -143,7 +143,7 @@ void Hero::State_Idle::TestForExit(GameObject* object)
 void Hero::State_Running::Enter(GameObject* object)
 {
     Hero* hero = static_cast<Hero*>(object);
-    hero->GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(hero_anim::hero_run));\
+    hero->GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(hero_anim::hero_run));
     hero->SetPosition({ hero->GetPosition().x, -5});
     hero->SetVelocity({ 0,0});
 }
@@ -156,11 +156,13 @@ void Hero::State_Running::Update([[maybe_unused]] GameObject* object, [[maybe_un
 void Hero::State_Running::TestForExit(GameObject* object)
 {
     Hero* hero = static_cast<Hero*>(object);
-    if (hero->moveUp1Key.IsKeyDown() == true || hero->moveUp2Key.IsKeyDown() == true)
+    if ((hero->moveUp1Key.IsKeyDown() == true && hero->moveUp1Key.IsKeyReapeated() == false) ||
+        (hero->moveUp2Key.IsKeyDown() == true && hero->moveUp2Key.IsKeyReapeated() == false))
     {
         hero->ChangeState(&hero->stateJump);
     }
-    if (hero->moveDown1Key.IsKeyDown() == true || hero->moveDown2Key.IsKeyDown() == true)
+    if ((hero->moveDown1Key.IsKeyDown() == true && hero->moveDown1Key.IsKeyReapeated() == false) ||
+        (hero->moveDown2Key.IsKeyDown() == true && hero->moveDown2Key.IsKeyReapeated() == false))
     {
         hero->ChangeState(&hero->stateAttack);
     }
@@ -186,13 +188,13 @@ void Hero::State_Falling::TestForExit(GameObject* object)
     {
         hero->ChangeState(&hero->stateRunning);
     }
-    if (hero->moveUp1Key.IsKeyDown() == true || hero->moveUp2Key.IsKeyDown() == true)
+    if ((hero->moveUp1Key.IsKeyDown() == true && hero->moveUp1Key.IsKeyReapeated() == false) || 
+          (hero->moveUp2Key.IsKeyDown() == true && hero->moveUp2Key.IsKeyReapeated() ==false))
     {
-        hero->SetVelocity({ 0, 0 });
-        hero->SetPosition({ hero->GetPosition().x, 5 });
-        hero->ChangeState(&hero->stateAttack);
+        hero->ChangeState(&hero->stateJump);
     }
-    if (hero->moveDown1Key.IsKeyDown() == true || hero->moveDown2Key.IsKeyDown() == true)
+    if ((hero->moveDown1Key.IsKeyDown() == true && hero->moveDown1Key.IsKeyReapeated() == false) ||
+        (hero->moveDown2Key.IsKeyDown() == true && hero->moveDown2Key.IsKeyReapeated() == false))
     {
         hero->SetVelocity({ 0,0 });
         hero->SetPosition({ hero->GetPosition().x, -5 });
@@ -204,32 +206,26 @@ void Hero::State_Falling::TestForExit(GameObject* object)
 void Hero::State_Attack::Enter(GameObject* object)
 {
     Hero* hero = static_cast<Hero*>(object);
+    hero->SetVelocity({ 0,-jumpVelocity });
     hero->GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(hero_anim::up_attck));
-    if (hero->GetPosition().y > 0)
-    {
-        hero->SetPosition({ hero->GetPosition().x, 5 });
-    }
-    if (hero->GetPosition().y < 0)
-    {
-        hero->SetPosition({ hero->GetPosition().x, -5 });
-    }
 }
 
 void Hero::State_Attack::Update([[maybe_unused]] GameObject* object, [[maybe_unused]] double dt)
 {
-    //Hero* hero = static_cast<Hero*>(object);
+    Hero* hero = static_cast<Hero*>(object);
+    if (hero->GetPosition().y < -5)
+    {
+        hero->SetVelocity({ 0,0 });
+        hero->SetPosition({ hero->GetPosition().x, -5 });
+    }
 }
 
 void Hero::State_Attack::TestForExit(GameObject* object)
 {
     Hero* hero = static_cast<Hero*>(object);
-    if (hero->GetPosition().y < 0 && hero->GetGOComponent<Sprite>()->IsAnimationDone())
+    if (hero->GetGOComponent<Sprite>()->IsAnimationDone() == true)
     {
         hero->ChangeState(&hero->stateRunning);
-    }
-    if (hero->GetPosition().y > 0 && hero->GetGOComponent<Sprite>()->IsAnimationDone())
-    {
-        hero->ChangeState(&hero->statefalling);
     }
 }
 
@@ -238,22 +234,27 @@ void Hero::State_Jump::Enter(GameObject* object)
 {
     Hero* hero = static_cast<Hero*>(object);
     hero->SetVelocity({0,jumpVelocity});
-    hero->GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(hero_anim::hero_run));
-
+    hero->GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(hero_anim::up_attck));
 }
 
 void Hero::State_Jump::Update([[maybe_unused]] GameObject* object, [[maybe_unused]] double dt)
 {
    // Hero* hero = static_cast<Hero*>(object);
+    Hero* hero = static_cast<Hero*>(object);
+    if (hero->GetPosition().y > 5)
+    {
+        hero->SetVelocity({ 0,0 });
+        hero->SetPosition({ hero->GetPosition().x, 5 });
+    }
 }
 
 void Hero::State_Jump::TestForExit(GameObject* object)
 {
     Hero* hero = static_cast<Hero*>(object);
-    if (hero->GetPosition().y > 5)
+    if (hero->GetGOComponent<Sprite>()->IsAnimationDone() == true)
     {
-        hero->SetVelocity({ 0,-10 });
-        hero->SetPosition({ hero->GetPosition().x, 5 });
+        //hero->SetVelocity({ 0,-10 });
+        //hero->SetPosition({ hero->GetPosition().x, 5 });
         hero->ChangeState(&hero->statefalling);
     }
 }
