@@ -38,7 +38,7 @@ void Engine::Init(std::string windowName)
 	GetText("../font/PressStart2P-Regular.ttf").Load("../font/PressStart2P-Regular.ttf", 20);*/
 	init_fonts();
 
-	GetText("../font/PressStart2P-Regular.ttf").Load("../font/PressStart2P-Regular.ttf", 30);
+	GetText("../font/PressStart2P-Regular.ttf").Load("../font/PressStart2P-Regular.ttf", 20);
 	GetText("../font/ MochiyPopOne-Regular.ttf").Load("../font/MochiyPopOne-Regular.ttf", 48);
 
 }

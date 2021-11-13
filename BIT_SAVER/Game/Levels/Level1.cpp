@@ -56,6 +56,7 @@ void Level1::Load()
 		    gameObjectManager->Unload();
 		    ClearGSComponent();
 		}
+		Engine::GetMusic().Play(Music::SOUND_NUM::REWIND);
 		gameObjectManager = new GameObjectManager();
 		heroPtr = new Hero({ -4,-5 });
 		backPtr = new Background();
@@ -87,7 +88,6 @@ void Level1::Load()
 		AddGSComponent(new BadEmitter());
 		AddGSComponent(new MissEmitter());
 		AddGSComponent(new Score());
-		Engine::GetMusic().Play(Music::SOUND_NUM::REWIND);
 	}
 	else
 	{
