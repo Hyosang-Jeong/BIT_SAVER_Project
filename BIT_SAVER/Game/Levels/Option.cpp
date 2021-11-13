@@ -31,7 +31,7 @@ Option::Option() :
     mousePosition(glm::vec2{ 0,0 }),
     MouseKey(InputKey::Mouse::Left)
 {
-    select = -1;
+
 }
 
 void Option::Load()
@@ -48,12 +48,9 @@ void Option::Load()
 	0,-20 / h,0,
 	-10,10,1
     };
-}
-
-void Option::Load()
-{
     model.init({ 1,1 });
 }
+
 
 void Option::Update( double dt)
 {
