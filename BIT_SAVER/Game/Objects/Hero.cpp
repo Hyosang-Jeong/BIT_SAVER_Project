@@ -36,7 +36,6 @@ void Hero::Update(double dt)
     GameObject::Update(dt);
 
     UpdateXVelocity(dt);
-    std::cout << currState << std::endl;
     //if (hero_state == RUN_ENTER)
     //{
     //    GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(hero_anim::hero_run));

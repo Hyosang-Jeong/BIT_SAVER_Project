@@ -24,6 +24,7 @@ Option::Option() :
     selectedIndex(glm::vec2{ 0,1 }),
     SoundBallPosition(glm::vec2{ 0,5 }),
     SoundBallScale(glm::vec2{ 0.2,0.2 }),
+    smallsoundballScale(glm::vec2{ 0.2,0.2 }),
     MouseKey(InputKey::Mouse::Left)
 {
     gameObjectManager = nullptr;
@@ -69,7 +70,15 @@ void Option::Update([[maybe_unused]] double dt)
 
     if (IsInBox(SoundBallPosition))
     {
-	//smallSoundBall->Draw(10, model, "Option", SoundBallPosition, { SoundBallScale.x + 5 ,SoundBallScale.y + 5 });
+	if (smallsoundballScale.x < 0.59f)
+	{
+	    smallsoundballScale.x += static_cast<float>(dt);
+	}
+	if (smallsoundballScale.y < 0.59f)
+	{
+	    smallsoundballScale.y += static_cast<float>(dt);
+	}
+
 	if (MouseKey.MouseIsKeyDown() == true)
 	{
 	    mouseSwitch = true;
@@ -79,13 +88,24 @@ void Option::Update([[maybe_unused]] double dt)
 	    mouseSwitch = false;
 	}
     }
+    else if(IsInBox(SoundBallPosition)==false)
+    {
+	if (smallsoundballScale.x > 0.2f)
+	{
+	    smallsoundballScale.x -= static_cast<float>(dt);
+	}
+	if (smallsoundballScale.y > 0.2f)
+	{
+	    smallsoundballScale.y -= static_cast<float>(dt);
+	}
+    }
     if (mouseSwitch == true && MouseKey.MouseIsKeyDown()==true)
     {
-	if (mousePosition.x > -2.0 && mousePosition.x < 2.0)
+	if (mousePosition.x >= -2.f && mousePosition.x <= 2.f)
 	{
 	    SoundBallPosition.x = mousePosition.x;
 	}
-	Engine::GetMusic().SetVolume(Engine::GetMusic().REWIND, ((mousePosition.x) + 2.f)/4.f);
+	Engine::GetMusic().SetVolume(Engine::GetMusic().REWIND, ((SoundBallPosition.x) + 2.f)/4.f);
     }
 }
 
@@ -100,7 +120,7 @@ void Option::Draw()
 	soundBar->Draw(10, model, "Option", { 0,5 }, { 2,0.15 });
 
 	bigSoundBall->Draw(10, model, "Option", SoundBallPosition, { 0.3,0.3 });
-	smallSoundBall->Draw(10, model, "Option", SoundBallPosition, { 0.2,0.2 });
+	smallSoundBall->Draw(10, model, "Option", SoundBallPosition, smallsoundballScale);
 	
 	if (selectedIndex == glm::vec2{ 0,0 })
 	{

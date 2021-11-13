@@ -76,4 +76,5 @@ private:
     float h;
     glm::mat3 world_to_ndc;
     glm::vec2 mousePosition;
+    glm::vec2 smallsoundballScale;
 };
