@@ -54,8 +54,7 @@ void Level1::Load()
 			stageBar = nullptr;
 			gameObjectManager->Unload();
 			ClearGSComponent();
-
-
+		}
 			Engine::GetMusic().Play(Music::SOUND_NUM::REWIND);
 			gameObjectManager = new GameObjectManager();
 			heroPtr = new Hero({ -4,-5 });
@@ -98,7 +97,7 @@ void Level1::Load()
 			}
 		}
 	}
-}
+
 void Level1::Update(double dt)
 {
 
