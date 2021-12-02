@@ -12,7 +12,6 @@ Creation date: 3/14/2021
 #include"../../Engine/Sprite/GameParticles.h"
 #include "EnergyBar.h"
 #include "../../Engine/Music/music.h"
-#include "../../Engine/Engine.h"
 #include "../../Game/Levels/State.h"
 #include "../../Engine/Window/Window.h"
 #include"Score.h"
@@ -31,7 +30,6 @@ GameObject(startPos, glm::vec2{ 0.5,1 })
 {
 	AddGOComponent(new Sprite("../images/hit_star.png", this));
 	SetVelocity(velocity);
-
 }
 
 void Note::Update(double dt)
@@ -66,7 +64,6 @@ glm::vec2 Note::Getposition()
 void Note::Hit_Check()
 {
     
-
 	if (Score_check()== static_cast<int>(SCORE::PERFECT) && GetPosition().y > 0)
 	{
 		if ((UpAttackKey1.IsKeyDown() == true || UpAttackKey2.IsKeyDown() == true) &&

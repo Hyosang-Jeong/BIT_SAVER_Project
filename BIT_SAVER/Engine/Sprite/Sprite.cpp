@@ -80,6 +80,7 @@ void Sprite::Load(const std::filesystem::path& spriteInfoFile,[[maybe_unused]] G
 			else
 			{
 				Engine::GetLogger().LogError("Unknown spt command " + text);
+				exit(EXIT_FAILURE);
 			}
 			inFile >> text;
 		}

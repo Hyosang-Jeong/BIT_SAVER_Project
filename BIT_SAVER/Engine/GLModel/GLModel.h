@@ -5,8 +5,9 @@
 #include<string>
 #include<vector>
 #include<array>
-struct GLModel
+class GLModel
 {
+public:
 	struct Vertex
 	{
 		glm::vec2 position;
@@ -22,7 +23,7 @@ struct GLModel
 	std::vector<Vertex> vertices;
 	std::vector<GLshort> indices;
 
-	void Hero_init();
+	GLModel();
 	void update(glm::vec2 min, glm::vec2 frame_size);
 	void init(glm::vec2 size);
 };

@@ -155,7 +155,6 @@ void Level1::Draw()
 void Level1::Unload()
 {
 
-
 	if (Engine::GetMusic().isPlaying(Music::SOUND_NUM::REWIND) == true)
 	{
 		Engine::GetMusic().Pause(Music::SOUND_NUM::REWIND);

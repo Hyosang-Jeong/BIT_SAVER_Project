@@ -1,5 +1,6 @@
 #include"Collision.h"
 #include "..\Engine.h"
+#include"../Sprite/Texture.h"
 //
 //Render::Render(void)
 //{
@@ -67,7 +68,10 @@
 
 
 Collision::Collision(glm::vec2 size) :box_size(size) 
-{}
+{
+    box_ptr = Engine::GetTextureManager().Load("../images/collision_box.png");
+    box_model.init({ 1, 1 });
+}
 
 const AABB& Collision::GetAABB() const
 {
@@ -76,14 +80,13 @@ const AABB& Collision::GetAABB() const
 
 void Collision::UpdateCollision(glm::vec2 pos,glm::vec2 scale)
 {
+    object_pos = pos;
+    object_scale = scale;
     collision_box.min = { pos.x - (scale.x  / 2.f), pos.y - (scale.y/ 2.f) };
     collision_box.max = { pos.x + (scale.x/ 2.f), pos.y + (scale.y / 2.f) };
 }
 
 void Collision::Draw()
 {
-    // for draw collision box - not complete
-   /* glm::vec3 color(0.f, 0.f, 1.f);
-    render.SetColor(color);
-    render.DrawLine(collision_box.min, collision_box.max);*/
+    box_ptr->Draw(10, box_model, "Hero", object_pos, object_scale);
 }
