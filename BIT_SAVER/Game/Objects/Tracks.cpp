@@ -16,15 +16,19 @@ Track::Track(int music_num) :
 Track(MidiEvent{}.MidiSetUp(music_num))
 {}
 
-Track::Track(std::vector<long double> mid_info) : 
+Track::Track(std::map<int,std::vector<long double>> mid_info) : 
 GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 })
 {
 	Doupdate = true;
 	std::vector<long double> time;
 
-	for (auto& time_t : mid_info)
+	for (auto& tracks : mid_info)
 	{
-		time.push_back(time_t);
+		for (auto& time_t : tracks.second)
+		{
+			time.push_back(time_t);
+		}
+		
 	}
 	std::sort(begin(time), end(time));
 

@@ -42,7 +42,7 @@ Level1::Level1() :
 	GcheckBox2 = nullptr;
 	BcheckBox1 = nullptr;
 	BcheckBox2 = nullptr;
-	gamestate = STATE::EXTRA;
+	gamestate = LEVEL_STATE::EXTRA;
 	Engine::GetMusic().Init();
 }
 
@@ -131,7 +131,7 @@ void Level1::Update(double dt)
 
 	if (stageBar->Getchangeflag() == 1)
 	{
-		gamestate = STATE::GENERATING;
+		gamestate = LEVEL_STATE::GENERATING;
 		Engine::GetMusic().Pause(Music::SOUND_NUM::REWIND);
 		bossPtr->GenerateBoss();
 		trackPtr->SetUpdate(false);
@@ -139,7 +139,7 @@ void Level1::Update(double dt)
 		Engine::GetMusic().Play(Music::SOUND_NUM::BOSS_ENTRANCE);
 		Engine::GetMusic().volumeUp(Music::SOUND_NUM::BOSS_ENTRANCE);
 	}
-	if (gamestate == STATE::GENERATING && bossPtr->GetVelocity().x == 0)
+	if (gamestate == LEVEL_STATE::GENERATING && bossPtr->GetVelocity().x == 0)
 	{
 		Engine::GetMusic().Resume(Music::SOUND_NUM::REWIND);
 		Engine::GetMusic().pitchUp(Music::SOUND_NUM::REWIND);
@@ -148,7 +148,7 @@ void Level1::Update(double dt)
 
 		feverBar = new Fever_bar({ -20,-9 });
 		gameObjectManager->Add(feverBar);
-		gamestate = STATE::FINISH;
+		gamestate = LEVEL_STATE::FINISH;
 	}
 
 	if (energyBar->Isgameover() == true)

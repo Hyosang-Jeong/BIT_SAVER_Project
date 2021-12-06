@@ -3,6 +3,7 @@
 #include <iomanip>
 #include"Engine/Engine.h"
 #include "..\BIT_SAVER\Engine\Music\music.h"
+#include "Game\Levels\Offset.h"
 #include"Game\Levels\Level1.h"
 #include"Game\Levels\Option.h"
 #include"Game\Levels\Gameover.h"
@@ -23,9 +24,11 @@ int main()
 	Option option;
 	Clear clear;
 	Gameover gameover;
+	Offset offset;
 
 	engine.GetGameStateManager().AddGameState(splash);
 	engine.GetGameStateManager().AddGameState(main_menu);
+	engine.GetGameStateManager().AddGameState(offset);
 	engine.GetGameStateManager().AddGameState(level1);
 	engine.GetGameStateManager().AddGameState(option);
 	engine.GetGameStateManager().AddGameState(clear);
