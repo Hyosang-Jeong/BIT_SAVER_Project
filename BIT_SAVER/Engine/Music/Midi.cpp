@@ -4,7 +4,7 @@
 #include "music.h"
 int m_ticksPerQuarterNote = 120; //set default
 
-std::vector<long double> MidiEvent::MidiSetUp(int music_num)
+std::map<int,std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
 {
     const char* midi_filename = " ";
     switch (music_num)
@@ -13,7 +13,7 @@ std::vector<long double> MidiEvent::MidiSetUp(int music_num)
 		midi_filename = "../MIDI/energy.mid";
 		break;
 	case Music::SOUND_NUM::REWIND:
-		midi_filename = "../MIDI/rewind.mid";
+		midi_filename = "../MIDI/disco.mid";
 		break;
     default:
         break;
@@ -160,7 +160,7 @@ std::vector<long double> MidiEvent::MidiSetUp(int music_num)
                 }
                 else if (music_num == Music::SOUND_NUM::REWIND)
                 {
-                    event.track = 1;
+                    event.track = i+1;
                 }
                 else
                 {
@@ -179,7 +179,7 @@ std::vector<long double> MidiEvent::MidiSetUp(int music_num)
     //make seconds from dt and ticks
     one_tick_per_tempo = (tempo_data * 0.000001) / m_ticksPerQuarterNote;
     //std::map<int, std::vector<long double>> track_seconds_;
-    std::vector<long double> dt_to_seconds;
+    std::map<int,std::vector<long double>> dt_to_seconds;
     int trackFrom = 0;
     int trackTo = 0;
     switch (music_num)
@@ -190,7 +190,7 @@ std::vector<long double> MidiEvent::MidiSetUp(int music_num)
         break;
     case Music::SOUND_NUM::ENERGY:
         trackFrom = 1;
-        trackTo = 2;
+        trackTo = 1;
         break;
     default:
     {
@@ -199,13 +199,13 @@ std::vector<long double> MidiEvent::MidiSetUp(int music_num)
     }
         break;
     }
-    for (int i = trackFrom; i < trackTo; i++)
+    for (int i = trackFrom; i <= trackTo; i++)
     {
         for (auto& m : m_events)
         {
             if (m.track == i)
             {
-                dt_to_seconds.push_back(m.tick * one_tick_per_tempo);
+                dt_to_seconds[i].push_back(m.tick * one_tick_per_tempo);
             }
         }
     }

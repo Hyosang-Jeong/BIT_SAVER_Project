@@ -24,7 +24,7 @@ class Fever_bar;
 class CheckBox;
 
 
-enum class STATE
+enum class LEVEL_STATE
 {
 	EXTRA,
 	GENERATING,
@@ -62,7 +62,7 @@ private:
 	CheckBox* BcheckBox2;
 	Camera camera;
 	GameObjectManager* gameObjectManager;
-	STATE gamestate;
+	LEVEL_STATE gamestate;
 	//GLText* text;
 	bool a = false;
 };
