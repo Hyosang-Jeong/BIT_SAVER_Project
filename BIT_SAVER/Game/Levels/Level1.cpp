@@ -25,7 +25,6 @@ Creation date: 3/07/2021
 #include"../Levels/Option.h"
 Level1::Level1() :
 	escape(InputKey::Keyboard::Escape),
-	tilt(InputKey::Keyboard::T),
 	camera({ 0,0 })
 {
 	gameObjectManager = nullptr;
@@ -166,14 +165,7 @@ void Level1::Update(double dt)
 	    Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Option));
 	    //Engine::GetGameStateManager().Shutdown();
 	}
-	if (a==false && tilt.IsKeyReleased() == true)
-	{
-	    a = true;
-	}
-	else if (a == true && tilt.IsKeyReleased() == true)
-	{
-	    a = false;
-	}
+
 }
 
 void Level1::Draw()
@@ -183,7 +175,6 @@ void Level1::Draw()
 	GetGSComponent<Background>()->Draw(camera.GetMatrix());
 	GetGSComponent<Score>()->Draw({ 0,100 });
 	gameObjectManager->DrawAll(camera.GetMatrix());
-
 
 }
 
