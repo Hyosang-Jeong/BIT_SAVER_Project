@@ -44,7 +44,7 @@ public:
 	
 private:
 	InputKey escape;
-	InputKey tilt;
+
 
 	Hero* heroPtr;
 	Boss* bossPtr;
@@ -64,5 +64,5 @@ private:
 	GameObjectManager* gameObjectManager;
 	STATE gamestate;
 	//GLText* text;
-	bool a = false;
+
 };
