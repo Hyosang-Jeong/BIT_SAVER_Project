@@ -15,19 +15,16 @@ Creation date: 2/11/2021
 
 using Image = unsigned char*;
 
-void Texture::Draw(glm::mat3  displayMatrix, GLModel mdl, std::string shdr_name)
+void Texture::Draw(glm::mat3  displayMatrix)
 {
-	std::map<std::string, GLSLShader>::iterator shd_ref;
+	Draw(displayMatrix, glm::vec2(0, 0), glm::vec2(1, 1));
+}
 
-	shd_ref = Engine::GetGLShader().find(shdr_name);
-	if (shd_ref == Engine::GetGLShader().end())
-	{
-		Engine::GetLogger().LogError("Shader not found!");
-		std::exit(EXIT_FAILURE);
-	}
+void Texture::Draw(glm::mat3 displayMatrix, glm::vec2 texel_pos, glm::vec2 texel_size)
+{
 
-	shd_ref->second.Use();
-	glBindVertexArray(mdl.vaoid);
+	model.shdr_pgm.Use();
+	glBindVertexArray(model.vaoid);
 
 	glTextureParameteri(tex_obj, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // size
 	glTextureParameteri(tex_obj, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
@@ -36,14 +33,32 @@ void Texture::Draw(glm::mat3  displayMatrix, GLModel mdl, std::string shdr_name)
 	glActiveTexture(GL_TEXTURE0);
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
-	//glDisable(GL_DEPTH);
 	glBindTexture(GL_TEXTURE_2D, tex_obj);
 	glBindTextureUnit(0, tex_obj);
 
-	GLuint tex_loc = glGetUniformLocation(shd_ref->second.GetHandle(), "uTex2d");
+	GLuint tex_loc = glGetUniformLocation(model.shdr_pgm.GetHandle(), "uTex2d");
 	glUniform1i(tex_loc, 0);
 
-	GLint uniform_var_loc1 = glGetUniformLocation(shd_ref->second.GetHandle(), "uModelToNDC");
+	glm::mat3 texture_matrix =
+	{
+		texel_size.x,0,0,
+		0,1,0,
+		texel_pos.x,0,1
+	};
+
+	GLuint texelPos = glGetUniformLocation(model.shdr_pgm.GetHandle(), "textureMatrix");
+	glUniformMatrix3fv(texelPos, 1, GL_FALSE, &texture_matrix[0].x);
+	if (texelPos >= 0)
+	{
+		glUniformMatrix3fv(texelPos, 1, GL_FALSE, &texture_matrix[0].x);
+	}
+	else
+	{
+		Engine::GetLogger().LogError("Uniform variable doesn't exist!!!");
+		std::exit(EXIT_FAILURE);
+	}
+
+	GLint uniform_var_loc1 = glGetUniformLocation(model.shdr_pgm.GetHandle(), "uModelToNDC");
 	if (uniform_var_loc1 >= 0)
 	{
 		glUniformMatrix3fv(uniform_var_loc1, 1, GL_FALSE, &displayMatrix[0].x);
@@ -54,14 +69,14 @@ void Texture::Draw(glm::mat3  displayMatrix, GLModel mdl, std::string shdr_name)
 		std::exit(EXIT_FAILURE);
 	}
 
-	glDrawElements(mdl.primitive_type, mdl.draw_cnt, GL_UNSIGNED_SHORT, NULL);
+	glDrawElements(model.primitive_type, model.draw_cnt, GL_UNSIGNED_SHORT, NULL);
 
-	shd_ref->second.UnUse();
+	model.shdr_pgm.UnUse();
 
 	glBindVertexArray(0);
 }
 
-void Texture::Draw(double world_range, GLModel mdl, std::string shdr_name, glm::vec2 pos, glm::vec2 scale, glm::vec2 rotate)
+void Texture::Draw(glm::vec2 pos, glm::vec2 scale, glm::vec2 rotate)
 {
 	glm::mat3 scale_matrix
 	{
@@ -87,13 +102,13 @@ void Texture::Draw(double world_range, GLModel mdl, std::string shdr_name, glm::
 
 	glm::mat3 ndcscale_matrix
 	{
-	   1.0 / world_range  ,0  ,0,
-		0,  1 / world_range ,0,
+	   1.0 / 10.f  ,0  ,0,
+		0,  1 / 10.f ,0,
 		0,0,1
 	};
 	glm::mat3 mdl_to_ndc_xform = ndcscale_matrix * trans_matrix * rotation_matrix * scale_matrix;	
 	
-	Draw(mdl_to_ndc_xform, mdl, shdr_name);
+	Draw(mdl_to_ndc_xform);
 }
 
 

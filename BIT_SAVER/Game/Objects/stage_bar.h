@@ -31,5 +31,4 @@ private:
     Texture* stage_barPtr;
     const double extra_stage_time;
     const double total_time;
-    GLModel stage_barModel;
 };

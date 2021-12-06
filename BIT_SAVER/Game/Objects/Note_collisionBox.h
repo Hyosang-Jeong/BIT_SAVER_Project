@@ -12,7 +12,7 @@ Creation date: 2/11/2021
 #include "..\Engine\Input\Input.h" //input key
 #include "..\Engine\GameObject\GameObject.h" // GameObject inheritance
 #include"GameObjectType.h"
-
+#include"../../Engine/Sprite/Texture.h"
 class Note_box : public GameObject
 {
 public:

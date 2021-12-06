@@ -88,5 +88,5 @@ void Collision::UpdateCollision(glm::vec2 pos,glm::vec2 scale)
 
 void Collision::Draw()
 {
-    box_ptr->Draw(10, box_model, "Hero", object_pos, object_scale);
+    box_ptr->Draw(object_pos, object_scale);
 }

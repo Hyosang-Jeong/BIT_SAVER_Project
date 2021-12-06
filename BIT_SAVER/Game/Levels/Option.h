@@ -43,8 +43,6 @@ private:
     Texture* bigSoundBall;
     Texture* smallSoundBall;
 
-    GLModel model;
-
     InputKey escape;
     InputKey OptionUpKey;
     InputKey OptionDownKey;

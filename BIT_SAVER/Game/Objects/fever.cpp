@@ -53,7 +53,7 @@ void Fever_bar::Update(double dt)
 
 void Fever_bar::Draw(glm::mat3 )
 {
-	fever_barPtr->Draw(10, fever_barModel, "Hero", { 0,-9 }, { 10,1 });
-	fever_gazePtr->Draw(10, fever_barModel, "Hero", GetPosition(), { 10,1 });
+	fever_barPtr->Draw( { 0,-9 }, { 10,1 });
+	fever_gazePtr->Draw( GetPosition(), { 10,1 });
 }
 

@@ -13,9 +13,9 @@ Creation date:
 #include "..\Engine\GameObject\GameObject.h" // GameObject inheritance
 #include "../../Engine/Component.h"
 #include"GameObjectType.h"
-#include"../../../lib/include/glm/glm.hpp"
+#include<glm/glm.hpp>
 #include <filesystem>
-
+#include"../../Engine/Sprite/Texture.h"
 class Camera;
 class Sprite;
 
@@ -35,7 +35,6 @@ private:
     {
         Texture* texture_front;
         Texture* texture_back;
-        GLModel model;
         float position_front;
         float position_back;
         double level;
