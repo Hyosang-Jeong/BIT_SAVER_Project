@@ -29,7 +29,6 @@ GLModel::GLModel()
     init({ 1,1 });
 }
 
-
 void GLModel::init(glm::vec2 size)
 {
     // init model from meshes file 

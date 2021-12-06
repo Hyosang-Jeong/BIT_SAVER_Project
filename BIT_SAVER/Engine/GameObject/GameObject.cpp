@@ -9,6 +9,7 @@ Creation date: 4/16/2021
 -----------------------------------------------------------------*/
 #include"GameObject.h"
 #include"../Engine.h"
+
 GameObject::GameObject(glm::vec2 position) : GameObject(position,  { 1, 1 }) {}
 
 GameObject::GameObject(glm::vec2 position, glm::vec2 scale)
@@ -81,6 +82,7 @@ void GameObject::Draw(glm::mat3 camera_matrix)
         collisionPtr->Draw();
     }
 #endif
+
 }
 
 const glm::mat3& GameObject::GetMatrix()

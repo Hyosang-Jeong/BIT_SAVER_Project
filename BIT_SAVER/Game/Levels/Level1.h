@@ -21,6 +21,7 @@ class EnergyBar;
 class Stage_bar;
 class GLText;
 class Fever_bar;
+class CheckBox;
 
 
 enum class STATE
@@ -43,6 +44,7 @@ public:
 	
 private:
 	InputKey escape;
+	InputKey tilt;
 
 	Hero* heroPtr;
 	Boss* bossPtr;
@@ -52,8 +54,15 @@ private:
 	EnergyBar* energyBar;
 	Stage_bar* stageBar;
 	Fever_bar* feverBar;
+	CheckBox* PcheckBox1;
+	CheckBox* PcheckBox2;
+	CheckBox* GcheckBox1;
+	CheckBox* GcheckBox2;
+	CheckBox* BcheckBox1;
+	CheckBox* BcheckBox2;
 	Camera camera;
 	GameObjectManager* gameObjectManager;
 	STATE gamestate;
 	//GLText* text;
+	bool a = false;
 };

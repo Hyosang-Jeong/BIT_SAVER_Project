@@ -176,7 +176,7 @@ void Option::GetIndex()
            //}
     //   }
 
-    if (/*OptionSelectKey.IsKeyDown() == true ||*/ MouseKey.MouseIsKeyDown() == true)
+    if (/*OptionSelectKey.IsKeyDown() == true ||*/ MouseKey.MouseIsKeyReleased() == true)
     {
         switch (select)
         {

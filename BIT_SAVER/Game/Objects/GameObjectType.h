@@ -13,5 +13,6 @@ enum class GameObjectType {
     Background,
     Hit,
     Particle,
+    Check_box,
     Count,
 };
