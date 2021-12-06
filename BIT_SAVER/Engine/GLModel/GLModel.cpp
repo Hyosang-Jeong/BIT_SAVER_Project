@@ -17,10 +17,7 @@ GLModel::GLModel()
     init({ 1,1 });
 }
 
-void GLModel::set_name(std::string model_name)
-{
-    name = model_name;
-}
+
 
 void GLModel::init(glm::vec2 size)
 {

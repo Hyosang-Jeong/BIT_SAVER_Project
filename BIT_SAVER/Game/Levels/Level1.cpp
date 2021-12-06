@@ -21,9 +21,11 @@ Creation date: 3/07/2021
 #include"../../Engine/Sprite/GameParticles.h"
 #include"../Objects/Score.h"
 #include"../Objects/fever.h"
+#include"../Objects/CheckBox.h"
 #include"../Levels/Option.h"
 Level1::Level1() :
 	escape(InputKey::Keyboard::Escape),
+	tilt(InputKey::Keyboard::T),
 	camera({ 0,0 })
 {
 	gameObjectManager = nullptr;
@@ -35,6 +37,12 @@ Level1::Level1() :
 	energyBar = nullptr;
 	stageBar = nullptr;
 	feverBar = nullptr;
+	PcheckBox1 = nullptr;
+	PcheckBox2 = nullptr;
+	GcheckBox1 = nullptr;
+	GcheckBox2 = nullptr;
+	BcheckBox1 = nullptr;
+	BcheckBox2 = nullptr;
 	gamestate = STATE::EXTRA;
 	Engine::GetMusic().Init();
 }
@@ -63,6 +71,14 @@ void Level1::Load()
 			notebox = new Note_box({ -4,0 });
 			bossPtr = new Boss({ 15,-5 });
 			energyBar = new EnergyBar({ -4,1.2 });
+
+			PcheckBox1 = new CheckBox({ -4.4,0 }, 0);
+			PcheckBox2 = new CheckBox({ -3.2,0 }, 0);
+			GcheckBox1 = new CheckBox({ -4.6,0 }, 1);
+			GcheckBox2 = new CheckBox({ -2.6,0 }, 1);
+			BcheckBox1 = new CheckBox({ -4.8,0 }, 2);
+			BcheckBox2 = new CheckBox({ -2.0,0 }, 2);
+
 			stageBar = new Stage_bar({ -10,9 }, 204, 82);   // total music time 204  ,  extra time 82
 
 
@@ -81,6 +97,14 @@ void Level1::Load()
 			gameObjectManager->Add(notebox);
 			gameObjectManager->Add(trackPtr);
 			gameObjectManager->Add(energyBar);
+
+			gameObjectManager->Add(PcheckBox1);
+			gameObjectManager->Add(PcheckBox2);
+			gameObjectManager->Add(GcheckBox1);
+			gameObjectManager->Add(GcheckBox2);
+			gameObjectManager->Add(BcheckBox1);
+			gameObjectManager->Add(BcheckBox2);
+
 			gameObjectManager->Add(stageBar);
 			AddGSComponent(new HitEmitter());
 			AddGSComponent(new PerfectEmitter());
@@ -140,7 +164,14 @@ void Level1::Update(double dt)
 	    Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Option));
 	    //Engine::GetGameStateManager().Shutdown();
 	}
-
+	if (a==false && tilt.IsKeyReleased() == true)
+	{
+	    a = true;
+	}
+	else if (a == true && tilt.IsKeyReleased() == true)
+	{
+	    a = false;
+	}
 }
 
 void Level1::Draw()
@@ -150,6 +181,8 @@ void Level1::Draw()
 	GetGSComponent<Background>()->Draw(camera.GetMatrix());
 	GetGSComponent<Score>()->Draw({ 0,100 });
 	gameObjectManager->DrawAll(camera.GetMatrix());
+
+
 }
 
 void Level1::Unload()
