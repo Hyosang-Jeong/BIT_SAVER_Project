@@ -15,7 +15,6 @@ Mainmenu::Mainmenu() :
 ESCAPE(InputKey::Keyboard::Escape),
 Level1(InputKey::Keyboard::P)
 {
-	model.init({ 1,1 });
 }
 
 void Mainmenu::Load()

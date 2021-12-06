@@ -25,7 +25,7 @@ Note::Note(glm::vec2 startPos, glm::vec2 velocity) :
     isMiss(false),
 
     energy(static_cast<EnergyBar*>(Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Energy_bar))),
-GameObject(startPos, glm::vec2{ 0.5,1 })
+GameObject(startPos, glm::vec2{ 2,1 })
 
 {
 	AddGOComponent(new Sprite("../images/hit_star.png", this));

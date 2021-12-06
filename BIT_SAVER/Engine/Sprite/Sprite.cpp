@@ -29,19 +29,21 @@ Sprite::~Sprite() {
 
 void Sprite::Load(const std::filesystem::path& spriteInfoFile,[[maybe_unused]] GameObject* object)
 {
-
+	animations.clear();
 	frameTexel.clear();
 
 	if (spriteInfoFile.extension() == ".png") 
 	{
 		textureptr  = Engine::GetTextureManager().Load(spriteInfoFile.string().c_str());
-		model.init({ 1,1 });
+		frameTexel.push_back(glm::vec2{ 0,0 });
+		ndc_frameSize = { 1,1 };
 	}
 	else if (spriteInfoFile.extension() == ".spt")
 	{
 		std::ifstream inFile(spriteInfoFile);
 
-		if (inFile.is_open() == false) {
+		if (inFile.is_open() == false) 
+		{
 			throw std::runtime_error("Failed to load " + spriteInfoFile.generic_string());
 		}
 
@@ -71,10 +73,9 @@ void Sprite::Load(const std::filesystem::path& spriteInfoFile,[[maybe_unused]] G
 				ndc_frameSize.y = 1.0f;
 				object->AddGOComponent(new Collision(ndc_frameSize));
 
-				model.init({ ndc_frame_size,1 });
 				for (int i = 0; i < numFrames; i++)
 				{
-					frameTexel.push_back({ ndc_frame_size * i, 0 });
+					frameTexel.push_back({ ndc_frame_size * i, 0.f });
 				}
 			}
 			else
@@ -111,9 +112,9 @@ glm::vec2 Sprite::GetFrameTexel(int frameNum) const
 }
 
 
-void Sprite::Draw(glm::mat3 displayMatrix, std::string shdr_name)
+void Sprite::Draw(glm::mat3 displayMatrix)
 {
-	textureptr->Draw(displayMatrix,  model, shdr_name);
+	textureptr->Draw(displayMatrix, GetFrameTexel(animations[currAnim]->GetDisplayFrame()), ndc_frameSize);
 }
 
 bool Sprite::IsAnimationDone()
@@ -130,7 +131,7 @@ void Sprite::Update(double dt)
 {
 	if (is_playing == true)
 	{
-		model.update(GetFrameTexel(animations[currAnim]->GetDisplayFrame()), ndc_frameSize);
+		//model.update(GetFrameTexel(animations[currAnim]->GetDisplayFrame()), ndc_frameSize);
 	}
 	animations[currAnim]->Update(dt);
 }

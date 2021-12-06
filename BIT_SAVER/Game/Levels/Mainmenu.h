@@ -27,7 +27,6 @@ public:
 
 	InputKey ESCAPE;
 	InputKey Level1;
-	GLModel model;
 private:
 };
 

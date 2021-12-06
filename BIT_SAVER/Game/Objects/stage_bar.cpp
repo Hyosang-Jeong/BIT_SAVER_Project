@@ -20,7 +20,6 @@ total_time(total_time),extra_stage_time(extra_time),
 	AddGOComponent(new Sprite("../spt/hero.spt", this));
 	stage_barPtr = Engine::GetTextureManager().Load("../images/stage_bar.png");
 	GetGOComponent<Sprite>()->PlayAnimation(0);
-	stage_barModel.init({ 1, 1 });
 	currstate = 0;
 	Doupdate = true;
 }
@@ -40,7 +39,7 @@ void Stage_bar::Update(double dt)
 
 void Stage_bar::Draw(glm::mat3 camera_matrix)
 {
-	stage_barPtr->Draw(10, stage_barModel, "Hero", { 0,9 }, {10,1});
+	stage_barPtr->Draw({ 0,9 }, {10,1});
 	GameObject::Draw(camera_matrix);
 }
 

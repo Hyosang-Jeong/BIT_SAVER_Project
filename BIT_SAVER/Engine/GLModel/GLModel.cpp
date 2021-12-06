@@ -14,6 +14,18 @@ void glErrorCheck(GLenum err)
 
 GLModel::GLModel()
 {
+    std::vector<std::pair<GLenum, std::string>> shdr_file0
+    {
+        std::make_pair(GL_VERTEX_SHADER, "../shaders/Hero.vert"),
+        std::make_pair(GL_FRAGMENT_SHADER,  "../shaders/Hero.frag")
+    };
+    shdr_pgm.CompileLinkValidate(shdr_file0);
+    if (GL_FALSE == shdr_pgm.IsLinked())
+    {
+        std::cout << "Unable to compile/link/validate shader programs\n";
+        std::cout << shdr_pgm.GetLog() << "\n";
+        std::exit(EXIT_FAILURE);
+    }
     init({ 1,1 });
 }
 

@@ -41,7 +41,7 @@ GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 })
 			}
 		}), end(time));
 
-	double target_time = 14.0 / -10;
+	double target_time = 14.0 / -20;
 
 	for (auto& time_t : time)
 	{

@@ -12,7 +12,6 @@ Creation date: 3/07/2021
 #include"..\Engine\Input\Input.h"  //input key
 #include"../../Engine/Sprite/Texture.h"
 #include"../../Engine/Engine.h"
-class GLText;
 
 enum Select
 {
@@ -42,8 +41,6 @@ private:
     Texture* textureAll;
     Texture* bigSoundBall;
     Texture* smallSoundBall;
-
-    GLModel model;
 
     InputKey escape;
     InputKey OptionUpKey;

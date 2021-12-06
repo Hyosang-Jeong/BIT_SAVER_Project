@@ -92,10 +92,9 @@ void Level1::Load()
 			AddGSComponent(gameObjectManager);
 			AddGSComponent(backPtr);
 
+			gameObjectManager->Add(notebox);
 			gameObjectManager->Add(heroPtr);
 			gameObjectManager->Add(bossPtr);
-			gameObjectManager->Add(notebox);
-			gameObjectManager->Add(trackPtr);
 			gameObjectManager->Add(energyBar);
 
 			gameObjectManager->Add(PcheckBox1);
@@ -106,6 +105,7 @@ void Level1::Load()
 			gameObjectManager->Add(BcheckBox2);
 
 			gameObjectManager->Add(stageBar);
+			gameObjectManager->Add(trackPtr);
 			AddGSComponent(new HitEmitter());
 			AddGSComponent(new PerfectEmitter());
 			AddGSComponent(new GoodEmitter());
