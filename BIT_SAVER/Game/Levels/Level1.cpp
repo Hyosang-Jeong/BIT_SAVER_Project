@@ -55,7 +55,6 @@ void Level1::Load()
 			gameObjectManager->Unload();
 			ClearGSComponent();
 		}
-			Engine::GetMusic().Play(Music::SOUND_NUM::REWIND);
 			gameObjectManager = new GameObjectManager();
 			heroPtr = new Hero({ -4,-5 });
 			backPtr = new Background();
@@ -96,10 +95,13 @@ void Level1::Load()
 				Engine::GetMusic().Resume(Music::SOUND_NUM::REWIND);
 			}
 		}
+			//Engine::GetMusic().Play(Music::SOUND_NUM::REWIND);
 	}
 
 void Level1::Update(double dt)
 {
+	if (!Engine::GetMusic().isPlaying(Music::SOUND_NUM::REWIND))
+		Engine::GetMusic().Play(Music::SOUND_NUM::REWIND);
 
 	GetGSComponent<Background>()->Update(dt);
 	gameObjectManager->UpdateAll(dt);

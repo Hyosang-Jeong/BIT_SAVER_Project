@@ -27,6 +27,7 @@ public:
 
 	InputKey ESCAPE;
 	InputKey Level1;
+	InputKey ChangeOffset;
 	GLModel model;
 private:
 };
