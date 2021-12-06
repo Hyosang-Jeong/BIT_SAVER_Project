@@ -40,30 +40,14 @@ void Splash::Update(double dt)
 
 void Splash::Draw()
 {
-	GLModel model;
-	model.init({ 1,1 });
-	glClear(GL_COLOR_BUFFER_BIT);
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	//to alpha effect
-	std::map<std::string, GLSLShader>::iterator shd_ref;
-	shd_ref = Engine::GetGLShader().find("Mainmenu");
-	shd_ref->second.Use();
-
-	GLuint alpha = glGetUniformLocation(shd_ref->second.GetHandle(), "alpha");
-	if (alpha < 0)
-	{
-		Engine::GetLogger().LogError("Uniform value doesn't exist! ");
-	}
-	glUniform1f(alpha, static_cast<float>(timer) / 3.0f);
 	if (timer > 3)
 	{
-		Digipen_Splash->Draw(glm::mat3{ 2 / 3.0,0,0,0,1 / 3.0,0,0,0,1 }, model, "Mainmenu");
+		Digipen_Splash->Draw(glm::mat3{ 2 / 3.0,0,0,0,1 / 3.0,0,0,0,1 });
 	}
 	else
 	{
-		Logo->Draw(glm::mat3{ 1,0,0,0,1,0,0,0,1 }, model, "Mainmenu");
+		Logo->Draw(glm::mat3{ 1,0,0,0,1,0,0,0,1 });
 	}
-	shd_ref->second.UnUse();
 }
 void Splash::Unload()
 {

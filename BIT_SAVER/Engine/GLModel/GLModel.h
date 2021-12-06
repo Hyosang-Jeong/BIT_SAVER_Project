@@ -2,12 +2,16 @@
 #include <glm/glm.hpp>
 #include <GL/glew.h> 
 #include <GLFW/glfw3.h>
+#include"../GLShader/glslshader.h"
 #include<string>
 #include<vector>
 #include<array>
 class GLModel
 {
 public:
+	GLModel();
+	void update(glm::vec2 min, glm::vec2 frame_size);
+	void init(glm::vec2 size);
 	struct Vertex
 	{
 		glm::vec2 position;
@@ -17,16 +21,13 @@ public:
 	GLuint primitive_cnt;
 	GLuint vaoid;
 	GLuint draw_cnt;
-	std::string name;
+
 	std::array<glm::vec2, 4> pos_vtx;
 	std::array<GLushort, 4> idx_vtx;
 	std::array<glm::vec2, 4>text_cord;
 	std::vector<Vertex> vertices;
 	std::vector<GLshort> indices;
 
+	GLSLShader shdr_pgm;
 
-	GLModel();
-
-	void update(glm::vec2 min, glm::vec2 frame_size);
-	void init(glm::vec2 size);
 };

@@ -45,13 +45,14 @@ Input::Input()
 {
 	keyDown.resize(static_cast<size_t>(InputKey::Keyboard::Count));
 	wasKeyDown.resize(static_cast<size_t>(InputKey::Keyboard::Count));
-	mouseKeyDown.resize(static_cast<int>(InputKey::Mouse::Count));
-	mouseWasKeyDown.resize(static_cast<int>(InputKey::Mouse::Count));
+	mouseKeyDown.resize(static_cast<size_t>(InputKey::Mouse::Count));
+	mouseWasKeyDown.resize(static_cast<size_t>(InputKey::Mouse::Count));
 }
 
 void Input::Update()
 {
 	wasKeyDown = keyDown;
+	mouseWasKeyDown = mouseKeyDown;
 }
 
 bool Input::IsKeyDown(InputKey::Keyboard key) const

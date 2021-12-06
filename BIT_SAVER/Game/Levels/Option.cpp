@@ -49,7 +49,6 @@ Option::Option() :
 void Option::Load()
 {
     select = RESUME;
-    model.init({ 1,1 });
 }
 
 void Option::Update(double dt)
@@ -71,9 +70,9 @@ void Option::Draw()
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
 
-    textureAll->Draw(10, model, "Option", { 0,0 }, { 10,10 });
-    bigSoundBall->Draw(10, model, "Option", SoundBallPosition, { 0.3,0.3 });
-    smallSoundBall->Draw(10, model, "Option", SoundBallPosition, smallsoundballScale);
+    textureAll->Draw({ 0,0 }, { 10,10 });
+    bigSoundBall->Draw(SoundBallPosition, { 0.3,0.3 });
+    smallSoundBall->Draw( SoundBallPosition, smallsoundballScale);
 
 
     glm::vec2 window_pos = Engine::GetWindow().GetSize();
@@ -177,7 +176,7 @@ void Option::GetIndex()
            //}
     //   }
 
-    if (/*OptionSelectKey.IsKeyDown() == true ||*/ MouseKey.MouseIsKeyDown() == true)
+    if (/*OptionSelectKey.IsKeyDown() == true ||*/ MouseKey.MouseIsKeyReleased() == true)
     {
         switch (select)
         {

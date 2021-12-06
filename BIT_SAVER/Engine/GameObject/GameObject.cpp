@@ -9,6 +9,7 @@ Creation date: 4/16/2021
 -----------------------------------------------------------------*/
 #include"GameObject.h"
 #include"../Engine.h"
+
 GameObject::GameObject(glm::vec2 position) : GameObject(position,  { 1, 1 }) {}
 
 GameObject::GameObject(glm::vec2 position, glm::vec2 scale)
@@ -69,14 +70,16 @@ void GameObject::Draw(glm::mat3 camera_matrix)
 {
     Sprite* spritePtr = GetGOComponent<Sprite>();
     Collision* collisionPtr = GetGOComponent<Collision>();
+
     if (spritePtr != nullptr)
     {
-        spritePtr->Draw(mdl_to_ndc_xform * camera_matrix, "Hero");
+        spritePtr->Draw(mdl_to_ndc_xform * camera_matrix);
     }
     if (collisionPtr != nullptr)
     {
         collisionPtr->Draw();
     }
+
 }
 
 const glm::mat3& GameObject::GetMatrix()

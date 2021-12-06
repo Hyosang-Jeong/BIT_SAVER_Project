@@ -16,7 +16,6 @@ ESCAPE(InputKey::Keyboard::Escape),
 Level1(InputKey::Keyboard::P),
 ChangeOffset(InputKey::Keyboard::Q)
 {
-	model.init({ 1,1 });
 }
 
 void Mainmenu::Load()

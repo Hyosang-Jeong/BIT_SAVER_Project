@@ -14,11 +14,11 @@ Creation date:
 #include<GL/glew.h>
 #include<glm/glm.hpp>
 #include"../Component.h"
-#include"../GLModel/GLModel.h"
-#include"Texture.h"
+
+
 class Animation;
 class GameObject;
-
+class Texture;
 
 class Sprite : public Component
 {
@@ -26,17 +26,16 @@ public:
     Sprite(const std::filesystem::path& spriteInfoFile, GameObject* object);
     ~Sprite();
     void Load(const std::filesystem::path& spriteInfoFile, GameObject* object);
-    void Draw(glm::mat3 displayMatrix, std::string shdr_name);
+    void Draw(glm::mat3 displayMatrix);
     void PlayAnimation(int anim);
     void Update(double dt) override;
     bool IsAnimationDone();
     int GetCurrentAnim();
     glm::vec2 GetFrameSize() const;
 private:
+    glm::vec2 GetFrameTexel(int frameNum) const;
     bool is_playing = false;
     Texture* textureptr;
-    GLModel model;
-    glm::vec2 GetFrameTexel(int frameNum) const;
     glm::vec2 frameSize;
     glm::vec2 ndc_frameSize;
     int currAnim = 0;
