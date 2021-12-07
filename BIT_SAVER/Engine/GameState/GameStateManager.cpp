@@ -30,11 +30,21 @@ void GameStateManager::SetNextState(int initState)
 
 void GameStateManager::Shutdown()
 {
+	if (state == State::PAUSE_UPDATE)
+	{
+		nextGameState->Unload();
+		state = State::SHUTDOWN;
+	}
 	nextGameState = nullptr;
 }
 void GameStateManager::ReloadState()
 {
+	nextGameState = currGameState;
 	state = State::UNLOAD;
+}
+void GameStateManager::ResumeState()
+{
+	state = State::RESUME;
 }
 GameState* GameStateManager::Find(std::string state_name)
 {
@@ -87,6 +97,17 @@ void GameStateManager::Update(double dt)
 		if (currGameState != nextGameState)
 		{
 			state = State::UNLOAD;
+			if (nextGameState != nullptr)
+			{
+				if (nextGameState->GetName() == "Option")
+				{
+					state = State::PAUSE;
+					if (currGameState->GetcurrentMusic() != Music::SOUND_NUM::MUSIC_END)
+					{
+						Engine::GetMusic().Pause(currGameState->GetcurrentMusic());
+					}
+				}
+			}
 		}
 		else
 		{
@@ -98,7 +119,36 @@ void GameStateManager::Update(double dt)
 
 		break;
 	}
-
+	case State::PAUSE:
+	{
+		Engine::GetLogger().LogEvent("Load OPTION");
+		nextGameState->Load();
+		Engine::GetLogger().LogEvent("Load Complete");
+		state = State::PAUSE_UPDATE;
+		break;
+	}
+	case State::PAUSE_UPDATE:
+	{
+		Engine::GetLogger().LogVerbose("Update" + nextGameState->GetName());
+		glfwSwapBuffers(Engine::GetWindow().ptr_window);
+		nextGameState->Update(dt);
+		if (nextGameState != nullptr)
+		{
+			nextGameState->Draw();
+		}
+		if (nextGameState == nullptr)
+		{
+			currGameState->Unload();
+		}
+		break;
+	}
+	case State::RESUME:
+	{
+		nextGameState = currGameState;
+		Engine::GetMusic().Resume(currGameState->GetcurrentMusic());
+		state = State::UPDATE;
+		break;
+	}
 	case State::UNLOAD:
 	{
 		Engine::GetLogger().LogEvent("Unload " + currGameState->GetName());

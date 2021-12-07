@@ -21,6 +21,7 @@ public:
 	void SetNextState(int initState);
 	void Shutdown();
 	void ReloadState();
+	void ResumeState();
 	bool HasGameEnded() { return state == State::EXIT; }
 	GameState* Find(std::string state_name);
 	GameState* GetCurrstate();
@@ -38,6 +39,9 @@ private:
 		START,
 		LOAD,
 		UPDATE,
+		PAUSE,
+		PAUSE_UPDATE,
+		RESUME,
 		UNLOAD,
 		SHUTDOWN,
 		EXIT,

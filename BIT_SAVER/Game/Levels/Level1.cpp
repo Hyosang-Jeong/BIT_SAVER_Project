@@ -48,20 +48,7 @@ Level1::Level1() :
 
 void Level1::Load()
 {
-	if (static_cast<Option*>(Engine::GetGameStateManager().Find("Option"))->GetSelect() != RESUME)
-	{
-		if (static_cast<Option*>(Engine::GetGameStateManager().Find("Option"))->GetSelect() == RESTART)
-		{
-			heroPtr = nullptr;
-			trackPtr = nullptr;
-			notebox = nullptr;
-			bossPtr = nullptr;
-			backPtr = nullptr;
-			energyBar = nullptr;
-			stageBar = nullptr;
-			gameObjectManager->Unload();
-			ClearGSComponent();
-		}
+
 			gameObjectManager = new GameObjectManager();
 			heroPtr = new Hero({ -4,-5 });
 			backPtr = new Background();
@@ -69,7 +56,7 @@ void Level1::Load()
 			notebox = new Note_box({ -4,0 });
 			bossPtr = new Boss({ 15,-5 });
 			energyBar = new EnergyBar({ -4,1.2 });
-			
+
 			PcheckBox1 = new CheckBox({ -4.4,0 }, 0);
 			PcheckBox2 = new CheckBox({ -3.2,0 }, 0);
 			GcheckBox1 = new CheckBox({ -4.6,0 }, 1);
@@ -90,8 +77,8 @@ void Level1::Load()
 			AddGSComponent(gameObjectManager);
 			AddGSComponent(backPtr);
 
-			gameObjectManager->Add(notebox);
 			gameObjectManager->Add(heroPtr);
+			gameObjectManager->Add(notebox);
 			gameObjectManager->Add(bossPtr);
 			gameObjectManager->Add(energyBar);
 
@@ -110,16 +97,8 @@ void Level1::Load()
 			AddGSComponent(new BadEmitter());
 			AddGSComponent(new MissEmitter());
 			AddGSComponent(new Score());
-		}
-		else // resume
-		{
-			if (Engine::GetMusic().isPlaying(Music::SOUND_NUM::REWIND) == true)
-			{
-				Engine::GetMusic().Resume(Music::SOUND_NUM::REWIND);
-			}
-		}
-			//Engine::GetMusic().Play(Music::SOUND_NUM::REWIND);
-	}
+
+}
 
 void Level1::Update(double dt)
 {
@@ -163,7 +142,6 @@ void Level1::Update(double dt)
 	if (escape.IsKeyDown() == true)
 	{
 	    Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Option));
-	    //Engine::GetGameStateManager().Shutdown();
 	}
 
 }
@@ -175,20 +153,11 @@ void Level1::Draw()
 	GetGSComponent<Background>()->Draw(camera.GetMatrix());
 	GetGSComponent<Score>()->Draw({ 0,100 });
 	gameObjectManager->DrawAll(camera.GetMatrix());
-
 }
+
 
 void Level1::Unload()
 {
-
-	if (Engine::GetMusic().isPlaying(Music::SOUND_NUM::REWIND) == true)
-	{
-		Engine::GetMusic().Pause(Music::SOUND_NUM::REWIND);
-	}
-	if (Engine::GetGameStateManager().GetNextstate() != nullptr)
-	{
-	    if (Engine::GetGameStateManager().GetNextstate()->GetName() != "Option")
-	    {
 		heroPtr = nullptr;
 		trackPtr = nullptr;
 		notebox = nullptr;
@@ -197,7 +166,6 @@ void Level1::Unload()
 		energyBar = nullptr;
 		stageBar = nullptr;
 		gameObjectManager->Unload();
+		Engine::GetMusic().Stop(Music::SOUND_NUM::REWIND);
 		ClearGSComponent();
-	    }
-	}
 }
