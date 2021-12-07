@@ -112,11 +112,6 @@ double Offset::GetResultTime()
 void Offset::Unload()
 {
 
-    if (Engine::GetMusic().isPlaying(SOUND_NUM::OFFSET) == true)
-    {
-	Engine::GetMusic().Pause(SOUND_NUM::OFFSET);
-    }
-
     checkBox = nullptr;
     heroPtr = nullptr;
     trackPtr = nullptr;
