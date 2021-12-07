@@ -14,6 +14,7 @@ Creation date:
 #include"..\Engine\Input\Input.h"  //input key
 #include"..\..\Engine\Physics\Camera.h"
 
+class CheckBox;
 class Offset : public GameState
 {
 public:
@@ -26,8 +27,10 @@ public:
     std::string GetName() override { return "Offset"; }
     Texture* gameover;
     InputKey ESCAPE;
-    InputKey BIT_SAVER;
+    InputKey HitKey;
+    CheckBox* checkBox;
+    Camera camera;
 
-
+    double result;
 private:
 };
