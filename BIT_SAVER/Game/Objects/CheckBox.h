@@ -2,7 +2,7 @@
 Copyright (C) 2021 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
-File Name: Energy.h
+File Name: CheckBox.h
 Project: BIT_SAVER
 Author:
 Creation date: 2/11/2021
@@ -11,6 +11,8 @@ Creation date: 2/11/2021
 
 #include "..\Engine\GameObject\GameObject.h" // GameObject inheritance
 #include "../../Game/Objects/GameObjectType.h"
+#include"..\Engine\Input\Input.h"  //input key
+
 class CheckBox : public GameObject
 {
 public:
@@ -20,7 +22,10 @@ public:
     {
         return GameObjectType::Check_box;
     }
-
+    void Draw(glm::mat3 camera_matrix) override;
 private:
+
+    InputKey tilt;
+    bool isTiltKeyDown;
 
 };

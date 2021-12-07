@@ -25,7 +25,6 @@ Creation date: 3/07/2021
 #include"../Levels/Option.h"
 Level1::Level1() :
 	escape(InputKey::Keyboard::Escape),
-	tilt(InputKey::Keyboard::T),
 	camera({ 0,0 })
 {
 	gameObjectManager = nullptr;
@@ -43,7 +42,7 @@ Level1::Level1() :
 	GcheckBox2 = nullptr;
 	BcheckBox1 = nullptr;
 	BcheckBox2 = nullptr;
-	gamestate = STATE::EXTRA;
+	gamestate = LEVEL_STATE::EXTRA;
 	Engine::GetMusic().Init();
 }
 
@@ -57,7 +56,6 @@ void Level1::Load()
 			notebox = new Note_box({ -4,0 });
 			bossPtr = new Boss({ 15,-5 });
 			energyBar = new EnergyBar({ -4,1.2 });
-
 
 			PcheckBox1 = new CheckBox({ -4.4,0 }, 0);
 			PcheckBox2 = new CheckBox({ -3.2,0 }, 0);
@@ -106,13 +104,13 @@ void Level1::Update(double dt)
 {
 	if (!Engine::GetMusic().isPlaying(Music::SOUND_NUM::REWIND))
 		Engine::GetMusic().Play(Music::SOUND_NUM::REWIND);
-
+	
 	GetGSComponent<Background>()->Update(dt);
 	gameObjectManager->UpdateAll(dt);
 
 	if (stageBar->Getchangeflag() == 1)
 	{
-		gamestate = STATE::GENERATING;
+		gamestate = LEVEL_STATE::GENERATING;
 		Engine::GetMusic().Pause(Music::SOUND_NUM::REWIND);
 		bossPtr->GenerateBoss();
 		trackPtr->SetUpdate(false);
@@ -120,7 +118,7 @@ void Level1::Update(double dt)
 		Engine::GetMusic().Play(Music::SOUND_NUM::BOSS_ENTRANCE);
 		Engine::GetMusic().volumeUp(Music::SOUND_NUM::BOSS_ENTRANCE);
 	}
-	if (gamestate == STATE::GENERATING && bossPtr->GetVelocity().x == 0)
+	if (gamestate == LEVEL_STATE::GENERATING && bossPtr->GetVelocity().x == 0)
 	{
 		Engine::GetMusic().Resume(Music::SOUND_NUM::REWIND);
 		Engine::GetMusic().pitchUp(Music::SOUND_NUM::REWIND);
@@ -129,7 +127,7 @@ void Level1::Update(double dt)
 
 		feverBar = new Fever_bar({ -20,-9 });
 		gameObjectManager->Add(feverBar);
-		gamestate = STATE::FINISH;
+		gamestate = LEVEL_STATE::FINISH;
 	}
 
 	if (energyBar->Isgameover() == true)
@@ -145,14 +143,7 @@ void Level1::Update(double dt)
 	{
 	    Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Option));
 	}
-	if (a==false && tilt.IsKeyReleased() == true)
-	{
-	    a = true;
-	}
-	else if (a == true && tilt.IsKeyReleased() == true)
-	{
-	    a = false;
-	}
+
 }
 
 void Level1::Draw()
