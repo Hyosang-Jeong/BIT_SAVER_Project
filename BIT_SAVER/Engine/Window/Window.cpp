@@ -108,6 +108,10 @@ InputKey::Keyboard GLKEY_TO_GAME(int button)
     {
         return InputKey::Keyboard::NUM_2;
     }
+    else if (button == GLFW_KEY_GRAVE_ACCENT)
+    {
+        return InputKey::Keyboard::Tilde;
+    }
     else if (button >= GLFW_KEY_A && button <= GLFW_KEY_Z) 
     {
         int offset = static_cast<int>(button) - static_cast<int>(GLFW_KEY_A);

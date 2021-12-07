@@ -25,7 +25,7 @@ public:
     void Draw(glm::mat3 camera_matrix) override;
 private:
 
-    InputKey tilt;
-    bool isTiltKeyDown;
+    InputKey tilde;
+    bool isTildeKeyDown;
 
 };

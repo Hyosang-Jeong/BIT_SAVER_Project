@@ -26,7 +26,7 @@ void Fever_bar::Update(double dt)
 {
 	if (is_fever_mode == false)
 	{
-		UpdatePosition({ static_cast<double>((score_ptr->Getscore() - initial_score)) * 0.05,0 });
+		UpdatePosition({ static_cast<double>((score_ptr->Getscore() - initial_score)) * 0.005,0 });
 	}
 	if (GetPosition().x > 0)
 	{

@@ -25,27 +25,32 @@ void Score::AddScore(int newPoints)
 	{
 	case SCORE::PERFECT:
 		score_count[newPoints]++;
+		combo++;
 		break;
 	case SCORE::GOOD:
 		score_count[newPoints]++;
+		combo++;
 		break;
 	case SCORE::BAD:
 		score_count[newPoints]++;
+		combo++;
 		break;
 	case SCORE::MISS:
 		score_count[newPoints]++;
-		break;
+		combo = 0;
+		return;
 	default:
 		break;
 	}
 
-	combo++;
-	if (newPoints == 0)
-	{
-		combo = 0;
-	}
+	int combo_add( (combo / 10) );
 
-	score += (combo *newPoints);
+	score += ((combo_add + 1) * (newPoints * 10));
+
+	if (combo_add > 10)
+	{
+		score += (10 * (newPoints * 10));
+	}
 }
 
 void Score::Draw(glm::vec2 location)
