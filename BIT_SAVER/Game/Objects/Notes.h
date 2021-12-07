@@ -29,10 +29,8 @@ public:
     void Hit_Check();
     int Score_check();
 private:
-    InputKey UpAttackKey1;
-    InputKey UpAttackKey2;
-    InputKey DownAttackKey1;
-    InputKey DownAttackKey2;
+    InputKey UpAttackKey;
+    InputKey DownAttackKey;
     bool isMiss;
 
 

@@ -10,16 +10,15 @@ Creation date: 3/14/2021
 #include"Hero.h"
 #include"../Engine/Engine.h" //get window
 #include"..\Levels\Level1.h"  // Level1's gravity
+#include"../Levels/Option.h"
 #define VOL 0.5f;
 
 
 Hero::Hero(glm::vec2 startPos) :
-    moveUp1Key(InputKey::Keyboard::Up),
-    moveDown1Key(InputKey::Keyboard::Down),
-    moveUp2Key(InputKey::Keyboard::F),
-    moveDown2Key(InputKey::Keyboard::J),
     timer(0),
-    GameObject(startPos, glm::vec2{ 2,2 })
+    GameObject(startPos, glm::vec2{ 2,2 }),
+    UpAttackKey(InputKey::Keyboard::None),
+    DownAttackKey(InputKey::Keyboard::None)
 {
    AddGOComponent(new Sprite("../spt/hero.spt", this));
    currState = &stateIdle;
@@ -32,6 +31,8 @@ void Hero::Update(double dt)
     GameObject::Update(dt);
     UpdateXVelocity(dt);
     GetGOComponent<Collision>()->UpdateCollision(GetPosition(),GetScale());
+    UpAttackKey = static_cast<Option*>(Engine::GetGameStateManager().Find("Option"))->UpAttackKey;
+    DownAttackKey = static_cast<Option*>(Engine::GetGameStateManager().Find("Option"))->DownAttackKey;
 }
 
 void Hero::Draw(glm::mat3 camera_matrix)
@@ -41,29 +42,7 @@ void Hero::Draw(glm::mat3 camera_matrix)
 
 void Hero::UpdateXVelocity([[maybe_unused]]double dt)
 {
-    //if (GetPosition().y >5)
-    //{
-    //    SetVelocity({ 0,-10});
-    //    SetPosition({ GetPosition().x, 5 });
-    //    hero_state =DOWN;
-    //}
 
-    // if (GetPosition().y <-5)
-    //{
-    //    SetVelocity({ 0,0 });
-    //    SetPosition({ GetPosition().x, -5 });
-    //}
-
-    //if (moveUp1Key.IsKeyDown() == true || moveUp2Key.IsKeyDown()==true)
-    //{
-    //    hero_state = UP_ENTER;
-    //    SetVelocity({ 0,80 });
-    //}
-    // if (moveDown1Key.IsKeyDown() == true || moveDown2Key.IsKeyDown() == true)
-    //{
-    //     hero_state = DOWN_ATTACK_ENTER;
-    //     SetVelocity({ 0,-80 });
-    //}
 }
 
 // idle state
@@ -107,13 +86,11 @@ void Hero::State_Running::Update([[maybe_unused]] GameObject* object, [[maybe_un
 void Hero::State_Running::TestForExit(GameObject* object)
 {
     Hero* hero = static_cast<Hero*>(object);
-    if ((hero->moveUp1Key.IsKeyDown() == true && hero->moveUp1Key.IsKeyReapeated() == false) ||
-        (hero->moveUp2Key.IsKeyDown() == true && hero->moveUp2Key.IsKeyReapeated() == false))
+    if ((hero->UpAttackKey.IsKeyDown() == true && hero->UpAttackKey.IsKeyReapeated() == false))
     {
         hero->ChangeState(&hero->stateJump);
     }
-    if ((hero->moveDown1Key.IsKeyDown() == true && hero->moveDown1Key.IsKeyReapeated() == false) ||
-        (hero->moveDown2Key.IsKeyDown() == true && hero->moveDown2Key.IsKeyReapeated() == false))
+    if ((hero->DownAttackKey.IsKeyDown() == true && hero->DownAttackKey.IsKeyReapeated() == false))
     {
         hero->ChangeState(&hero->stateAttack);
     }
@@ -139,13 +116,11 @@ void Hero::State_Falling::TestForExit(GameObject* object)
     {
         hero->ChangeState(&hero->stateRunning);
     }
-    if ((hero->moveUp1Key.IsKeyDown() == true && hero->moveUp1Key.IsKeyReapeated() == false) || 
-          (hero->moveUp2Key.IsKeyDown() == true && hero->moveUp2Key.IsKeyReapeated() ==false))
+    if ((hero->UpAttackKey.IsKeyDown() == true && hero->UpAttackKey.IsKeyReapeated() == false))
     {
         hero->ChangeState(&hero->stateJump);
     }
-    if ((hero->moveDown1Key.IsKeyDown() == true && hero->moveDown1Key.IsKeyReapeated() == false) ||
-        (hero->moveDown2Key.IsKeyDown() == true && hero->moveDown2Key.IsKeyReapeated() == false))
+    if ((hero->DownAttackKey.IsKeyDown() == true && hero->DownAttackKey.IsKeyReapeated() == false))
     {
         hero->SetVelocity({ 0,0 });
         hero->SetPosition({ hero->GetPosition().x, -5 });
