@@ -16,7 +16,7 @@ Offset::Offset() :
     ESCAPE(InputKey::Keyboard::Enter),
     BIT_SAVER(InputKey::Keyboard::Space)
 {
-
+    //	Engine::GetMusic().Init();
 }
 
 void Offset::Load()
@@ -24,6 +24,10 @@ void Offset::Load()
 
 void Offset::Update([[maybe_unused]] double dt)
 {
+    //if (!Engine::GetMusic().isPlaying(Music::SOUND_NUM::REWIND))
+    //    Engine::GetMusic().Play(Music::SOUND_NUM::REWIND);
+
+    //		trackPtr->SetUpdate(true);
 
     if (BIT_SAVER.IsKeyDown() == true && BIT_SAVER.IsKeyReapeated() == false)
     {

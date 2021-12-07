@@ -69,7 +69,7 @@ void Level1::Load()
 			notebox = new Note_box({ -4,0 });
 			bossPtr = new Boss({ 15,-5 });
 			energyBar = new EnergyBar({ -4,1.2 });
-
+			
 			PcheckBox1 = new CheckBox({ -4.4,0 }, 0);
 			PcheckBox2 = new CheckBox({ -3.2,0 }, 0);
 			GcheckBox1 = new CheckBox({ -4.6,0 }, 1);
@@ -125,7 +125,7 @@ void Level1::Update(double dt)
 {
 	if (!Engine::GetMusic().isPlaying(Music::SOUND_NUM::REWIND))
 		Engine::GetMusic().Play(Music::SOUND_NUM::REWIND);
-
+	
 	GetGSComponent<Background>()->Update(dt);
 	gameObjectManager->UpdateAll(dt);
 
