@@ -19,12 +19,12 @@ Creation date: 3/14/2021
 #include"Hero.h"
 Note::Note(glm::vec2 startPos, glm::vec2 velocity) :
     isMiss(false),
-	heroptr(dynamic_cast<Hero*>(Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero))),
+	heroptr(static_cast<Hero*>(Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero))),
     energy(static_cast<EnergyBar*>(Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Energy_bar))),
-	UpAttackKey1(heroptr->moveUp2Key),
-	UpAttackKey2(heroptr->moveUp1Key),
-	DownAttackKey1(heroptr->moveDown2Key),
-	DownAttackKey2(heroptr->moveDown1Key),
+	UpAttackKey1(InputKey::Keyboard::F),
+	UpAttackKey2(InputKey::Keyboard::Up),
+	DownAttackKey1(InputKey::Keyboard::J),
+	DownAttackKey2(InputKey::Keyboard::Down),
 GameObject(startPos, glm::vec2{ 2,1 })
 {
 	AddGOComponent(new Sprite("../images/hit_star.png", this));

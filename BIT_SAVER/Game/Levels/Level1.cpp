@@ -77,8 +77,8 @@ void Level1::Load()
 			AddGSComponent(gameObjectManager);
 			AddGSComponent(backPtr);
 
-			gameObjectManager->Add(notebox);
 			gameObjectManager->Add(heroPtr);
+			gameObjectManager->Add(notebox);
 			gameObjectManager->Add(bossPtr);
 			gameObjectManager->Add(energyBar);
 
