@@ -26,6 +26,7 @@ public:
 	std::string GetName() override { return "MainMenu"; }
 
 	InputKey ESCAPE;
+	InputKey Tutorial;
 	InputKey Level1;
 	InputKey ChangeOffset;
 

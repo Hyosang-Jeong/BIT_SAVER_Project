@@ -19,6 +19,7 @@ Creation date: 3/14/2021
 #include"Hero.h"
 Note::Note(glm::vec2 startPos, glm::vec2 velocity) :
     isMiss(false),
+
 	UpAttackKey(InputKey::Keyboard::None),
 	DownAttackKey(InputKey::Keyboard::None),
 GameObject(startPos, glm::vec2{ 2,1 })
@@ -54,17 +55,17 @@ void Note::Update(double dt)
 
 void Note::Draw(glm::mat3 camera_matrix)
 {
-	GameObject::Draw(camera_matrix);
+    GameObject::Draw(camera_matrix);
 }
 
 glm::vec2 Note::Getposition()
 {
-	return GameObject::GetPosition();
+    return GameObject::GetPosition();
 }
 
 void Note::Hit_Check()
 {
-    
+
 	if (Score_check()== static_cast<int>(SCORE::PERFECT) && GetPosition().y > 0)
 	{
 		if ((UpAttackKey.IsKeyDown() == true && UpAttackKey.IsKeyReapeated() == false))
@@ -143,17 +144,17 @@ int Note::Score_check()
 
     if (GetPosition().x - HeroPostion <= 0.85 && HeroPostion - GetPosition().x <= 0.65)//0.4
     {
-	return static_cast<int>(SCORE::PERFECT);
+        return static_cast<int>(SCORE::PERFECT);
     }
     else if (GetPosition().x - HeroPostion <= 1.45 && GetPosition().x - HeroPostion > 0.85 ||
-	    HeroPostion - GetPosition().x <= 1.45 && HeroPostion - GetPosition().x > 0.85)//0.6
+        HeroPostion - GetPosition().x <= 1.45 && HeroPostion - GetPosition().x > 0.85)//0.6
     {
-	return static_cast<int>(SCORE::GOOD);
+        return static_cast<int>(SCORE::GOOD);
     }
     else if (GetPosition().x - HeroPostion < 1.85 && GetPosition().x - HeroPostion > 1.45 ||
-	    HeroPostion - GetPosition().x < 1.85 && HeroPostion - GetPosition().x > 1.45)//0.8
+        HeroPostion - GetPosition().x < 1.85 && HeroPostion - GetPosition().x > 1.45)//0.8
     {
-	return static_cast<int>(SCORE::BAD);
+        return static_cast<int>(SCORE::BAD);
     }
     return static_cast<int>(SCORE::MISS);
 

@@ -24,7 +24,7 @@ class Track : public GameObject
 {
 public:
     Track(int music_num);
-    Track(std::map<int,std::vector<long double>>);
+    Track(std::map<int,std::vector<long double>>, int);
     void Update(double dt) override;
     glm::vec2 Getposition();
     void SetUpdate(bool update);
@@ -33,8 +33,9 @@ public:
         return GameObjectType::Track;
     }
 private:
-    //std::map<int, std::vector<long double>> track_info;
-    std::vector<Track_Time> track_time;
+    std::map<int, std::vector<long double>> track_info; // for REWIND
+    std::vector<Track_Time> track_time; // for else
+    int Music_Num{ 0 };
     bool Doupdate;
     glm::vec2 note_pos{ 0 };
     glm::vec2 note_vel{ 0 };

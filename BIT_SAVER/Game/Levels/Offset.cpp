@@ -11,46 +11,119 @@ Creation date: 3/07/2021
 #include"Mainmenu.h"
 #include"State.h"
 #include "Offset.h"
+#include"../Objects/CheckBox.h"
+#include"../Objects/Hero.h"
+#include"../Objects/Track.h"
+#include"../Objects/Background.h"
+#include "../Objects/EnergyBar.h"
+#include "../../Engine/Music/Sound_Num.h"
 
 Offset::Offset() :
     ESCAPE(InputKey::Keyboard::Enter),
-    BIT_SAVER(InputKey::Keyboard::Space)
+    HitKey(InputKey::Keyboard::Space),
+    resultTime(0),
+    compareTime(0),
+    camera({0,0})
+
 {
-    //	Engine::GetMusic().Init();
+    gameObjectManager = nullptr;
+    backPtr = nullptr;
+    heroPtr = nullptr;
+    trackPtr = nullptr;
+    checkBox = nullptr;
+    energyBar = nullptr;
+    Engine::GetMusic().Init();
 }
 
 void Offset::Load()
-{}
-
-void Offset::Update([[maybe_unused]] double dt)
 {
+    compareTime = 0;//시간 넣어 놓고 시작?
+    gameObjectManager = new GameObjectManager();
+    backPtr = new Background();
+    heroPtr = new Hero({ -4,-5 });
+    trackPtr = new Track(SOUND_NUM::OFFSET);
+    checkBox = new CheckBox({ -4,0 }, 0);
+    energyBar = new EnergyBar({ -4,1.2 });
+
+    backPtr->Add(texture_path[Background_1], 0);
+    backPtr->Add(texture_path[Parallax1_5], 0.5);
+    backPtr->Add(texture_path[Parallax1_4], 0.8);
+    backPtr->Add(texture_path[Parallax1_3], 1.1);
+    backPtr->Add(texture_path[Parallax1_2], 1.3);
+    backPtr->Add(texture_path[Parallax1_1], 1.5);
+
+    AddGSComponent(gameObjectManager);
+    AddGSComponent(backPtr);
+
+    gameObjectManager->Add(energyBar);
+    gameObjectManager->Add(heroPtr);
+    gameObjectManager->Add(checkBox);
+    gameObjectManager->Add(trackPtr);
+
+}
+
+void Offset::Update( double dt)
+{
+    if (!Engine::GetMusic().isPlaying(SOUND_NUM::OFFSET))
+        Engine::GetMusic().Play(SOUND_NUM::OFFSET);
+
+    GetGSComponent<Background>()->Update(dt);
+    gameObjectManager->UpdateAll(dt);
+    
     //if (!Engine::GetMusic().isPlaying(Music::SOUND_NUM::REWIND))
     //    Engine::GetMusic().Play(Music::SOUND_NUM::REWIND);
 
     //		trackPtr->SetUpdate(true);
-
-    if (BIT_SAVER.IsKeyDown() == true && BIT_SAVER.IsKeyReapeated() == false)
+    //
+    //result+= (미디의 시간과 내가 쳤을 때 시간 비교);
+    if (HitKey.IsKeyDown() == true && HitKey.IsKeyReapeated() == false)
     {
+        //result += 그때의 시간 - 미디 시간
     }
     else if (ESCAPE.IsKeyDown() == true)
     {
         Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
     }
 
+
 }
 
 void Offset::Draw()
 {
-    const std::string font1{ font_path[MochiyPopOne] };
-    const std::string font2{ font_path[PressStart] };
+    //const std::string font1{ font_path[MochiyPopOne] };
+    //const std::string font2{ font_path[PressStart] };
 
     glClear(GL_COLOR_BUFFER_BIT);
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-
-    Engine::GetText(font2).Draw("Clear!", 0.f, 50.f, 3.f, { 0.5f,0.5f,0.5f });
-    Engine::GetText(font2).Draw("Press Enter to go MainMenu", 0.f, 250.f, 3.f, { 0.5f,0.5f,0.5f });
-
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+    GetGSComponent<Background>()->Draw(camera.GetMatrix());
+    gameObjectManager->DrawAll(camera.GetMatrix());
+    //Engine::GetText(font2).Draw("Clear!", 0.f, 50.f, 3.f, { 0.5f,0.5f,0.5f });
+    //Engine::GetText(font2).Draw("Press Enter to go MainMenu", 0.f, 250.f, 3.f, { 0.5f,0.5f,0.5f });
 }
+
+
+
+double Offset::GetResultTime()
+{
+    return resultTime;
+}
+
+
 void Offset::Unload()
 {
+
+    if (Engine::GetMusic().isPlaying(SOUND_NUM::OFFSET) == true)
+    {
+	Engine::GetMusic().Pause(SOUND_NUM::OFFSET);
+    }
+
+    checkBox = nullptr;
+    heroPtr = nullptr;
+    trackPtr = nullptr;
+    backPtr = nullptr;
+    gameObjectManager->Unload();
+    Engine::GetMusic().Stop(SOUND_NUM::OFFSET);
+    ClearGSComponent();
 }
+
+
