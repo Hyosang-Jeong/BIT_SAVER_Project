@@ -143,7 +143,7 @@ void Level1::Update(double dt)
 	}
 	if (escape.IsKeyDown() == true)
 	{
-	    Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Offset));
+	    Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
 	}
 
 }
