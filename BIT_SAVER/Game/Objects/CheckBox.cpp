@@ -22,6 +22,3 @@ CheckBox::CheckBox(glm::vec2 startPos,int color) :
         AddGOComponent(new Sprite("../images/checkBoxR.png", this));
 }
 
-
-
-

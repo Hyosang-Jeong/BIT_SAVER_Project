@@ -29,7 +29,8 @@ Option::Option() :
     Mainmenu(glm::vec2{ 0,0 }),
     Quit(glm::vec2{ 0,0 }),
     mousePosition(glm::vec2{ 0,0 }),
-    MouseKey(InputKey::Mouse::Left)
+    MouseKey(InputKey::Mouse::Left),
+    ChangeKey(InputKey::Keyboard::Space)
 {
     select = -1;
     w = Engine::GetWindow().GetSize().x;
@@ -55,9 +56,12 @@ void Option::Update(double dt)
 {
     mousePosition = Engine::GetInput().MouseGetPosition();
     mousePosition = world_to_ndc * glm::vec3(mousePosition, 1);
-
+    if (ChangeKey.IsKeyDown() == true /*&& ChangeKey.IsKeyReapeated() == false*/)
+    {
+        select = Select::KEYBOARD;
+    }
+    std::cout << select << std::endl;
     GetIndex();
-    std::cout << mousePosition.x << " " << mousePosition.y << std::endl;
     changeSound(dt);
 }
 
@@ -72,7 +76,7 @@ void Option::Draw()
 
     textureAll->Draw({ 0,0 }, { 10,10 });
     bigSoundBall->Draw(SoundBallPosition, { 0.3,0.3 });
-    smallSoundBall->Draw( SoundBallPosition, smallsoundballScale);
+    smallSoundBall->Draw(SoundBallPosition, smallsoundballScale);
 
 
     glm::vec2 window_pos = Engine::GetWindow().GetSize();
@@ -80,9 +84,13 @@ void Option::Draw()
     window_pos.y *= 0.5;
 
     glm::vec2 offset(50, 100);
+    Engine::GetText(font2).Draw("Press Spacebar to change Attack key", 0.f, 50.f, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
+    if (select == Select::KEYBOARD)
+    {
+        Engine::GetText(font2).Draw("Press Spacebar to change Attack key", 0.f, 50.f, 1.f, glm::vec3(1.f, 1.f, 1.f));
+    }
 
-    //int offset_x = 0;
-    //int offset_y = 0;
+
 
     Engine::GetText(font2).Draw("RESUME", window_pos.x - offset.x, window_pos.y - offset.y, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
 
@@ -131,7 +139,7 @@ void Option::Draw()
 
 void Option::GetIndex()
 {
-    std::cout << select << std::endl;
+
     if (IsInBox(Resume) == true)
     {
         select = Select::RESUME;
@@ -148,7 +156,8 @@ void Option::GetIndex()
     {
         select = Select::QUIT;
     }
-    else
+    
+    else if(select != Select::KEYBOARD)
     {
         select = -1;
     }
@@ -181,12 +190,13 @@ void Option::GetIndex()
         switch (select)
         {
         case RESUME:
-            Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Level1));
+            Engine::GetGameStateManager().ResumeState();
             break;
         case RESTART:
-            Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Level1));
+            Engine::GetGameStateManager().ReloadState();
             break;
         case MAINMENU:
+            Engine::GetGameStateManager().ReloadState();
             Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
             break;
         case QUIT:

@@ -24,6 +24,7 @@ Creation date: 2/10/2021
 		enum class Mouse {
 		    None, Left, Count
 		};
+
 		InputKey(Keyboard button);
 		InputKey(Mouse mouseButton);
 

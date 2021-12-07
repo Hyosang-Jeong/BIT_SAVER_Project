@@ -42,6 +42,11 @@ public:
         return GameObjectType::Hero;
     }
     //std::string GetObjectTypeName() override { return "Hero"; }
+    InputKey moveUp1Key;
+    InputKey moveUp2Key;
+    InputKey moveDown1Key;
+    InputKey moveDown2Key;
+
 private:
 
     class State_Idle : public ObjectState {
@@ -86,14 +91,6 @@ private:
     State_Falling statefalling;
     State_Attack stateAttack;
     State_Jump stateJump;
-
-    InputKey moveUp1Key;
-    InputKey moveUp2Key;
-    InputKey moveDown1Key;
-    InputKey moveDown2Key;
-    InputKey moveLeftKey;
-    InputKey moveRightKey;
-    InputKey AttackKey;
 
     //Hero_state hero_state;
 

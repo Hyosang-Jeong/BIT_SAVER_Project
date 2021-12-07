@@ -46,7 +46,7 @@ void Boss::UpdateXVelocity(double )
 {
 	if (is_generating == true)
 	{
-		SetVelocity({-10,0 });
+		SetVelocity({-1,0 });
 	}
 }
 

@@ -16,13 +16,11 @@ class CheckBox : public GameObject
 public:
     CheckBox(glm::vec2 startPos, int color);
 
-
     GameObjectType GetObjectType() override
     {
         return GameObjectType::Check_box;
     }
 
 private:
-
 
 };

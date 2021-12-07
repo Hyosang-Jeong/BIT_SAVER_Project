@@ -15,6 +15,7 @@ Creation date: 3/07/2021
 
 enum Select
 {
+    KEYBOARD,
     RESUME,
     RESTART,
     MAINMENU,
@@ -49,7 +50,7 @@ private:
     InputKey OptionSoundDownKey;
     InputKey OptionSelectKey;
     InputKey MouseKey;
-
+    InputKey ChangeKey;
 
     bool mouseSwitch;
     glm::vec2 selectedIndex;
