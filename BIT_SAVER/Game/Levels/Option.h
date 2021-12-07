@@ -22,7 +22,7 @@ enum Select
     QUIT
 };
 
-
+class Hero;
 class Option : public GameState
 {
 public:
@@ -37,8 +37,12 @@ public:
     bool IsInBoxSound(glm::vec2 pos);
     bool IsInBox(glm::vec2 pos);
     void changeSound(double dt);
+    InputKey UpAttackKey;
+    InputKey DownAttackKey;
 private:
-
+    bool IsUpkeychanged;
+    bool IsDownkeychanged;
+    double KeychangeTextTimer;
     Texture* textureAll;
     Texture* bigSoundBall;
     Texture* smallSoundBall;
@@ -51,6 +55,7 @@ private:
     InputKey OptionSelectKey;
     InputKey MouseKey;
     InputKey ChangeKey;
+
 
     bool mouseSwitch;
     glm::vec2 selectedIndex;

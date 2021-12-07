@@ -42,10 +42,8 @@ public:
         return GameObjectType::Hero;
     }
     //std::string GetObjectTypeName() override { return "Hero"; }
-    InputKey moveUp1Key;
-    InputKey moveUp2Key;
-    InputKey moveDown1Key;
-    InputKey moveDown2Key;
+    InputKey UpAttackKey;
+    InputKey DownAttackKey;
 
 private:
 

@@ -25,8 +25,6 @@ GLboolean GLSLShader::CompileLinkValidate(std::vector<std::pair<GLenum, std::str
   if (GL_FALSE == Validate()) {
     return GL_FALSE;
   }
-  PrintActiveAttribs();
-  PrintActiveUniforms();
 
   return GL_TRUE;
 }

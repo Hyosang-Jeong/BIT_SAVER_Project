@@ -83,6 +83,11 @@ void  Input::SetKeyDown(InputKey::Keyboard key, bool value)
 	keyDown[static_cast<int>(key)] = value;
 }
 
+void Input::SetLastpressedButton(InputKey::Keyboard key)
+{
+	button = key;
+}
+
 bool Input::MouseIsKeyDown(InputKey::Mouse key) const {
     return mouseKeyDown[static_cast<int>(key)];
 }
@@ -109,4 +114,9 @@ glm::vec2 Input::MouseGetPosition() const {
 
 void Input::MouseUpdate() {
     mouseWasKeyDown = mouseKeyDown;
+}
+
+InputKey::Keyboard Input::GetLastPressedButton()
+{
+	return button;
 }

@@ -11,6 +11,7 @@ Creation date: 3/07/2021
 #include "../Engine/Engine.h"   //GetGameStateManage
 #include"Mainmenu.h"
 #include"State.h"
+#include"../Objects/Hero.h"
 
 Option::Option() :
     escape(InputKey::Keyboard::Escape),
@@ -30,7 +31,9 @@ Option::Option() :
     Quit(glm::vec2{ 0,0 }),
     mousePosition(glm::vec2{ 0,0 }),
     MouseKey(InputKey::Mouse::Left),
-    ChangeKey(InputKey::Keyboard::Space)
+    ChangeKey(InputKey::Keyboard::Space),
+    UpAttackKey(InputKey::Keyboard::F),
+    DownAttackKey(InputKey::Keyboard::J)
 {
     select = -1;
     w = Engine::GetWindow().GetSize().x;
@@ -56,11 +59,22 @@ void Option::Update(double dt)
 {
     mousePosition = Engine::GetInput().MouseGetPosition();
     mousePosition = world_to_ndc * glm::vec3(mousePosition, 1);
-    if (ChangeKey.IsKeyDown() == true /*&& ChangeKey.IsKeyReapeated() == false*/)
+    if (ChangeKey.IsKeyDown() == true && ChangeKey.IsKeyReapeated() == false)
     {
-        select = Select::KEYBOARD;
+        if (select == Select::KEYBOARD)
+        {
+            select = -1;
+        }
+        else
+        {
+            select = Select::KEYBOARD;
+            Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::None);
+             IsUpkeychanged = false;
+             IsDownkeychanged = false;
+             KeychangeTextTimer = 1;
+        }
     }
-    std::cout << select << std::endl;
+    KeychangeTextTimer -= dt;
     GetIndex();
     changeSound(dt);
 }
@@ -71,7 +85,7 @@ void Option::Draw()
     const std::string font2{ font_path[PressStart] };
 
     glClear(GL_COLOR_BUFFER_BIT);
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
 
     textureAll->Draw({ 0,0 }, { 10,10 });
@@ -87,13 +101,74 @@ void Option::Draw()
     Engine::GetText(font2).Draw("Press Spacebar to change Attack key", 0.f, 50.f, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
     if (select == Select::KEYBOARD)
     {
+        if (Engine::GetInput().GetLastPressedButton() != InputKey::Keyboard::None)
+        {
+            if (Engine::GetInput().GetLastPressedButton() >= InputKey::Keyboard::A && Engine::GetInput().GetLastPressedButton() <= InputKey::Keyboard::Z)
+            {
+                if (IsUpkeychanged == false)
+                {
+                    UpAttackKey.button = Engine::GetInput().GetLastPressedButton();
+                    Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::None);
+                    IsUpkeychanged = true;
+                    KeychangeTextTimer = 1;
+                }
+                else if (IsDownkeychanged == false && Engine::GetInput().GetLastPressedButton() != UpAttackKey.button)
+                {
+                    DownAttackKey.button = Engine::GetInput().GetLastPressedButton();
+                    Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::None);
+                    IsDownkeychanged = true;
+                }
+            }
+        }
+       
+         char Upkey = 'A' + static_cast<char>((static_cast<int>(UpAttackKey.button) - static_cast<int>(InputKey::Keyboard::A)));
+         char Downkey = 'A' + static_cast<char>((static_cast<int>(DownAttackKey.button) - static_cast<int>(InputKey::Keyboard::A)));
+         std::string Upresult(1, Upkey);
+         std::string Downresult(1, Downkey);
+         if (IsUpkeychanged == false)
+         {
+             if (KeychangeTextTimer >0.5)
+             {
+                 Engine::GetText(font2).Draw("Up attack Key : " + Upresult, 0.f, 75.f, 1.f, glm::vec3(1.f, 1.f, 1.f));
+                 Engine::GetText(font2).Draw("Down attack Key : " + Downresult, 0.f, 100.f, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
+             }
+             else
+             {
+                 Engine::GetText(font2).Draw("Up attack Key : " + Upresult, 0.f, 75.f, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
+                 Engine::GetText(font2).Draw("Down attack Key : " + Downresult, 0.f, 100.f, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
+             }
+             if (KeychangeTextTimer < 0)
+             {
+                 KeychangeTextTimer = 1;
+             }
+         }
+         else if(IsDownkeychanged == false)
+         {
+             if (KeychangeTextTimer > 0.5)
+             {
+                 Engine::GetText(font2).Draw("Up attack Key : " + Upresult, 0.f, 75.f, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
+                 Engine::GetText(font2).Draw("Down attack Key : " + Downresult, 0.f, 100.f, 1.f, glm::vec3(1.f, 1.f, 1.f));
+             }
+             else
+             {
+                 Engine::GetText(font2).Draw("Up attack Key : " + Upresult, 0.f, 75.f, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
+                 Engine::GetText(font2).Draw("Down attack Key : " + Downresult, 0.f, 100.f, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));        
+             }
+             if (KeychangeTextTimer < 0)
+             {
+                 KeychangeTextTimer = 1;
+             }
+         }
+         else
+         {
+             Engine::GetText(font2).Draw("Up attack Key : " + Upresult, 0.f, 75.f, 1.f, glm::vec3(1.f, 1.f, 1.f));
+             Engine::GetText(font2).Draw("Down attack Key : " + Downresult, 0.f, 100.f, 1.f, glm::vec3(1.f, 1.f, 1.f));
+         }
         Engine::GetText(font2).Draw("Press Spacebar to change Attack key", 0.f, 50.f, 1.f, glm::vec3(1.f, 1.f, 1.f));
+
     }
 
-
-
     Engine::GetText(font2).Draw("RESUME", window_pos.x - offset.x, window_pos.y - offset.y, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
-
 
     if (select == Select::RESUME)
     {
@@ -139,7 +214,6 @@ void Option::Draw()
 
 void Option::GetIndex()
 {
-
     if (IsInBox(Resume) == true)
     {
         select = Select::RESUME;
@@ -162,29 +236,6 @@ void Option::GetIndex()
         select = -1;
     }
 
-    //   if (OptionUpKey.IsKeyReleased() == true)
-    //   {
-           //if (select > Select::RESUME)
-           //{
-           //    select--;
-           //}
-           //else if (select == Select::RESUME)
-           //{
-           //    select = Select::QUIT;
-           //}
-    //   }
-    //   else if (OptionDownKey.IsKeyReleased() == true)
-    //   {
-           //if (select < Select::QUIT)
-           //{
-           //    select++;
-           //}
-           //else if (select == Select::QUIT)
-           //{
-           //    select = Select::RESUME;
-           //}
-    //   }
-
     if (/*OptionSelectKey.IsKeyDown() == true ||*/ MouseKey.MouseIsKeyReleased() == true)
     {
         switch (select)
@@ -206,6 +257,9 @@ void Option::GetIndex()
             break;
         }
     }
+
+
+
 }
 
 int Option::GetSelect()
@@ -240,6 +294,9 @@ bool Option::IsInBox(glm::vec2 pos)
 
 void Option::Unload()
 {
+    textureAll = nullptr;
+    bigSoundBall = nullptr;
+     smallSoundBall = nullptr;
 }
 
 void Option::changeSound(double dt)

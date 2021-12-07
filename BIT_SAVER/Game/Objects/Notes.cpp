@@ -19,14 +19,13 @@ Creation date: 3/14/2021
 #include"Hero.h"
 Note::Note(glm::vec2 startPos, glm::vec2 velocity) :
     isMiss(false),
-	heroptr(static_cast<Hero*>(Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero))),
-    energy(static_cast<EnergyBar*>(Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Energy_bar))),
-	UpAttackKey1(InputKey::Keyboard::F),
-	UpAttackKey2(InputKey::Keyboard::Up),
-	DownAttackKey1(InputKey::Keyboard::J),
-	DownAttackKey2(InputKey::Keyboard::Down),
+	UpAttackKey(InputKey::Keyboard::None),
+	DownAttackKey(InputKey::Keyboard::None),
 GameObject(startPos, glm::vec2{ 2,1 })
 {
+	heroptr=(dynamic_cast<Hero*>(Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero)));
+	energy=(static_cast<EnergyBar*>(Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Energy_bar)));
+
 	AddGOComponent(new Sprite("../images/hit_star.png", this));
 	SetVelocity(velocity);
 }
@@ -34,6 +33,9 @@ GameObject(startPos, glm::vec2{ 2,1 })
 void Note::Update(double dt)
 {
 	GameObject::Update(dt);
+	UpAttackKey = heroptr->UpAttackKey;
+	DownAttackKey = heroptr->DownAttackKey;
+
 	if (GetPosition().x < -10)
 	{
 		set_destroy(true);
@@ -65,8 +67,7 @@ void Note::Hit_Check()
     
 	if (Score_check()== static_cast<int>(SCORE::PERFECT) && GetPosition().y > 0)
 	{
-		if ((UpAttackKey1.IsKeyDown() == true || UpAttackKey2.IsKeyDown() == true) &&
-		    ( UpAttackKey2.IsKeyReapeated()==false && UpAttackKey1.IsKeyReapeated() == false))
+		if ((UpAttackKey.IsKeyDown() == true && UpAttackKey.IsKeyReapeated() == false))
 		{
 			Engine::GetGSComponent<HitEmitter>()->Emit(1, GetPosition(), { 0,0 }, { 0,0 }, 0);
 			Engine::GetGSComponent<PerfectEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
@@ -76,8 +77,7 @@ void Note::Hit_Check()
 	}
 	else if (Score_check() == static_cast<int>(SCORE::GOOD) && GetPosition().y > 0)
 	{
-	    if ((UpAttackKey1.IsKeyDown() == true || UpAttackKey2.IsKeyDown() == true) &&
-		(UpAttackKey2.IsKeyReapeated() == false && UpAttackKey1.IsKeyReapeated() == false))
+		if ((UpAttackKey.IsKeyDown() == true && UpAttackKey.IsKeyReapeated() == false))
 		{
 			Engine::GetGSComponent<HitEmitter>()->Emit(1, GetPosition(), { 0,0 }, { 0,0 }, 0);
 			Engine::GetGSComponent<GoodEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
@@ -87,8 +87,7 @@ void Note::Hit_Check()
 	}
 	else if (Score_check() == static_cast<int>(SCORE::BAD) && GetPosition().y > 0)
 	{
-	    if ((UpAttackKey1.IsKeyDown() == true || UpAttackKey2.IsKeyDown() == true) &&
-		(UpAttackKey2.IsKeyReapeated() == false && UpAttackKey1.IsKeyReapeated() == false))
+		if ((UpAttackKey.IsKeyDown() == true && UpAttackKey.IsKeyReapeated() == false))
 		{
 			Engine::GetGSComponent<HitEmitter>()->Emit(1, GetPosition(), { 0,0 }, { 0,0 }, 0);
 			Engine::GetGSComponent<BadEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
@@ -99,8 +98,7 @@ void Note::Hit_Check()
 
 	if (Score_check() == static_cast<int>(SCORE::PERFECT) && GetPosition().y < 0)
 	{
-		if ((DownAttackKey1.IsKeyDown() == true || DownAttackKey2.IsKeyDown() == true) && 
-		    (DownAttackKey1.IsKeyReapeated() == false && DownAttackKey2.IsKeyReapeated()==false))
+		if ((DownAttackKey.IsKeyDown() == true && DownAttackKey.IsKeyReapeated() == false))
 		{
 			Engine::GetGSComponent<HitEmitter>()->Emit(1, GetPosition(), { 0,0 }, { 0,0 }, 0);
 			Engine::GetGSComponent<PerfectEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
@@ -111,8 +109,7 @@ void Note::Hit_Check()
 
 	else if (Score_check() == static_cast<int>(SCORE::GOOD) && GetPosition().y < 0)
 	{
-	    if ((DownAttackKey1.IsKeyDown() == true || DownAttackKey2.IsKeyDown() == true) &&
-		(DownAttackKey1.IsKeyReapeated() == false && DownAttackKey2.IsKeyReapeated() == false))
+		if ((DownAttackKey.IsKeyDown() == true && DownAttackKey.IsKeyReapeated() == false))
 		{
 			Engine::GetGSComponent<HitEmitter>()->Emit(1, GetPosition(), { 0,0 }, { 0,0 }, 0);
 			Engine::GetGSComponent<GoodEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
@@ -122,8 +119,7 @@ void Note::Hit_Check()
 	}
 	else if (Score_check() == static_cast<int>(SCORE::BAD)	&& GetPosition().y < 0)
 	{
-	    if ((DownAttackKey1.IsKeyDown() == true || DownAttackKey2.IsKeyDown() == true) &&
-		(DownAttackKey1.IsKeyReapeated() == false && DownAttackKey2.IsKeyReapeated() == false))
+		if ((DownAttackKey.IsKeyDown() == true && DownAttackKey.IsKeyReapeated() == false))
 		{
 
 			Engine::GetGSComponent<BadEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);

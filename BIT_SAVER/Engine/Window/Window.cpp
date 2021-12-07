@@ -137,6 +137,7 @@ void Window::key_cb([[maybe_unused]] GLFWwindow* pwin, [[maybe_unused]] int key,
         {
             Engine::GetLogger().LogDebug("on_key_pressed");
             Engine::GetInput().SetKeyDown(button, true);
+            Engine::GetInput().SetLastpressedButton(button);
         }
     }
     else if (GLFW_REPEAT == action)

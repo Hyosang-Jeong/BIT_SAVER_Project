@@ -35,7 +35,7 @@ Creation date: 2/10/2021
 		bool IsKeyDown() const;
 		bool IsKeyReleased() const;
 		bool IsKeyReapeated() const;
-	private:
+
 		Keyboard button;
 		Mouse mouseButton;
 	};
@@ -48,6 +48,7 @@ Creation date: 2/10/2021
 		bool IsKeyReleased(InputKey::Keyboard key) const;
 		bool IsKeyReapeated(InputKey::Keyboard key) const;
 		void SetKeyDown(InputKey::Keyboard key, bool value);
+		void SetLastpressedButton(InputKey::Keyboard key);
 		void Update();
 
 		bool MouseIsKeyDown(InputKey::Mouse key) const;
@@ -56,9 +57,11 @@ Creation date: 2/10/2021
 		void MouseSetKeyDown(InputKey::Mouse key, bool value);
 
 		void MouseSetPosition(glm::vec2 newPosition);
+
 		glm::vec2 MouseGetPosition() const;
 
 		void MouseUpdate();
+		InputKey::Keyboard GetLastPressedButton();
 	private:
 		std::vector<bool> keyDown;
 		std::vector<bool> wasKeyDown;
@@ -66,7 +69,7 @@ Creation date: 2/10/2021
 		std::vector<bool> mouseKeyDown;
 		std::vector<bool> mouseWasKeyDown;
 		glm::vec2 mousePosition;
-
+		InputKey::Keyboard button;
 	};
 
 
