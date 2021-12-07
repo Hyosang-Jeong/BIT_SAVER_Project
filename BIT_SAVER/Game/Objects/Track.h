@@ -13,6 +13,13 @@ Creation date:
 #include"GameObjectType.h"
 #include <map>
 
+struct Track_Time
+{
+    int track{ 0 };
+    long double time{ 0.0 };
+    Track_Time(int a, long double b) :track(a), time(b) {}
+};
+
 class Track : public GameObject
 {
 public:
@@ -26,7 +33,8 @@ public:
         return GameObjectType::Track;
     }
 private:
-    std::map<int, std::vector<long double>> track_info;
+    //std::map<int, std::vector<long double>> track_info;
+    std::vector<Track_Time> track_time;
     bool Doupdate;
     glm::vec2 note_pos{ 0 };
     glm::vec2 note_vel{ 0 };
