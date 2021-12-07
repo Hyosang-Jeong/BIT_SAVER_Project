@@ -11,6 +11,8 @@ Creation date: 2021-03-07
 #include"GameStateManager.h"
 #include"GameState.h"
 #include"..\Engine.h" //Getlogger
+#include "..\Music\Sound_Num.h"
+
 GameStateManager::GameStateManager()
 {
 	currGameState = nullptr;
@@ -102,7 +104,7 @@ void GameStateManager::Update(double dt)
 				if (nextGameState->GetName() == "Option")
 				{
 					state = State::PAUSE;
-					if (currGameState->GetcurrentMusic() != Music::SOUND_NUM::MUSIC_END)
+					if (currGameState->GetcurrentMusic() != SOUND_NUM::MUSIC_END)
 					{
 						Engine::GetMusic().Pause(currGameState->GetcurrentMusic());
 					}

@@ -262,6 +262,9 @@
     <ClInclude Include="Game\Levels\Tutorial.h">
       <Filter>Game\Levels</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\Music\Sound_Num.h">
+      <Filter>Engine\Music</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Game">

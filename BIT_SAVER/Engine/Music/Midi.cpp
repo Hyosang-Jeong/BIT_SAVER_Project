@@ -1,7 +1,7 @@
 #include "Midi.h"
 #include <fstream>
 #include "..\Engine.h"
-#include "music.h"
+#include "Sound_Num.h"
 int m_ticksPerQuarterNote = 120; //set default
 
 std::map<int,std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
@@ -9,11 +9,14 @@ std::map<int,std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
     const char* midi_filename = " ";
     switch (music_num)
     {
-	case Music::SOUND_NUM::ENERGY:
+	case SOUND_NUM::ENERGY:
 		midi_filename = "../MIDI/energy.mid";
 		break;
-	case Music::SOUND_NUM::REWIND:
-		midi_filename = "../MIDI/disco.mid";
+    case SOUND_NUM::DISCO:
+        midi_filename = "../MIDI/disco.mid";
+        break;
+	case SOUND_NUM::REWIND:
+		midi_filename = "../MIDI/rewind.mid";
 		break;
     default:
         break;
@@ -154,13 +157,17 @@ std::map<int,std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
 
             if ((bytes[0] & 0xf0) == 0x90 && bytes[bytes.size() - 1] != 0)
             {
-                if (music_num == Music::SOUND_NUM::ENERGY)
+                if (music_num == SOUND_NUM::ENERGY)
                 {
                     event.track = 1;
                 }
-                else if (music_num == Music::SOUND_NUM::REWIND)
+                else if (music_num == SOUND_NUM::DISCO)
                 {
-                    event.track = i+1;
+                    event.track = i + 1;
+                }
+                else if (music_num == SOUND_NUM::REWIND)
+                {
+                    event.track = 1;
                 }
                 else
                 {
@@ -184,11 +191,15 @@ std::map<int,std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
     int trackTo = 0;
     switch (music_num)
     {
-    case Music::SOUND_NUM::REWIND:
+    case SOUND_NUM::DISCO:
         trackFrom = 1;
         trackTo = 2;
         break;
-    case Music::SOUND_NUM::ENERGY:
+    case SOUND_NUM::REWIND:
+        trackFrom = 1;
+        trackTo = 1;
+        break;
+    case SOUND_NUM::ENERGY:
         trackFrom = 1;
         trackTo = 1;
         break;

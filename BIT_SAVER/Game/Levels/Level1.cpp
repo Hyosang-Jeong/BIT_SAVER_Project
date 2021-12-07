@@ -23,6 +23,8 @@ Creation date: 3/07/2021
 #include"../Objects/fever.h"
 #include"../Objects/CheckBox.h"
 #include"../Levels/Option.h"
+
+
 Level1::Level1() :
 	escape(InputKey::Keyboard::Escape),
 	camera({ 0,0 })
@@ -52,7 +54,7 @@ void Level1::Load()
 			gameObjectManager = new GameObjectManager();
 			heroPtr = new Hero({ -4,-5 });
 			backPtr = new Background();
-			trackPtr = new Track(Music::SOUND_NUM::REWIND);
+			trackPtr = new Track(SOUND_NUM::REWIND);
 			notebox = new Note_box({ -4,0 });
 			bossPtr = new Boss({ 15,-5 });
 			energyBar = new EnergyBar({ -4,1.2 });
@@ -102,8 +104,8 @@ void Level1::Load()
 
 void Level1::Update(double dt)
 {
-	if (!Engine::GetMusic().isPlaying(Music::SOUND_NUM::REWIND))
-		Engine::GetMusic().Play(Music::SOUND_NUM::REWIND);
+	if (!Engine::GetMusic().isPlaying(SOUND_NUM::REWIND))
+		Engine::GetMusic().Play(SOUND_NUM::REWIND);
 	
 	GetGSComponent<Background>()->Update(dt);
 	gameObjectManager->UpdateAll(dt);
@@ -111,17 +113,17 @@ void Level1::Update(double dt)
 	if (stageBar->Getchangeflag() == 1)
 	{
 		gamestate = LEVEL_STATE::GENERATING;
-		Engine::GetMusic().Pause(Music::SOUND_NUM::REWIND);
+		Engine::GetMusic().Pause(SOUND_NUM::REWIND);
 		bossPtr->GenerateBoss();
 		trackPtr->SetUpdate(false);
 		stageBar->SetUpdate(false);
-		Engine::GetMusic().Play(Music::SOUND_NUM::BOSS_ENTRANCE);
-		Engine::GetMusic().volumeUp(Music::SOUND_NUM::BOSS_ENTRANCE);
+		Engine::GetMusic().Play(SOUND_NUM::BOSS_ENTRANCE);
+		Engine::GetMusic().volumeUp(SOUND_NUM::BOSS_ENTRANCE);
 	}
 	if (gamestate == LEVEL_STATE::GENERATING && bossPtr->GetVelocity().x == 0)
 	{
-		Engine::GetMusic().Resume(Music::SOUND_NUM::REWIND);
-		Engine::GetMusic().pitchUp(Music::SOUND_NUM::REWIND);
+		Engine::GetMusic().Resume(SOUND_NUM::REWIND);
+		Engine::GetMusic().pitchUp(SOUND_NUM::REWIND);
 		trackPtr->SetUpdate(true);
 		stageBar->SetUpdate(true);
 
@@ -135,7 +137,7 @@ void Level1::Update(double dt)
 		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Gameover));
 	}
 	
-	if (Engine::GetMusic().isPlaying(Music::SOUND_NUM::REWIND) == false)
+	if (Engine::GetMusic().isPlaying(SOUND_NUM::REWIND) == false)
 	{
 		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Clear));
 	}
@@ -166,6 +168,6 @@ void Level1::Unload()
 		energyBar = nullptr;
 		stageBar = nullptr;
 		gameObjectManager->Unload();
-		Engine::GetMusic().Stop(Music::SOUND_NUM::REWIND);
+		Engine::GetMusic().Stop(SOUND_NUM::REWIND);
 		ClearGSComponent();
 }

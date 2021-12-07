@@ -13,6 +13,7 @@ Creation date: 3/07/2021
 
 Mainmenu::Mainmenu() : 
 ESCAPE(InputKey::Keyboard::Escape),
+Tutorial(InputKey::Keyboard::T),
 Level1(InputKey::Keyboard::P),
 ChangeOffset(InputKey::Keyboard::Q)
 {
@@ -23,7 +24,11 @@ void Mainmenu::Load()
 
 void Mainmenu::Update([[maybe_unused]]double dt)
 {
-	if (Level1.IsKeyReleased() == true)
+	if (Tutorial.IsKeyReleased() == true)
+	{
+		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Tutorial));
+	}
+	else if (Level1.IsKeyReleased() == true)
 	{
 		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Level1));
 	}
@@ -31,8 +36,7 @@ void Mainmenu::Update([[maybe_unused]]double dt)
 	{
 		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Offset));
 	}
-
-	if (ESCAPE.IsKeyReleased() == true)
+	else if (ESCAPE.IsKeyReleased() == true)
 	{
 		Engine::GetGameStateManager().Shutdown();
 	}
@@ -48,7 +52,9 @@ void Mainmenu::Draw()
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	
 	//mainmenu->Draw(glm::mat3{ 1,0,0,0,1,0,0,0,1 }, model, "Hero");
-	Engine::GetText(font2).Draw("Press P to play", 0.f, 50.f, 3.f, { 0.5f,0.5f,0.5f });
+	Engine::GetText(font2).Draw("Press T for Tuto", 0.f, 50.f, 3.f, { 0.5f,0.5f,0.5f });
+	Engine::GetText(font2).Draw("Press P to play", 0.f, 150.f, 3.f, { 0.5f,0.5f,0.5f });
+	Engine::GetText(font2).Draw("Press Q to offset", 0.f, 250.f, 3.f, { 0.5f,0.5f,0.5f });
 
 }
 void Mainmenu::Unload()

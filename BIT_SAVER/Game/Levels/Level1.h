@@ -12,6 +12,8 @@ Creation date: 3/07/2021
 #include"..\Engine\Input\Input.h"  //input key
 #include"..\..\Engine\Physics\Camera.h"
 #include"../../Engine/Sprite/Texture.h"
+#include "../../Engine/Music/Sound_Num.h"
+
 class Hero;
 class Boss;
 class Track;
@@ -41,9 +43,9 @@ public:
 	void Unload() override;
 	std::string GetName() { return "Level1"; }
 	void Draw() override;
-	Music::SOUND_NUM GetcurrentMusic() override
+	SOUND_NUM GetcurrentMusic() override
 	{
-		return Music::SOUND_NUM::REWIND;
+		return SOUND_NUM::REWIND;
 	}
 
 private:

@@ -59,7 +59,7 @@ void Background::set_fever_mode(bool is_fever_mode_)
 {
     if (is_fever_mode_ == true)
     {
-        Engine::GetMusic().Play(Music::SOUND_NUM::FEVER);
+        Engine::GetMusic().Play(SOUND_NUM::FEVER);
         is_fever_mode = is_fever_mode_;
         backgrounds[0].texture_front = Engine::GetTextureManager().Load("../images/fever_background1.png");
         backgrounds[0].texture_back = Engine::GetTextureManager().Load("../images/fever_background1.png");

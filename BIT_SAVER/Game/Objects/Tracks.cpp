@@ -10,21 +10,32 @@ Creation date: 3/14/2021
 #include"Track.h"
 #include"..\..\Engine\Music\Midi.h"
 #include<algorithm>
-#include"../../Engine/Engine.h"
+#include"..\..\Engine/Engine.h"
+#include "..\..\Engine\Music\Sound_Num.h"
 #include"Notes.h"
 
 
 
-Track::Track(int music_num) :  
-Track(MidiEvent{}.MidiSetUp(music_num))
-{}
+Track::Track(int music_num) :
+	Track(MidiEvent{}.MidiSetUp(music_num), music_num)
+{
+}
 
-Track::Track(std::map<int,std::vector<long double>> mid_info) : 
-GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 })
+Track::Track(std::map<int,std::vector<long double>> mid_info , int music_num) : 
+GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 }), Music_Num(music_num)
 {
 	Doupdate = true;
 
-	//std::vector<Track_Time> track_time;
+	long double Dificulty{ 0.0 };
+	switch (Music_Num)
+	{
+		case static_cast<int>(SOUND_NUM::DISCO) :
+			Dificulty = 0.000001;
+			break;
+		case static_cast<int>(SOUND_NUM::REWIND):
+			Dificulty = 0.3;
+			break;
+	}
 
 	for (auto& tracks : mid_info)
 	{
@@ -44,7 +55,7 @@ GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 })
 	long double t{ track_time[0].time };
 	track_time.erase(std::remove_if(begin(track_time) + 1, end(track_time), [&](Track_Time time_t)
 		{
-			if (time_t.time - t < 0.0000001)
+			if (time_t.time - t < Dificulty)
 			{
 				return true;
 			}
@@ -53,14 +64,6 @@ GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 })
 				return false;
 			}
 		}), end(track_time));
-
-
-
-
-
-
-
-
 
 
 	//std::vector<long double> time;
@@ -100,19 +103,21 @@ GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 })
 	//	list_track_time.push_back(a);
 	//}
 
-
-	//for (auto& time_t : time)
-	//{
-	//	int T = static_cast<int>(time_t * 10000);
-	//	if (T % 2 == 0)
-	//	{
-	//		track_info[T % 2].push_back(time_t + target_time);
-	//	}
-	//	else if (T % 2 == 1)
-	//	{
-	//		track_info[T % 2].push_back(time_t + target_time);
-	//	}
-	//}
+	if (Music_Num == static_cast<int>(SOUND_NUM::REWIND))
+	{
+		for (auto& time_t : track_time)
+		{
+			int T = static_cast<int>(time_t.time * 10000);
+			if (T % 2 == 0)
+			{
+				track_info[T % 2].push_back(time_t.time);
+			}
+			else if (T % 2 == 1)
+			{
+				track_info[T % 2].push_back(time_t.time);
+			}
+		}
+	}
 
 }
 
@@ -125,42 +130,33 @@ void Track::Update(double dt)
 
 		timer += dt * Engine::GetMusic().pitch;
 
-		/*for (auto& i : track_info)
+		if (Music_Num == static_cast<int>(SOUND_NUM::REWIND))
 		{
-			for (auto& j : i.second)
+			for (auto& i : track_info)
 			{
-				if (timer > j)
+				for (auto& j : i.second)
 				{
-					note_pos = { 10, (i.first - 0.5) * 10 };
-					note_vel = { -20,0 };
-					Engine::GetGSComponent<GameObjectManager>()->Add(new Note(note_pos, note_vel));
-					i.second.erase(i.second.begin());
+					if (timer > j)
+					{
+						note_pos = { 10, (i.first - 0.5) * 10 };
+						note_vel = { -20,0 };
+						Engine::GetGSComponent<GameObjectManager>()->Add(new Note(note_pos, note_vel));
+						i.second.erase(i.second.begin());
+					}
 				}
 			}
-		}*/
-		/*for (auto& i : track_time)
+		}
+		else
 		{
-			for (auto& j : i.time)
+			for (auto& i : track_time)
 			{
-				if (timer > j)
+				if (timer > i.time)
 				{
-					note_pos = { 10, (i.track - 0.5) * 10 };
+					note_pos = { 10, ((i.track - 1) - 0.5) * 10 };
 					note_vel = { -20,0 };
 					Engine::GetGSComponent<GameObjectManager>()->Add(new Note(note_pos, note_vel));
-					i.second.erase(i.second.begin());
+					track_time.erase(track_time.begin());
 				}
-			}
-		}*/
-		for (auto& i : track_time)
-		{
-			if (timer > i.time)
-			{
-				note_pos = { 10, ((i.track-1) - 0.5) * 10 };
-				note_vel = { -20,0 };
-				Engine::GetGSComponent<GameObjectManager>()->Add(new Note(note_pos, note_vel));
-				//i.second.erase(i.second.begin());
-				//list_track_time.pop_front();
-				track_time.erase(track_time.begin());
 			}
 		}
 	}

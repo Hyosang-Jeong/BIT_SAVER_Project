@@ -62,9 +62,9 @@ void Offset::Draw()
 
 void Offset::Unload()
 {
-    if (Engine::GetMusic().isPlaying(Music::SOUND_NUM::REWIND) == true)
+    if (Engine::GetMusic().isPlaying(SOUND_NUM::REWIND) == true)
     {
-	Engine::GetMusic().Pause(Music::SOUND_NUM::REWIND);
+	Engine::GetMusic().Pause(SOUND_NUM::REWIND);
     }
     checkBox = nullptr;
 

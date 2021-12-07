@@ -270,6 +270,7 @@
     <ClInclude Include="Engine\Logger\Logger.h" />
     <ClInclude Include="Engine\Music\Midi.h" />
     <ClInclude Include="Engine\Music\music.h" />
+    <ClInclude Include="Engine\Music\Sound_Num.h" />
     <ClInclude Include="Engine\Physics\Camera.h" />
     <ClInclude Include="Engine\Physics\Collision.h" />
     <ClInclude Include="Engine\Sprite\Animation.h" />

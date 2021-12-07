@@ -24,7 +24,7 @@ public:
     void Unload() override;
     void Draw() override;
     std::string GetName() override { return "Tutorial"; }
-    Texture* gameover;
+
     InputKey ESCAPE;
     InputKey BIT_SAVER;
 
