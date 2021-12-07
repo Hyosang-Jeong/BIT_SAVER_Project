@@ -12,6 +12,8 @@ Creation date: 2/10/2021
 #include <string>
 #include "../ComponentManager.h"
 #include"../Music/music.h"
+#include "../Music/Sound_Num.h"
+
 class Component;
 
 class GameState
@@ -21,9 +23,9 @@ public:
 	virtual void Update(double dt) = 0;
 	virtual void Unload() = 0;
 	virtual std::string GetName() = 0;
-	virtual Music::SOUND_NUM GetcurrentMusic()
+	virtual SOUND_NUM GetcurrentMusic()
 	{
-		return Music::SOUND_NUM::MUSIC_END;
+		return SOUND_NUM::MUSIC_END;
 	}
 	
 	virtual void Draw() = 0;

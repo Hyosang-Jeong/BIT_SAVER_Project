@@ -217,6 +217,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Game\Levels\Tutorial.cpp" />
     <ClCompile Include="Game\Objects\Background.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -269,6 +270,7 @@
     <ClInclude Include="Engine\Logger\Logger.h" />
     <ClInclude Include="Engine\Music\Midi.h" />
     <ClInclude Include="Engine\Music\music.h" />
+    <ClInclude Include="Engine\Music\Sound_Num.h" />
     <ClInclude Include="Engine\Physics\Camera.h" />
     <ClInclude Include="Engine\Physics\Collision.h" />
     <ClInclude Include="Engine\Sprite\Animation.h" />
@@ -303,6 +305,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Game\Levels\State.h" />
+    <ClInclude Include="Game\Levels\Tutorial.h" />
     <ClInclude Include="Game\Objects\Background.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>

@@ -2,7 +2,7 @@
 Copyright (C) 2021 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
-File Name: MainMenu.h
+File Name: Clear.h
 Project: BIT_SAVER
 Author:
 Creation date:
@@ -14,22 +14,20 @@ Creation date:
 #include"..\Engine\Input\Input.h"  //input key
 #include"..\..\Engine\Physics\Camera.h"
 
-class Mainmenu : public GameState
+class Tutorial : public GameState
 {
 public:
 
-	Mainmenu();
-	void Load() override;
-	void Update(double dt) override;
-	void Unload() override;
-	void Draw() override;
-	std::string GetName() override { return "MainMenu"; }
+    Tutorial();
+    void Load() override;
+    void Update(double dt) override;
+    void Unload() override;
+    void Draw() override;
+    std::string GetName() override { return "Tutorial"; }
 
-	InputKey ESCAPE;
-	InputKey Tutorial;
-	InputKey Level1;
-	InputKey ChangeOffset;
+    InputKey ESCAPE;
+    InputKey BIT_SAVER;
+
 
 private:
 };
-

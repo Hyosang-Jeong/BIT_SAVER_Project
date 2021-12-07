@@ -7,6 +7,7 @@
 #include <fmod.h>
 #include <string>
 #include <vector>
+#include "Sound_Num.h"
 
 #define SOUND_MAX       1.0f
 #define SOUND_MIN       0.0f
@@ -16,16 +17,6 @@
 class Music
 {
 public:
-    enum SOUND_NUM
-    {
-        ENERGY = 0,
-        REWIND, 
-        SOUND_EFFECT1,
-        SOUND_EFFECT2,
-        BOSS_ENTRANCE,
-        FEVER,
-        MUSIC_END
-    };
 
     //Music() {}
     //~Music() {}

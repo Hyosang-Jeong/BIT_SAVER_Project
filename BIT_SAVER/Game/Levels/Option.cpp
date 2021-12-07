@@ -11,6 +11,7 @@ Creation date: 3/07/2021
 #include "../Engine/Engine.h"   //GetGameStateManage
 #include"Mainmenu.h"
 #include"State.h"
+#include "../../Engine/Music/Sound_Num.h"
 
 Option::Option() :
     escape(InputKey::Keyboard::Escape),
@@ -281,6 +282,6 @@ void Option::changeSound(double dt)
         {
             SoundBallPosition.x = mousePosition.x;
         }
-        Engine::GetMusic().SetVolume(Engine::GetMusic().REWIND, ((SoundBallPosition.x) + 1.5f) / 3.8f);
+        Engine::GetMusic().SetVolume(SOUND_NUM::REWIND, ((SoundBallPosition.x) + 1.5f) / 3.8f);
     }
 }
