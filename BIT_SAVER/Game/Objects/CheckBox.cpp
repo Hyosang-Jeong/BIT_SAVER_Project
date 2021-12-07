@@ -15,7 +15,7 @@ CheckBox::CheckBox(glm::vec2 startPos, int color) :
     tilt(InputKey::Keyboard::T),
     GameObject(startPos, glm::vec2{ 0.1,20 })
 {
-    isTiltKeyDown = false;
+    isTiltKeyDown = true;
     if(color==0)
         AddGOComponent(new Sprite("../images/checkBoxP.png", this));
     else if (color == 1)
