@@ -41,7 +41,11 @@ public:
 	void Unload() override;
 	std::string GetName() { return "Level1"; }
 	void Draw() override;
-	
+	Music::SOUND_NUM GetcurrentMusic() override
+	{
+		return Music::SOUND_NUM::REWIND;
+	}
+
 private:
 	InputKey escape;
 

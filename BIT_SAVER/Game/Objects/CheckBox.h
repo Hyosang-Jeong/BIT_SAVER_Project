@@ -18,13 +18,14 @@ class CheckBox : public GameObject
 public:
     CheckBox(glm::vec2 startPos, int color);
 
-
     GameObjectType GetObjectType() override
     {
         return GameObjectType::Check_box;
     }
     void Draw(glm::mat3 camera_matrix) override;
 private:
+
     InputKey tilt;
     bool isTiltKeyDown;
+
 };

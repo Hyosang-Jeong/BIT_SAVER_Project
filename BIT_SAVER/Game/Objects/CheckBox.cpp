@@ -44,5 +44,3 @@ void CheckBox::Draw(glm::mat3 camera_matrix)
 }
 
 
-
-

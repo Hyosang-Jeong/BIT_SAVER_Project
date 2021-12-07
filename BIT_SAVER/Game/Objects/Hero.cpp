@@ -14,14 +14,10 @@ Creation date: 3/14/2021
 
 
 Hero::Hero(glm::vec2 startPos) :
-    moveLeftKey(InputKey::Keyboard::Left),
-    moveRightKey(InputKey::Keyboard::Right),
     moveUp1Key(InputKey::Keyboard::Up),
     moveDown1Key(InputKey::Keyboard::Down),
     moveUp2Key(InputKey::Keyboard::F),
     moveDown2Key(InputKey::Keyboard::J),
-    AttackKey(InputKey::Keyboard::Space),
-    //hero_state(Hero_state::RUN_ENTER),
     timer(0),
     GameObject(startPos, glm::vec2{ 2,2 })
 {

@@ -11,7 +11,7 @@ Creation date: 2/10/2021
 #pragma once
 #include <string>
 #include "../ComponentManager.h"
-
+#include"../Music/music.h"
 class Component;
 
 class GameState
@@ -21,6 +21,11 @@ public:
 	virtual void Update(double dt) = 0;
 	virtual void Unload() = 0;
 	virtual std::string GetName() = 0;
+	virtual Music::SOUND_NUM GetcurrentMusic()
+	{
+		return Music::SOUND_NUM::MUSIC_END;
+	}
+	
 	virtual void Draw() = 0;
 
 	template<typename T>
