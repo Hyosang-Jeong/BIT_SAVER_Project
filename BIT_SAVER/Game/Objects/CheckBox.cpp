@@ -12,10 +12,11 @@ Creation date: 11/02/2021
 
 
 CheckBox::CheckBox(glm::vec2 startPos, int color) :
-    tilt(InputKey::Keyboard::T),
+    tilde(InputKey::Keyboard::Tilde),
     GameObject(startPos, glm::vec2{ 0.1,20 })
 {
-    isTiltKeyDown = true;
+    isTildeKeyDown = true;
+
     if(color==0)
         AddGOComponent(new Sprite("../images/checkBoxP.png", this));
     else if (color == 1)
@@ -26,16 +27,16 @@ CheckBox::CheckBox(glm::vec2 startPos, int color) :
 
 void CheckBox::Draw(glm::mat3 camera_matrix)
 {
-    if (isTiltKeyDown == false && tilt.IsKeyDown() && tilt.IsKeyReapeated()==false)
+    if (isTildeKeyDown == false && tilde.IsKeyDown() && tilde.IsKeyReapeated()==false)
     {
-        isTiltKeyDown = true;
+        isTildeKeyDown = true;
     }
-    else if (isTiltKeyDown == true && tilt.IsKeyDown() && tilt.IsKeyReapeated() == false)
+    else if (isTildeKeyDown == true && tilde.IsKeyDown() && tilde.IsKeyReapeated() == false)
     {
-        isTiltKeyDown = false;
+        isTildeKeyDown = false;
     }
 
-    if (isTiltKeyDown == true)
+    if (isTildeKeyDown == true)
     {
         GameObject::Draw(camera_matrix);
     }
