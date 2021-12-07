@@ -15,7 +15,8 @@ CheckBox::CheckBox(glm::vec2 startPos, int color) :
     tilde(InputKey::Keyboard::Tilde),
     GameObject(startPos, glm::vec2{ 0.1,20 })
 {
-    isTildeKeyDown = false;
+    isTildeKeyDown = true;
+
     if(color==0)
         AddGOComponent(new Sprite("../images/checkBoxP.png", this));
     else if (color == 1)
