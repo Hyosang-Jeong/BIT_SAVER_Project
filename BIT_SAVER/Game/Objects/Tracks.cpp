@@ -26,15 +26,19 @@ GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 }), Music_Num(music_num)
 {
 	Doupdate = true;
 
-	long double Dificulty{ 0.0 };
+        long double Dificulty{ 0.0 };
 	switch (Music_Num)
 	{
-		case static_cast<int>(SOUND_NUM::DISCO) :
-			Dificulty = 0.000001;
-			break;
-		case static_cast<int>(SOUND_NUM::REWIND):
-			Dificulty = 0.3;
-			break;
+	    case static_cast<int>(SOUND_NUM::DISCO) :
+		Dificulty = 0.000001;
+		break;
+	    case static_cast<int>(SOUND_NUM::REWIND) :
+		Dificulty = 0.3;
+		break;
+	    case static_cast<int>(SOUND_NUM::OFFSET) :
+		Dificulty = 0.0001;
+		break;
+
 	}
 
 	for (auto& tracks : mid_info)

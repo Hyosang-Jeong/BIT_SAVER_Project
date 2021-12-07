@@ -17,6 +17,7 @@ Creation date: 3/07/2021
 #include"../Objects/Background.h"
 #include "../Objects/EnergyBar.h"
 #include "../../Engine/Music/Sound_Num.h"
+
 Offset::Offset() :
     ESCAPE(InputKey::Keyboard::Enter),
     HitKey(InputKey::Keyboard::Space),
@@ -40,7 +41,7 @@ void Offset::Load()
     gameObjectManager = new GameObjectManager();
     backPtr = new Background();
     heroPtr = new Hero({ -4,-5 });
-    trackPtr = new Track(SOUND_NUM::REWIND);
+    trackPtr = new Track(SOUND_NUM::OFFSET);
     checkBox = new CheckBox({ -4,0 }, 0);
     energyBar = new EnergyBar({ -4,1.2 });
 
@@ -63,12 +64,12 @@ void Offset::Load()
 
 void Offset::Update( double dt)
 {
-    if (!Engine::GetMusic().isPlaying(SOUND_NUM::REWIND))
-        Engine::GetMusic().Play(SOUND_NUM::REWIND);
+    if (!Engine::GetMusic().isPlaying(SOUND_NUM::OFFSET))
+        Engine::GetMusic().Play(SOUND_NUM::OFFSET);
 
     GetGSComponent<Background>()->Update(dt);
     gameObjectManager->UpdateAll(dt);
-
+    
     //if (!Engine::GetMusic().isPlaying(Music::SOUND_NUM::REWIND))
     //    Engine::GetMusic().Play(Music::SOUND_NUM::REWIND);
 
@@ -111,9 +112,9 @@ double Offset::GetResultTime()
 void Offset::Unload()
 {
 
-    if (Engine::GetMusic().isPlaying(SOUND_NUM::REWIND) == true)
+    if (Engine::GetMusic().isPlaying(SOUND_NUM::OFFSET) == true)
     {
-	Engine::GetMusic().Pause(SOUND_NUM::REWIND);
+	Engine::GetMusic().Pause(SOUND_NUM::OFFSET);
     }
 
     checkBox = nullptr;
@@ -121,7 +122,7 @@ void Offset::Unload()
     trackPtr = nullptr;
     backPtr = nullptr;
     gameObjectManager->Unload();
-    Engine::GetMusic().Stop(SOUND_NUM::REWIND);
+    Engine::GetMusic().Stop(SOUND_NUM::OFFSET);
     ClearGSComponent();
 }
 

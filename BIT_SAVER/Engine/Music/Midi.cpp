@@ -9,15 +9,18 @@ std::map<int,std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
     const char* midi_filename = " ";
     switch (music_num)
     {
-	case SOUND_NUM::ENERGY:
-		midi_filename = "../MIDI/energy.mid";
-		break;
+    case SOUND_NUM::ENERGY:
+        midi_filename = "../MIDI/energy.mid";
+        break;
     case SOUND_NUM::DISCO:
         midi_filename = "../MIDI/disco.mid";
         break;
-	case SOUND_NUM::REWIND:
-		midi_filename = "../MIDI/rewind.mid";
-		break;
+    case SOUND_NUM::REWIND:
+        midi_filename = "../MIDI/rewind.mid";
+        break;
+    case SOUND_NUM::OFFSET:
+        midi_filename = "../MIDI/offset.mid";
+        break;
     default:
         break;
     }
@@ -169,6 +172,10 @@ std::map<int,std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
                 {
                     event.track = 1;
                 }
+                else if (music_num == SOUND_NUM::OFFSET)
+                {
+                    event.track = 1;
+                }
                 else
                 {
                     event.track = (bytes[0] & 0x0f) + 1;
@@ -203,9 +210,13 @@ std::map<int,std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
         trackFrom = 1;
         trackTo = 1;
         break;
+    case SOUND_NUM::OFFSET:
+        trackFrom = 1;
+        trackTo = 1;
+        break;
     default:
     {
-        Engine::GetLogger().LogError("Error! :There are not track infor(midi.cppLine189)");
+        Engine::GetLogger().LogError("Error! :There are not track infor(midi.cppLine219)");
         exit(EXIT_FAILURE);
     }
         break;
