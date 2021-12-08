@@ -39,7 +39,6 @@ Tutorial::Tutorial() :
 	stageBar = nullptr;
 	feverBar = nullptr;
 	gamestate = TUTO_LEVEL_STATE::EXTRA;
-	Engine::GetMusic().Init();
 }
 
 void Tutorial::Load()

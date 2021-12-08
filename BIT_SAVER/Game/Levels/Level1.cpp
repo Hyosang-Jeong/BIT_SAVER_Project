@@ -46,7 +46,6 @@ Level1::Level1() :
 	BcheckBox1 = nullptr;
 	BcheckBox2 = nullptr;
 	gamestate = LEVEL_STATE::EXTRA;
-	Engine::GetMusic().Init();
 }
 
 void Level1::Load()
@@ -109,6 +108,7 @@ void Level1::Update(double dt)
 		Engine::GetMusic().Play(SOUND_NUM::REWIND);
 	
 	GetGSComponent<Background>()->Update(dt);
+
 	gameObjectManager->UpdateAll(dt);
 
 	if (stageBar->Getchangeflag() == 1)

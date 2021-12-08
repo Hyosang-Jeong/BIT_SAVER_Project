@@ -33,7 +33,6 @@ Offset::Offset() :
 {
     gameObjectManager = nullptr;
     trackPtr = nullptr;
-    Engine::GetMusic().Init();
 }
 
 void Offset::Load()
