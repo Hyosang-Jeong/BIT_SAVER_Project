@@ -40,6 +40,7 @@ void Boss::Draw(glm::mat3 camera_matrix)
 void Boss::GenerateBoss()
 {
 	is_generating = true;
+	SetVelocity({ -1,0 });
 }
 
 void Boss::UpdateXVelocity(double )

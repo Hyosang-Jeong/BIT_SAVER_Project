@@ -8,7 +8,7 @@ Author:
 Creation date: 3/07/2021
 -----------------------------------------------------------------*/
 #include "../Engine/Engine.h"	//GetGameStateManage
-#include"Tutorial.h"
+#include"Level3.h"
 #include"../Objects/Hero.h"
 #include"../Objects/Track.h"
 #include"../Objects/Notes.h"
@@ -25,7 +25,8 @@ Creation date: 3/07/2021
 #include"../Levels/Option.h"
 
 
-Tutorial::Tutorial() :
+
+Level3::Level3() :
 	escape(InputKey::Keyboard::Escape),
 	camera({ 0,0 })
 {
@@ -38,22 +39,34 @@ Tutorial::Tutorial() :
 	energyBar = nullptr;
 	stageBar = nullptr;
 	feverBar = nullptr;
-	gamestate = TUTO_LEVEL_STATE::EXTRA;
+	PcheckBox1 = nullptr;
+	PcheckBox2 = nullptr;
+	GcheckBox1 = nullptr;
+	GcheckBox2 = nullptr;
+	BcheckBox1 = nullptr;
+	BcheckBox2 = nullptr;
+	gamestate = LEVEL3_STATE::EXTRA;
 }
 
-void Tutorial::Load()
+void Level3::Load()
 {
 
 	gameObjectManager = new GameObjectManager();
 	heroPtr = new Hero({ -4,-5 });
 	backPtr = new Background();
-	trackPtr = new Track(SOUND_NUM::DISCO);
+	trackPtr = new Track(SOUND_NUM::ENERGY);
 	notebox = new Note_box({ -4,0 });
 	bossPtr = new Boss({ 15,-5 });
 	energyBar = new EnergyBar({ -4,1.2 });
 
+	PcheckBox1 = new CheckBox({ -4.4,0 }, 0);
+	PcheckBox2 = new CheckBox({ -3.2,0 }, 0);
+	GcheckBox1 = new CheckBox({ -4.6,0 }, 1);
+	GcheckBox2 = new CheckBox({ -2.6,0 }, 1);
+	BcheckBox1 = new CheckBox({ -4.8,0 }, 2);
+	BcheckBox2 = new CheckBox({ -2.0,0 }, 2);
 
-	stageBar = new Stage_bar({ -10,9 }, 110, 82);   // total music time 204  ,  extra time 82
+	stageBar = new Stage_bar({ -10,9 }, 221, 104);   // total music time 204  ,  extra time 82
 
 
 	backPtr->Add(texture_path[Background_1], 0);
@@ -71,6 +84,12 @@ void Tutorial::Load()
 	gameObjectManager->Add(bossPtr);
 	gameObjectManager->Add(energyBar);
 
+	gameObjectManager->Add(PcheckBox1);
+	gameObjectManager->Add(PcheckBox2);
+	gameObjectManager->Add(GcheckBox1);
+	gameObjectManager->Add(GcheckBox2);
+	gameObjectManager->Add(BcheckBox1);
+	gameObjectManager->Add(BcheckBox2);
 
 	gameObjectManager->Add(stageBar);
 	gameObjectManager->Add(trackPtr);
@@ -83,34 +102,34 @@ void Tutorial::Load()
 
 }
 
-void Tutorial::Update(double dt)
+void Level3::Update(double dt)
 {
-	if (!Engine::GetMusic().isPlaying(SOUND_NUM::DISCO))
-		Engine::GetMusic().Play(SOUND_NUM::DISCO);
+	if (!Engine::GetMusic().isPlaying(SOUND_NUM::ENERGY))
+		Engine::GetMusic().Play(SOUND_NUM::ENERGY);
 
 	GetGSComponent<Background>()->Update(dt);
 	gameObjectManager->UpdateAll(dt);
 
 	if (stageBar->Getchangeflag() == 1)
 	{
-		gamestate = TUTO_LEVEL_STATE::GENERATING;
-		Engine::GetMusic().Pause(SOUND_NUM::DISCO);
+		gamestate = LEVEL3_STATE::GENERATING;
+		Engine::GetMusic().Pause(SOUND_NUM::ENERGY);
 		bossPtr->GenerateBoss();
 		trackPtr->SetUpdate(false);
 		stageBar->SetUpdate(false);
 		Engine::GetMusic().Play(SOUND_NUM::BOSS_ENTRANCE);
 		Engine::GetMusic().volumeUp(SOUND_NUM::BOSS_ENTRANCE);
 	}
-	if (gamestate == TUTO_LEVEL_STATE::GENERATING && bossPtr->GetVelocity().x == 0)
+	if (gamestate == LEVEL3_STATE::GENERATING && bossPtr->GetVelocity().x == 0)
 	{
-		Engine::GetMusic().Resume(SOUND_NUM::DISCO);
-		Engine::GetMusic().pitchUp(SOUND_NUM::DISCO);
+		Engine::GetMusic().Resume(SOUND_NUM::ENERGY);
+		Engine::GetMusic().pitchUp(SOUND_NUM::ENERGY);
 		trackPtr->SetUpdate(true);
 		stageBar->SetUpdate(true);
 
 		feverBar = new Fever_bar({ -20,-9 });
 		gameObjectManager->Add(feverBar);
-		gamestate = TUTO_LEVEL_STATE::FINISH;
+		gamestate = LEVEL3_STATE::FINISH;
 	}
 
 	if (energyBar->Isgameover() == true)
@@ -118,7 +137,7 @@ void Tutorial::Update(double dt)
 		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Gameover));
 	}
 
-	if (Engine::GetMusic().isPlaying(SOUND_NUM::DISCO) == false)
+	if (Engine::GetMusic().isPlaying(SOUND_NUM::ENERGY) == false)
 	{
 		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Clear));
 	}
@@ -129,17 +148,17 @@ void Tutorial::Update(double dt)
 
 }
 
-void Tutorial::Draw()
+void Level3::Draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 	GetGSComponent<Background>()->Draw(camera.GetMatrix());
 	GetGSComponent<Score>()->Draw({ 0,100 });
 	gameObjectManager->DrawAll(camera.GetMatrix());
 }
 
 
-void Tutorial::Unload()
+void Level3::Unload()
 {
 	heroPtr = nullptr;
 	trackPtr = nullptr;
@@ -149,8 +168,9 @@ void Tutorial::Unload()
 	energyBar = nullptr;
 	stageBar = nullptr;
 	gameObjectManager->Unload();
-	Engine::GetMusic().pitchDefault(SOUND_NUM::DISCO);
-	Engine::GetMusic().Stop(SOUND_NUM::DISCO);
-	Engine::GetMusic().isPlaying(SOUND_NUM::DISCO);
+	Engine::GetMusic().pitchDefault(SOUND_NUM::ENERGY);
+	Engine::GetMusic().Stop(SOUND_NUM::ENERGY);
+	Engine::GetMusic().isPlaying(SOUND_NUM::ENERGY);
+
 	ClearGSComponent();
 }

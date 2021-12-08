@@ -9,7 +9,7 @@ Creation date: 2/14/2021
 -----------------------------------------------------------------*/
 #pragma once
 
-#include<iostream>
+
 #include<map>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>

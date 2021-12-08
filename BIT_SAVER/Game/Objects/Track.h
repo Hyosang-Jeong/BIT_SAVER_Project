@@ -13,6 +13,8 @@ Creation date:
 #include"GameObjectType.h"
 #include <map>
 
+
+
 struct Track_Time
 {
     int track{ 0 };
@@ -32,12 +34,15 @@ public:
     {
         return GameObjectType::Track;
     }
+    void SetOffsetTime(long double offset_time_);
     std::vector<Track_Time> track_time; // for else
     glm::vec2 note_pos{ 0 };
     glm::vec2 note_vel{ 0 };
+
 private:
     std::map<int, std::vector<long double>> track_info; // for REWIND
     int Music_Num{ 0 };
     bool Doupdate;
     double timer{ 0 };
+    long double offset_time{ 0 };
 };

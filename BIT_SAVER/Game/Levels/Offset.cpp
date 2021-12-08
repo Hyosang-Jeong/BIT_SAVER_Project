@@ -17,15 +17,15 @@ Creation date: 3/07/2021
 #include"../Objects/Background.h"
 #include "../Objects/EnergyBar.h"
 #include "../../Engine/Music/Sound_Num.h"
+#include "MainOption.h"
 
-#include <iostream>
 
 Offset::Offset() :
     ESCAPE(InputKey::Keyboard::Enter),
     HitKey(InputKey::Keyboard::Space),
-    resultTime(0),
+    resultTime(0.),
     compareTime(0),
-    currentTime(0),
+    currentTime(0.),
     hitNumber(0),
     isHit(false),
     x_pos(-100,-100)
@@ -33,12 +33,11 @@ Offset::Offset() :
 {
     gameObjectManager = nullptr;
     trackPtr = nullptr;
-    Engine::GetMusic().Init();
 }
 
 void Offset::Load()
 {
-
+    resultTime = 0.;
     gameObjectManager = new GameObjectManager();
 
     trackPtr = new Track(SOUND_NUM::OFFSET);
@@ -49,19 +48,22 @@ void Offset::Load()
 
     offset_x = Engine::GetTextureManager().Load(texture_path[OFFSET_X]);
 
- //   trackPtr->track_time.erase(trackPtr->track_time.begin(), trackPtr->track_time.begin() + 4);
+    //trackPtr->track_time.erase(trackPtr->track_time.begin(), trackPtr->track_time.begin() + 4);
 
     for (auto& i : trackPtr->track_time)
     {
         compareTime.push_back(i.time);
+
     }
+    currentTime = compareTime[0];
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     glfwSwapBuffers(Engine::GetWindow().ptr_window);
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-
+    Engine::GetMusic().Play(SOUND_NUM::OFFSET);
 }
+
 
 void Offset::Update(double dt)
 {
@@ -70,62 +72,48 @@ void Offset::Update(double dt)
 
     if (isHit == true)
     {
-        if (!Engine::GetMusic().isPlaying(SOUND_NUM::OFFSET))
-            Engine::GetMusic().Play(SOUND_NUM::OFFSET);
         currentTime += dt;
-
         gameObjectManager->UpdateAll(dt);
-
         if (HitKey.IsKeyDown() == true && HitKey.IsKeyReapeated() == false)
         {
-            if(hitNumber==0)
-                currentTime = static_cast<double>(compareTime[0]);
-
-                if (gameObjectManager->GetgameObjects().size() >= 2)
-                {
-                    x_pos = gameObjectManager->Find(GameObjectType::Note)->GetPosition();
-                }
-            
 
             if (hitNumber < compareTime.size())
-                resultTime += currentTime - compareTime[hitNumber];
-            hitNumber++;
-        }
+                resultTime += (currentTime - compareTime[hitNumber]);
 
+            if(hitNumber < compareTime.size()-1)
+                hitNumber++;
+            
+            if (gameObjectManager->GetgameObjects().size() >= 2)
+            {
+                x_pos = gameObjectManager->Find(GameObjectType::Note)->GetPosition();
+            }
+
+        }
         else if (ESCAPE.IsKeyDown() == true)
         {
             Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
         }
-
-        std::cout << resultTime/ static_cast<long double>(hitNumber) << std::endl;
-        std::cout << hitNumber << std::endl;
     }
+
 }
 
 void Offset::Draw()
 {
-    glClear(GL_COLOR_BUFFER_BIT);
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-    glm::mat3 matrix =
-    {
-        1,0,0,
-        0,1,0,
-       0,0,1
-    };
-    gameObjectManager->DrawAll(matrix);
     offset_x->Draw({ x_pos.x + 6.f , x_pos.y + 5.f }, { 1,1 });
 }
 
 
 
-//double Offset::GetResultTime()
-//{
-//    return resultTime;
-//}
+long double Offset::GetResultTime()
+{
+    return resultTime;
+}
 
 
 void Offset::Unload()
 {
+    resultTime *= (1. / hitNumber);
+    static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->SetOffsetTime(resultTime);
     currentTime = 0;
     hitNumber = 0;
     isHit = false;
