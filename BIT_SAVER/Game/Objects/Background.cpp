@@ -23,8 +23,8 @@ void Background::Update(double dt)
 {
     for (ParallaxInfo& levelInfo : backgrounds)
     {
-        levelInfo.position_front = static_cast<float>(levelInfo.position_front - levelInfo.level *10.0* dt);
-        levelInfo.position_back = static_cast<float>(levelInfo.position_back - levelInfo.level * 10.0 *dt);
+        levelInfo.position_front = static_cast<float>(levelInfo.position_front - levelInfo.level * 10.0 * dt);
+        levelInfo.position_back = static_cast<float>(levelInfo.position_back - levelInfo.level * 10.0 * dt);
         if (levelInfo.position_front <= -20)
         {
             levelInfo.position_front = 20;
@@ -56,6 +56,8 @@ void Background::Draw([[maybe_unused]]glm::mat3 camera)
 }
 
 void Background::set_fever_mode(bool is_fever_mode_)
+
+
 {
     if (is_fever_mode_ == true)
     {

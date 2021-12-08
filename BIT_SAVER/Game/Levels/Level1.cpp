@@ -70,12 +70,17 @@ void Level1::Load()
 			stageBar = new Stage_bar({ -10,9 }, 204, 82);   // total music time 204  ,  extra time 82
 
 
-			backPtr->Add(texture_path[Background_1], 0);
-			backPtr->Add(texture_path[Parallax1_5], 0.5);
-			backPtr->Add(texture_path[Parallax1_4], 0.8);
-			backPtr->Add(texture_path[Parallax1_3], 1.1);
-			backPtr->Add(texture_path[Parallax1_2], 1.3);
-			backPtr->Add(texture_path[Parallax1_1], 1.5);
+			backPtr->Add(texture_path[Background_1_10], 0);
+			backPtr->Add(texture_path[Background_1_9], 0);
+			backPtr->Add(texture_path[Background_1_8], 0.0005);
+			backPtr->Add(texture_path[Background_1_7], 0.0015);
+			backPtr->Add(texture_path[Background_1_6], 0.007);
+			backPtr->Add(texture_path[Background_1_5], 0.022);
+			backPtr->Add(texture_path[Background_1_4], 0.05);
+			backPtr->Add(texture_path[Background_1_3], 0.1);
+			backPtr->Add(texture_path[Background_1_2], 0.5);
+			backPtr->Add(texture_path[Background_1_1], 0.8);
+
 
 			AddGSComponent(gameObjectManager);
 			AddGSComponent(backPtr);
