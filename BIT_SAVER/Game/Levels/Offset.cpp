@@ -20,9 +20,6 @@ Creation date: 3/07/2021
 #include "MainOption.h"
 
 
-
-
-
 Offset::Offset() :
     ESCAPE(InputKey::Keyboard::Enter),
     HitKey(InputKey::Keyboard::Space),
@@ -31,8 +28,6 @@ Offset::Offset() :
     currentTime(0.),
     hitNumber(0),
     isHit(false),
-    isEnd(false),
-    isEnda(false),
     x_pos(-100,-100)
 
 {
@@ -73,34 +68,21 @@ void Offset::Load()
 
 void Offset::Update(double dt)
 {
-
     if (HitKey.IsKeyDown())
         isHit = true;
 
     if (isHit == true)
     {
-        if (!Engine::GetMusic().isPlaying(SOUND_NUM::OFFSET) && isEnda == false)
-        {
-            isEnda = true;
-
-        }
         currentTime += dt;
-
         gameObjectManager->UpdateAll(dt);
-
         if (HitKey.IsKeyDown() == true && HitKey.IsKeyReapeated() == false)
         {
-            //if(hitNumber==0)
-            //    currentTime = static_cast<double>(compareTime[0]);
 
             if (hitNumber < compareTime.size())
                 resultTime += (currentTime - compareTime[hitNumber]);
 
-
             if(hitNumber < compareTime.size()-1)
                 hitNumber++;
-
-
             
             if (gameObjectManager->GetgameObjects().size() >= 2)
             {
@@ -108,19 +90,12 @@ void Offset::Update(double dt)
             }
 
         }
-
         else if (ESCAPE.IsKeyDown() == true)
         {
             Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
         }
+    }
 
-    }
-    if (!Engine::GetMusic().isPlaying(SOUND_NUM::OFFSET) && isEnd == false && isEnda==true)
-    {
-        resultTime *= (1./hitNumber);
-        static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->SetOffsetTime(resultTime);
-        isEnd = true;
-    }
 }
 
 void Offset::Draw()
@@ -138,14 +113,15 @@ long double Offset::GetResultTime()
 
 void Offset::Unload()
 {
-
+    resultTime *= (1. / hitNumber);
+    static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->SetOffsetTime(resultTime);
     currentTime = 0;
     hitNumber = 0;
     isHit = false;
     trackPtr = nullptr;
 
     gameObjectManager->Unload();
-    //Engine::GetMusic().Stop(SOUND_NUM::OFFSET);
+    Engine::GetMusic().Stop(SOUND_NUM::OFFSET);
     Engine::GetMusic().isPlaying(SOUND_NUM::OFFSET);
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);

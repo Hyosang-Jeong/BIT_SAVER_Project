@@ -104,7 +104,7 @@ GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 }), Music_Num(music_num)
 	    else
 		tt.time += target_time;
 	}
-
+	std::cout << static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->GetOffsetTime() <<std::endl;
 	//std::copy(list_track_time.begin(), list_track_time.end(), std::back_inserter(track_time));
 	//for (auto& a : track_time)
 	//{

@@ -30,7 +30,6 @@ public:
     void Update(double dt) override;
     void Unload() override;
     void Draw() override;
-    void CheckNextNote();
     std::string GetName() override { return "Offset"; }
     long double GetResultTime();
     SOUND_NUM GetcurrentMusic()
@@ -54,6 +53,4 @@ private:
     int hitNumber;
     bool isHit;
     glm::vec2 x_pos;
-    bool isEnd;
-    bool isEnda;
 };
