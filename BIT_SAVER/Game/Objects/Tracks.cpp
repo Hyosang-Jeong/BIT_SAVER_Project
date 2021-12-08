@@ -16,7 +16,7 @@ Creation date: 3/14/2021
 #include "../Levels/Offset.h"
 #include "../Levels/MainOption.h"
 
-#include <iostream>
+
 Track::Track(int music_num) :
 	Track(MidiEvent{}.MidiSetUp(music_num), music_num)
 {
@@ -104,7 +104,7 @@ GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 }), Music_Num(music_num)
 	    else
 		tt.time += target_time;
 	}
-	std::cout << static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->GetOffsetTime() << std::endl;
+
 	//std::copy(list_track_time.begin(), list_track_time.end(), std::back_inserter(track_time));
 	//for (auto& a : track_time)
 	//{

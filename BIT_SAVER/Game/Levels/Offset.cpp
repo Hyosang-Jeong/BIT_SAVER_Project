@@ -19,7 +19,7 @@ Creation date: 3/07/2021
 #include "../../Engine/Music/Sound_Num.h"
 #include "MainOption.h"
 
-#include <iostream>
+
 
 
 
@@ -95,8 +95,7 @@ void Offset::Update(double dt)
 
             if (hitNumber < compareTime.size())
                 resultTime += (currentTime - compareTime[hitNumber]);
-            std::cout << resultTime << std::endl;
-            std::cout << hitNumber << std::endl;
+
 
             if(hitNumber < compareTime.size()-1)
                 hitNumber++;
