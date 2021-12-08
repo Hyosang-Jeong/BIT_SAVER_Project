@@ -15,6 +15,7 @@ Creation date:
 
 class EnergyBar;
 class Hero;
+
 class Note : public GameObject
 {
 public:
@@ -36,6 +37,7 @@ private:
 
     EnergyBar* energy;
     Hero* heroptr;
+
 };
 
 enum class SCORE
