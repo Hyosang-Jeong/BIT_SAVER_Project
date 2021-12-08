@@ -12,7 +12,7 @@
 #include"Engine/Input/Input.h"
 #include"Game\Levels\Gameover.h"
 
-#include "../../Engine/Music/music.h"
+#include "Engine/Music/music.h"
 #include <iostream>
 
 int main()
@@ -20,7 +20,7 @@ int main()
 	Engine& engine = Engine::Instance();
 	engine.Init("Bit_Saver");
 	InputKey exit(InputKey::Keyboard::Enter);
-	Splash splash;
+	Splash splash;									
 	Mainmenu main_menu;
 	Tutorial tutorial;
 	MainOption main_option;
