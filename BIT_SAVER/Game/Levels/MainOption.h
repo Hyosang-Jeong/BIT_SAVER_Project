@@ -38,7 +38,8 @@ public:
     void Draw() override;
 
     void GetIndex();
-
+    void SetOffsetTime(long double offsetTime_);
+    long double GetOffsetTime();
     bool IsInBoxSound();
     void IsInBox();
     void changeSound(double dt);
@@ -75,4 +76,6 @@ private:
     glm::vec2 offset_pos;
     glm::vec2 upkey_pos;
     glm::vec2 downkey_pos;
+
+    long double offset_time;
 };

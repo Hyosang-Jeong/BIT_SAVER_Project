@@ -39,7 +39,6 @@ int main()
 	engine.GetGameStateManager().AddGameState(option);
 	engine.GetGameStateManager().AddGameState(clear);
 	engine.GetGameStateManager().AddGameState(gameover);
-	
 	while (engine.HasGameEnded() == false)
 	{
 		engine.Update();

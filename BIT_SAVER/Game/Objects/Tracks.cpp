@@ -13,9 +13,10 @@ Creation date: 3/14/2021
 #include"..\..\Engine/Engine.h"
 #include "..\..\Engine\Music\Sound_Num.h"
 #include"Notes.h"
+#include "../Levels/Offset.h"
+#include "../Levels/MainOption.h"
 
-
-
+#include <iostream>
 Track::Track(int music_num) :
 	Track(MidiEvent{}.MidiSetUp(music_num), music_num)
 {
@@ -94,13 +95,16 @@ GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 }), Music_Num(music_num)
 	//			return false;
 	//		}
 	//	}), end(time));
-
+	
 	double target_time = 14.0 / -20;
 	for (auto& tt : track_time)
 	{
-		tt.time += target_time;
-	}
+	    if (static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->GetOffsetTime() > -10)
+		tt.time += target_time - static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->GetOffsetTime();
 
+	    tt.time += target_time;
+	}
+	std::cout << static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->GetOffsetTime() << std::endl;
 	//std::copy(list_track_time.begin(), list_track_time.end(), std::back_inserter(track_time));
 	//for (auto& a : track_time)
 	//{
@@ -175,3 +179,4 @@ void Track::SetUpdate(bool update)
 {
 	Doupdate = update;
 }
+

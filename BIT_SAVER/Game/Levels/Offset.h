@@ -14,6 +14,7 @@ Creation date:
 #include"..\Engine\Input\Input.h"  //input key
 #include"..\..\Engine\Physics\Camera.h"
 
+
 class CheckBox;
 class Hero;
 class Track;
@@ -31,13 +32,12 @@ public:
     void Draw() override;
     void CheckNextNote();
     std::string GetName() override { return "Offset"; }
-
+    long double GetResultTime();
     SOUND_NUM GetcurrentMusic()
     {
 	return SOUND_NUM::OFFSET;
     }
 
-    //long double GetResultTime();
 private:
     Texture* gameover;
     InputKey ESCAPE;
@@ -50,8 +50,8 @@ private:
     Background* backPtr;
     EnergyBar* energyBar;
     std::vector<long double> compareTime;
-    long double resultTime;
     double currentTime;
+    long double resultTime;
     int hitNumber;
     bool isHit;
 

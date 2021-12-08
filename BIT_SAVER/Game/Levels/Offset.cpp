@@ -17,8 +17,11 @@ Creation date: 3/07/2021
 #include"../Objects/Background.h"
 #include "../Objects/EnergyBar.h"
 #include "../../Engine/Music/Sound_Num.h"
+#include "MainOption.h"
 
 #include <iostream>
+
+
 
 Offset::Offset() :
     ESCAPE(InputKey::Keyboard::Enter),
@@ -42,7 +45,7 @@ Offset::Offset() :
 
 void Offset::Load()
 {
-
+    resultTime = 0;
     gameObjectManager = new GameObjectManager();
     backPtr = new Background();
     heroPtr = new Hero({ -4,-5 });
@@ -68,10 +71,11 @@ void Offset::Load()
     trackPtr->track_time.erase(trackPtr->track_time.begin(), trackPtr->track_time.begin() + 4);
     for(auto & i : trackPtr->track_time)
         compareTime.push_back(i.time);
-}
+ }
 
 void Offset::Update(double dt)
 {
+
     if (HitKey.IsKeyDown())
         isHit = true;
 
@@ -90,17 +94,24 @@ void Offset::Update(double dt)
             if(hitNumber==0)
                 currentTime = static_cast<double>(compareTime[0]);
 
-            hitNumber++;
             if (hitNumber < compareTime.size())
                 resultTime += currentTime - compareTime[hitNumber];
+
+            hitNumber++;
+            resultTime = resultTime / static_cast<double>(hitNumber);
+            static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->SetOffsetTime(resultTime);
+            std::cout << resultTime << std::endl;
         }
         else if (ESCAPE.IsKeyDown() == true)
         {
             Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
         }
 
-        std::cout << resultTime/ static_cast<long double>(hitNumber) << std::endl;
-        std::cout << hitNumber << std::endl;
+    }
+    if (hitNumber == compareTime.size() - 1)
+    {
+       // resultTime /= static_cast<double>(hitNumber);
+        //static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->SetOffsetTime(resultTime);
     }
 }
 
@@ -115,8 +126,7 @@ void Offset::Draw()
 
 void Offset::CheckNextNote()
 {
-    if (heroPtr->GetPosition().x -
-        Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Note)->GetPosition().x > 2.0)
+    if (heroPtr->GetPosition().x - Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Note)->GetPosition().x > 2.0)
     {
         hitNumber++;
     }
@@ -124,14 +134,15 @@ void Offset::CheckNextNote()
 
 
 
-//double Offset::GetResultTime()
-//{
-//    return resultTime;
-//}
+long double Offset::GetResultTime()
+{
+    return resultTime;
+}
 
 
 void Offset::Unload()
 {
+
     currentTime = 0;
     hitNumber = 0;
     isHit = false;
