@@ -49,9 +49,11 @@ private:
     Track* trackPtr;
 
     std::vector<long double> compareTime;
-    double currentTime;
+    long double currentTime;
     long double resultTime;
     int hitNumber;
     bool isHit;
     glm::vec2 x_pos;
+    bool isEnd;
+    bool isEnda;
 };

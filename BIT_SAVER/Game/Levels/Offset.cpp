@@ -26,11 +26,13 @@ Creation date: 3/07/2021
 Offset::Offset() :
     ESCAPE(InputKey::Keyboard::Enter),
     HitKey(InputKey::Keyboard::Space),
-    resultTime(0),
+    resultTime(0.),
     compareTime(0),
-    currentTime(0),
+    currentTime(0.),
     hitNumber(0),
     isHit(false),
+    isEnd(false),
+    isEnda(false),
     x_pos(-100,-100)
 
 {
@@ -41,7 +43,7 @@ Offset::Offset() :
 
 void Offset::Load()
 {
-    resultTime = 0;
+    resultTime = 0.;
     gameObjectManager = new GameObjectManager();
 
     trackPtr = new Track(SOUND_NUM::OFFSET);
@@ -52,19 +54,20 @@ void Offset::Load()
 
     offset_x = Engine::GetTextureManager().Load(texture_path[OFFSET_X]);
 
- //   trackPtr->track_time.erase(trackPtr->track_time.begin(), trackPtr->track_time.begin() + 4);
+    //trackPtr->track_time.erase(trackPtr->track_time.begin(), trackPtr->track_time.begin() + 4);
 
     for (auto& i : trackPtr->track_time)
     {
         compareTime.push_back(i.time);
 
     }
+    currentTime = compareTime[0];
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     glfwSwapBuffers(Engine::GetWindow().ptr_window);
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-
+    Engine::GetMusic().Play(SOUND_NUM::OFFSET);
 }
 
 
@@ -76,24 +79,30 @@ void Offset::Update(double dt)
 
     if (isHit == true)
     {
-        if (!Engine::GetMusic().isPlaying(SOUND_NUM::OFFSET))
-            Engine::GetMusic().Play(SOUND_NUM::OFFSET);
+        if (!Engine::GetMusic().isPlaying(SOUND_NUM::OFFSET) && isEnda == false)
+        {
+            isEnda = true;
+
+        }
         currentTime += dt;
 
         gameObjectManager->UpdateAll(dt);
 
         if (HitKey.IsKeyDown() == true && HitKey.IsKeyReapeated() == false)
         {
-            if(hitNumber==0)
-                currentTime = static_cast<double>(compareTime[0]);
+            //if(hitNumber==0)
+            //    currentTime = static_cast<double>(compareTime[0]);
 
             if (hitNumber < compareTime.size())
-                resultTime += currentTime - compareTime[hitNumber];
+                resultTime += (currentTime - compareTime[hitNumber]);
+            std::cout << resultTime << std::endl;
+            std::cout << hitNumber << std::endl;
 
-            hitNumber++;
-            resultTime = resultTime / static_cast<double>(hitNumber);
-            static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->SetOffsetTime(resultTime);
+            if(hitNumber < compareTime.size()-1)
+                hitNumber++;
 
+
+            
             if (gameObjectManager->GetgameObjects().size() >= 2)
             {
                 x_pos = gameObjectManager->Find(GameObjectType::Note)->GetPosition();
@@ -107,10 +116,11 @@ void Offset::Update(double dt)
         }
 
     }
-    if (hitNumber == compareTime.size() - 1)
+    if (!Engine::GetMusic().isPlaying(SOUND_NUM::OFFSET) && isEnd == false && isEnda==true)
     {
-       // resultTime /= static_cast<double>(hitNumber);
-        //static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->SetOffsetTime(resultTime);
+        resultTime *= (1./hitNumber);
+        static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->SetOffsetTime(resultTime);
+        isEnd = true;
     }
 }
 
@@ -136,7 +146,7 @@ void Offset::Unload()
     trackPtr = nullptr;
 
     gameObjectManager->Unload();
-    Engine::GetMusic().Stop(SOUND_NUM::OFFSET);
+    //Engine::GetMusic().Stop(SOUND_NUM::OFFSET);
     Engine::GetMusic().isPlaying(SOUND_NUM::OFFSET);
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
