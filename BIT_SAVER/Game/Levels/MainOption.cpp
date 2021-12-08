@@ -208,6 +208,16 @@ void MainOption::GetIndex()
     }
 }
 
+void MainOption::SetOffsetTime(long double offsetTime_)
+{
+    offset_time = offsetTime_;
+}
+
+long double MainOption::GetOffsetTime()
+{
+    return offset_time;
+}
+
 
 bool MainOption::IsInBoxSound()
 {

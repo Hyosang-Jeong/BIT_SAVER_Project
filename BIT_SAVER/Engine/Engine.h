@@ -38,6 +38,7 @@ public:
     //static GLText& GetText() { return Instance().text; };
     static GameStateManager& GetGameStateManager() { return Instance().gameStateManager; }
     static TextureManager& GetTextureManager() { return Instance().texturemanager; }
+
     static  std::map<std::string, GLSLShader>& GetGLShader() { return Instance().shdrpgms; }
 
     void Init(std::string windowName);
@@ -67,6 +68,7 @@ public:
     std::map<std::string, GLSLShader> shdrpgms;
     std::map<std::string, GLText> texts;
     TextureManager texturemanager;
+
 
     static constexpr double Target_FPS = 60.0;
     static constexpr int FPS_IntervalSec = 5;
