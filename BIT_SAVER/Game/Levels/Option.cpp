@@ -342,6 +342,6 @@ void Option::changeSound(double dt)
         {
             SoundBallPosition.x = mousePosition.x;
         }
-        Engine::GetMusic().SetVolume(SOUND_NUM::REWIND, ((SoundBallPosition.x) + 1.5f) / 3.8f);
+        Engine::GetMusic().SetVolume(((SoundBallPosition.x) + 1.5f) / 3.8f);
     }
 }

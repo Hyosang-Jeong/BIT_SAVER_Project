@@ -43,10 +43,15 @@ void Music::Load()
     result = FMOD_System_CreateSound(pSystem, "../sound/fever.mp3", FMOD_DEFAULT, nullptr, &pSound[FEVER]);
     ErrorCheck(result);
 
+    volume = SOUND_DEFAULT;
+
 }
 void Music::Play(int sound_num)
 {
+
     result = FMOD_System_PlaySound(pSystem, pSound[sound_num], 0, 0, &pChannel[sound_num]);
+    ErrorCheck(result);
+    result = FMOD_Channel_SetVolume(pChannel[sound_num], volume);
     ErrorCheck(result);
 }
 
@@ -76,6 +81,7 @@ void Music::Pause(int sound_num)
 
 void Music::volumeUp(int sound_num)
 {
+
     if (volume < SOUND_MAX) 
     {
         volume = SOUND_MAX;
@@ -93,10 +99,9 @@ void Music::volumeDown(int sound_num)
     ErrorCheck(result);
 }
 
-void Music::SetVolume(int sound_num, float volume_)
+void Music::SetVolume(float volume_)
 {
-    result = FMOD_Channel_SetVolume(pChannel[sound_num], volume_);
-    ErrorCheck(result);
+    volume = volume_;
 }
 
 void Music::pitchUp(int sound_num)
