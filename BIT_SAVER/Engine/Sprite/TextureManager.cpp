@@ -3,7 +3,7 @@
 #include"Texture.h"  //Texture
 #define STB_IMAGE_IMPLEMENTATION
 #include "..\Image\stb_image.h"
-#include<iostream>
+
 #include "..\Engine.h"
 
 using Image = unsigned char*;

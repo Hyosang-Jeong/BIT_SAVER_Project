@@ -13,12 +13,12 @@ Creation date: 2/10/2021
 	class InputKey 
 	{
 	public:
-		enum class Keyboard 
+		enum class Keyboard
 		{
 			None, Enter, Escape, Space, Left, Up, Right, Down,
 			A, B, C, D, E, F, G, H, I, J,
 			K, L, M, N, O, P, Q, R, S, T,
-			U, V, W, X, Y, Z,NUM_1,NUM_2,
+			U, V, W, X, Y, Z, NUM_0, NUM_1, NUM_2, NUM_3,
 			Tilde,
 			Count
 		};

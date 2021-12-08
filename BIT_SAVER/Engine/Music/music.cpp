@@ -5,7 +5,7 @@
 #include <vector>
 #include "../../Engine/Input/Input.h"
 #include "../Engine.h"
-
+#include <iostream>
 using namespace std;
 void Music::Init()
 {
@@ -18,23 +18,25 @@ void Music::Init()
 
 void Music::Load()
 {
-    
+    result = FMOD_System_CreateSound(pSystem, "../sound/offset.mp3", FMOD_DEFAULT, nullptr, &pSound[OFFSET]);
+    ErrorCheck(result);
+
     result = FMOD_System_CreateSound(pSystem, "../sound/disco.mp3", FMOD_DEFAULT, nullptr, &pSound[DISCO]);
     ErrorCheck(result);
 
     result = FMOD_System_CreateSound(pSystem, "../sound/rewind.mp3", FMOD_DEFAULT, nullptr, &pSound[REWIND]);
     ErrorCheck(result);
 
-    result = FMOD_System_CreateSound(pSystem, "../sound/offset.mp3", FMOD_DEFAULT, nullptr, &pSound[OFFSET]);
+    result = FMOD_System_CreateSound(pSystem, "../sound/dioma.mp3", FMOD_DEFAULT, nullptr, &pSound[DIOMA]);
+    ErrorCheck(result);
+
+    result = FMOD_System_CreateSound(pSystem, "../sound/energy.mp3", FMOD_DEFAULT, nullptr, &pSound[ENERGY]);
     ErrorCheck(result);
 
     result = FMOD_System_CreateSound(pSystem, "../sound/button1.mp3", FMOD_DEFAULT, nullptr, &pSound[SOUND_EFFECT1]);
     ErrorCheck(result);
 
     result = FMOD_System_CreateSound(pSystem, "../sound/button2.mp3", FMOD_DEFAULT, nullptr, &pSound[SOUND_EFFECT2]);
-    ErrorCheck(result);
-
-    result = FMOD_System_CreateSound(pSystem, "../sound/energy.mp3", FMOD_DEFAULT, nullptr, &pSound[ENERGY]);
     ErrorCheck(result);
 
     result = FMOD_System_CreateSound(pSystem, "../sound/boss_entrance.mp3", FMOD_DEFAULT, nullptr, &pSound[BOSS_ENTRANCE]);

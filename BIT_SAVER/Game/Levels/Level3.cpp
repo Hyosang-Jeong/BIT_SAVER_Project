@@ -8,7 +8,7 @@ Author:
 Creation date: 3/07/2021
 -----------------------------------------------------------------*/
 #include "../Engine/Engine.h"	//GetGameStateManage
-#include"Level2.h"
+#include"Level3.h"
 #include"../Objects/Hero.h"
 #include"../Objects/Track.h"
 #include"../Objects/Notes.h"
@@ -26,7 +26,7 @@ Creation date: 3/07/2021
 
 
 
-Level2::Level2() :
+Level3::Level3() :
 	escape(InputKey::Keyboard::Escape),
 	camera({ 0,0 })
 {
@@ -45,17 +45,17 @@ Level2::Level2() :
 	GcheckBox2 = nullptr;
 	BcheckBox1 = nullptr;
 	BcheckBox2 = nullptr;
-	gamestate = LEVEL2_STATE::EXTRA;
+	gamestate = LEVEL3_STATE::EXTRA;
 	Engine::GetMusic().Init();
 }
 
-void Level2::Load()
+void Level3::Load()
 {
 
 	gameObjectManager = new GameObjectManager();
 	heroPtr = new Hero({ -4,-5 });
 	backPtr = new Background();
-	trackPtr = new Track(SOUND_NUM::DIOMA);
+	trackPtr = new Track(SOUND_NUM::ENERGY);
 	notebox = new Note_box({ -4,0 });
 	bossPtr = new Boss({ 15,-5 });
 	energyBar = new EnergyBar({ -4,1.2 });
@@ -103,34 +103,34 @@ void Level2::Load()
 
 }
 
-void Level2::Update(double dt)
+void Level3::Update(double dt)
 {
-	if (!Engine::GetMusic().isPlaying(SOUND_NUM::DIOMA))
-		Engine::GetMusic().Play(SOUND_NUM::DIOMA);
+	if (!Engine::GetMusic().isPlaying(SOUND_NUM::ENERGY))
+		Engine::GetMusic().Play(SOUND_NUM::ENERGY);
 
 	GetGSComponent<Background>()->Update(dt);
 	gameObjectManager->UpdateAll(dt);
 
 	if (stageBar->Getchangeflag() == 1)
 	{
-		gamestate = LEVEL2_STATE::GENERATING;
-		Engine::GetMusic().Pause(SOUND_NUM::DIOMA);
+		gamestate = LEVEL3_STATE::GENERATING;
+		Engine::GetMusic().Pause(SOUND_NUM::ENERGY);
 		bossPtr->GenerateBoss();
 		trackPtr->SetUpdate(false);
 		stageBar->SetUpdate(false);
 		Engine::GetMusic().Play(SOUND_NUM::BOSS_ENTRANCE);
 		Engine::GetMusic().volumeUp(SOUND_NUM::BOSS_ENTRANCE);
 	}
-	if (gamestate == LEVEL2_STATE::GENERATING && bossPtr->GetVelocity().x == 0)
+	if (gamestate == LEVEL3_STATE::GENERATING && bossPtr->GetVelocity().x == 0)
 	{
-		Engine::GetMusic().Resume(SOUND_NUM::DIOMA);
-		Engine::GetMusic().pitchUp(SOUND_NUM::DIOMA);
+		Engine::GetMusic().Resume(SOUND_NUM::ENERGY);
+		Engine::GetMusic().pitchUp(SOUND_NUM::ENERGY);
 		trackPtr->SetUpdate(true);
 		stageBar->SetUpdate(true);
 
 		feverBar = new Fever_bar({ -20,-9 });
 		gameObjectManager->Add(feverBar);
-		gamestate = LEVEL2_STATE::FINISH;
+		gamestate = LEVEL3_STATE::FINISH;
 	}
 
 	if (energyBar->Isgameover() == true)
@@ -138,7 +138,7 @@ void Level2::Update(double dt)
 		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Gameover));
 	}
 
-	if (Engine::GetMusic().isPlaying(SOUND_NUM::DIOMA) == false)
+	if (Engine::GetMusic().isPlaying(SOUND_NUM::ENERGY) == false)
 	{
 		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Clear));
 	}
@@ -149,7 +149,7 @@ void Level2::Update(double dt)
 
 }
 
-void Level2::Draw()
+void Level3::Draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
@@ -159,7 +159,7 @@ void Level2::Draw()
 }
 
 
-void Level2::Unload()
+void Level3::Unload()
 {
 	heroPtr = nullptr;
 	trackPtr = nullptr;
@@ -169,8 +169,8 @@ void Level2::Unload()
 	energyBar = nullptr;
 	stageBar = nullptr;
 	gameObjectManager->Unload();
-	Engine::GetMusic().Stop(SOUND_NUM::DIOMA);
-	Engine::GetMusic().isPlaying(SOUND_NUM::DIOMA);
+	Engine::GetMusic().Stop(SOUND_NUM::ENERGY);
+	Engine::GetMusic().isPlaying(SOUND_NUM::ENERGY);
 
 	ClearGSComponent();
 }

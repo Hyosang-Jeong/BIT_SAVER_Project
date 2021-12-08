@@ -100,6 +100,10 @@ InputKey::Keyboard GLKEY_TO_GAME(int button)
     {
         return InputKey::Keyboard::Down;
     }
+    else if (button == GLFW_KEY_0)
+    {
+        return InputKey::Keyboard::NUM_0;
+    }
     else if (button == GLFW_KEY_1)
     {
         return InputKey::Keyboard::NUM_1;
@@ -107,6 +111,10 @@ InputKey::Keyboard GLKEY_TO_GAME(int button)
     else if (button == GLFW_KEY_2)
     {
         return InputKey::Keyboard::NUM_2;
+    }
+    else if (button == GLFW_KEY_3)
+    {
+        return InputKey::Keyboard::NUM_3;
     }
     else if (button == GLFW_KEY_GRAVE_ACCENT)
     {

@@ -26,7 +26,7 @@ class Fever_bar;
 class CheckBox;
 
 
-enum class LEVEL2_STATE
+enum class LEVEL3_STATE
 {
 	EXTRA,
 	GENERATING,
@@ -34,14 +34,14 @@ enum class LEVEL2_STATE
 	FINISH
 };
 
-class Level2 : public GameState
+class Level3 : public GameState
 {
 public:
-	Level2();
+	Level3();
 	void Load() override;
 	void Update(double dt) override;
 	void Unload() override;
-	std::string GetName() { return "Level2"; }
+	std::string GetName() { return "Level3"; }
 	void Draw() override;
 	SOUND_NUM GetcurrentMusic() override
 	{
@@ -68,7 +68,7 @@ private:
 	CheckBox* BcheckBox2;
 	Camera camera;
 	GameObjectManager* gameObjectManager;
-	LEVEL2_STATE gamestate;
+	LEVEL3_STATE gamestate;
 	//GLText* text;
 
 };

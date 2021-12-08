@@ -128,6 +128,9 @@
     <ClCompile Include="Game\Levels\MainOption.cpp">
       <Filter>Game\Levels</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Levels\Level3.cpp">
+      <Filter>Game\Levels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\GameObject\GameObject.h">
@@ -269,6 +272,9 @@
       <Filter>Engine\Music</Filter>
     </ClInclude>
     <ClInclude Include="Game\Levels\MainOption.h">
+      <Filter>Game\Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Levels\Level3.h">
       <Filter>Game\Levels</Filter>
     </ClInclude>
   </ItemGroup>
