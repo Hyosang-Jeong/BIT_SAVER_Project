@@ -46,7 +46,6 @@ Level2::Level2() :
 	BcheckBox1 = nullptr;
 	BcheckBox2 = nullptr;
 	gamestate = LEVEL2_STATE::EXTRA;
-	Engine::GetMusic().Init();
 }
 
 void Level2::Load()
