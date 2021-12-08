@@ -70,7 +70,6 @@
 Collision::Collision(glm::vec2 size) :box_size(size) 
 {
     box_ptr = Engine::GetTextureManager().Load("../images/collision_box.png");
-    box_model.init({ 1, 1 });
 }
 
 const AABB& Collision::GetAABB() const

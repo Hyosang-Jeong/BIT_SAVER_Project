@@ -3,6 +3,7 @@
 #include "Game\Levels\Tutorial.h"
 #include"Game\Levels\Level1.h"
 #include "Game\Levels\Offset.h"
+#include"Game\Levels\MainOption.h"
 #include"Game\Levels\Option.h"
 #include"Game\Levels\Gameover.h"
 #include"Game\Levels\Clear.h"
@@ -22,6 +23,7 @@ int main()
 	Splash splash;
 	Mainmenu main_menu;
 	Tutorial tutorial;
+	MainOption main_option;
 	Level1 level1;
 	Offset offset;
 	Option option;
@@ -31,6 +33,7 @@ int main()
 	engine.GetGameStateManager().AddGameState(splash);
 	engine.GetGameStateManager().AddGameState(main_menu);
 	engine.GetGameStateManager().AddGameState(tutorial);
+	engine.GetGameStateManager().AddGameState(main_option);
 	engine.GetGameStateManager().AddGameState(level1);
 	engine.GetGameStateManager().AddGameState(offset);
 	engine.GetGameStateManager().AddGameState(option);
@@ -43,5 +46,6 @@ int main()
 	}
 
 	engine.Shutdown();
+	glfwTerminate();
 	return 0;
 }

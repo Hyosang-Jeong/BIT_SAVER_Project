@@ -13,7 +13,7 @@ Creation date: 3/07/2021
 #include"../../Engine/Sprite/Texture.h"
 #include"../../Engine/Engine.h"
 
-enum Select
+enum  Select
 {
     KEYBOARD,
     RESUME,

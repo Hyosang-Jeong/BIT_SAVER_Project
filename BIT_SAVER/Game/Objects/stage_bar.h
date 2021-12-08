@@ -26,9 +26,23 @@ public:
         return GameObjectType::Stage_bar;
     }
 private:
+    const double WINDOW_WIDTH = 20;
     int currstate;
     bool Doupdate;
-    Texture* stage_barPtr;
-    const double extra_stage_time;
-    const double total_time;
+    Texture* extra_stage_barPtr;
+    Texture* boss_stage_barPtr;
+
+    double extra_stage_time;
+    double music_total_time;
+
+    double boss_stage_time;
+    double actual_total_time;
+    double extra_stage_size;
+    double boss_stage_size;
+    glm::vec2 extra_stage_pos_range;
+    glm::vec2 boss_stage_pos_range;
+
+
+    glm::vec2 stage_pos;
+    glm::vec2 stage_scale;
 };

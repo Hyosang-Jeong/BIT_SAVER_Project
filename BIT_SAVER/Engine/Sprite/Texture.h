@@ -21,9 +21,11 @@ enum Texture_Path
     Gamelogo_Splash,
 
     Pause,
+    Main_Option,
+    MAIN_SOUND_BAR,
     Sound_Bigball,
     Sound_Smallball,
-
+    MOUSE_CURSOR,
     Background_1,
     Parallax1_5, 
     Parallax1_4,
@@ -38,8 +40,11 @@ static const char* texture_path[] = {
     "../images/LOGO.png",
 
     "../images/Pause_screen.png",
+    "../images/main_option.png",
+    "../images/main_option_sound_bar.png",
     "../images/sound_bigball.png",
     "../images/sound_smallball.png",
+    "../images/Cursor.png",
 
     "../images/background1.png",
     "../images/parallax1-5.png",

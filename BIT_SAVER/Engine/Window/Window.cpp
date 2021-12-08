@@ -32,11 +32,11 @@ void Window::Init(GLint wid, GLint hei,std::string windowName)
     glfwWindowHint(GLFW_RED_BITS, 8); glfwWindowHint(GLFW_GREEN_BITS, 8);
     glfwWindowHint(GLFW_BLUE_BITS, 8); glfwWindowHint(GLFW_ALPHA_BITS, 8);
     glfwWindowHint(GLFW_RESIZABLE, GL_TRUE); // window dimensions are static
-
    ptr_window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
 
    glfwMakeContextCurrent(ptr_window);
 
+   
    glfwSetFramebufferSizeCallback(ptr_window, fbsize_cb);
    glfwSetKeyCallback(ptr_window, key_cb);
    glfwSetMouseButtonCallback(ptr_window, mousebutton_cb);
