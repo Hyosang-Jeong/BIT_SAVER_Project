@@ -149,6 +149,7 @@ void Tutorial::Unload()
 	energyBar = nullptr;
 	stageBar = nullptr;
 	gameObjectManager->Unload();
+	Engine::GetMusic().pitchDefault(SOUND_NUM::DISCO);
 	Engine::GetMusic().Stop(SOUND_NUM::DISCO);
 	Engine::GetMusic().isPlaying(SOUND_NUM::DISCO);
 	ClearGSComponent();
