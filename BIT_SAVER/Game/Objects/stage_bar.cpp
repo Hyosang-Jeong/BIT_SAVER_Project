@@ -51,8 +51,8 @@ void Stage_bar::Update(double dt)
 
 void Stage_bar::Draw(glm::mat3 camera_matrix)
 {
-	extra_stage_barPtr->Draw({ stage_pos.x,9 }, { stage_scale.x,1 });
-	boss_stage_barPtr->Draw({ stage_pos.y,9 }, { stage_scale.y,1 });
+	extra_stage_barPtr->Draw({ stage_pos.x,9 }, { stage_scale.x,0.5 });
+	boss_stage_barPtr->Draw({ stage_pos.y,9 }, { stage_scale.y,0.5 });
 	GameObject::Draw(camera_matrix);
 }
 

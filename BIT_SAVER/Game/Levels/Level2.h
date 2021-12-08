@@ -45,7 +45,7 @@ public:
 	void Draw() override;
 	SOUND_NUM GetcurrentMusic() override
 	{
-		return SOUND_NUM::REWIND;
+		return SOUND_NUM::DIOMA;
 	}
 
 private:

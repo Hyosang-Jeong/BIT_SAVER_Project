@@ -46,7 +46,6 @@ Level2::Level2() :
 	BcheckBox1 = nullptr;
 	BcheckBox2 = nullptr;
 	gamestate = LEVEL2_STATE::EXTRA;
-	Engine::GetMusic().Init();
 }
 
 void Level2::Load()
@@ -169,6 +168,7 @@ void Level2::Unload()
 	energyBar = nullptr;
 	stageBar = nullptr;
 	gameObjectManager->Unload();
+	Engine::GetMusic().pitchDefault(SOUND_NUM::DIOMA);
 	Engine::GetMusic().Stop(SOUND_NUM::DIOMA);
 	Engine::GetMusic().isPlaying(SOUND_NUM::DIOMA);
 

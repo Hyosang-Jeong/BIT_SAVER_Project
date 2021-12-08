@@ -15,7 +15,7 @@ Fever_bar::Fever_bar(glm::vec2 startPos) :
 	GameObject(startPos, glm::vec2{ 10,1 })
 {
 	fever_gazePtr = Engine::GetTextureManager().Load("../images/fever_gaze.png");
-	fever_barPtr = Engine::GetTextureManager().Load("../images/fever.png");
+	fever_barPtr = Engine::GetTextureManager().Load("../images/fever_gaze_bar.png");
 	fever_barModel.init({ 1, 1 });
 	score_ptr = Engine::GetGSComponent<Score>();
 	initial_score = score_ptr->Getscore();
@@ -52,7 +52,7 @@ void Fever_bar::Update(double dt)
 
 void Fever_bar::Draw(glm::mat3 )
 {
-	fever_barPtr->Draw( { 0,-9 }, { 10,1 });
-	fever_gazePtr->Draw( GetPosition(), { 10,1 });
+	fever_barPtr->Draw( { 0,-9 }, { 10,0.5 });
+	fever_gazePtr->Draw( GetPosition(), { 10,0.5 });
 }
 
