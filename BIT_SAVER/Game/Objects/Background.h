@@ -42,4 +42,5 @@ private:
     float alpha_value=1;
     bool is_fever_mode=false;
     std::vector<ParallaxInfo> backgrounds;
+    GLModel model;
 };
