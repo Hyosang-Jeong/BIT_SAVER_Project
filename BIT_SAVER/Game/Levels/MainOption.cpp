@@ -64,6 +64,11 @@ void MainOption::Update(double dt)
     GetIndex();
     changeSound(dt);
     KeychangeTextTimer -= dt;
+
+    if (escape.IsKeyReleased() == true)
+    {
+        Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
+    }
 }
 
 void MainOption::Draw()
@@ -300,11 +305,11 @@ void MainOption::changeSound(double dt)
     }
     if (mouseSwitch == true && MouseKey.MouseIsKeyDown() == true)
     {
-
         if (mousePosition.x >= 3.575f && mousePosition.x <= 8.55f)
         {
             SoundBallPosition.x = mousePosition.x;
         }
 
+        Engine::GetMusic().SetVolume((SoundBallPosition.x - 3.55f) / 5.f);
     }
 }

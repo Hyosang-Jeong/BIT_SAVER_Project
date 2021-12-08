@@ -101,6 +101,10 @@ void Music::volumeDown(int sound_num)
 
 void Music::SetVolume(float volume_)
 {
+    if (Engine::GetGameStateManager().GetCurrstate()->GetcurrentMusic() != MUSIC_END)
+    {
+        FMOD_Channel_SetVolume(pChannel[Engine::GetGameStateManager().GetCurrstate()->GetcurrentMusic()], volume_);
+   }
     volume = volume_;
 }
 
