@@ -31,15 +31,11 @@ Offset::Offset() :
     currentTime(0),
     hitNumber(0),
     isHit(false),
-    camera({0,0})
+    x_pos(-100,-100)
 
 {
     gameObjectManager = nullptr;
-    backPtr = nullptr;
-    heroPtr = nullptr;
     trackPtr = nullptr;
-    checkBox = nullptr;
-    energyBar = nullptr;
     Engine::GetMusic().Init();
 }
 
@@ -47,31 +43,30 @@ void Offset::Load()
 {
     resultTime = 0;
     gameObjectManager = new GameObjectManager();
-    backPtr = new Background();
-    heroPtr = new Hero({ -4,-5 });
-    trackPtr = new Track(SOUND_NUM::OFFSET);
-    checkBox = new CheckBox({ -4,0 }, 0);
-    energyBar = new EnergyBar({ -4,1.2 });
 
-    backPtr->Add(texture_path[Background_1], 0);
-    backPtr->Add(texture_path[Parallax1_5], 0.5);
-    backPtr->Add(texture_path[Parallax1_4], 0.8);
-    backPtr->Add(texture_path[Parallax1_3], 1.1);
-    backPtr->Add(texture_path[Parallax1_2], 1.3);
-    backPtr->Add(texture_path[Parallax1_1], 1.5);
+    trackPtr = new Track(SOUND_NUM::OFFSET);
 
     AddGSComponent(gameObjectManager);
-    AddGSComponent(backPtr);
 
-    gameObjectManager->Add(energyBar);
-    gameObjectManager->Add(heroPtr);
-    gameObjectManager->Add(checkBox);
     gameObjectManager->Add(trackPtr);
 
-    trackPtr->track_time.erase(trackPtr->track_time.begin(), trackPtr->track_time.begin() + 4);
-    for(auto & i : trackPtr->track_time)
+    offset_x = Engine::GetTextureManager().Load(texture_path[OFFSET_X]);
+
+ //   trackPtr->track_time.erase(trackPtr->track_time.begin(), trackPtr->track_time.begin() + 4);
+
+    for (auto& i : trackPtr->track_time)
+    {
         compareTime.push_back(i.time);
- }
+
+    }
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+    glfwSwapBuffers(Engine::GetWindow().ptr_window);
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+}
+
 
 void Offset::Update(double dt)
 {
@@ -85,9 +80,7 @@ void Offset::Update(double dt)
             Engine::GetMusic().Play(SOUND_NUM::OFFSET);
         currentTime += dt;
 
-        GetGSComponent<Background>()->Update(dt);
         gameObjectManager->UpdateAll(dt);
-        //CheckNextNote();
 
         if (HitKey.IsKeyDown() == true && HitKey.IsKeyReapeated() == false)
         {
@@ -100,8 +93,14 @@ void Offset::Update(double dt)
             hitNumber++;
             resultTime = resultTime / static_cast<double>(hitNumber);
             static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->SetOffsetTime(resultTime);
-            std::cout << resultTime << std::endl;
+
+            if (gameObjectManager->GetgameObjects().size() >= 2)
+            {
+                x_pos = gameObjectManager->Find(GameObjectType::Note)->GetPosition();
+            }
+
         }
+
         else if (ESCAPE.IsKeyDown() == true)
         {
             Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
@@ -117,19 +116,7 @@ void Offset::Update(double dt)
 
 void Offset::Draw()
 {
-    glClear(GL_COLOR_BUFFER_BIT);
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-    GetGSComponent<Background>()->Draw(camera.GetMatrix());
-    gameObjectManager->DrawAll(camera.GetMatrix());
-
-}
-
-void Offset::CheckNextNote()
-{
-    if (heroPtr->GetPosition().x - Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Note)->GetPosition().x > 2.0)
-    {
-        hitNumber++;
-    }
+    offset_x->Draw({ x_pos.x + 6.f , x_pos.y + 5.f }, { 1,1 });
 }
 
 
@@ -146,13 +133,13 @@ void Offset::Unload()
     currentTime = 0;
     hitNumber = 0;
     isHit = false;
-    checkBox = nullptr;
-    heroPtr = nullptr;
     trackPtr = nullptr;
-    backPtr = nullptr;
+
     gameObjectManager->Unload();
     Engine::GetMusic().Stop(SOUND_NUM::OFFSET);
     Engine::GetMusic().isPlaying(SOUND_NUM::OFFSET);
+    glClear(GL_COLOR_BUFFER_BIT);
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     ClearGSComponent();
 }
 

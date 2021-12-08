@@ -16,7 +16,7 @@ Creation date: 3/14/2021
 #include "../../Engine/Window/Window.h"
 #include"Score.h"
 #include"../../Engine/Physics/Camera.h"
-#include"Hero.h"
+#include"../Levels/MainOption.h"
 
 Note::Note(glm::vec2 startPos, glm::vec2 velocity) :
     isMiss(false),
@@ -25,9 +25,10 @@ Note::Note(glm::vec2 startPos, glm::vec2 velocity) :
 	DownAttackKey(InputKey::Keyboard::None),
 GameObject(startPos, glm::vec2{ 2,1 })
 {
-	heroptr=(dynamic_cast<Hero*>(Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero)));
-	energy=(static_cast<EnergyBar*>(Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Energy_bar)));
-
+	if (Engine::GetGameStateManager().GetCurrstate()->GetName() != "Offset")
+	{
+		energy = (static_cast<EnergyBar*>(Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Energy_bar)));
+	}
 	AddGOComponent(new Sprite("../images/hit_star.png", this));
 	SetVelocity(velocity);
 }
@@ -35,8 +36,8 @@ GameObject(startPos, glm::vec2{ 2,1 })
 void Note::Update(double dt)
 {
 	GameObject::Update(dt);
-	UpAttackKey = heroptr->UpAttackKey;
-	DownAttackKey = heroptr->DownAttackKey;
+	UpAttackKey = static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->UpAttackKey;
+	DownAttackKey = static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->DownAttackKey;
 
 	if (GetPosition().x < -10)
 	{
@@ -149,21 +150,27 @@ void Note::Hit_Check()
 		    
 		}
 	}
-
-	if (Score_check() == static_cast<int>(SCORE::MISS) && isMiss == false && Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero)->GetPosition().x - GetPosition().x > 1)
+	if (Engine::GetGameStateManager().GetCurrstate()->GetName() != "Offset")
 	{
-		isMiss = true;
-		if (Engine::GetGSComponent<MissEmitter>() != nullptr)
+		if (Score_check() == static_cast<int>(SCORE::MISS) && isMiss == false && Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero)->GetPosition().x - GetPosition().x > 1)
 		{
-		    Engine::GetGSComponent<MissEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
-		    Engine::GetGSComponent<Score>()->AddScore(Score_check());
+			isMiss = true;
+			if (Engine::GetGSComponent<MissEmitter>() != nullptr)
+			{
+				Engine::GetGSComponent<MissEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+				Engine::GetGSComponent<Score>()->AddScore(Score_check());
+			}
 		}
 	}
 }
 
 int Note::Score_check()
 {
-    float HeroPostion = Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero)->GetPosition().x;
+	float HeroPostion = 0;
+	if (Engine::GetGameStateManager().GetCurrstate()->GetName() != "Offset")
+	{
+		 HeroPostion = Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero)->GetPosition().x;
+	}
 
     if (GetPosition().x - HeroPostion <= 0.85 && HeroPostion - GetPosition().x <= 0.65)//0.4
     {

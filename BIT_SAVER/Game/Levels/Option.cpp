@@ -34,9 +34,7 @@ Option::Option() :
     Quit(glm::vec2{ 0,0 }),
     mousePosition(glm::vec2{ 0,0 }),
     MouseKey(InputKey::Mouse::Left),
-    ChangeKey(InputKey::Keyboard::Space),
-    UpAttackKey(InputKey::Keyboard::None),
-    DownAttackKey(InputKey::Keyboard::None)
+    ChangeKey(InputKey::Keyboard::Space)
 {
     select = -1;
     w = Engine::GetWindow().GetSize().x;
@@ -56,8 +54,7 @@ void Option::Load()
     textureAll = Engine::GetTextureManager().Load(texture_path[Pause]);
     bigSoundBall = Engine::GetTextureManager().Load(texture_path[Sound_Bigball]);
     smallSoundBall = Engine::GetTextureManager().Load(texture_path[Sound_Smallball]);
-    UpAttackKey=(static_cast<Option*>(Engine::GetGameStateManager().Find("MainOption"))->UpAttackKey);
-    DownAttackKey = (static_cast<Option*>(Engine::GetGameStateManager().Find("MainOption"))->DownAttackKey);
+    cursor = Engine::GetTextureManager().Load(texture_path[MOUSE_CURSOR]);
 }
 
 void Option::Update(double dt)
@@ -98,6 +95,7 @@ void Option::Draw()
     textureAll->Draw({ 0,0 }, { 10,10 });
     bigSoundBall->Draw(SoundBallPosition, { 0.3,0.3 });
     smallSoundBall->Draw(SoundBallPosition, smallsoundballScale);
+    cursor->Draw({ mousePosition.x + 0.1, mousePosition.y - 0.5 }, { 0.5,0.5 });
 
 
     glm::vec2 window_pos = Engine::GetWindow().GetSize();
@@ -105,7 +103,7 @@ void Option::Draw()
     window_pos.y *= 0.5;
 
     glm::vec2 offset(50, 100);
-    Engine::GetText(font2).Draw("Press Spacebar to change Attack key", 0.f, 50.f, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
+    Engine::GetText(font2).Draw("Press Spacebar to change Attack key", 400.f, 100.f, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
     if (select == Select::KEYBOARD)
     {
         if (Engine::GetInput().GetLastPressedButton() != InputKey::Keyboard::None)
@@ -119,7 +117,7 @@ void Option::Draw()
                     IsUpkeychanged = true;
                     KeychangeTextTimer = 1;
                 }
-                else if (IsDownkeychanged == false && Engine::GetInput().GetLastPressedButton() != UpAttackKey.button)
+                else if (IsDownkeychanged == false && Engine::GetInput().GetLastPressedButton() != static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->UpAttackKey.button)
                 {
                     static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->DownAttackKey.button = Engine::GetInput().GetLastPressedButton();
                     Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::None);
@@ -128,21 +126,21 @@ void Option::Draw()
             }
         }
        
-         char Upkey = 'A' + static_cast<char>((static_cast<int>(UpAttackKey.button) - static_cast<int>(InputKey::Keyboard::A)));
-         char Downkey = 'A' + static_cast<char>((static_cast<int>(DownAttackKey.button) - static_cast<int>(InputKey::Keyboard::A)));
+         char Upkey = 'A' + static_cast<char>((static_cast<int>(static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->UpAttackKey.button) - static_cast<int>(InputKey::Keyboard::A)));
+         char Downkey = 'A' + static_cast<char>((static_cast<int>(static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->DownAttackKey.button ) - static_cast<int>(InputKey::Keyboard::A)));
          std::string Upresult(1, Upkey);
          std::string Downresult(1, Downkey);
          if (IsUpkeychanged == false)
          {
              if (KeychangeTextTimer >0.5)
              {
-                 Engine::GetText(font2).Draw("Up attack Key : " + Upresult, 0.f, 75.f, 1.f, glm::vec3(1.f, 1.f, 1.f));
-                 Engine::GetText(font2).Draw("Down attack Key : " + Downresult, 0.f, 100.f, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
+                 Engine::GetText(font2).Draw("Up attack Key : " + Upresult, 400.f, 125.f, 1.f, glm::vec3(1.f, 1.f, 1.f));
+                 Engine::GetText(font2).Draw("Down attack Key : " + Downresult, 400.f, 150.f, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
              }
              else
              {
-                 Engine::GetText(font2).Draw("Up attack Key : " + Upresult, 0.f, 75.f, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
-                 Engine::GetText(font2).Draw("Down attack Key : " + Downresult, 0.f, 100.f, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
+                 Engine::GetText(font2).Draw("Up attack Key : " + Upresult, 400.f, 125.f, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
+                 Engine::GetText(font2).Draw("Down attack Key : " + Downresult, 400.f, 150.f, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
              }
              if (KeychangeTextTimer < 0)
              {
@@ -153,13 +151,13 @@ void Option::Draw()
          {
              if (KeychangeTextTimer > 0.5)
              {
-                 Engine::GetText(font2).Draw("Up attack Key : " + Upresult, 0.f, 75.f, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
-                 Engine::GetText(font2).Draw("Down attack Key : " + Downresult, 0.f, 100.f, 1.f, glm::vec3(1.f, 1.f, 1.f));
+                 Engine::GetText(font2).Draw("Up attack Key : " + Upresult, 400.f, 125.f, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
+                 Engine::GetText(font2).Draw("Down attack Key : " + Downresult, 400.f, 150.f, 1.f, glm::vec3(1.f, 1.f, 1.f));
              }
              else
              {
-                 Engine::GetText(font2).Draw("Up attack Key : " + Upresult, 0.f, 75.f, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
-                 Engine::GetText(font2).Draw("Down attack Key : " + Downresult, 0.f, 100.f, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));        
+                 Engine::GetText(font2).Draw("Up attack Key : " + Upresult, 400.f, 125.f, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
+                 Engine::GetText(font2).Draw("Down attack Key : " + Downresult, 400.f, 150.f, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
              }
              if (KeychangeTextTimer < 0)
              {
@@ -168,10 +166,10 @@ void Option::Draw()
          }
          else
          {
-             Engine::GetText(font2).Draw("Up attack Key : " + Upresult, 0.f, 75.f, 1.f, glm::vec3(1.f, 1.f, 1.f));
-             Engine::GetText(font2).Draw("Down attack Key : " + Downresult, 0.f, 100.f, 1.f, glm::vec3(1.f, 1.f, 1.f));
+             Engine::GetText(font2).Draw("Up attack Key : " + Upresult, 400.f, 125.f, 1.f, glm::vec3(1.f, 1.f, 1.f));
+             Engine::GetText(font2).Draw("Down attack Key : " + Downresult, 400.f, 150.f, 1.f, glm::vec3(1.f, 1.f, 1.f));
          }
-        Engine::GetText(font2).Draw("Press Spacebar to change Attack key", 0.f, 50.f, 1.f, glm::vec3(1.f, 1.f, 1.f));
+        Engine::GetText(font2).Draw("Press Spacebar to change Attack key", 400.f, 100.f, 1.f, glm::vec3(1.f, 1.f, 1.f));
 
     }
 
@@ -345,6 +343,7 @@ void Option::changeSound(double dt)
         {
             SoundBallPosition.x = mousePosition.x;
         }
+
         Engine::GetMusic().SetVolume(((SoundBallPosition.x) + 1.5f) / 3.8f);
     }
 }

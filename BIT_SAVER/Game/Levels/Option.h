@@ -37,8 +37,7 @@ public:
     bool IsInBoxSound(glm::vec2 pos);
     bool IsInBox(glm::vec2 pos);
     void changeSound(double dt);
-    InputKey UpAttackKey;
-    InputKey DownAttackKey;
+
 private:
     bool IsUpkeychanged;
     bool IsDownkeychanged;
@@ -46,6 +45,7 @@ private:
     Texture* textureAll;
     Texture* bigSoundBall;
     Texture* smallSoundBall;
+    Texture* cursor;
 
     InputKey escape;
     InputKey OptionUpKey;

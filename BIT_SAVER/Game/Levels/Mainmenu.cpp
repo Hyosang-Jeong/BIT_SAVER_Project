@@ -36,6 +36,7 @@ void Mainmenu::Update([[maybe_unused]]double dt)
 	else if (ChangeOffset.IsKeyReleased() == true)
 	{
 		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Offset));
+
 	}
 	else if (ESCAPE.IsKeyReleased() == true)
 	{

@@ -43,7 +43,7 @@ void Window::Init(GLint wid, GLint hei,std::string windowName)
    glfwSetCursorPosCallback(ptr_window, mousepos_cb);
 
    // this is the default setting ...
-   glfwSetInputMode(ptr_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+   glfwSetInputMode(ptr_window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
    GLenum err = glewInit();
 
