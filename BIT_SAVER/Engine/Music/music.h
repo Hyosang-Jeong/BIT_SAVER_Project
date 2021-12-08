@@ -44,7 +44,7 @@ public:
     FMOD_SOUNDGROUP* bgm_group;
     FMOD_SOUNDGROUP* sfx_group;
     FMOD_BOOL isplaying;
-    float volume;
+    float volume = 0.f;
     float pitch = 1.f;
     float Musicvolume = 0.5f;
     float SFXvolume = 0.5f;
