@@ -53,6 +53,4 @@ private:
     int hitNumber;
     bool isHit;
     glm::vec2 x_pos;
-    bool isEnd;
-    bool isEnda;
 };
