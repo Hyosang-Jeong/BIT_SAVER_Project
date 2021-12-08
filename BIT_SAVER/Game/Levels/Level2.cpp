@@ -169,6 +169,7 @@ void Level2::Unload()
 	energyBar = nullptr;
 	stageBar = nullptr;
 	gameObjectManager->Unload();
+	Engine::GetMusic().pitchDefault(SOUND_NUM::DIOMA);
 	Engine::GetMusic().Stop(SOUND_NUM::DIOMA);
 	Engine::GetMusic().isPlaying(SOUND_NUM::DIOMA);
 

@@ -169,6 +169,7 @@ void Level3::Unload()
 	energyBar = nullptr;
 	stageBar = nullptr;
 	gameObjectManager->Unload();
+	Engine::GetMusic().pitchDefault(SOUND_NUM::ENERGY);
 	Engine::GetMusic().Stop(SOUND_NUM::ENERGY);
 	Engine::GetMusic().isPlaying(SOUND_NUM::ENERGY);
 
