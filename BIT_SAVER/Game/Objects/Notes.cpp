@@ -17,6 +17,7 @@ Creation date: 3/14/2021
 #include"Score.h"
 #include"../../Engine/Physics/Camera.h"
 #include"Hero.h"
+
 Note::Note(glm::vec2 startPos, glm::vec2 velocity) :
     isMiss(false),
 
@@ -55,7 +56,8 @@ void Note::Update(double dt)
 
 void Note::Draw(glm::mat3 camera_matrix)
 {
-    GameObject::Draw(camera_matrix);
+   // if (Engine::GetGameStateManager().GetCurrstate()->GetName() != "Offset")
+	GameObject::Draw(camera_matrix);
 }
 
 glm::vec2 Note::Getposition()

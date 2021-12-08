@@ -65,6 +65,7 @@ void Offset::Load()
     gameObjectManager->Add(checkBox);
     gameObjectManager->Add(trackPtr);
 
+    trackPtr->track_time.erase(trackPtr->track_time.begin(), trackPtr->track_time.begin() + 4);
     for(auto & i : trackPtr->track_time)
         compareTime.push_back(i.time);
 }
@@ -73,6 +74,7 @@ void Offset::Update(double dt)
 {
     if (HitKey.IsKeyDown())
         isHit = true;
+
     if (isHit == true)
     {
         if (!Engine::GetMusic().isPlaying(SOUND_NUM::OFFSET))
@@ -86,7 +88,7 @@ void Offset::Update(double dt)
         if (HitKey.IsKeyDown() == true && HitKey.IsKeyReapeated() == false)
         {
             if(hitNumber==0)
-                currentTime = static_cast<double>(compareTime[hitNumber+1]);
+                currentTime = static_cast<double>(compareTime[0]);
 
             hitNumber++;
             if (hitNumber < compareTime.size())
@@ -97,7 +99,7 @@ void Offset::Update(double dt)
             Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
         }
 
-        std::cout << resultTime / static_cast<float>(hitNumber) << std::endl;
+        std::cout << resultTime/ static_cast<long double>(hitNumber) << std::endl;
         std::cout << hitNumber << std::endl;
     }
 }
