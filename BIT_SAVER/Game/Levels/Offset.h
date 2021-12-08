@@ -29,7 +29,7 @@ public:
     void Update(double dt) override;
     void Unload() override;
     void Draw() override;
-
+    void CheckNextNote();
     std::string GetName() override { return "Offset"; }
 
     SOUND_NUM GetcurrentMusic()
@@ -37,7 +37,7 @@ public:
 	return SOUND_NUM::OFFSET;
     }
 
-    double GetResultTime();
+    //long double GetResultTime();
 private:
     Texture* gameover;
     InputKey ESCAPE;
@@ -49,8 +49,10 @@ private:
     Track* trackPtr;
     Background* backPtr;
     EnergyBar* energyBar;
-
-    double compareTime;
-    double resultTime;
+    std::vector<long double> compareTime;
+    long double resultTime;
+    double currentTime;
+    int hitNumber;
+    bool isHit;
 
 };

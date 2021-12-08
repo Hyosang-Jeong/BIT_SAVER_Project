@@ -29,7 +29,7 @@ public:
     void Pause(int sound_num);
     void volumeUp(int sound_num);
     void volumeDown(int sound_num);
-    void SetVolume(int sound_num,float volume_);
+    void SetVolume(float volume_);
     void pitchUp(int sound_num);
     void pitchDefault(int sound_num);
     void pitchDown(int sound_num);
@@ -44,9 +44,10 @@ public:
     FMOD_SOUNDGROUP* bgm_group;
     FMOD_SOUNDGROUP* sfx_group;
     FMOD_BOOL isplaying;
-    float volume = 0.f;
     float pitch = 1.f;
     float Musicvolume = 0.5f;
     float SFXvolume = 0.5f;
     std::vector<const char*> MusicName;
+private:
+    float volume = 0.f;
 };

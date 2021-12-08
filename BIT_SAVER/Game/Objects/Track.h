@@ -32,12 +32,12 @@ public:
     {
         return GameObjectType::Track;
     }
-private:
-    std::map<int, std::vector<long double>> track_info; // for REWIND
     std::vector<Track_Time> track_time; // for else
-    int Music_Num{ 0 };
-    bool Doupdate;
     glm::vec2 note_pos{ 0 };
     glm::vec2 note_vel{ 0 };
+private:
+    std::map<int, std::vector<long double>> track_info; // for REWIND
+    int Music_Num{ 0 };
+    bool Doupdate;
     double timer{ 0 };
 };

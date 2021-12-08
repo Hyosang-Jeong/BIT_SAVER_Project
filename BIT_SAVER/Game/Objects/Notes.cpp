@@ -178,7 +178,7 @@ int Note::Score_check()
         return static_cast<int>(SCORE::BAD);
     }
     return static_cast<int>(SCORE::MISS);
-
+    
 
 }
 

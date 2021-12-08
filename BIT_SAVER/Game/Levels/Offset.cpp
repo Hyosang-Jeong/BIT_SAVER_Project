@@ -18,11 +18,16 @@ Creation date: 3/07/2021
 #include "../Objects/EnergyBar.h"
 #include "../../Engine/Music/Sound_Num.h"
 
+#include <iostream>
+
 Offset::Offset() :
     ESCAPE(InputKey::Keyboard::Enter),
     HitKey(InputKey::Keyboard::Space),
     resultTime(0),
     compareTime(0),
+    currentTime(0),
+    hitNumber(0),
+    isHit(false),
     camera({0,0})
 
 {
@@ -37,7 +42,7 @@ Offset::Offset() :
 
 void Offset::Load()
 {
-    compareTime = 0;//시간 넣어 놓고 시작?
+
     gameObjectManager = new GameObjectManager();
     backPtr = new Background();
     heroPtr = new Hero({ -4,-5 });
@@ -60,58 +65,74 @@ void Offset::Load()
     gameObjectManager->Add(checkBox);
     gameObjectManager->Add(trackPtr);
 
+    for(auto & i : trackPtr->track_time)
+        compareTime.push_back(i.time);
 }
 
-void Offset::Update( double dt)
+void Offset::Update(double dt)
 {
-    if (!Engine::GetMusic().isPlaying(SOUND_NUM::OFFSET))
-        Engine::GetMusic().Play(SOUND_NUM::OFFSET);
-
-    GetGSComponent<Background>()->Update(dt);
-    gameObjectManager->UpdateAll(dt);
-    
-    //if (!Engine::GetMusic().isPlaying(Music::SOUND_NUM::REWIND))
-    //    Engine::GetMusic().Play(Music::SOUND_NUM::REWIND);
-
-    //		trackPtr->SetUpdate(true);
-    //
-    //result+= (미디의 시간과 내가 쳤을 때 시간 비교);
-    if (HitKey.IsKeyDown() == true && HitKey.IsKeyReapeated() == false)
+    if (HitKey.IsKeyDown())
+        isHit = true;
+    if (isHit == true)
     {
-        //result += 그때의 시간 - 미디 시간
-    }
-    else if (ESCAPE.IsKeyDown() == true)
-    {
-        Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
-    }
+        if (!Engine::GetMusic().isPlaying(SOUND_NUM::OFFSET))
+            Engine::GetMusic().Play(SOUND_NUM::OFFSET);
+        currentTime += dt;
 
+        GetGSComponent<Background>()->Update(dt);
+        gameObjectManager->UpdateAll(dt);
+        //CheckNextNote();
 
+        if (HitKey.IsKeyDown() == true && HitKey.IsKeyReapeated() == false)
+        {
+            if(hitNumber==0)
+                currentTime = static_cast<double>(compareTime[hitNumber+1]);
+
+            hitNumber++;
+            if (hitNumber < compareTime.size())
+                resultTime += currentTime - compareTime[hitNumber];
+        }
+        else if (ESCAPE.IsKeyDown() == true)
+        {
+            Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
+        }
+
+        std::cout << resultTime / static_cast<float>(hitNumber) << std::endl;
+        std::cout << hitNumber << std::endl;
+    }
 }
 
 void Offset::Draw()
 {
-    //const std::string font1{ font_path[MochiyPopOne] };
-    //const std::string font2{ font_path[PressStart] };
-
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     GetGSComponent<Background>()->Draw(camera.GetMatrix());
     gameObjectManager->DrawAll(camera.GetMatrix());
-    //Engine::GetText(font2).Draw("Clear!", 0.f, 50.f, 3.f, { 0.5f,0.5f,0.5f });
-    //Engine::GetText(font2).Draw("Press Enter to go MainMenu", 0.f, 250.f, 3.f, { 0.5f,0.5f,0.5f });
+
 }
 
-
-
-double Offset::GetResultTime()
+void Offset::CheckNextNote()
 {
-    return resultTime;
+    if (heroPtr->GetPosition().x -
+        Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Note)->GetPosition().x > 2.0)
+    {
+        hitNumber++;
+    }
 }
+
+
+
+//double Offset::GetResultTime()
+//{
+//    return resultTime;
+//}
 
 
 void Offset::Unload()
 {
-
+    currentTime = 0;
+    hitNumber = 0;
+    isHit = false;
     checkBox = nullptr;
     heroPtr = nullptr;
     trackPtr = nullptr;
