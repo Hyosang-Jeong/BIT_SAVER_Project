@@ -1,10 +1,11 @@
 #pragma once
 enum SOUND_NUM
 {
-    ENERGY = 0,
+    OFFSET=0,
     DISCO,
     REWIND,
-    OFFSET,
+    DIOMA,
+    ENERGY,
     SOUND_EFFECT1,
     SOUND_EFFECT2,
     BOSS_ENTRANCE,

@@ -27,19 +27,27 @@ GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 }), Music_Num(music_num)
 {
 	Doupdate = true;
 
-        long double Dificulty{ 0.0 };
+    long double Dificulty{ 0.0 };
+
 	switch (Music_Num)
 	{
-	    case static_cast<int>(SOUND_NUM::DISCO) :
-		Dificulty = 0.000001;
-		break;
-	    case static_cast<int>(SOUND_NUM::REWIND) :
-		Dificulty = 0.3;
-		break;
 	    case static_cast<int>(SOUND_NUM::OFFSET) :
-		Dificulty = 0.0001;
-		break;
-
+			Dificulty = 0.0001;
+			break;
+	    case static_cast<int>(SOUND_NUM::DISCO) :
+			Dificulty = 0.000001;
+			break;
+	    case static_cast<int>(SOUND_NUM::REWIND) :
+			Dificulty = 0.3;
+			break;
+		case static_cast<int>(SOUND_NUM::DIOMA):
+			Dificulty = 0.1;
+			break;
+		case static_cast<int>(SOUND_NUM::ENERGY):
+			Dificulty = 0.1;
+			break;
+		default:
+			break;
 	}
 
 	for (auto& tracks : mid_info)
@@ -70,31 +78,6 @@ GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 }), Music_Num(music_num)
 			}
 		}), end(track_time));
 
-
-	//std::vector<long double> time;
-
-	//for (auto& tracks : mid_info)
-	//{
-	//	for (auto& time_t : tracks.second)
-	//	{
-	//		time.push_back(time_t);
-	//	}
-	//	
-	//}
-	//std::sort(begin(time), end(time));
-
-	//long double t{ time[0] };
-	//time.erase(std::remove_if(begin(time) + 1, end(time), [&](auto time_t)
-	//	{
-	//		if (time_t - t < 0.3)
-	//		{
-	//			return true;
-	//		}
-	//		else {
-	//			t = time_t;
-	//			return false;
-	//		}
-	//	}), end(time));
 	
 	double target_time = 14.0 / -20;
 	for (auto& tt : track_time)
@@ -105,13 +88,9 @@ GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 }), Music_Num(music_num)
 		tt.time += target_time;
 	}
 	std::cout << static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->GetOffsetTime() << std::endl;
-	//std::copy(list_track_time.begin(), list_track_time.end(), std::back_inserter(track_time));
-	//for (auto& a : track_time)
-	//{
-	//	list_track_time.push_back(a);
-	//}
 
-	if (Music_Num == static_cast<int>(SOUND_NUM::REWIND))
+
+	if (Music_Num == static_cast<int>(SOUND_NUM::REWIND) || Music_Num == static_cast<int>(SOUND_NUM::ENERGY))
 	{
 		for (auto& time_t : track_time)
 		{
@@ -138,7 +117,7 @@ void Track::Update(double dt)
 
 		timer += dt * Engine::GetMusic().pitch;
 
-		if (Music_Num == static_cast<int>(SOUND_NUM::REWIND))
+		if (Music_Num == static_cast<int>(SOUND_NUM::REWIND) || Music_Num == static_cast<int>(SOUND_NUM::ENERGY))
 		{
 			for (auto& i : track_info)
 			{
