@@ -14,7 +14,7 @@ Creation date:
 
 
 class EnergyBar;
-class Hero;
+
 
 class Note : public GameObject
 {
@@ -36,7 +36,6 @@ private:
 
 
     EnergyBar* energy;
-    Hero* heroptr;
 
 };
 

@@ -45,9 +45,10 @@ GameObject* GameObjectManager::Find(GameObjectType objType)
 
 	return *it;
     }
-    else {
-	Engine::GetLogger().LogDebug("Failed to find gameobjects");
-	std::exit(EXIT_FAILURE);
+    else 
+	{
+		Engine::GetLogger().LogDebug("Failed to find gameobjects");
+		std::exit(EXIT_FAILURE);
     }
 }
 

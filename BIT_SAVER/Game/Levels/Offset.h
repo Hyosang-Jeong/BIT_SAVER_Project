@@ -39,20 +39,19 @@ public:
 
     //long double GetResultTime();
 private:
-    Texture* gameover;
+
+    Texture* offset_x;
     InputKey ESCAPE;
     InputKey HitKey;
-    CheckBox* checkBox;
-    Camera camera;
+
     GameObjectManager* gameObjectManager;
-    Hero* heroPtr;
+ 
     Track* trackPtr;
-    Background* backPtr;
-    EnergyBar* energyBar;
+
     std::vector<long double> compareTime;
     long double resultTime;
     double currentTime;
     int hitNumber;
     bool isHit;
-
+    glm::vec2 x_pos;
 };

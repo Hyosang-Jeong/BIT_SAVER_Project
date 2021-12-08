@@ -44,7 +44,6 @@ void Fever_bar::Update(double dt)
 		is_fever_mode = false;
 		Engine::GetGSComponent<Background>()->set_fever_mode(false);
 		fever_gazePtr = Engine::GetTextureManager().Load("../images/fever_gaze.png");
-
 	}
 
 	initial_score = score_ptr->Getscore();

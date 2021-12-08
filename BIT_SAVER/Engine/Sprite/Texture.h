@@ -26,6 +26,7 @@ enum Texture_Path
     Sound_Bigball,
     Sound_Smallball,
     MOUSE_CURSOR,
+    OFFSET_X,
     Background_1,
     Parallax1_5, 
     Parallax1_4,
@@ -45,6 +46,7 @@ static const char* texture_path[] = {
     "../images/sound_bigball.png",
     "../images/sound_smallball.png",
     "../images/Cursor.png",
+    "../images/offset_x.png",
 
     "../images/background1.png",
     "../images/parallax1-5.png",
