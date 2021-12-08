@@ -4,6 +4,7 @@ enum class State {
 	Splash,
 	MainMenu,
 	Tutorial,
+	MainOption,
 	Level1,
 	Offset,
 	Option,

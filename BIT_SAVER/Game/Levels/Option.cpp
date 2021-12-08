@@ -11,9 +11,8 @@ Creation date: 3/07/2021
 #include "../Engine/Engine.h"   //GetGameStateManage
 #include"Mainmenu.h"
 #include"State.h"
-
 #include"../Objects/Hero.h"
-
+#include"../Levels/MainOption.h"
 #include "../../Engine/Music/Sound_Num.h"
 
 
@@ -36,15 +35,12 @@ Option::Option() :
     mousePosition(glm::vec2{ 0,0 }),
     MouseKey(InputKey::Mouse::Left),
     ChangeKey(InputKey::Keyboard::Space),
-    UpAttackKey(InputKey::Keyboard::F),
-    DownAttackKey(InputKey::Keyboard::J)
+    UpAttackKey(InputKey::Keyboard::None),
+    DownAttackKey(InputKey::Keyboard::None)
 {
     select = -1;
     w = Engine::GetWindow().GetSize().x;
     h = Engine::GetWindow().GetSize().y;
-    textureAll = Engine::GetTextureManager().Load(texture_path[Pause]);
-    bigSoundBall = Engine::GetTextureManager().Load(texture_path[Sound_Bigball]);
-    smallSoundBall = Engine::GetTextureManager().Load(texture_path[Sound_Smallball]);
     world_to_ndc =
     {
    20 / w, 0,0,
@@ -57,6 +53,11 @@ Option::Option() :
 void Option::Load()
 {
     select = RESUME;
+    textureAll = Engine::GetTextureManager().Load(texture_path[Pause]);
+    bigSoundBall = Engine::GetTextureManager().Load(texture_path[Sound_Bigball]);
+    smallSoundBall = Engine::GetTextureManager().Load(texture_path[Sound_Smallball]);
+    UpAttackKey=(static_cast<Option*>(Engine::GetGameStateManager().Find("MainOption"))->UpAttackKey);
+    DownAttackKey = (static_cast<Option*>(Engine::GetGameStateManager().Find("MainOption"))->DownAttackKey);
 }
 
 void Option::Update(double dt)
@@ -91,6 +92,8 @@ void Option::Draw()
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
+    Engine::GetGameStateManager().GetCurrstate()->Draw();
+
 
     textureAll->Draw({ 0,0 }, { 10,10 });
     bigSoundBall->Draw(SoundBallPosition, { 0.3,0.3 });
@@ -111,14 +114,14 @@ void Option::Draw()
             {
                 if (IsUpkeychanged == false)
                 {
-                    UpAttackKey.button = Engine::GetInput().GetLastPressedButton();
+                    static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->UpAttackKey.button = Engine::GetInput().GetLastPressedButton();
                     Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::None);
                     IsUpkeychanged = true;
                     KeychangeTextTimer = 1;
                 }
                 else if (IsDownkeychanged == false && Engine::GetInput().GetLastPressedButton() != UpAttackKey.button)
                 {
-                    DownAttackKey.button = Engine::GetInput().GetLastPressedButton();
+                    static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->DownAttackKey.button = Engine::GetInput().GetLastPressedButton();
                     Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::None);
                     IsDownkeychanged = true;
                 }
@@ -240,7 +243,7 @@ void Option::GetIndex()
         select = -1;
     }
 
-    if (/*OptionSelectKey.IsKeyDown() == true ||*/ MouseKey.MouseIsKeyReleased() == true)
+    if (MouseKey.MouseIsKeyReleased() == true)
     {
         switch (select)
         {
@@ -300,7 +303,7 @@ void Option::Unload()
 {
     textureAll = nullptr;
     bigSoundBall = nullptr;
-     smallSoundBall = nullptr;
+    smallSoundBall = nullptr;
 }
 
 void Option::changeSound(double dt)

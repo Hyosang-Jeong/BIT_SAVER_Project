@@ -15,7 +15,8 @@ Mainmenu::Mainmenu() :
 ESCAPE(InputKey::Keyboard::Escape),
 Tutorial(InputKey::Keyboard::T),
 Level1(InputKey::Keyboard::P),
-ChangeOffset(InputKey::Keyboard::Q)
+ChangeOffset(InputKey::Keyboard::Q),
+MainOption(InputKey::Keyboard::O)
 {
 }
 
@@ -40,7 +41,10 @@ void Mainmenu::Update([[maybe_unused]]double dt)
 	{
 		Engine::GetGameStateManager().Shutdown();
 	}
-
+	else if (MainOption.IsKeyReleased() == true)
+	{
+		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainOption));
+	}
 }
 
 void Mainmenu::Draw()
@@ -55,7 +59,7 @@ void Mainmenu::Draw()
 	Engine::GetText(font2).Draw("Press T for Tuto", 0.f, 50.f, 3.f, { 0.5f,0.5f,0.5f });
 	Engine::GetText(font2).Draw("Press P to play", 0.f, 150.f, 3.f, { 0.5f,0.5f,0.5f });
 	Engine::GetText(font2).Draw("Press Q to offset", 0.f, 250.f, 3.f, { 0.5f,0.5f,0.5f });
-
+	Engine::GetText(font2).Draw("Press O to main option", 0.f, 350.f, 3.f, { 0.5f,0.5f,0.5f });
 }
 void Mainmenu::Unload()
 {

@@ -209,6 +209,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Game\Levels\MainOption.cpp" />
     <ClCompile Include="Game\Levels\Offset.cpp" />
     <ClCompile Include="Game\Levels\Option.cpp" />
     <ClCompile Include="Game\Levels\Splash.cpp">
@@ -296,6 +297,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="Game\Levels\MainOption.h" />
     <ClInclude Include="Game\Levels\Offset.h" />
     <ClInclude Include="Game\Levels\Option.h" />
     <ClInclude Include="Game\Levels\Splash.h">

@@ -29,7 +29,7 @@ public:
 	InputKey Tutorial;
 	InputKey Level1;
 	InputKey ChangeOffset;
-
+	InputKey MainOption;
 private:
 };
 

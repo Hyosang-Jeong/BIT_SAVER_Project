@@ -10,7 +10,7 @@ Creation date: 3/14/2021
 #include"Hero.h"
 #include"../Engine/Engine.h" //get window
 #include"..\Levels\Level1.h"  // Level1's gravity
-#include"../Levels/Option.h"
+#include"../Levels/MainOption.h"
 #define VOL 0.5f;
 
 
@@ -31,8 +31,8 @@ void Hero::Update(double dt)
     GameObject::Update(dt);
     UpdateXVelocity(dt);
     GetGOComponent<Collision>()->UpdateCollision(GetPosition(),GetScale());
-    UpAttackKey = static_cast<Option*>(Engine::GetGameStateManager().Find("Option"))->UpAttackKey;
-    DownAttackKey = static_cast<Option*>(Engine::GetGameStateManager().Find("Option"))->DownAttackKey;
+    UpAttackKey = static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->UpAttackKey;
+    DownAttackKey = static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->DownAttackKey;
 }
 
 void Hero::Draw(glm::mat3 camera_matrix)

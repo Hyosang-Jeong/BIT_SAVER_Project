@@ -33,7 +33,6 @@ private:
 	AABB collision_box;
 	glm::vec2 box_size;
 	Texture* box_ptr;
-	GLModel box_model;
 	glm::vec2 object_pos;
 	glm::vec2 object_scale;
 };
