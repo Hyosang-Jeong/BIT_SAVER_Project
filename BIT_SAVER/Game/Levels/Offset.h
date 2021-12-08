@@ -32,7 +32,10 @@ public:
 
     std::string GetName() override { return "Offset"; }
 
-
+    SOUND_NUM GetcurrentMusic()
+    {
+	return SOUND_NUM::OFFSET;
+    }
 
     double GetResultTime();
 private:

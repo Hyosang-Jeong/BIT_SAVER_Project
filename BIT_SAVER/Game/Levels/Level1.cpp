@@ -25,6 +25,7 @@ Creation date: 3/07/2021
 #include"../Levels/Option.h"
 
 
+
 Level1::Level1() :
 	escape(InputKey::Keyboard::Escape),
 	camera({ 0,0 })
@@ -169,5 +170,7 @@ void Level1::Unload()
 		stageBar = nullptr;
 		gameObjectManager->Unload();
 		Engine::GetMusic().Stop(SOUND_NUM::REWIND);
+		Engine::GetMusic().isPlaying(SOUND_NUM::REWIND);
+
 		ClearGSComponent();
 }

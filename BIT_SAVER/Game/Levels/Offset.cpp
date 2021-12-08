@@ -118,6 +118,7 @@ void Offset::Unload()
     backPtr = nullptr;
     gameObjectManager->Unload();
     Engine::GetMusic().Stop(SOUND_NUM::OFFSET);
+    Engine::GetMusic().isPlaying(SOUND_NUM::OFFSET);
     ClearGSComponent();
 }
 
