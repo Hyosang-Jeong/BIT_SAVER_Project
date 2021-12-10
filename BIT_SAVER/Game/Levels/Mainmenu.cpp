@@ -10,11 +10,12 @@ Creation date: 3/07/2021
 #include "../Engine/Engine.h"	//GetGameStateManage
 #include"Mainmenu.h"
 #include"State.h"
-
+#include"../../Engine/Sprite/Texture.h"
 Mainmenu::Mainmenu() :
 	ChangeOffset(InputKey::Keyboard::Q),
 	MainOption(InputKey::Keyboard::O),
-	Tutorial(InputKey::Keyboard::NUM_0),
+	Tutorial(InputKey::Keyboard::T),
+	Level0(InputKey::Keyboard::NUM_0),
 	Level1(InputKey::Keyboard::NUM_1),
 	Level2(InputKey::Keyboard::NUM_2),
 	Level3(InputKey::Keyboard::NUM_3),
@@ -23,11 +24,17 @@ Mainmenu::Mainmenu() :
 }
 
 void Mainmenu::Load()
-{}
+{
+	mainmenu = Engine::GetTextureManager().Load("../images/mainmenu.png");
+}
 
 void Mainmenu::Update([[maybe_unused]] double dt)
 {
 	if (Tutorial.IsKeyReleased() == true)
+	{
+		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Tutorial));
+	}
+	else if (Level0.IsKeyReleased() == true)
 	{
 		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Level0));
 	}
@@ -59,19 +66,12 @@ void Mainmenu::Update([[maybe_unused]] double dt)
 
 void Mainmenu::Draw()
 {
-	const std::string font1{ font_path[MochiyPopOne] };
-	const std::string font2{ font_path[PressStart] };
 
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-	//mainmenu->Draw(glm::mat3{ 1,0,0,0,1,0,0,0,1 }, model, "Hero");
-	Engine::GetText(font2).Draw("Press 0 for Level 0", 0.f, 50.f, 3.f, { 0.5f,0.5f,0.5f });
-	Engine::GetText(font2).Draw("Press 1 for Level 1", 0.f, 150.f, 3.f, { 0.5f,0.5f,0.5f });
-	Engine::GetText(font2).Draw("Press 2 for Level 2", 0.f, 250.f, 3.f, { 0.5f,0.5f,0.5f });
-	Engine::GetText(font2).Draw("Press 3 for Level 3", 0.f, 350.f, 3.f, { 0.5f,0.5f,0.5f });
-	Engine::GetText(font2).Draw("Press Q to offset", 0.f, 450.f, 3.f, { 0.5f,0.5f,0.5f });
-	Engine::GetText(font2).Draw("Press O to main option", 0.f, 550.f, 3.f, { 0.5f,0.5f,0.5f });
+	mainmenu->Draw({ 0,0 }, { 10,10 });
+
 }
 void Mainmenu::Unload()
 {

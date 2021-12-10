@@ -35,6 +35,16 @@ enum class TUTO_LEVEL_STATE
 	FINISH
 };
 
+enum class Tuto_Helper_Enum
+{
+	GREETINGS,
+	UP_NOTE_GENERATE,
+	UP_NOTE_HIT,
+	DOWN_NOTE_GENERATE,
+	DOWN_NOTE_HIT,
+	END
+};
+
 class Tutorial : public GameState
 {
 public:
@@ -44,15 +54,9 @@ public:
 	void Unload() override;
 	std::string GetName() { return "Tutorial"; }
 	void Draw() override;
-	SOUND_NUM GetcurrentMusic() override
-	{
-		return SOUND_NUM::DISCO;
-	}
-
 private:
+	void Update_currstate(double dt);
 	InputKey escape;
-
-	Tutorial_Helper* tutohelperPtr;
 	Hero* heroPtr;
 	Boss* bossPtr;
 	Track* trackPtr;
@@ -64,6 +68,6 @@ private:
 	Camera camera;
 	GameObjectManager* gameObjectManager;
 	TUTO_LEVEL_STATE gamestate;
-
+	Tuto_Helper_Enum currstate;
 	bool isMusicEnd;
 };

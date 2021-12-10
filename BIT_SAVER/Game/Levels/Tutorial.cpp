@@ -31,7 +31,6 @@ Tutorial::Tutorial() :
 	camera({ 0,0 })
 {
 	gameObjectManager = nullptr;
-	tutohelperPtr = nullptr;
 	heroPtr = nullptr;
 	trackPtr = nullptr;
 	bossPtr = nullptr;
@@ -49,13 +48,12 @@ void Tutorial::Load()
 	gameObjectManager = new GameObjectManager();
 	heroPtr = new Hero({ -4,-5 });
 	backPtr = new Background();
-	trackPtr = new Track(SOUND_NUM::DISCO);
+	trackPtr = new Track(SOUND_NUM::OFFSET);
 	notebox = new Note_box({ -4,0 });
 	bossPtr = new Boss({ 15,-5 });
 	energyBar = new EnergyBar({ -4,1.2 });
-
-
 	stageBar = new Stage_bar({ -10,9 }, 110, 82);   // total music time 204  ,  extra time 82
+	currstate = Tuto_Helper_Enum::GREETINGS;
 
 
 	backPtr->Add(texture_path[Background_1], 0);
@@ -72,10 +70,15 @@ void Tutorial::Load()
 	gameObjectManager->Add(notebox);
 	gameObjectManager->Add(bossPtr);
 	gameObjectManager->Add(energyBar);
-
-
 	gameObjectManager->Add(stageBar);
 	gameObjectManager->Add(trackPtr);
+	gameObjectManager->Add(new CheckBox({ -4.4,0 }, 0));
+	gameObjectManager->Add(new CheckBox({ -3.2,0 }, 0));
+	gameObjectManager->Add(new CheckBox({ -4.6,0 }, 1));
+	gameObjectManager->Add(new CheckBox({ -2.6,0 }, 1));
+	gameObjectManager->Add(new CheckBox({ -4.8,0 }, 2));
+	gameObjectManager->Add(new CheckBox({ -2.0,0 }, 2));
+
 	AddGSComponent(new Tutorial_Helper());
 	AddGSComponent(new HitEmitter());
 	AddGSComponent(new PerfectEmitter());
@@ -84,56 +87,112 @@ void Tutorial::Load()
 	AddGSComponent(new MissEmitter());
 	AddGSComponent(new Score());
 
+
+	trackPtr->track_info[0].erase(trackPtr->track_info[0].begin(), trackPtr->track_info[0].begin() + 4);
+	trackPtr->track_info[1].erase(trackPtr->track_info[1].begin(), trackPtr->track_info[1].begin() + 2);
+
 }
 
 void Tutorial::Update(double dt)
 {
-    if (!Engine::GetMusic().isPlaying(SOUND_NUM::DISCO) && isMusicEnd == false)
-    {
-	Engine::GetMusic().Play(SOUND_NUM::DISCO);
-	isMusicEnd = true;
-    }
+
 
 	GetGSComponent<Background>()->Update(dt);
-	gameObjectManager->UpdateAll(dt);
+	Update_currstate(dt);
 
-	if (stageBar->Getchangeflag() == 1)
-	{
-		gamestate = TUTO_LEVEL_STATE::GENERATING;
-		Engine::GetMusic().Pause(SOUND_NUM::DISCO);
-		bossPtr->GenerateBoss();
-		trackPtr->SetUpdate(false);
-		stageBar->SetUpdate(false);
-		Engine::GetMusic().Play(SOUND_NUM::BOSS_ENTRANCE);
-		Engine::GetMusic().volumeUp(SOUND_NUM::BOSS_ENTRANCE);
-	}
-	if (gamestate == TUTO_LEVEL_STATE::GENERATING && bossPtr->GetVelocity().x == 0)
-	{
-		Engine::GetMusic().Resume(SOUND_NUM::DISCO);
-		Engine::GetMusic().pitchUp(SOUND_NUM::DISCO);
-		trackPtr->SetUpdate(true);
-		stageBar->SetUpdate(true);
+}
 
-		feverBar = new Fever_bar({ -20,-9 });
-		gameObjectManager->Add(feverBar);
-		gamestate = TUTO_LEVEL_STATE::FINISH;
-	}
-
-	if (energyBar->Isgameover() == true)
+void Tutorial::Update_currstate(double dt)
+{
+	switch (currstate)
 	{
-		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Gameover));
-	}
-
-	if (Engine::GetMusic().isPlaying(SOUND_NUM::DISCO) == false && Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Stage_bar)->GetPosition().x > 9.0)
+	case Tuto_Helper_Enum::GREETINGS:
 	{
-	    	
-		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Clear));
+		Engine::GetGSComponent<Tutorial_Helper>()->Set_state(static_cast<int>(currstate));
+		if (Engine::GetGSComponent<Tutorial_Helper>()->Getflag() == true)
+		{
+			currstate = Tuto_Helper_Enum::UP_NOTE_GENERATE;
+			Engine::GetGSComponent<Tutorial_Helper>()->Setflag(false);
+		}
+		break;
 	}
-	if (escape.IsKeyDown() == true)
+	case Tuto_Helper_Enum::UP_NOTE_GENERATE:
 	{
-		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Option));
+		Engine::GetGSComponent<Tutorial_Helper>()->Set_state(static_cast<int>(currstate));
+		if (!Engine::GetMusic().isPlaying(SOUND_NUM::OFFSET) && isMusicEnd == false)
+		{
+			Engine::GetMusic().Play(SOUND_NUM::OFFSET);
+			isMusicEnd = true;
+		}
+		gameObjectManager->UpdateAll(dt);
+		Note* note = static_cast<Note*>(gameObjectManager->Find(GameObjectType::Note));
+		if (note != nullptr)
+		{
+			if (note->GetPosition().y > 0 && note->GetPosition().x < -4)
+			{
+				currstate = Tuto_Helper_Enum::UP_NOTE_HIT;
+				Engine::GetGSComponent<Tutorial_Helper>()->Set_state(static_cast<int>(currstate));
+				Engine::GetMusic().Pause(SOUND_NUM::OFFSET);
+				Engine::GetGSComponent<Tutorial_Helper>()->Setflag(false);
+			}
+		}
+		break;
 	}
+	case Tuto_Helper_Enum::UP_NOTE_HIT:
+	{
+		Hero* hero = static_cast<Hero*>(gameObjectManager->Find(GameObjectType::Hero));
+		hero->Update(dt);
 
+		if (Engine::GetGSComponent<Tutorial_Helper>()->Getflag() == true)
+		{
+			currstate = Tuto_Helper_Enum::DOWN_NOTE_GENERATE;
+			Engine::GetGSComponent<Tutorial_Helper>()->Setflag(false);
+			Engine::GetGSComponent<Tutorial_Helper>()->Set_state(static_cast<int>(currstate));
+		}
+		break;
+	}
+	case Tuto_Helper_Enum::DOWN_NOTE_GENERATE:
+	{
+		Engine::GetMusic().Resume(SOUND_NUM::OFFSET);
+		gameObjectManager->UpdateAll(dt);
+
+		if (gameObjectManager->Find(GameObjectType::Note) != nullptr)
+		{
+			if (gameObjectManager->Find(GameObjectType::Note)->GetPosition().y < 0 &&
+				gameObjectManager->Find(GameObjectType::Note)->GetPosition().x < -4)
+			{
+				currstate = Tuto_Helper_Enum::DOWN_NOTE_HIT;
+				Engine::GetMusic().Pause(SOUND_NUM::OFFSET);
+				Engine::GetGSComponent<Tutorial_Helper>()->Set_state(static_cast<int>(currstate));
+			}
+		}
+		break;
+	}
+	case Tuto_Helper_Enum::DOWN_NOTE_HIT:
+	{
+		Hero* hero = static_cast<Hero*>(gameObjectManager->Find(GameObjectType::Hero));
+		hero->Update(dt);
+		if (Engine::GetGSComponent<Tutorial_Helper>()->Getflag() == true)
+		{
+			currstate = Tuto_Helper_Enum::END;
+			Engine::GetGSComponent<Tutorial_Helper>()->Setflag(false);
+			Engine::GetGSComponent<Tutorial_Helper>()->Set_state(static_cast<int>(currstate));
+		}
+		break;
+	}
+	case Tuto_Helper_Enum::END:
+	{
+		Engine::GetMusic().Resume(SOUND_NUM::OFFSET);
+		gameObjectManager->UpdateAll(dt);
+		Hero* hero = static_cast<Hero*>(gameObjectManager->Find(GameObjectType::Hero));
+		hero->Update(dt);
+		if (Engine::GetGSComponent<Tutorial_Helper>()->Getflag() == true)
+		{
+			Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Level0));
+		}
+		break;
+	}
+	}
 }
 
 void Tutorial::Draw()
@@ -142,6 +201,7 @@ void Tutorial::Draw()
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	GetGSComponent<Background>()->Draw(camera.GetMatrix());
 	GetGSComponent<Score>()->Draw({ 0,100 });
+	Engine::GetGSComponent<Tutorial_Helper>()->Draw();
 	gameObjectManager->DrawAll(camera.GetMatrix());
 }
 
@@ -156,12 +216,13 @@ void Tutorial::Unload()
 	energyBar = nullptr;
 	stageBar = nullptr;
 	gameObjectManager->Unload();
-	if (Engine::GetMusic().isPlaying(SOUND_NUM::DISCO) == true)
+
+	if (Engine::GetMusic().isPlaying(SOUND_NUM::OFFSET) == true)
 	{
-	    Engine::GetMusic().pitchDefault(SOUND_NUM::DISCO);
-	    Engine::GetMusic().Stop(SOUND_NUM::DISCO);
+		Engine::GetMusic().pitchDefault(SOUND_NUM::OFFSET);
+		Engine::GetMusic().Stop(SOUND_NUM::OFFSET);
 	}
 
-	Engine::GetMusic().isPlaying(SOUND_NUM::DISCO);
+	Engine::GetMusic().isPlaying(SOUND_NUM::OFFSET);
 	ClearGSComponent();
 }

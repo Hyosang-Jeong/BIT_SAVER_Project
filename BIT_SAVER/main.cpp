@@ -26,7 +26,7 @@ int main()
 	Splash splash;									
 	Mainmenu main_menu;
 	MainOption main_option;
-	//Tutorial tutorial;
+	Tutorial tutorial;
 	Level0 level0;
 	Level1 level1;
 	Level2 level2;
@@ -39,7 +39,7 @@ int main()
 	engine.GetGameStateManager().AddGameState(splash);
 	engine.GetGameStateManager().AddGameState(main_menu);
 	engine.GetGameStateManager().AddGameState(main_option);
-	//engine.GetGameStateManager().AddGameState(tutorial);
+	engine.GetGameStateManager().AddGameState(tutorial);
 	engine.GetGameStateManager().AddGameState(level0);
 	engine.GetGameStateManager().AddGameState(level1);
 	engine.GetGameStateManager().AddGameState(level2);

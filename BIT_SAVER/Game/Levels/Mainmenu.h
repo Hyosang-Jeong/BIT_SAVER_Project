@@ -28,10 +28,12 @@ public:
 	InputKey ChangeOffset;
 	InputKey MainOption;
 	InputKey Tutorial;
+	InputKey Level0;
 	InputKey Level1;
 	InputKey Level2;
 	InputKey Level3;
 	InputKey ESCAPE;
 private:
+	Texture* mainmenu;
 };
 
