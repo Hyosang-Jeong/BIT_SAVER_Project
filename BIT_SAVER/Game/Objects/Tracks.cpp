@@ -87,7 +87,7 @@ GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 }), Music_Num(music_num)
 	    else
 		tt.time += target_time;
 	}
-
+	Engine::GetLogger().LogEvent("Your off set is " + std::to_string(static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->GetOffsetTime()));
 	if (Music_Num == static_cast<int>(SOUND_NUM::REWIND) || Music_Num == static_cast<int>(SOUND_NUM::ENERGY))
 	{
 		for (auto& time_t : track_time)
