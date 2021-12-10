@@ -2,10 +2,10 @@
 Copyright (C) 2021 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
-File Name: Score.cpp
+File Name: Tutorial_Helper.cpp
 Project: BIT_SAVER
-Author: Hyosang Jung
-Creation date: 5/01/2021
+Author:  Hyosang Jung , Sunwoo Lee
+
 -----------------------------------------------------------------*/
 #include "Tutorial_Helper.h"
 #include "../Engine/Engine.h"

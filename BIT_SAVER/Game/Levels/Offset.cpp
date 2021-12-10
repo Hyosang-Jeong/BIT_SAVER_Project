@@ -2,10 +2,10 @@
 Copyright (C) 2021 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
-File Name: Clear.cpp
+File Name: Offset.cpp
 Project: BIT_SAVER
-Author:
-Creation date: 3/07/2021
+Author: Jaewoo.choi, Hyosang Jung 
+
 -----------------------------------------------------------------*/
 #include "../Engine/Engine.h"	//GetGameStateManage
 #include"Mainmenu.h"

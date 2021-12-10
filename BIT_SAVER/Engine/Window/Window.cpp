@@ -4,8 +4,8 @@ Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 File Name: Window.cpp
 Project: BIT_SAVER
-Author: 
-Creation date: 3/13/2021
+Author: Sunwoo Lee
+
 -----------------------------------------------------------------*/
 
 #include "Window.h"

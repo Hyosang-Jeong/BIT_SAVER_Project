@@ -2,10 +2,10 @@
 Copyright (C) 2021 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
-File Name: Score.h
-Project:
-Author:
-Creation date:
+File Name: Tutorial_Helper.h
+Project:BIT_SAVER
+Author:  Hyosang Jung , Sunwoo Lee
+
 -----------------------------------------------------------------*/
 #pragma once
 #include "..\..\Engine\Sprite\Texture.h" 

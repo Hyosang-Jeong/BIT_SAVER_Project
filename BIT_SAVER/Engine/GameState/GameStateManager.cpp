@@ -4,8 +4,8 @@ Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 File Name: GameStateManager.cpp
 Project: BIT_SAVER
-Author: 
-Creation date: 2021-03-07
+Author: Jaewoo.choi, Hyun Kang , Hyosang Jung , Sunwoo Lee
+
 -----------------------------------------------------------------*/
 
 #include"GameStateManager.h"

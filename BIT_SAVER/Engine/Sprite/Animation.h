@@ -4,8 +4,7 @@ Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 File Name: Animation.h
 Project: BIT_SAVER
-Author: Kevin Wright
-Creation date: 2/12/2021
+Author: Hyosang Jung 
 -----------------------------------------------------------------*/
 #pragma once
 #include <vector>
