@@ -103,7 +103,22 @@ GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 }), Music_Num(music_num)
 			}
 		}
 	}
-
+	else if (Music_Num == static_cast<int>(SOUND_NUM::OFFSET))
+	{
+		int T = 0;
+		for (auto& time_t : track_time)
+		{
+			if (T % 2 == 0)
+			{
+				track_info[T % 2].push_back(time_t.time);
+			}
+			else if (T % 2 == 1)
+			{
+				track_info[T % 2].push_back(time_t.time);
+			}
+			T++;
+		}
+	}
 }
 
 
@@ -115,7 +130,7 @@ void Track::Update(double dt)
 
 		timer += dt * Engine::GetMusic().pitch;
 
-		if (Music_Num == static_cast<int>(SOUND_NUM::REWIND) || Music_Num == static_cast<int>(SOUND_NUM::ENERGY))
+		if (Music_Num == static_cast<int>(SOUND_NUM::REWIND) || Music_Num == static_cast<int>(SOUND_NUM::ENERGY) || Music_Num == static_cast<int>(SOUND_NUM::OFFSET))
 		{
 			for (auto& i : track_info)
 			{

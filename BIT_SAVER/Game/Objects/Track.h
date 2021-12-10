@@ -39,8 +39,8 @@ public:
     glm::vec2 note_pos{ 0 };
     glm::vec2 note_vel{ 0 };
 
-private:
     std::map<int, std::vector<long double>> track_info; // for REWIND
+private:
     int Music_Num{ 0 };
     bool Doupdate;
     double timer{ 0 };

@@ -10,31 +10,27 @@ Creation date:
 #pragma once
 #include "..\..\Engine\Sprite\Texture.h" 
 #include "..\Engine\Component.h" 
+#include"../../Engine/Input/Input.h"
 #include"Score.h"
 
 
-enum class Tuto_Helper_Enum
-{
-    GREETINGS,
-    DOWN_NODE,
-    UP_NODE,
-    BOSS_EXPLAIN,
-    BOSS,
-    FEVER,
-    END
-};
 class Tutorial_Helper : public Component
 {
 public:
     Tutorial_Helper();
     void AddScore(int newPoints);
-    void Draw(glm::vec2 location);
-    int Getflag();
+    void Draw();
+    void Set_state(int state);
+    void Setflag(bool value);
+    bool Getflag();
 private:
+    Texture* sound_bar;
+    Texture* helper;
+    InputKey nextKey;
     void RenderText();
-
+    glm::vec2 winsize;
+    glm::vec2 sound_bar_pos;
+    bool flag;
+    int index;
     int currstate;
-    Score* score_ptr;
-    Texture* helperPtr;
-    Texture* textboxPtr;
 };
