@@ -4,8 +4,7 @@ Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 File Name: Gameover.h
 Project: BIT_SAVER
-Author:
-Creation date:
+Author: Hyun Kang
 -----------------------------------------------------------------*/
 #pragma once
 #include <string>

@@ -4,8 +4,7 @@ Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 File Name: Note_collisionBox.cpp
 Project: BIT_SAVER
-Author:
-Creation date: 10/10/2021
+Author:	Hyun Kang
 -----------------------------------------------------------------*/
 #include"Note_collisionBox.h"
 #include"../../Engine/Engine.h"

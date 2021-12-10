@@ -5,7 +5,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 File Name: GameParticles.cpp
 Project: BIT_SAVER
 Author: Hyosang Jung
-Creation date: 5/24/2021
 -----------------------------------------------------------------*/
 #include"GameParticles.h"
 

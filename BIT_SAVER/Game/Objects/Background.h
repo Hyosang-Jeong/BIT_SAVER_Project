@@ -1,12 +1,10 @@
-#pragma once
 /*--------------------------------------------------------------
 Copyright (C) 2021 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 File Name: Background.h
-Project:
-Author:
-Creation date:
+Project: BIT_SAVER
+Author:	Hyun Kang
 -----------------------------------------------------------------*/
 #pragma once
 #include "..\Engine\Input\Input.h" //input key

@@ -3,9 +3,8 @@ Copyright (C) 2021 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 File Name: Background.cpp
-Project:
-Author:
-Creation date: 3/14/2021
+Project: BIT_SAVER
+Author:	Hyun Kang
 -----------------------------------------------------------------*/
 
 #include "Background.h"
