@@ -5,7 +5,7 @@
 #include <vector>
 #include "../../Engine/Input/Input.h"
 #include "../Engine.h"
-#include <iostream>
+
 using namespace std;
 void Music::Init()
 {
@@ -112,11 +112,7 @@ void Music::SetVolume(float volume_)
 
 void Music::pitchUp(int sound_num)
 {
-    //ErrorCheck(FMOD_System_CreateDSPByType(pSystem, FMOD_DSP_TYPE_PITCHSHIFT, &pitch_shift));
-    //ErrorCheck(FMOD_Channel_AddDSP(pChannel[sound_num], 0, pitch_shift));
-    //pitch = 2.0f;
-    //ErrorCheck(FMOD_DSP_SetParameterFloat(pitch_shift, 0, pitch));
-    //ErrorCheck(FMOD_DSP_SetActive(pitch_shift, true));
+
     ErrorCheck(FMOD_Channel_GetPitch(pChannel[sound_num], &pitch));
     pitch = 1.5f;
     ErrorCheck(FMOD_Channel_SetPitch(pChannel[sound_num], pitch));
@@ -160,8 +156,8 @@ void Music::ErrorCheck(FMOD_RESULT results)
 
     if (results != FMOD_OK) {
         Engine::GetLogger().LogError("Error: there are error in music file");
-        std::cout << static_cast<int>(results);
-        //add result where is exact error happen function
+        Engine::GetLogger().LogError("Error with " + std::to_string(static_cast<int>(results)));
+        
         exit(EXIT_FAILURE);
     }
 

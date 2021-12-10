@@ -27,10 +27,10 @@ void EnergyBar::Update(double dt)
 
 bool EnergyBar::Isgameover()
 {
-		//if (GetScale().x < 0)
-		//{
-		//	return true;
-		//}
+		if (GetScale().x < 0)
+		{
+			return true;
+		}
 		return false;
 }
 
