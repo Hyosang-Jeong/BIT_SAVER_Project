@@ -32,8 +32,6 @@ public:
     int Getflag();
 private:
     void RenderText();
-    unsigned int combo;
-    std::array<int, 4> score_count;
 
     int currstate;
     Score* score_ptr;
