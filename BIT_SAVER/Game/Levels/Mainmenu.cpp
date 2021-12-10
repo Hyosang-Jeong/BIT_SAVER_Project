@@ -29,7 +29,7 @@ void Mainmenu::Update([[maybe_unused]] double dt)
 {
 	if (Tutorial.IsKeyReleased() == true)
 	{
-		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Tutorial));
+		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Level0));
 	}
 	else if (Level1.IsKeyReleased() == true)
 	{

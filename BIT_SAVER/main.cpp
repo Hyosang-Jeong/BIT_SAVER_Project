@@ -1,6 +1,7 @@
 #include"Engine/Engine.h"
 #include "..\BIT_SAVER\Engine\Music\music.h"
 #include "Game\Levels\Tutorial.h"
+#include "Game\Levels\Level0.h"
 #include"Game\Levels\Level1.h"
 #include"Game\Levels\Level2.h"
 #include"Game\Levels\Level3.h"
@@ -25,7 +26,8 @@ int main()
 	Splash splash;									
 	Mainmenu main_menu;
 	MainOption main_option;
-	Tutorial tutorial;
+	//Tutorial tutorial;
+	Level0 level0;
 	Level1 level1;
 	Level2 level2;
 	Level3 level3;
@@ -37,7 +39,8 @@ int main()
 	engine.GetGameStateManager().AddGameState(splash);
 	engine.GetGameStateManager().AddGameState(main_menu);
 	engine.GetGameStateManager().AddGameState(main_option);
-	engine.GetGameStateManager().AddGameState(tutorial);
+	//engine.GetGameStateManager().AddGameState(tutorial);
+	engine.GetGameStateManager().AddGameState(level0);
 	engine.GetGameStateManager().AddGameState(level1);
 	engine.GetGameStateManager().AddGameState(level2);
 	engine.GetGameStateManager().AddGameState(level3);
