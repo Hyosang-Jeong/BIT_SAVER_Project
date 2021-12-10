@@ -1,3 +1,12 @@
+/*--------------------------------------------------------------
+Copyright (C) 2021 DigiPen Institute of Technology.
+Reproduction or disclosure of this file or its contents without the prior
+written consent of DigiPen Institute of Technology is prohibited.
+File Name: Midi.cpp
+Project: BIT_SAVER
+Author:
+Creation date: 2/10/2021
+-----------------------------------------------------------------*/
 #include "Midi.h"
 #include <fstream>
 #include "..\Engine.h"
