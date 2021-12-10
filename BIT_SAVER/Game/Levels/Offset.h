@@ -61,4 +61,5 @@ private:
     int RealCompareNumber;
     double intervalTime;
     long double interval;
+    bool isoffset;
 };

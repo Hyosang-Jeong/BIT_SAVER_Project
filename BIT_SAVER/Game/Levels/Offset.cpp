@@ -40,6 +40,7 @@ Offset::Offset() :
 void Offset::Load()
 {
     isHit = false;
+    isoffset = false;
     isStart = false;
     isMusicEnd = false;
     RealCompareNumber = 0;
@@ -98,7 +99,7 @@ void Offset::Update(double dt)
         }
 
         gameObjectManager->UpdateAll(dt);
-        if (HitKey.IsKeyDown() == true && HitKey.IsKeyReapeated() == false)
+        if (HitKey.IsKeyDown() == true && HitKey.IsKeyReapeated() == false && isoffset==false)
         {
             intervalTime = 0;
 
@@ -141,9 +142,11 @@ void Offset::Draw()
     }
     if (isHit == true && Engine::GetMusic().isPlaying(SOUND_NUM::OFFSET) == false)
     {
-        miliSeconds = static_cast<int>(yourOffset * 1000.f);
+        if (isoffset == false)
+            miliSeconds = static_cast<int>(yourOffset * 1000.f);
+
         Engine::GetText(font1).Draw("Your offset is " + std::to_string(miliSeconds) + "  milliSeconds.", 500.f, 530.f, 1.f, {0.5f,0.5f,0.5f});
-        
+        isoffset = true;
     }
 
 
@@ -174,6 +177,7 @@ void Offset::Unload()
     yourOffset = 0;
     isHit = false;
     isStart = false;
+    isoffset = false;
     isMusicEnd = false;
     trackPtr = nullptr;
 
