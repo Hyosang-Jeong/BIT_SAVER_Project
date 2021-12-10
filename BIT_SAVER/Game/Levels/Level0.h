@@ -63,5 +63,5 @@ private:
 	Camera camera;
 	GameObjectManager* gameObjectManager;
 	LEVEL0_STATE gamestate;
-
+	bool isMusicEnd;
 };
