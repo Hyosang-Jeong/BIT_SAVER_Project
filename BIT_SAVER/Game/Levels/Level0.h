@@ -14,7 +14,6 @@ Creation date: 3/07/2021
 #include"../../Engine/Sprite/Texture.h"
 #include "../../Engine/Music/Sound_Num.h"
 
-class Tutorial_Helper;
 class Hero;
 class Boss;
 class Track;
@@ -27,7 +26,7 @@ class Fever_bar;
 class CheckBox;
 
 
-enum class TUTO_LEVEL_STATE
+enum class LEVEL0_STATE
 {
 	EXTRA,
 	GENERATING,
@@ -35,14 +34,14 @@ enum class TUTO_LEVEL_STATE
 	FINISH
 };
 
-class Tutorial : public GameState
+class Level0 : public GameState
 {
 public:
-	Tutorial();
+	Level0();
 	void Load() override;
 	void Update(double dt) override;
 	void Unload() override;
-	std::string GetName() { return "Tutorial"; }
+	std::string GetName() { return "Level0"; }
 	void Draw() override;
 	SOUND_NUM GetcurrentMusic() override
 	{
@@ -52,7 +51,6 @@ public:
 private:
 	InputKey escape;
 
-	Tutorial_Helper* tutohelperPtr;
 	Hero* heroPtr;
 	Boss* bossPtr;
 	Track* trackPtr;
@@ -63,6 +61,6 @@ private:
 	Fever_bar* feverBar;
 	Camera camera;
 	GameObjectManager* gameObjectManager;
-	TUTO_LEVEL_STATE gamestate;
+	LEVEL0_STATE gamestate;
 
 };
