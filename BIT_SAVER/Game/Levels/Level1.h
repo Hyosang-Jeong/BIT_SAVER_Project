@@ -71,4 +71,6 @@ private:
 	LEVEL_STATE gamestate;
 	//GLText* text;
 
+	bool isMusicEnd;
+
 };

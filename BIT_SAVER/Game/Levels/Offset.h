@@ -50,7 +50,12 @@ private:
     std::vector<long double> compareTime;
     long double currentTime;
     long double resultTime;
+    long double currentResultTime;
     int hitNumber;
     bool isHit;
+    bool isStart;
+    bool isMusicEnd;
     glm::vec2 x_pos;
+    long double yourOffset;
+    int miliSeconds;
 };

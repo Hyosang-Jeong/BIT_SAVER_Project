@@ -63,4 +63,5 @@ private:
 	GameObjectManager* gameObjectManager;
 	TUTO_LEVEL_STATE gamestate;
 
+	bool isMusicEnd;
 };

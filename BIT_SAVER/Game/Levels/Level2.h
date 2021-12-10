@@ -70,5 +70,5 @@ private:
 	GameObjectManager* gameObjectManager;
 	LEVEL2_STATE gamestate;
 	//GLText* text;
-
+	bool isMusicEnd;
 };
