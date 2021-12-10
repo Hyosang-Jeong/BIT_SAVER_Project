@@ -58,4 +58,7 @@ private:
     glm::vec2 x_pos;
     long double yourOffset;
     int miliSeconds;
+    int RealCompareNumber;
+    double intervalTime;
+    long double interval;
 };
