@@ -88,6 +88,7 @@ void Level0::Update(double dt)
     if (!Engine::GetMusic().isPlaying(SOUND_NUM::DISCO) && isMusicEnd == false)
     {
 	Engine::GetMusic().Play(SOUND_NUM::DISCO);
+	Engine::GetMusic().pitchDefault(SOUND_NUM::DISCO);
 	isMusicEnd = true;
     }
 

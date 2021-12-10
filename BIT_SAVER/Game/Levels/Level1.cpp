@@ -112,6 +112,7 @@ void Level1::Update(double dt)
     if (!Engine::GetMusic().isPlaying(SOUND_NUM::REWIND) && isMusicEnd == false)
     {
         Engine::GetMusic().Play(SOUND_NUM::REWIND);
+        Engine::GetMusic().pitchDefault(SOUND_NUM::REWIND);
         isMusicEnd = true;
     }
 

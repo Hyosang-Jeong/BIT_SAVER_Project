@@ -107,6 +107,7 @@ void Level2::Update(double dt)
     if (!Engine::GetMusic().isPlaying(SOUND_NUM::DIOMA) && isMusicEnd == false)
     {
 	Engine::GetMusic().Play(SOUND_NUM::DIOMA);
+	Engine::GetMusic().pitchDefault(SOUND_NUM::DIOMA);
 	isMusicEnd = true;
     }
 

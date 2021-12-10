@@ -107,6 +107,7 @@ void Level3::Update(double dt)
     if (!Engine::GetMusic().isPlaying(SOUND_NUM::ENERGY) && isMusicEnd == false)
     {
 	Engine::GetMusic().Play(SOUND_NUM::ENERGY);
+	Engine::GetMusic().pitchDefault(SOUND_NUM::ENERGY);
 	isMusicEnd = true;
     }
 
