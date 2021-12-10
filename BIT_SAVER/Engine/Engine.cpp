@@ -93,8 +93,6 @@ void Engine::init_shdrpgms()
 		std::exit(EXIT_FAILURE);
 	}
 
-	shdrpgms["Hero"] = shdr_pgm;
-
 	//collision box shader
 	std::vector<std::pair<GLenum, std::string>> shdr_file1
 	{

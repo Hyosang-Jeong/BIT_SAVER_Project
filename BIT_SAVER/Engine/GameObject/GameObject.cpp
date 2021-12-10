@@ -75,7 +75,7 @@ void GameObject::Draw(glm::mat3 camera_matrix)
         spritePtr->Draw(mdl_to_ndc_xform * camera_matrix);
     }
 
-#if DEBUG
+#if _DEBUG
     Collision* collisionPtr = GetGOComponent<Collision>();
     if (collisionPtr != nullptr)
     {

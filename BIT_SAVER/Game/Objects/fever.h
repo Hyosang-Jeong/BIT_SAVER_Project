@@ -30,5 +30,4 @@ private:
     Texture* fever_barPtr;
     Texture* fever_gazePtr;
     Score* score_ptr;
-    GLModel fever_barModel;
 };
