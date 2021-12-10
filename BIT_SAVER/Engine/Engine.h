@@ -35,10 +35,8 @@ public:
     static Input& GetInput() { return Instance().input; }
     static Window& GetWindow() { return Instance().window; }
     static GLText& GetText(std::string fontpath) { return Instance().texts[fontpath]; };
-    //static GLText& GetText() { return Instance().text; };
     static GameStateManager& GetGameStateManager() { return Instance().gameStateManager; }
     static TextureManager& GetTextureManager() { return Instance().texturemanager; }
-
     static  std::map<std::string, GLSLShader>& GetGLShader() { return Instance().shdrpgms; }
 
     void Init(std::string windowName);
@@ -58,16 +56,16 @@ public:
     std::chrono::system_clock::time_point lastTick;
     std::chrono::system_clock::time_point fpsCalcTime;
     int frameCount;
+
     Music music;
     Logger logger;
-    //GLText text;
-    //std::vector<GLText> texts;
     GameStateManager gameStateManager;
+    TextureManager texturemanager;
     Input input;
     Window window;
+
     std::map<std::string, GLSLShader> shdrpgms;
     std::map<std::string, GLText> texts;
-    TextureManager texturemanager;
 
 
     static constexpr double Target_FPS = 60.0;
