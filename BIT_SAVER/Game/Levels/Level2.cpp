@@ -4,8 +4,8 @@ Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 File Name: Level2.cpp
 Project: BIT_SAVER
-Author:
-Creation date: 3/07/2021
+Author: Jaewoo.choi, Hyun Kang 
+
 -----------------------------------------------------------------*/
 #include "../Engine/Engine.h"	//GetGameStateManage
 #include"Level2.h"

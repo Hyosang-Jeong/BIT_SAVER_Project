@@ -5,8 +5,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 File Name: GLText.h
 Purpose: For draw texture
 Project: BIT_SAVER
-Author:
-Creation date: 2/11/2021
+Author: Sunwoo Lee
+
 -----------------------------------------------------------------*/
 #pragma once
 #include "../GLShader/glslshader.h"

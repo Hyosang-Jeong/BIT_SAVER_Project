@@ -3,9 +3,8 @@ Copyright (C) 2021 DigiPen Institute of Technology.
 Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 File Name: Sprite.cpp
-Project:
-Author:
-Creation date:
+Project: BIT_SAVER
+Author:  Hyun Kang , Hyosang Jung 
 -----------------------------------------------------------------*/
 #include"Sprite.h"
 #include"../Engine.h" // get logger

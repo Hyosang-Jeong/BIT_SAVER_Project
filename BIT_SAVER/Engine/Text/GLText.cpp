@@ -5,8 +5,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 File Name: GLText.cpp
 Purpose: For draw texture
 Project: BIT_SAVER
-Author:
-Creation date: 2/11/2021
+Author:  Sunwoo Lee
+
 -----------------------------------------------------------------*/
 #include "GLText.h"
 #include"../Engine.h" // get logger

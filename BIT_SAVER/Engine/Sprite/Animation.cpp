@@ -4,8 +4,8 @@ Reproduction or disclosure of this file or its contents without the prior
 written consent of DigiPen Institute of Technology is prohibited.
 File Name: Animation.cpp
 Project: BIT_SAVER
-Author: Hyosang Jung
-Creation date: 4/13/2021
+Author:  Hyosang Jung 
+
 -----------------------------------------------------------------*/
 #include"Animation.h"
 

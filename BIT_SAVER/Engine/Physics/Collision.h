@@ -7,6 +7,7 @@ Project: BIT_SAVER
 Author:
 Creation date: 2/10/2021
 -----------------------------------------------------------------*/
+#pragma once
 #include "..\Component.h"
 #include"../GLModel/GLModel.h"
 

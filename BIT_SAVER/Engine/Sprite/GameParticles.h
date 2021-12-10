@@ -7,6 +7,7 @@ Project:
 Author: 
 Creation date: 2/26/2021
 -----------------------------------------------------------------*/
+#pragma once
 #include "ParticleEmitter.h"
 #include "../../Game/Objects/GameObjectType.h"
 

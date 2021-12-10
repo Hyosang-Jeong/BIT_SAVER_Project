@@ -5,8 +5,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 File Name: Engine.cpp
 Purpose: This is the service provider for our games engine services
 Project: BIT_SAVER
-Author: 
-Creation date: 2021-03-07
+Author:  Hyosang Jung , Sunwoo Lee
+
 -----------------------------------------------------------------*/
 #include"Engine.h"
 #include<time.h>  //time

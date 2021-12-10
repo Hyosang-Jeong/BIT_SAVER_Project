@@ -5,8 +5,8 @@ written consent of DigiPen Institute of Technology is prohibited.
 File Name: Texture.cpp
 Purpose: For draw texture
 Project: BIT_SAVER
-Author:
-Creation date: 2/11/2021
+Author: Jaewoo.choi, Hyun Kang , Hyosang Jung
+
 -----------------------------------------------------------------*/
 
 #include "Texture.h"
