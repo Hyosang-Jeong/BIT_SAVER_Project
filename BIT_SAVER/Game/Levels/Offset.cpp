@@ -42,6 +42,7 @@ void Offset::Load()
     isHit = false;
     isStart = false;
     isMusicEnd = false;
+    RealCompareNumber = 0;
     resultTime = 0.;
     currentResultTime = 0.;
     x_pos = { -100, -100 };
@@ -60,9 +61,9 @@ void Offset::Load()
     for (auto& i : trackPtr->track_time)
     {
         compareTime.push_back(i.time);
-
     }
     currentTime = compareTime[0];
+    interval = (compareTime[1] - compareTime[0]) * (1.2);
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     glfwSwapBuffers(Engine::GetWindow().ptr_window);
@@ -85,29 +86,41 @@ void Offset::Update(double dt)
             isMusicEnd = true;
         }
         currentTime += dt;
+        intervalTime += dt;
+
+        if (intervalTime > interval)
+        {
+            intervalTime = 0;
+            if (RealCompareNumber < compareTime.size() - 1)
+            {
+                RealCompareNumber++;
+            }
+        }
+
         gameObjectManager->UpdateAll(dt);
         if (HitKey.IsKeyDown() == true && HitKey.IsKeyReapeated() == false)
         {
+            intervalTime = 0;
 
             if (hitNumber < compareTime.size())
             {
-                currentResultTime = (currentTime - compareTime[hitNumber]);
-                resultTime += (currentTime - compareTime[hitNumber]);
+                currentResultTime = (currentTime - compareTime[RealCompareNumber]);
+                resultTime += (currentTime - compareTime[RealCompareNumber]);
             }
-
-
-            if(hitNumber < compareTime.size()-1)
+            if (hitNumber < compareTime.size() - 1 && RealCompareNumber < compareTime.size() - 1)
+            {
                 hitNumber++;
-            
+                RealCompareNumber++;
+
+            }
             if (gameObjectManager->GetgameObjects().size() >= 2)
             {
                 if (hitNumber != 0)
-                    x_pos.x = (static_cast<float>(currentResultTime / static_cast<long double>(hitNumber)))*20.f;
+                    x_pos.x = (static_cast<float>(currentResultTime / static_cast<long double>(RealCompareNumber)))*20.f;
             }
-
         }
         if (hitNumber != 0)
-            yourOffset = resultTime / static_cast<long double>(hitNumber);
+            yourOffset = resultTime / static_cast<long double>(RealCompareNumber);
     }
 
     if (ESCAPE.IsKeyDown() == true)
@@ -146,14 +159,19 @@ long double Offset::GetResultTime()
 
 void Offset::Unload()
 {
-    if (hitNumber == 0)
+    if (RealCompareNumber == 0)
     {
-        hitNumber = 1;
+        RealCompareNumber = 1;
     }
-    resultTime *= (1. / hitNumber);
+    resultTime *= (1. / RealCompareNumber);
     static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->SetOffsetTime(resultTime);
     currentTime = 0;
     hitNumber = 0;
+    RealCompareNumber = 0;
+    intervalTime = 0;
+    interval = 0;
+    miliSeconds = 0;
+    yourOffset = 0;
     isHit = false;
     isStart = false;
     isMusicEnd = false;
