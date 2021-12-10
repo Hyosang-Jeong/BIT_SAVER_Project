@@ -50,7 +50,7 @@ Level3::Level3() :
 
 void Level3::Load()
 {
-
+	isMusicEnd = false;
 	gameObjectManager = new GameObjectManager();
 	heroPtr = new Hero({ -4,-5 });
 	backPtr = new Background();
@@ -104,8 +104,11 @@ void Level3::Load()
 
 void Level3::Update(double dt)
 {
-	if (!Engine::GetMusic().isPlaying(SOUND_NUM::ENERGY))
-		Engine::GetMusic().Play(SOUND_NUM::ENERGY);
+    if (!Engine::GetMusic().isPlaying(SOUND_NUM::ENERGY) && isMusicEnd == false)
+    {
+	Engine::GetMusic().Play(SOUND_NUM::ENERGY);
+	isMusicEnd = true;
+    }
 
 	GetGSComponent<Background>()->Update(dt);
 	gameObjectManager->UpdateAll(dt);
@@ -167,10 +170,12 @@ void Level3::Unload()
 	backPtr = nullptr;
 	energyBar = nullptr;
 	stageBar = nullptr;
-	gameObjectManager->Unload();
-	Engine::GetMusic().pitchDefault(SOUND_NUM::ENERGY);
-	Engine::GetMusic().Stop(SOUND_NUM::ENERGY);
-	Engine::GetMusic().isPlaying(SOUND_NUM::ENERGY);
+	if (Engine::GetMusic().isPlaying(SOUND_NUM::ENERGY) == true)
+	{
+	    Engine::GetMusic().pitchDefault(SOUND_NUM::ENERGY);
+	    Engine::GetMusic().Stop(SOUND_NUM::ENERGY);
+	}
 
+	Engine::GetMusic().isPlaying(SOUND_NUM::ENERGY);
 	ClearGSComponent();
 }

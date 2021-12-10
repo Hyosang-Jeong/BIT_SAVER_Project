@@ -45,7 +45,7 @@ Tutorial::Tutorial() :
 
 void Tutorial::Load()
 {
-
+	isMusicEnd = false;
 	gameObjectManager = new GameObjectManager();
 	heroPtr = new Hero({ -4,-5 });
 	backPtr = new Background();
@@ -88,8 +88,11 @@ void Tutorial::Load()
 
 void Tutorial::Update(double dt)
 {
-	if (!Engine::GetMusic().isPlaying(SOUND_NUM::DISCO))
-		Engine::GetMusic().Play(SOUND_NUM::DISCO);
+    if (!Engine::GetMusic().isPlaying(SOUND_NUM::DISCO) && isMusicEnd == false)
+    {
+	Engine::GetMusic().Play(SOUND_NUM::DISCO);
+	isMusicEnd = true;
+    }
 
 	GetGSComponent<Background>()->Update(dt);
 	gameObjectManager->UpdateAll(dt);
@@ -121,8 +124,9 @@ void Tutorial::Update(double dt)
 		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Gameover));
 	}
 
-	if (Engine::GetMusic().isPlaying(SOUND_NUM::DISCO) == false)
+	if (Engine::GetMusic().isPlaying(SOUND_NUM::DISCO) == false && Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Stage_bar)->GetPosition().x > 9.0)
 	{
+	    	
 		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Clear));
 	}
 	if (escape.IsKeyDown() == true)
@@ -152,8 +156,12 @@ void Tutorial::Unload()
 	energyBar = nullptr;
 	stageBar = nullptr;
 	gameObjectManager->Unload();
-	Engine::GetMusic().pitchDefault(SOUND_NUM::DISCO);
-	Engine::GetMusic().Stop(SOUND_NUM::DISCO);
+	if (Engine::GetMusic().isPlaying(SOUND_NUM::DISCO) == true)
+	{
+	    Engine::GetMusic().pitchDefault(SOUND_NUM::DISCO);
+	    Engine::GetMusic().Stop(SOUND_NUM::DISCO);
+	}
+
 	Engine::GetMusic().isPlaying(SOUND_NUM::DISCO);
 	ClearGSComponent();
 }
