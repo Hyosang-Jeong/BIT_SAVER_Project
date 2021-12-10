@@ -79,7 +79,7 @@ GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 }), Music_Num(music_num)
 		}), end(track_time));
 
 	
-	double target_time = 14.0 / -20;
+	double target_time = 10.0 / -20;
 	for (auto& tt : track_time)
 	{
 	    if (static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->GetOffsetTime() > -10)

@@ -196,6 +196,7 @@
     <ClCompile Include="Engine\Window\Window.cpp" />
     <ClCompile Include="Game\Levels\Clear.cpp" />
     <ClCompile Include="Game\Levels\Gameover.cpp" />
+    <ClCompile Include="Game\Levels\Level0.cpp" />
     <ClCompile Include="Game\Levels\Level1.cpp" />
     <ClCompile Include="Game\Levels\Level2.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -256,6 +257,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Game\Objects\Tutorial_Helper.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -285,6 +287,7 @@
     <ClInclude Include="Engine\Window\Window.h" />
     <ClInclude Include="Game\Levels\Clear.h" />
     <ClInclude Include="Game\Levels\Gameover.h" />
+    <ClInclude Include="Game\Levels\Level0.h" />
     <ClInclude Include="Game\Levels\Level1.h" />
     <ClInclude Include="Game\Levels\Level2.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -347,6 +350,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="Game\Objects\Tutorial_Helper.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -8,7 +8,7 @@ Author:
 Creation date: 3/07/2021
 -----------------------------------------------------------------*/
 #include "../Engine/Engine.h"	//GetGameStateManage
-#include"Tutorial.h"
+#include"Level0.h"
 #include"../Objects/Hero.h"
 #include"../Objects/Track.h"
 #include"../Objects/Notes.h"
@@ -19,19 +19,17 @@ Creation date: 3/07/2021
 #include "../Objects/EnergyBar.h"
 #include "../Objects/stage_bar.h"
 #include"../../Engine/Sprite/GameParticles.h"
-#include "../Objects/Tutorial_Helper.h"
 #include"../Objects/Score.h"
 #include"../Objects/fever.h"
 #include"../Objects/CheckBox.h"
 #include"../Levels/Option.h"
 
 
-Tutorial::Tutorial() :
+Level0::Level0() :
 	escape(InputKey::Keyboard::Escape),
 	camera({ 0,0 })
 {
 	gameObjectManager = nullptr;
-	tutohelperPtr = nullptr;
 	heroPtr = nullptr;
 	trackPtr = nullptr;
 	bossPtr = nullptr;
@@ -40,12 +38,12 @@ Tutorial::Tutorial() :
 	energyBar = nullptr;
 	stageBar = nullptr;
 	feverBar = nullptr;
-	gamestate = TUTO_LEVEL_STATE::EXTRA;
+	gamestate = LEVEL0_STATE::EXTRA;
 }
 
-void Tutorial::Load()
+void Level0::Load()
 {
-	isMusicEnd = false;
+
 	gameObjectManager = new GameObjectManager();
 	heroPtr = new Hero({ -4,-5 });
 	backPtr = new Background();
@@ -76,7 +74,6 @@ void Tutorial::Load()
 
 	gameObjectManager->Add(stageBar);
 	gameObjectManager->Add(trackPtr);
-	AddGSComponent(new Tutorial_Helper());
 	AddGSComponent(new HitEmitter());
 	AddGSComponent(new PerfectEmitter());
 	AddGSComponent(new GoodEmitter());
@@ -86,20 +83,17 @@ void Tutorial::Load()
 
 }
 
-void Tutorial::Update(double dt)
+void Level0::Update(double dt)
 {
-    if (!Engine::GetMusic().isPlaying(SOUND_NUM::DISCO) && isMusicEnd == false)
-    {
-	Engine::GetMusic().Play(SOUND_NUM::DISCO);
-	isMusicEnd = true;
-    }
+	if (!Engine::GetMusic().isPlaying(SOUND_NUM::DISCO))
+		Engine::GetMusic().Play(SOUND_NUM::DISCO);
 
 	GetGSComponent<Background>()->Update(dt);
 	gameObjectManager->UpdateAll(dt);
 
 	if (stageBar->Getchangeflag() == 1)
 	{
-		gamestate = TUTO_LEVEL_STATE::GENERATING;
+		gamestate = LEVEL0_STATE::GENERATING;
 		Engine::GetMusic().Pause(SOUND_NUM::DISCO);
 		bossPtr->GenerateBoss();
 		trackPtr->SetUpdate(false);
@@ -107,7 +101,7 @@ void Tutorial::Update(double dt)
 		Engine::GetMusic().Play(SOUND_NUM::BOSS_ENTRANCE);
 		Engine::GetMusic().volumeUp(SOUND_NUM::BOSS_ENTRANCE);
 	}
-	if (gamestate == TUTO_LEVEL_STATE::GENERATING && bossPtr->GetVelocity().x == 0)
+	if (gamestate == LEVEL0_STATE::GENERATING && bossPtr->GetVelocity().x == 0)
 	{
 		Engine::GetMusic().Resume(SOUND_NUM::DISCO);
 		Engine::GetMusic().pitchUp(SOUND_NUM::DISCO);
@@ -116,7 +110,7 @@ void Tutorial::Update(double dt)
 
 		feverBar = new Fever_bar({ -20,-9 });
 		gameObjectManager->Add(feverBar);
-		gamestate = TUTO_LEVEL_STATE::FINISH;
+		gamestate = LEVEL0_STATE::FINISH;
 	}
 
 	if (energyBar->Isgameover() == true)
@@ -124,9 +118,8 @@ void Tutorial::Update(double dt)
 		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Gameover));
 	}
 
-	if (Engine::GetMusic().isPlaying(SOUND_NUM::DISCO) == false && Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Stage_bar)->GetPosition().x > 9.0)
+	if (Engine::GetMusic().isPlaying(SOUND_NUM::DISCO) == false)
 	{
-	    	
 		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Clear));
 	}
 	if (escape.IsKeyDown() == true)
@@ -136,7 +129,7 @@ void Tutorial::Update(double dt)
 
 }
 
-void Tutorial::Draw()
+void Level0::Draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -146,7 +139,7 @@ void Tutorial::Draw()
 }
 
 
-void Tutorial::Unload()
+void Level0::Unload()
 {
 	heroPtr = nullptr;
 	trackPtr = nullptr;
@@ -156,12 +149,8 @@ void Tutorial::Unload()
 	energyBar = nullptr;
 	stageBar = nullptr;
 	gameObjectManager->Unload();
-	if (Engine::GetMusic().isPlaying(SOUND_NUM::DISCO) == true)
-	{
-	    Engine::GetMusic().pitchDefault(SOUND_NUM::DISCO);
-	    Engine::GetMusic().Stop(SOUND_NUM::DISCO);
-	}
-
+	Engine::GetMusic().pitchDefault(SOUND_NUM::DISCO);
+	Engine::GetMusic().Stop(SOUND_NUM::DISCO);
 	Engine::GetMusic().isPlaying(SOUND_NUM::DISCO);
 	ClearGSComponent();
 }

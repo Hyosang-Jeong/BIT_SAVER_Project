@@ -16,7 +16,6 @@ Fever_bar::Fever_bar(glm::vec2 startPos) :
 {
 	fever_gazePtr = Engine::GetTextureManager().Load("../images/fever_gaze.png");
 	fever_barPtr = Engine::GetTextureManager().Load("../images/fever_gaze_bar.png");
-	fever_barModel.init({ 1, 1 });
 	score_ptr = Engine::GetGSComponent<Score>();
 	initial_score = score_ptr->Getscore();
 	is_fever_mode = false;
