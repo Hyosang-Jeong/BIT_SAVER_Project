@@ -1,4 +1,4 @@
-﻿Summary:
+# Summary:
 * BIT_SAVER
 * Version - 1.0.0
 * Team - KIN GAME
@@ -18,7 +18,7 @@
 
 ________________
 
-Before Starting:
+# Before Starting:
 * Software/hardware requirements basic computer setting.
    * Visual Studio 2019
       * How To Download: https://www.youtube.com/watch?v=IsAoIqnNia4
@@ -32,12 +32,15 @@ Before Starting:
       * Already included in the project(Unnecessary to download)
    * FreeType - https://freetype.org/
       * Already included in the project(Unnecessary to download)
+    * Stb_image - https://github.com/let-def/stb_image/blob/master/LICENSE
+        *  Already included in the project(Unnecessary to download)
+ 
    * Libraries not listed here are also already included in the project.
                 
 
 ________________
 
-Installation Instructions:
+# Installation Instructions:
 * How to open the source code from the IDE (Which file, etc)
    * Open BIT_SAVER.sln 
 * How to set environment variables (if necessary)
@@ -50,7 +53,7 @@ Installation Instructions:
 
 ________________
 
-Run/Build Code:
+# Run/Build Code:
 * What to run/build properties are needed
    * It needs to include directories, post-build event properties.
       * All are already included in vcxproj
@@ -59,7 +62,6 @@ Run/Build Code:
 * Any errors/warnings that the user should expect
    * There are sometimes unexpected errors with FMOD. 
       * If it happens, the user should rebuild the solution and run it
-   * Some recommendation warnings for using enum rather than enum class.
    * GLModel member variables uninitialized warning.
 
 
@@ -68,30 +70,31 @@ Run/Build Code:
 
 ________________
 
-Play:
+# Play:
 * Any expected windows/visuals/audio
    * One window starting with a Digipen splash screen.
-   * After our game logo splash screen, Mainmenu with play instructions popup.
-      * Press P to start stage.
+   * After our game logo splash screen, Mainmenu with play instructions pops up.
         
 * Instructions of how to navigate any menus (Buttons, menus, etc)
    * keyboard (F / up) : move the main character to the Top.
    * keyboard (J / down) : move the main character to the bottom.
-   * keyboard (ESC) : Closes window.
+   * Mouse Left : Interact with Options.
+   * keyboard (ESC) : Closes window or pop up the option.
+   * keyboard (~) : Toggles the accuracy visualization.
 
 
 * Gameplay instructions (How to play the game)
    * The player has a life bar on top of the character, and every time the node is missed, life decreases.
-   * If it’s life bar disappears(life == 0), the game is over( Closes window ).
+   * If it’s life bar disappears(life == 0), the game is over(Can go to Mainmenu).
    * In one stage, we have two different scenes.
 
 
    * General scene
-      * The player just taps (F / Up), (F / Down) to match the rhythm.
+      * The player just taps (F / Up), (J / Down) to match the rhythm.
 
 
    * Boss scene
-      * When the small character on top of the screen goes to the red area, the Boss scene starts. 
+      * When the small character on top of the screen goes to the dark area, the Boss scene starts. 
       * The music tempo and note speed gets faster.
       * A Fever gauge pops up on the bottom of the screen.
       * It increases every time the player attacks the node.
@@ -99,35 +102,27 @@ Play:
       * If the player retains the combo, the fever gauge fills up faster.
         
 * Expected final goal/result/boss
-   * The playtime will be roughly 3 and a half minutes.
+   * The playtime of every level will be roughly 3 and a half minutes.
    * If the small character runs although the end(The song is finished) the stage is cleared.
-   * If the song is no longer playing, shut down with ESC.
 
 
 ________________
 
-FAQ/Common Mistakes:
+# FAQ/Common Mistakes:
 * Common installation mistakes that people might make
-   * Just unzip it. Open BIT_SAVER.sln. Don't set the build mode to Release. Press Ctrl + F5 
+   * Just unzip it. Open BIT_SAVER.sln. Set the build mode to Debug or Release. Press Ctrl + F5 
 * Any common errors or crashes that may occur
    * In the solution directory, there should be lib files.
 * Gameplay errors
    * The particles that needed to be disappeared popped up randomly.
    * On some computers, the note generating timing is not correct.
-   * You have to manualy close the window when the stage is cleared(Song is no longer playing) with ESC.
+   * On some computers, monitor blinking occurs on the offset adjustment scene.
 
 ________________
 
-Feedback:
+# Feedback:
 * Contact information for help or feedback
    * Contact our team producer Sunwoo Lee
       * Discord - sunwoo.lee(이선우)#6066
       * Kakaotalk ID- happy9078
       * Email - sunwoo9078@gmail.com
-
-* Optional Questions
-   * Was the playtest fun? (0(worst)~10(best))
-   * The reason for the rating?
-   * Did you feel the rhythm? (0(worst)~10(best))
-   * What did you feel most distracting while playtest?
-   * What would you do to improve this game? Ideas or Feedbacks.
