@@ -73,4 +73,10 @@ Author: Hyosang Jung
 		InputKey::Keyboard button;
 	};
 
-
+	struct AttackKey
+	{
+		AttackKey() :UpAttackKey(InputKey::Keyboard::None), DownAttackKey(InputKey::Keyboard::None) {};
+	public:
+		InputKey UpAttackKey;
+		InputKey DownAttackKey;
+	};

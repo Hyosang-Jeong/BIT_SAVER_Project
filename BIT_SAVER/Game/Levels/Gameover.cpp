@@ -16,6 +16,7 @@ Gameover::Gameover() :
 
 void Gameover::Load()
 {
+
 }
 
 void Gameover::Update([[maybe_unused]] double dt)

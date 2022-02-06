@@ -12,13 +12,16 @@ Author:  Hyosang Jung , Sunwoo Lee
 #include<time.h>  //time
 #include <glm/gtc/matrix_transform.hpp>
 
-Engine::Engine() :frameCount(0), lastTick(std::chrono::system_clock::now()),
+Engine::Engine() :frameCount(0),  lastTick(std::chrono::system_clock::now()),
 #ifdef _DEBUG				
 logger(Logger::Severity::Debug, true, lastTick)
 #else 						
 logger(Logger::Severity::Event, false, lastTick)
 #endif
-{}
+{
+	attackKey.UpAttackKey = InputKey::Keyboard::F;
+	attackKey.DownAttackKey = InputKey::Keyboard::J;
+}
 Engine::~Engine() {}
 
 void Engine::Init(std::string windowName)

@@ -7,27 +7,22 @@ Project: BIT_SAVER
 Author: Hyun Kang
 -----------------------------------------------------------------*/
 #include "../Engine/Engine.h"	//GetGameStateManage
-#include"Mainmenu.h"
 #include"State.h"
 #include "Clear.h"
 
 Clear::Clear() :
     ESCAPE(InputKey::Keyboard::Enter)
-{
-
-}
+{}
 
 void Clear::Load()
 {}
 
 void Clear::Update([[maybe_unused]] double dt)
 {
-
     if (ESCAPE.IsKeyDown() == true)
     {
 	Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
     }
-
 }
 
 void Clear::Draw()

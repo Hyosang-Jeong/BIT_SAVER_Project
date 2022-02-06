@@ -11,6 +11,7 @@ Author:  Hyosang Jung , Sunwoo Lee
 #pragma once
 #include<iostream>
 #include <chrono>   
+#include<utility>
 #include "..\Engine\GameState\GameStateManager.h"
 #include "..\Engine\input\Input.h"
 #include "..\Engine\Window\Window.h"
@@ -38,6 +39,7 @@ public:
     static GameStateManager& GetGameStateManager() { return Instance().gameStateManager; }
     static TextureManager& GetTextureManager() { return Instance().texturemanager; }
     static  std::map<std::string, GLSLShader>& GetGLShader() { return Instance().shdrpgms; }
+    static AttackKey& GetAttack_Key() { return Instance().attackKey; };
 
     void Init(std::string windowName);
     void Shutdown();
@@ -55,6 +57,8 @@ public:
 
     std::chrono::system_clock::time_point lastTick;
     std::chrono::system_clock::time_point fpsCalcTime;
+    AttackKey attackKey;
+
     int frameCount;
 
     Music music;
@@ -63,6 +67,7 @@ public:
     TextureManager texturemanager;
     Input input;
     Window window;
+
 
     std::map<std::string, GLSLShader> shdrpgms;
     std::map<std::string, GLText> texts;
