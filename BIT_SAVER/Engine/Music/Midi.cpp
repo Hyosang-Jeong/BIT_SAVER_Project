@@ -238,7 +238,7 @@ std::map<int,std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
         trackFrom = 1;
         trackTo = 1;
         {
-            Engine::GetLogger().LogError("Error! :There are not track infor(midi.cppLine219)");
+            Engine::GetLogger().LogError("Error! :There are not track infor(midi.cppLine241)");
             exit(EXIT_FAILURE);
         }
         break;

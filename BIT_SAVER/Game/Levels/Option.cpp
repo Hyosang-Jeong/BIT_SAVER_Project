@@ -112,22 +112,22 @@ void Option::Draw()
             {
                 if (IsUpkeychanged == false)
                 {
-                    static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->UpAttackKey.button = Engine::GetInput().GetLastPressedButton();
+                    Engine::GetAttack_Key().UpAttackKey = Engine::GetInput().GetLastPressedButton();
                     Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::None);
                     IsUpkeychanged = true;
                     KeychangeTextTimer = 1;
                 }
                 else if (IsDownkeychanged == false && Engine::GetInput().GetLastPressedButton() != static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->UpAttackKey.button)
                 {
-                    static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->DownAttackKey.button = Engine::GetInput().GetLastPressedButton();
+                    Engine::GetAttack_Key().DownAttackKey = Engine::GetInput().GetLastPressedButton();
                     Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::None);
                     IsDownkeychanged = true;
                 }
             }
         }
        
-         char Upkey = 'A' + static_cast<char>((static_cast<int>(static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->UpAttackKey.button) - static_cast<int>(InputKey::Keyboard::A)));
-         char Downkey = 'A' + static_cast<char>((static_cast<int>(static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->DownAttackKey.button ) - static_cast<int>(InputKey::Keyboard::A)));
+         char Upkey = 'A' + static_cast<char>((static_cast<int>(Engine::GetAttack_Key().UpAttackKey.button) - static_cast<int>(InputKey::Keyboard::A)));
+         char Downkey = 'A' + static_cast<char>((static_cast<int>(Engine::GetAttack_Key().DownAttackKey.button) - static_cast<int>(InputKey::Keyboard::A)));
          std::string Upresult(1, Upkey);
          std::string Downresult(1, Downkey);
          if (IsUpkeychanged == false)

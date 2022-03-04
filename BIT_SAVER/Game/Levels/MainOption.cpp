@@ -26,8 +26,8 @@ MainOption::MainOption() :
     smallsoundballScale(glm::vec2{ 0.2,0.2 }),
     mousePosition(glm::vec2{ 0,0 }),
     MouseKey(InputKey::Mouse::Left),
-    UpAttackKey(InputKey::Keyboard::F),
-    DownAttackKey(InputKey::Keyboard::J)
+    UpAttackKey(Engine::GetAttack_Key().UpAttackKey),
+    DownAttackKey(Engine::GetAttack_Key().DownAttackKey)
 {}
 
 void MainOption::Load()
@@ -75,8 +75,7 @@ void MainOption::Draw()
 {
     const std::string font1{ font_path[MochiyPopOne] };
     const std::string font2{ font_path[PressStart] };
-    std::cout << mousePosition.x << "     " << mousePosition.y << std::endl;
-    
+
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
@@ -122,6 +121,7 @@ void MainOption::Draw()
                 if (IsUpkeychanged == false)
                 {
                     UpAttackKey.button = Engine::GetInput().GetLastPressedButton();
+                    Engine::GetAttack_Key().UpAttackKey = UpAttackKey;
                     Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::None);
                     IsUpkeychanged = true;
                     KeychangeTextTimer = 1;
@@ -129,6 +129,7 @@ void MainOption::Draw()
                 else if (IsDownkeychanged == false && Engine::GetInput().GetLastPressedButton() != UpAttackKey.button)
                 {
                     DownAttackKey.button = Engine::GetInput().GetLastPressedButton();
+                    Engine::GetAttack_Key().DownAttackKey = DownAttackKey;
                     Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::None);
                     IsDownkeychanged = true;
                 }

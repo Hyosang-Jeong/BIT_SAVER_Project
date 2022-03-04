@@ -36,9 +36,8 @@ GameObject(startPos, glm::vec2{ 2,1 })
 void Note::Update(double dt)
 {
 	GameObject::Update(dt);
-	UpAttackKey = static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->UpAttackKey;
-	DownAttackKey = static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->DownAttackKey;
-
+	UpAttackKey = Engine::GetAttack_Key().UpAttackKey;
+	DownAttackKey = Engine::GetAttack_Key().DownAttackKey;
 	if (GetPosition().x < -10)
 	{
 		set_destroy(true);

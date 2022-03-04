@@ -7,15 +7,11 @@ Project: BIT_SAVER
 Author: Hyun Kang
 -----------------------------------------------------------------*/
 #pragma once
-#include <string>
 #include "..\Engine\GameState\GameState.h" // BIT_SAVER::GameState
-#include "..\Engine\GameObject\GameObjectManager.h" // gameobjectmanager
 #include"..\Engine\Input\Input.h"  //input key
-#include"..\..\Engine\Physics\Camera.h"
 class Gameover : public GameState
 {
 public:
-
     Gameover();
     void Load() override;
     void Update(double dt) override;

@@ -27,6 +27,6 @@ public:
 	Texture* Digipen_Splash;
 	InputKey PlayKey;
 private:
-	double timer{ 6 };
+	double timer;
 };
 

@@ -10,19 +10,21 @@ Author:	Hyosang Jung
 #include"Splash.h"
 #include"State.h"
 
-Splash::Splash() : PlayKey(InputKey::Keyboard::Enter)
+Splash::Splash() : PlayKey(InputKey::Keyboard::Enter),timer(6)
 {
 }
 
 void Splash::Load()
 {
 	Digipen_Splash = Engine::GetTextureManager().Load(texture_path[DigipenLogo_Splash]);
-
 	Logo = Engine::GetTextureManager().Load(texture_path[Gamelogo_Splash]);
 }
 
 void Splash::Update(double dt)
 {
+#ifdef _DEBUG
+	Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
+#endif
 	timer -= dt;
 	if (PlayKey.IsKeyReleased() == true)
 	{
@@ -35,6 +37,7 @@ void Splash::Update(double dt)
 	{
 		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
 	}
+
 }
 
 void Splash::Draw()

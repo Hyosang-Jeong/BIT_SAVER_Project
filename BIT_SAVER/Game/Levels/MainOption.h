@@ -25,8 +25,6 @@ enum class MAIN_SELECT
     QUIT,
 };
 
-class Hero;
-
 class MainOption : public GameState
 {
 public:
