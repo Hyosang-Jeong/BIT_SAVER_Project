@@ -19,8 +19,10 @@ logger(Logger::Severity::Debug, true, lastTick)
 logger(Logger::Severity::Event, false, lastTick)
 #endif
 {
+
 	attackKey.UpAttackKey = InputKey::Keyboard::F;
 	attackKey.DownAttackKey = InputKey::Keyboard::J;
+
 }
 Engine::~Engine() {}
 
