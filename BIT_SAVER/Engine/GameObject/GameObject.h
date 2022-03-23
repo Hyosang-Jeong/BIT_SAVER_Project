@@ -93,7 +93,6 @@ private:
 	glm::vec2 scale;
 	glm::vec2 position;
 	glm::vec2 velocity;
-	glm::vec2 orientation;
 
 	double rotation;
 
