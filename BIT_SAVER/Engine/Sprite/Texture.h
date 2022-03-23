@@ -91,7 +91,7 @@ public:
 
     void Draw(glm::vec2 pos, glm::vec2 scale = { 1,1 }, glm::vec2 rotate = { 0,0 });
 
-    void Draw(float alpha, glm::vec2 pos, glm::vec2 scale = { 1,1 }, glm::vec2 rotate = { 0,0 });
+    void Draw(float alpha, glm::mat3 camera , glm::vec2 pos, glm::vec2 scale = { 1,1 }, glm::vec2 rotate = { 0,0 });
     glm::vec2 GetSize();
 
     GLuint tex_obj{ 0 };

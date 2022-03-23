@@ -17,7 +17,7 @@ Author:  Sunwoo Lee
 
 Hero::Hero(glm::vec2 startPos) :
     timer(0),
-    GameObject(startPos, glm::vec2{ 2,2 }),
+    GameObject(startPos, glm::vec2{ 1,1 }),
     UpAttackKey(InputKey::Keyboard::None),
     DownAttackKey(InputKey::Keyboard::None)
 {
@@ -137,14 +137,16 @@ void Hero::State_Attack::Enter(GameObject* object)
     hero->GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(hero_anim::up_attck));
 }
 
-void Hero::State_Attack::Update([[maybe_unused]] GameObject* object, [[maybe_unused]] double dt)
+void Hero::State_Attack::Update([[maybe_unused]] GameObject* object,  [[maybe_unused]]double dt)
 {
     Hero* hero = static_cast<Hero*>(object);
     if (hero->GetPosition().y < -5)
     {
         hero->SetVelocity({ 0,0 });
         hero->SetPosition({ hero->GetPosition().x, -5 });
+       Engine::GetGSComponent<Camera>()->shake();
     }
+
 }
 
 void Hero::State_Attack::TestForExit(GameObject* object)
@@ -153,6 +155,10 @@ void Hero::State_Attack::TestForExit(GameObject* object)
     if (hero->GetGOComponent<Sprite>()->IsAnimationDone() == true)
     {
         hero->ChangeState(&hero->stateRunning);
+    }
+    if ((hero->UpAttackKey.IsKeyDown() == true && hero->UpAttackKey.IsKeyReapeated() == false))
+    {
+        hero->ChangeState(&hero->stateJump);
     }
 }
 
@@ -183,5 +189,9 @@ void Hero::State_Jump::TestForExit(GameObject* object)
         //hero->SetVelocity({ 0,-10 });
         //hero->SetPosition({ hero->GetPosition().x, 5 });
         hero->ChangeState(&hero->statefalling);
+    }
+    if ((hero->DownAttackKey.IsKeyDown() == true && hero->DownAttackKey.IsKeyReapeated() == false))
+    {
+        hero->ChangeState(&hero->stateAttack);
     }
 }

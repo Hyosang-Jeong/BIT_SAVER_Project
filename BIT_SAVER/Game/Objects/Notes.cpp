@@ -17,7 +17,7 @@ Author: Jaewoo.choi, Hyosang Jung
 #include"Score.h"
 #include"../../Engine/Physics/Camera.h"
 #include"../Levels/MainOption.h"
-
+#include"obstacle.h"
 Note::Note(glm::vec2 startPos, glm::vec2 velocity) :
     isMiss(false),
 
@@ -31,6 +31,15 @@ GameObject(startPos, glm::vec2{ 2,1 })
 	}
 	AddGOComponent(new Sprite("../images/hit_star.png", this));
 	SetVelocity(velocity);
+
+	if (startPos.y > 0)  //up note
+	{
+		Engine::GetGSComponent<GameObjectManager>()->Add(new Obstacle(glm::vec2{ startPos.x,-7 }, velocity));
+	}
+	else  //down note
+	{
+		Engine::GetGSComponent<GameObjectManager>()->Add(new Obstacle(glm::vec2{ startPos.x,5 }, velocity));
+	}
 }
 
 void Note::Update(double dt)

@@ -23,8 +23,6 @@ public:
 
 	void UpdateAll(double dt);
 	void DrawAll(glm::mat3 camera_matrix);
-	void collision_check(GameObject* object);
-
 	std::list<GameObject*> GetgameObjects() { return gameObjects; }
 private:
 	std::list<GameObject*> gameObjects;

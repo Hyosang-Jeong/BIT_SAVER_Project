@@ -32,10 +32,10 @@ public:
     bool IsAnimationDone();
     int GetCurrentAnim();
     glm::vec2 GetFrameSize() const;
+    Texture* textureptr;
 private:
     glm::vec2 GetFrameTexel(int frameNum) const;
     bool is_playing = false;
-    Texture* textureptr;
     glm::vec2 frameSize;
     glm::vec2 ndc_frameSize;
     int currAnim = 0;

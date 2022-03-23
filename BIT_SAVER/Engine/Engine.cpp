@@ -27,20 +27,12 @@ Engine::~Engine() {}
 void Engine::Init(std::string windowName)
 {
 	logger.LogEvent("Engine Init");
-	window.Init(1600, 1000,windowName);
+	window.Init(1600, 800,windowName);
 
 	init_shdrpgms();
 	fpsCalcTime = lastTick;
 	GetMusic().Init();
-
-	/*GetText().Init();
-	GetText("../font/MochiyPopOne-Regular.ttf").Init();
-	GetText("../font/PressStart2P-Regular.ttf").Init();
-
-	GetText("../font/MochiyPopOne-Regular.ttf").Load("../font/MochiyPopOne-Regular.ttf", 48);
-	GetText("../font/PressStart2P-Regular.ttf").Load("../font/PressStart2P-Regular.ttf", 20);*/
 	init_fonts();
-
 	GetText(font_path[PressStart]).Load(font_path[PressStart], 20);
 	GetText(font_path[MochiyPopOne]).Load(font_path[MochiyPopOne], 48);
 
@@ -222,8 +214,6 @@ void Engine::init_fonts()
 	}
 
 	text2.shd_ref->second.UnUse();
-
-
 
 	glGenVertexArrays(1, &text1.VAO);
 	glGenBuffers(1, &text1.VBO);

@@ -47,17 +47,15 @@ void Background::Unload()
 
 void Background::Draw([[maybe_unused]]glm::mat3 camera)
 {
-
     for (ParallaxInfo& levelInfo : backgrounds)
     {
-        levelInfo.texture_front->Draw(alpha_value, { levelInfo.position_front,0 }, { 10,10 });
-        levelInfo.texture_back->Draw(alpha_value, { levelInfo.position_back,0 }, { 10,10 });
+        levelInfo.texture_front->Draw(alpha_value, camera,{ levelInfo.position_front,0 }, { 10,10 });
+        levelInfo.texture_back->Draw(alpha_value, camera, { levelInfo.position_back,0 },  { 10,10 });
+
     }
 }
 
 void Background::set_fever_mode(bool is_fever_mode_)
-
-
 {
     if (is_fever_mode_ == true)
     {

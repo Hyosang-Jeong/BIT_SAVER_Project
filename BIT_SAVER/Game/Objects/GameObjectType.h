@@ -22,5 +22,6 @@ enum class GameObjectType {
     Hit,
     Particle,
     Check_box,
+    Obstacle,
     Count,
 };

@@ -11,7 +11,7 @@ Author:  Hyosang Jung , Sunwoo Lee
 #include "../Engine/Engine.h"
 #include "Notes.h"
 #include"../../Engine/Sprite/GameParticles.h"
-
+#include"../../Engine/Physics/Camera.h"
 std::string messages[] = {
 	"Hello",
 	"I will explain how to play",
@@ -81,7 +81,7 @@ void Tutorial_Helper::RenderText()
 	case 0: //Greetings
 	{
 		helper->Draw({ -6,-8 }, { 2,2 });
-		sound_bar->Draw(0.5,sound_bar_pos, { 10,2 });
+		sound_bar->Draw(0.5, Engine::GetGSComponent<Camera>()->GetMatrix(),sound_bar_pos, { 10,2 });
 		Engine::GetText(font2).Draw(messages[index], winsize.x * 0.4f, winsize.y * 0.9f, 1.f, glm::vec3(1.f, 1.f, 1.f));
 		Engine::GetText(font2).Draw("Press Enter ", winsize.x * 0.7f, winsize.y * 0.95f, 1.f, glm::vec3(1.f, 1.f, 1.f));
 		if (index > 2)
@@ -93,7 +93,7 @@ void Tutorial_Helper::RenderText()
 	case 2: //NOTE_HIT
 	{
 		helper->Draw({ -6,-8 }, { 2,2 });
-		sound_bar->Draw(0.5, sound_bar_pos, { 10,2 });
+		sound_bar->Draw(0.5, Engine::GetGSComponent<Camera>()->GetMatrix(), sound_bar_pos, { 10,2 });
 
 		Engine::GetText(font2).Draw(messages[index], winsize.x * 0.4f, winsize.y * 0.9f, 1.f, glm::vec3(1.f, 1.f, 1.f));
 		if (index != 6)
@@ -118,7 +118,7 @@ void Tutorial_Helper::RenderText()
 	case 4: //NOTE_Down
 	{
 		helper->Draw({ -6,-8 }, { 2,2 });
-		sound_bar->Draw(0.5, sound_bar_pos, { 10,2 });
+		sound_bar->Draw(0.5, Engine::GetGSComponent<Camera>()->GetMatrix(), sound_bar_pos, { 10,2 });
 
 		Engine::GetText(font2).Draw(messages[index], winsize.x * 0.4f, winsize.y * 0.9f, 1.f, glm::vec3(1.f, 1.f, 1.f));
 		if (index != 8)
@@ -144,7 +144,7 @@ void Tutorial_Helper::RenderText()
 	case 5: //End
 	{
 		helper->Draw({ -6,-8 }, { 2,2 });
-		sound_bar->Draw(0.5, sound_bar_pos, { 10,2 });
+		sound_bar->Draw(0.5, Engine::GetGSComponent<Camera>()->GetMatrix(), sound_bar_pos, { 10,2 });
 		Engine::GetText(font2).Draw("Press Enter ", winsize.x * 0.7f, winsize.y * 0.95f, 1.f, glm::vec3(1.f, 1.f, 1.f));
 
 		Engine::GetText(font2).Draw(messages[index], winsize.x * 0.4f, winsize.y * 0.9f, 1.f, glm::vec3(1.f, 1.f, 1.f));

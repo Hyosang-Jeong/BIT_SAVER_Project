@@ -53,11 +53,14 @@ void MainOption::Update(double dt)
     glm::vec2 window_pos = Engine::GetWindow().GetSize();
     window_pos.x *= 0.5;
     window_pos.y *= 0.5;
-    volume_pos = { window_pos.x - 70.f , window_pos.y - 280.f };
-    key_pos = { window_pos.x - 100.f , window_pos.y - 50.f };
-    offset_pos = { window_pos.x - 60.f, window_pos.y + 220.f };
-    upkey_pos = { key_pos.x + 300, key_pos.y - 20 };
-    downkey_pos= { key_pos.x + 300, key_pos.y + 20 };
+    volume_pos = { window_pos.x - window_pos.x * 0.09f , window_pos.y - window_pos.y *0.55f };
+
+    key_pos = { window_pos.x - window_pos.x * 0.12f, window_pos.y- window_pos.y * 0.08f };
+
+    offset_pos = { window_pos.x - window_pos.x * 0.09f, window_pos.y + window_pos.y * 0.45f };
+
+    upkey_pos = { key_pos.x + window_pos.x * 0.3f, key_pos.y - window_pos.y * 0.1f };
+    downkey_pos= { key_pos.x + window_pos.x * 0.3f, key_pos.y + window_pos.y * 0.1f };
     mousePosition = Engine::GetInput().MouseGetPosition();
     mousePosition = world_to_ndc * glm::vec3(mousePosition, 1);
     IsInBox();

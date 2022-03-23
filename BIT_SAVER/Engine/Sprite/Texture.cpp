@@ -113,7 +113,7 @@ void Texture::Draw(glm::vec2 pos, glm::vec2 scale, glm::vec2 rotate)
 	Draw(mdl_to_ndc_xform);
 }
 
-void Texture::Draw(float alpha_value, glm::vec2 pos, glm::vec2 scale, glm::vec2 rotate)
+void Texture::Draw(float alpha_value, glm::mat3 camera,glm::vec2 pos, glm::vec2 scale, glm::vec2 rotate)
 {
 	glm::mat3 scale_matrix
 	{
@@ -144,7 +144,7 @@ void Texture::Draw(float alpha_value, glm::vec2 pos, glm::vec2 scale, glm::vec2 
 		0,0,1
 	};
 
-	glm::mat3 mdl_to_ndc_xform = ndcscale_matrix * trans_matrix * rotation_matrix * scale_matrix;
+	glm::mat3 mdl_to_ndc_xform = camera* ndcscale_matrix * trans_matrix * rotation_matrix * scale_matrix;
 
 	model.shdr_pgm.Use();
 	glBindVertexArray(model.vaoid);

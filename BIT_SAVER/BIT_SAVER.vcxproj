@@ -249,6 +249,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Game\Objects\obstacle.cpp" />
     <ClCompile Include="Game\Objects\Score.cpp" />
     <ClCompile Include="Game\Objects\stage_bar.cpp" />
     <ClCompile Include="Game\Objects\Tracks.cpp">
@@ -342,6 +343,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="Game\Objects\obstacle.h" />
     <ClInclude Include="Game\Objects\Score.h" />
     <ClInclude Include="Game\Objects\stage_bar.h" />
     <ClInclude Include="Game\Objects\Track.h">

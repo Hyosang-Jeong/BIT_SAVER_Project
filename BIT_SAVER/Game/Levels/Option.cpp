@@ -25,13 +25,8 @@ Option::Option() :
     OptionSelectKey(InputKey::Keyboard::Enter),
     mouseSwitch(false),
     selectedIndex(glm::vec2{ 0,1 }),
-    SoundBallPosition(glm::vec2{ 0.3,3.5 }),
     SoundBallScale(glm::vec2{ 0.2,0.2 }),
     smallsoundballScale(glm::vec2{ 0.2,0.2 }),
-    Resume(glm::vec2{ 0,0 }),
-    Restart(glm::vec2{ 0,0 }),
-    Mainmenu(glm::vec2{ 0,0 }),
-    Quit(glm::vec2{ 0,0 }),
     mousePosition(glm::vec2{ 0,0 }),
     MouseKey(InputKey::Mouse::Left),
     ChangeKey(InputKey::Keyboard::Space)
@@ -45,7 +40,11 @@ Option::Option() :
    0,-20 / h,0,
    -10,10,1
     };
-
+    SoundBallPosition=glm::vec2{ 0.5,3.5 };
+    Resume=glm::vec2{ 0,0 };
+    Restart=glm::vec2{ 0,0 };
+    Mainmenu=glm::vec2{ 0,0 };
+    Quit=glm::vec2{ 0,0 };
 }
 
 void Option::Load()
@@ -97,12 +96,11 @@ void Option::Draw()
     smallSoundBall->Draw(SoundBallPosition, smallsoundballScale);
     cursor->Draw({ mousePosition.x + 0.1, mousePosition.y - 0.5 }, { 0.5,0.5 });
 
-
     glm::vec2 window_pos = Engine::GetWindow().GetSize();
     window_pos.x *= 0.5;
     window_pos.y *= 0.5;
 
-    glm::vec2 offset(50, 100);
+    glm::vec2 offset(w*0.03, h*0.1);
     Engine::GetText(font2).Draw("Press Spacebar to change Attack key", 400.f, 100.f, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
     if (select == Select::KEYBOARD)
     {
@@ -183,7 +181,7 @@ void Option::Draw()
     Resume = { window_pos.x - offset.x ,window_pos.y - offset.y };
     Resume = world_to_ndc * glm::vec3(Resume, 1);
 
-    offset.y -= 105;
+    offset.y -= h * 0.1f;
 
     Engine::GetText(font2).Draw("RESTART", window_pos.x - offset.x, window_pos.y - offset.y, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
     if (select == Select::RESTART)
@@ -193,7 +191,7 @@ void Option::Draw()
     }
     Restart = { window_pos.x - offset.x ,window_pos.y - offset.y };
     Restart = world_to_ndc * glm::vec3(Restart, 1);
-    offset.y -= 105;
+    offset.y -= h * 0.11f;
 
     Engine::GetText(font2).Draw("MAIN MENU", window_pos.x - offset.x, window_pos.y - offset.y, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
 
@@ -204,7 +202,7 @@ void Option::Draw()
     Mainmenu = { window_pos.x - offset.x ,window_pos.y - offset.y };
     Mainmenu = world_to_ndc * glm::vec3(Mainmenu, 1);
 
-    offset.y -= 105;
+    offset.y -= h * 0.11f;
 
     Engine::GetText(font2).Draw("QUIT", window_pos.x - offset.x, window_pos.y - offset.y, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
     if (select == Select::QUIT)

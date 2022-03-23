@@ -17,9 +17,17 @@ public:
 	void Update(const glm::vec2& followObjPos,double dt);
 	const glm::vec2& GetPosition() const;
 	glm::mat3 GetMatrix();
-	void Dynamic_movement(bool start, double dt);
+	void shake();
+	void generate_shake_value();
 private:
 	glm::mat3 mdl_to_ndc_xform;
 	glm::vec2 position;
-	bool dynamic_move{ false };
+	float rotation;
+	glm::vec2 scale;
+
+	bool is_shaking;
+	
+	double target_time = 0;
+	float shake_per_sec = 5;
+	double timer = 10;
 };

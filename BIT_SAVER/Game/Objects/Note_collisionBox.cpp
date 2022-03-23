@@ -51,10 +51,7 @@ void Note_box::ResolveCollision(GameObject* test_obj)
 		{
 			if (test_obj->GetPosition().x + test_obj ->GetTexturetoNDC().x/2.0< GetPosition().x - GetTexturetoNDC().x / 2.0)
 			{
-				//set miss texture's pos
 				Hit[0] = false;
-			//	Engine::GetLogger().LogEvent("Note miss!");
-
 				Hit_pos[0].x = GetPosition().x;
 				Hit_pos[0].y = test_obj->GetPosition().y;
 				is_destroyed = false;
@@ -65,7 +62,6 @@ void Note_box::ResolveCollision(GameObject* test_obj)
 			if (test_obj->GetPosition().x + test_obj->GetTexturetoNDC().x / 2.0 < GetPosition().x - GetTexturetoNDC().x / 2.0)
 			{
 				Hit[1] = false;
-			//	Engine::GetLogger().LogEvent("Note miss!");
 				Hit_pos[1].x = GetPosition().x - GetTexturetoNDC().x / 2.0f;
 				Hit_pos[1].y = test_obj->GetPosition().y;
 				is_destroyed = false;
@@ -83,23 +79,6 @@ const bool Note_box::GetDestroyed() const
 void Note_box::Draw(glm::mat3 camera_matrix)
 {
 	GameObject::Draw(camera_matrix);
-	//if (Hit[0] == true)
-	//{
-	//	Hit_tex.Draw(world_range, "Basic_model", "Hero", { Hit_pos[0].x,  Hit_pos[0].y });
-	//}
-	//if (Hit[1] == true)
-	//{
-	//	Hit_tex.Draw(world_range, "Basic_model", "Hero", { Hit_pos[1].x,  Hit_pos[1].y });
-	//}
-
-	//if (Hit[0] == false)
-	//{
-	//	Miss_tex.Draw(world_range, "Basic_model", "Hero", { Hit_pos[0].x,  Hit_pos[0].y });
-	//}
-	//if (Hit[1] == false)
-	//{
-	//	Miss_tex.Draw(world_range, "Basic_model", "Hero", { Hit_pos[1].x,  Hit_pos[1].y });
-	//}
 }
 
 glm::vec2 Note_box::Getposition()

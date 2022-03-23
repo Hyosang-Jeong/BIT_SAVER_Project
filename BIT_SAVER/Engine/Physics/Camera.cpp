@@ -8,8 +8,15 @@ Author:	Hyosang Jung
 -----------------------------------------------------------------*/
 #include "Camera.h"
 #include<cmath>
-Camera::Camera(glm::vec2 newPosition):position(newPosition)
+#include<random>
+#include<iostream>
+
+float PI = 3.141592f;
+
+Camera::Camera(glm::vec2 newPosition):position(newPosition),is_shaking(false)
 {
+    rotation = 0;
+    scale = { 1,1 };
     mdl_to_ndc_xform =
     {
         1,0,0,
@@ -23,23 +30,42 @@ void Camera::SetPosition(glm::vec2 newPosition)
     position = newPosition;
 }
 
-void Camera::Update(const glm::vec2& followObjPos,[[maybe_unused]]double dt)
+void Camera::Update(const glm::vec2& ,[[maybe_unused]]double dt)
 {
-    
+    timer += dt;
+    if (timer < 1.5)
+    {
+        generate_shake_value();
+        target_time += dt;
+    }
+    else
+    {
+        position = { 0,0 };
+        rotation = 0;
+    }
+
     mdl_to_ndc_xform =
     {
         1,0,0,
         0,1,0,
        -position.x,-position.y,1
     };
-    glm::mat3 view_xform =
+
+    glm::mat3 scale_mat =
     {
-        1,0,0,
-        0,1,0,
-       -followObjPos.x,-followObjPos.y,1
+        scale.x,0,0,
+        0,scale.y,0,
+        0,0,1
     };
 
-    mdl_to_ndc_xform *= view_xform;
+    glm::mat3 rotate_mat =
+    {
+        cos(rotation),sin(rotation),0,
+        -sin(rotation), cos(rotation),0,
+       0,0,1
+    };
+
+    mdl_to_ndc_xform = mdl_to_ndc_xform * rotate_mat * scale_mat;
 }
 
 const glm::vec2& Camera::GetPosition() const
@@ -52,25 +78,21 @@ glm::mat3 Camera::GetMatrix()
 	return mdl_to_ndc_xform;
 }
 
-static glm::vec2 pos = { 0,0.25 };
-
-void Camera::Dynamic_movement(bool start, double dt)
+void Camera::shake()
 {
-    dynamic_move = start;
-    static double timer = 0;
-    if (dynamic_move == false)
+    timer = 0;
+    target_time = 0;
+}
+
+void Camera::generate_shake_value()
+{
+    if (timer > target_time)
     {
-        timer = 0.4;
-        pos = { 0.25,0.25 };
-        position = { 0,0 };
-    }
-    timer -= dt;
-    if (timer > 0)
-    {
-        //pos = { 0,0.25 };
-        position += pos;
-        pos *= -0.9;
-        dynamic_move = true;
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::normal_distribution<float> dis(-PI / 30.f, PI / 30.f);
+        rotation = dis(gen);
+      //  position = { dis(gen) * 10.f, dis(gen) *10.f};
     }
 }
  

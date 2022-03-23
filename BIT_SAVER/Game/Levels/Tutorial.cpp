@@ -24,11 +24,10 @@ Author: Jaewoo.choi, Hyun Kang
 #include"../Objects/fever.h"
 #include"../Objects/CheckBox.h"
 #include"../Levels/Option.h"
-
+#include"..\..\Engine\Physics\Camera.h"
 
 Tutorial::Tutorial() :
-	escape(InputKey::Keyboard::Escape),
-	camera({ 0,0 })
+	escape(InputKey::Keyboard::Escape)
 {
 	gameObjectManager = nullptr;
 	heroPtr = nullptr;
@@ -39,6 +38,7 @@ Tutorial::Tutorial() :
 	energyBar = nullptr;
 	stageBar = nullptr;
 	feverBar = nullptr;
+	camera = nullptr;
 	gamestate = TUTO_LEVEL_STATE::EXTRA;
 }
 
@@ -53,6 +53,7 @@ void Tutorial::Load()
 	bossPtr = new Boss({ 15,-5 });
 	energyBar = new EnergyBar({ -4,1.2 });
 	stageBar = new Stage_bar({ -10,9 }, 110, 82);   // total music time 204  ,  extra time 82
+	camera = new Camera({0,0 });
 	currstate = Tuto_Helper_Enum::GREETINGS;
 
 
@@ -65,6 +66,7 @@ void Tutorial::Load()
 
 	AddGSComponent(gameObjectManager);
 	AddGSComponent(backPtr);
+	AddGSComponent(camera);
 
 	gameObjectManager->Add(heroPtr);
 	gameObjectManager->Add(notebox);
@@ -86,7 +88,6 @@ void Tutorial::Load()
 	AddGSComponent(new BadEmitter());
 	AddGSComponent(new MissEmitter());
 	AddGSComponent(new Score());
-
 
 	trackPtr->track_info[0].erase(trackPtr->track_info[0].begin(), trackPtr->track_info[0].begin() + 4);
 	trackPtr->track_info[1].erase(trackPtr->track_info[1].begin(), trackPtr->track_info[1].begin() + 2);
@@ -199,10 +200,10 @@ void Tutorial::Draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-	GetGSComponent<Background>()->Draw(camera.GetMatrix());
+	GetGSComponent<Background>()->Draw(camera->GetMatrix());
 	GetGSComponent<Score>()->Draw({ 0,100 });
 	Engine::GetGSComponent<Tutorial_Helper>()->Draw();
-	gameObjectManager->DrawAll(camera.GetMatrix());
+	gameObjectManager->DrawAll(camera->GetMatrix());
 }
 
 

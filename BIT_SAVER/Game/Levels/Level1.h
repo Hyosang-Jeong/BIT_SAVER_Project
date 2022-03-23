@@ -67,7 +67,7 @@ private:
 	CheckBox* GcheckBox2;
 	CheckBox* BcheckBox1;
 	CheckBox* BcheckBox2;
-	Camera camera;
+	Camera* camera;
 	GameObjectManager* gameObjectManager;
 	LEVEL_STATE gamestate;
 	//GLText* text;

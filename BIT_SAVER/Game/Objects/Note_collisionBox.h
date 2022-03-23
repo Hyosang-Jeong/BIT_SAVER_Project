@@ -30,7 +30,7 @@ private:
     Texture Hit_tex;
     Texture Miss_tex;
     bool Hit[2] = { false };   //Hit check flag
-    glm::vec2 Hit_pos[2] = { {-20,-20},{-20,-20} }; //Track1 and Track2  // intial pos -20,-20 => not to draw initail state
+    glm::vec2 Hit_pos[2] = { {-20,-20},{-20,-20} }; //Track1 and Track2  // intial pos -20,-20 => not to draw initial state
     bool attack_pressed{false};
     bool is_repeated{ false };
     bool is_destroyed{ true };

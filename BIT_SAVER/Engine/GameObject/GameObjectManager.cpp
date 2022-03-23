@@ -56,7 +56,6 @@ void GameObjectManager::UpdateAll(double dt)
 	for (GameObject* a : gameObjects)
 	{
 		a->Update(dt);
-		collision_check(a);
 		if (a->Destroy() == true)
 		{
 			removelist.push_back(a);
@@ -78,26 +77,4 @@ void GameObjectManager::DrawAll(glm::mat3 camera_matrix)
 	}
 }
 
-void GameObjectManager::collision_check(GameObject* object)
-{
-	AABB Box1 = object->GetCollisionbox();
-
-	for (auto& test_object : gameObjects)
-	{
-		bool is_collided = true;
-		AABB Box2 = test_object->GetCollisionbox();
-		if (Box1.max.x < Box2.min.x || Box1.min.x > Box2.max.x)
-		{
-			is_collided = false;
-		}
-		if ((Box1.max.y < Box2.min.y || Box1.min.y > Box2.max.y))
-		{
-			is_collided = false;
-		}
-		if (is_collided == true)
-		{
-			object->ResolveCollision(test_object);
-		}
-	}
-}
 

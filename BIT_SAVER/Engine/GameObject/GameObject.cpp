@@ -74,15 +74,6 @@ void GameObject::Draw(glm::mat3 camera_matrix)
     {
         spritePtr->Draw(mdl_to_ndc_xform * camera_matrix);
     }
-
-#if _DEBUG
-    Collision* collisionPtr = GetGOComponent<Collision>();
-    if (collisionPtr != nullptr)
-    {
-        collisionPtr->Draw();
-    }
-#endif
-
 }
 
 const glm::mat3& GameObject::GetMatrix()
@@ -129,10 +120,6 @@ const glm::vec2& GameObject::GetTexturetoNDC() const
     return texture_ndc;
 }
 
-const AABB GameObject::GetCollisionbox() const
-{
-    return collision.GetAABB();
-}
 
 void GameObject::UpdateVelocity(glm::vec2 adjustPosition)
 {

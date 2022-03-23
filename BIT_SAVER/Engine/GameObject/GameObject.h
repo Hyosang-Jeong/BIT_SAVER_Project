@@ -34,7 +34,6 @@ public:
 		ClearGOComponents();
 	}
 	virtual GameObjectType GetObjectType() = 0;
-	//virtual std::string GetObjectTypeName() = 0;
 	virtual void ResolveCollision(GameObject* object);
 	virtual void Update(double dt);
 	virtual void Draw(glm::mat3 camera_matrix);
@@ -104,7 +103,6 @@ private:
 
 	ComponentManager components;
 protected:
-	Collision collision;
 	std::map<std::string, GLSLShader>::iterator shd_ref;
 	glm::mat3 mdl_xform;
 	glm::mat3 mdl_to_ndc_xform;

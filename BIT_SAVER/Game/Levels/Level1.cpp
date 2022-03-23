@@ -27,8 +27,7 @@ Author: Hyun Kang , Hyosang Jung
 
 
 Level1::Level1() :
-    escape(InputKey::Keyboard::Escape),
-    camera({ 0,0 })
+    escape(InputKey::Keyboard::Escape)
 {
     gameObjectManager = nullptr;
     heroPtr = nullptr;
@@ -58,7 +57,7 @@ void Level1::Load()
     notebox = new Note_box({ -4,0 });
     bossPtr = new Boss({ 15,-5 });
     energyBar = new EnergyBar({ -4,1.2 });
-
+    camera = new Camera({ 0,0 });
     PcheckBox1 = new CheckBox({ -4.4,0 }, 0);
     PcheckBox2 = new CheckBox({ -3.2,0 }, 0);
     GcheckBox1 = new CheckBox({ -4.6,0 }, 1);
@@ -83,7 +82,7 @@ void Level1::Load()
 
     AddGSComponent(gameObjectManager);
     AddGSComponent(backPtr);
-
+    AddGSComponent(camera);
     gameObjectManager->Add(heroPtr);
     gameObjectManager->Add(notebox);
     gameObjectManager->Add(bossPtr);
@@ -117,6 +116,8 @@ void Level1::Update(double dt)
     }
 
     GetGSComponent<Background>()->Update(dt);
+
+    GetGSComponent<Camera>()->Update({ 0,0 },dt);
 
     gameObjectManager->UpdateAll(dt);
 
@@ -162,9 +163,9 @@ void Level1::Draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
-	GetGSComponent<Background>()->Draw(camera.GetMatrix());
+	GetGSComponent<Background>()->Draw(camera->GetMatrix());
 	GetGSComponent<Score>()->Draw({ 0,100 });
-	gameObjectManager->DrawAll(camera.GetMatrix());
+	gameObjectManager->DrawAll(camera->GetMatrix());
 }
 
 
