@@ -70,7 +70,6 @@ void Sprite::Load(const std::filesystem::path& spriteInfoFile,[[maybe_unused]] G
 
 				ndc_frameSize.x = ndc_frame_size;
 				ndc_frameSize.y = 1.0f;
-				object->AddGOComponent(new Collision(ndc_frameSize));
 
 				for (int i = 0; i < numFrames; i++)
 				{
@@ -98,7 +97,7 @@ void Sprite::Load(const std::filesystem::path& spriteInfoFile,[[maybe_unused]] G
 
 glm::vec2 Sprite::GetFrameSize() const
 {
-	return frameSize;
+	return ndc_frameSize;
 }
 
 glm::vec2 Sprite::GetFrameTexel(int frameNum) const

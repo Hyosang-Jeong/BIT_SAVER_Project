@@ -96,15 +96,14 @@ void Tutorial::Load()
 
 void Tutorial::Update(double dt)
 {
-
-
 	GetGSComponent<Background>()->Update(dt);
+	GetGSComponent<Camera>()->Update({ 0,0 }, dt);
 	Update_currstate(dt);
-
 }
 
 void Tutorial::Update_currstate(double dt)
 {
+
 	switch (currstate)
 	{
 	case Tuto_Helper_Enum::GREETINGS:

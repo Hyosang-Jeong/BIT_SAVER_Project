@@ -14,7 +14,11 @@ Author: Jaewoo.choi, Hyosang Jung
 
 
 class EnergyBar;
-
+enum class Note_anim
+{
+    flying,
+    explosion
+};
 
 class Note : public GameObject
 {

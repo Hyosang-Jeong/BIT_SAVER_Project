@@ -11,7 +11,6 @@ Author: Jaewoo.choi, Hyun Kang
 #include "..\Engine\GameState\GameState.h" // BIT_SAVER::GameState
 #include "..\Engine\GameObject\GameObjectManager.h" // gameobjectmanager
 #include"..\Engine\Input\Input.h"  //input key
-#include"..\..\Engine\Physics\Camera.h"
 #include"../../Engine/Sprite/Texture.h"
 #include "../../Engine/Music/Sound_Num.h"
 
@@ -25,7 +24,7 @@ class Stage_bar;
 class GLText;
 class Fever_bar;
 class CheckBox;
-
+class Camera;
 
 enum class LEVEL2_STATE
 {
@@ -67,7 +66,7 @@ private:
 	CheckBox* GcheckBox2;
 	CheckBox* BcheckBox1;
 	CheckBox* BcheckBox2;
-	Camera camera;
+	Camera* camera;
 	GameObjectManager* gameObjectManager;
 	LEVEL2_STATE gamestate;
 	//GLText* text;

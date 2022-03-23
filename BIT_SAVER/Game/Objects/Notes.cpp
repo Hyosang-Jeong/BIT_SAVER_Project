@@ -23,13 +23,14 @@ Note::Note(glm::vec2 startPos, glm::vec2 velocity) :
 
 	UpAttackKey(InputKey::Keyboard::None),
 	DownAttackKey(InputKey::Keyboard::None),
-GameObject(startPos, glm::vec2{ 2,1 })
+GameObject(startPos, glm::vec2{ -8,8 })
 {
 	if (Engine::GetGameStateManager().GetCurrstate()->GetName() != "Offset")
 	{
 		energy = (static_cast<EnergyBar*>(Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Energy_bar)));
 	}
-	AddGOComponent(new Sprite("../images/hit_star.png", this));
+	AddGOComponent(new Sprite("../spt/fly.spt", this));
+	GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(Note_anim::flying));
 	SetVelocity(velocity);
 
 	if (startPos.y > 0)  //up note
@@ -45,6 +46,7 @@ GameObject(startPos, glm::vec2{ 2,1 })
 void Note::Update(double dt)
 {
 	GameObject::Update(dt);
+
 	UpAttackKey = Engine::GetAttack_Key().UpAttackKey;
 	DownAttackKey = Engine::GetAttack_Key().DownAttackKey;
 	if (GetPosition().x < -10)
@@ -65,8 +67,13 @@ void Note::Update(double dt)
 
 void Note::Draw(glm::mat3 camera_matrix)
 {
-   // if (Engine::GetGameStateManager().GetCurrstate()->GetName() != "Offset")
-	GameObject::Draw(camera_matrix);
+	glm::mat3 trans_mat
+	{
+		1,0,0,
+		0,1,0,
+		-0.25,0,1
+	};
+	GameObject::Draw(camera_matrix * trans_mat);
 }
 
 glm::vec2 Note::Getposition()

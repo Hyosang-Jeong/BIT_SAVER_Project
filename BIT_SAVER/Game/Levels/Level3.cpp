@@ -23,12 +23,11 @@ Author: Jaewoo.choi, Sunwoo Lee
 #include"../Objects/fever.h"
 #include"../Objects/CheckBox.h"
 #include"../Levels/Option.h"
-
+#include"../../Engine/Physics/Camera.h"
 
 
 Level3::Level3() :
-	escape(InputKey::Keyboard::Escape),
-	camera({ 0,0 })
+	escape(InputKey::Keyboard::Escape)
 {
 	gameObjectManager = nullptr;
 	heroPtr = nullptr;
@@ -58,7 +57,7 @@ void Level3::Load()
 	notebox = new Note_box({ -4,0 });
 	bossPtr = new Boss({ 15,-5 });
 	energyBar = new EnergyBar({ -4,1.2 });
-
+	camera = new Camera({ 0,0 });
 	PcheckBox1 = new CheckBox({ -4.4,0 }, 0);
 	PcheckBox2 = new CheckBox({ -3.2,0 }, 0);
 	GcheckBox1 = new CheckBox({ -4.6,0 }, 1);
@@ -69,16 +68,20 @@ void Level3::Load()
 	stageBar = new Stage_bar({ -10,9 }, 221, 104);   // total music time 204  ,  extra time 82
 
 
-	backPtr->Add(texture_path[Background_1], 0);
-	backPtr->Add(texture_path[Parallax1_5], 0.5);
-	backPtr->Add(texture_path[Parallax1_4], 0.8);
-	backPtr->Add(texture_path[Parallax1_3], 1.1);
-	backPtr->Add(texture_path[Parallax1_2], 1.3);
-	backPtr->Add(texture_path[Parallax1_1], 1.5);
+	backPtr->Add(texture_path[Background_1_10], 0);
+	backPtr->Add(texture_path[Background_1_9], 0);
+	backPtr->Add(texture_path[Background_1_8], 0.0005);
+	backPtr->Add(texture_path[Background_1_7], 0.0015);
+	backPtr->Add(texture_path[Background_1_6], 0.007);
+	backPtr->Add(texture_path[Background_1_5], 0.022);
+	backPtr->Add(texture_path[Background_1_4], 0.05);
+	backPtr->Add(texture_path[Background_1_3], 0.1);
+	backPtr->Add(texture_path[Background_1_2], 0.5);
+	backPtr->Add(texture_path[Background_1_1], 0.8);
 
 	AddGSComponent(gameObjectManager);
 	AddGSComponent(backPtr);
-
+	AddGSComponent(camera);
 	gameObjectManager->Add(heroPtr);
 	gameObjectManager->Add(notebox);
 	gameObjectManager->Add(bossPtr);
@@ -112,6 +115,7 @@ void Level3::Update(double dt)
     }
 
 	GetGSComponent<Background>()->Update(dt);
+	GetGSComponent<Camera>()->Update({ 0,0 }, dt);
 	gameObjectManager->UpdateAll(dt);
 
 	if (stageBar->Getchangeflag() == 1)
@@ -155,10 +159,10 @@ void Level3::Update(double dt)
 void Level3::Draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
-	glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
-	GetGSComponent<Background>()->Draw(camera.GetMatrix());
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	GetGSComponent<Background>()->Draw(camera->GetMatrix());
 	GetGSComponent<Score>()->Draw({ 0,100 });
-	gameObjectManager->DrawAll(camera.GetMatrix());
+	gameObjectManager->DrawAll(camera->GetMatrix());
 }
 
 

@@ -181,6 +181,7 @@ void Option::Draw()
     Resume = { window_pos.x - offset.x ,window_pos.y - offset.y };
     Resume = world_to_ndc * glm::vec3(Resume, 1);
 
+
     offset.y -= h * 0.1f;
 
     Engine::GetText(font2).Draw("RESTART", window_pos.x - offset.x, window_pos.y - offset.y, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));

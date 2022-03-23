@@ -43,7 +43,6 @@ public:
 	const glm::vec2& GetScale() const;
 	const double GetRotation() const;
 	const glm::vec2& GetTexturetoNDC() const;
-	const AABB GetCollisionbox() const;
 	void SetScale(glm::vec2 newScale);
 	void SetPosition(glm::vec2 newPosition);
 	void set_destroy(bool value);

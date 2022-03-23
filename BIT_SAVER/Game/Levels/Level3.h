@@ -24,7 +24,7 @@ class Stage_bar;
 class GLText;
 class Fever_bar;
 class CheckBox;
-
+class Camera;
 
 enum class LEVEL3_STATE
 {
@@ -66,7 +66,7 @@ private:
 	CheckBox* GcheckBox2;
 	CheckBox* BcheckBox1;
 	CheckBox* BcheckBox2;
-	Camera camera;
+	Camera* camera;
 	GameObjectManager* gameObjectManager;
 	LEVEL3_STATE gamestate;
 	//GLText* text;

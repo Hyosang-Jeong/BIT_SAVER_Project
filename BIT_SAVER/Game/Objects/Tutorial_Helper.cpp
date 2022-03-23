@@ -20,7 +20,7 @@ std::string messages[] = {
 	"Each color represents different accuracy",
 	"This is up note",
 	"Press F to hit note",
-	"This is dow note",
+	"This is down note",
 	"Press J to hit note",
 	"Good",
 	"There are many fun things in the game",

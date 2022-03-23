@@ -17,7 +17,7 @@ Author:  Sunwoo Lee
 
 Hero::Hero(glm::vec2 startPos) :
     timer(0),
-    GameObject(startPos, glm::vec2{ 1,1 }),
+    GameObject(startPos, glm::vec2{ 1.5,1.5 }),
     UpAttackKey(InputKey::Keyboard::None),
     DownAttackKey(InputKey::Keyboard::None)
 {
@@ -31,7 +31,6 @@ void Hero::Update(double dt)
 {
     GameObject::Update(dt);
     UpdateXVelocity(dt);
-    GetGOComponent<Collision>()->UpdateCollision(GetPosition(),GetScale());
     UpAttackKey = Engine::GetAttack_Key().UpAttackKey;
     DownAttackKey = Engine::GetAttack_Key().DownAttackKey;
 }
@@ -102,12 +101,14 @@ void Hero::State_Falling::Enter(GameObject* object)
 {
     Hero* hero = static_cast<Hero*>(object);
     hero->GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(hero_anim::down));
-    hero->SetVelocity({0,-10});
+    hero->SetVelocity({0,-3});
 }
 
 void Hero::State_Falling::Update([[maybe_unused]] GameObject* object, [[maybe_unused]] double dt)
 {
-    //Hero* hero = static_cast<Hero*>(object);
+    Hero* hero = static_cast<Hero*>(object);
+    hero->GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(hero_anim::down));
+    hero->UpdateVelocity({ 0,-1 });
 }
 
 void Hero::State_Falling::TestForExit(GameObject* object)
@@ -144,7 +145,7 @@ void Hero::State_Attack::Update([[maybe_unused]] GameObject* object,  [[maybe_un
     {
         hero->SetVelocity({ 0,0 });
         hero->SetPosition({ hero->GetPosition().x, -5 });
-       Engine::GetGSComponent<Camera>()->shake();
+       Engine::GetGSComponent<Camera>()->shake(0.015f,0.1f,1.f);
     }
 
 }

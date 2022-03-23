@@ -1,0 +1,5 @@
+../images/fly.png
+FrameSize 150 150
+NumFrames 14
+Anim ../anm/flying.anm
+Anim ../anm/fly_explosion.anm

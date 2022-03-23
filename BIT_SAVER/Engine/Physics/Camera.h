@@ -9,6 +9,7 @@ Author:	Hyosang Jung
 #pragma once
 #include <glm/glm.hpp>
 #include "..\Component.h"
+#include<list>
 class Camera : public Component 
 {
 public:
@@ -17,8 +18,9 @@ public:
 	void Update(const glm::vec2& followObjPos,double dt);
 	const glm::vec2& GetPosition() const;
 	glm::mat3 GetMatrix();
-	void shake();
-	void generate_shake_value();
+	void shake(float intensity, float interval, float total);
+	void generate_shake_xvalue(double dt);
+	void generate_shake_yvalue(double dt);
 private:
 	glm::mat3 mdl_to_ndc_xform;
 	glm::vec2 position;
@@ -28,6 +30,10 @@ private:
 	bool is_shaking;
 	
 	double target_time = 0;
-	float shake_per_sec = 5;
-	double timer = 10;
+	float interval_ = 0;
+	float interval_tmp = 0;
+	double timer_ = 0;
+	float intensity_ = 0;
+	std::list<float> shake_value_x;
+	std::list<float> shake_value_y;
 };

@@ -30,18 +30,21 @@ void Camera::SetPosition(glm::vec2 newPosition)
     position = newPosition;
 }
 
-void Camera::Update(const glm::vec2& ,[[maybe_unused]]double dt)
+void Camera::Update(const glm::vec2& ,double dt)
 {
-    timer += dt;
-    if (timer < 1.5)
+    timer_ += dt;
+    if (timer_ < target_time)
     {
-        generate_shake_value();
-        target_time += dt;
+        generate_shake_xvalue(dt);
+        generate_shake_yvalue(dt);
     }
     else
     {
         position = { 0,0 };
         rotation = 0;
+        timer_ = 0;
+        target_time = 0;
+        interval_tmp = 0;
     }
 
     mdl_to_ndc_xform =
@@ -78,21 +81,80 @@ glm::mat3 Camera::GetMatrix()
 	return mdl_to_ndc_xform;
 }
 
-void Camera::shake()
+void Camera::shake(float intensity, float interval, float total)
 {
-    timer = 0;
-    target_time = 0;
-}
+    timer_ = 0;
+    target_time = total;
+    interval_ = interval;
+    intensity_ = intensity;
 
-void Camera::generate_shake_value()
-{
-    if (timer > target_time)
+    std::random_device rd;
+    std::mt19937 gen(rd());
+   // std::normal_distribution<float> dis(-intensity_, intensity_);
+
+    std::random_device rd_2;
+    std::mt19937 gen_2(rd_2());
+   // std::normal_distribution<float> dis_2(-intensity_, intensity_);
+
+    for (int i = 0; i < static_cast<int>(total / interval); i++)
     {
-        std::random_device rd;
-        std::mt19937 gen(rd());
-        std::normal_distribution<float> dis(-PI / 30.f, PI / 30.f);
-        rotation = dis(gen);
-      //  position = { dis(gen) * 10.f, dis(gen) *10.f};
+        std::normal_distribution<float> dis(-intensity_, intensity_);
+        std::normal_distribution<float> dis_2(-intensity_, intensity_);
+        shake_value_x.push_back(dis(gen));
+        shake_value_y.push_back(dis_2(gen_2));
+        intensity_ *= 0.5;
     }
 }
- 
+
+void Camera::generate_shake_xvalue(double dt)
+{
+    if (shake_value_x.size() == 0)
+    {
+        position.x = 0;
+        return;
+    }
+
+    float tmp = *shake_value_x.begin();
+    if (position.x < tmp)
+    {
+        position.x += static_cast<float>(dt);
+        if (position.x >= tmp)
+        {
+            shake_value_x.pop_front();
+        }
+    }
+    else if (position.x >= tmp)
+    {
+        position.x -= static_cast<float>(dt);
+        if (position.x <= tmp)
+        {
+            shake_value_x.pop_front();
+        }
+    }
+}
+void Camera::generate_shake_yvalue(double dt)
+{
+    if (shake_value_y.size() == 0)
+    {
+        position.y = 0;
+        return;
+    }
+
+    float tmp = *shake_value_y.begin();
+    if (position.y < tmp)
+    {
+        position.y += static_cast<float>(dt);
+        if (position.y >= tmp)
+        {
+            shake_value_y.pop_front();
+        }
+    }
+    else if (position.y >= tmp)
+    {
+        position.y -= static_cast<float>(dt);
+        if (position.y <= tmp)
+        {
+            shake_value_y.pop_front();
+        }
+    }
+}

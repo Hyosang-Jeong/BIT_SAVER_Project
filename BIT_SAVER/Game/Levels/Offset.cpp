@@ -127,6 +127,7 @@ void Offset::Update(double dt)
     if (ESCAPE.IsKeyDown() == true)
     {
         Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
+        Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::None);
     }
 }
 

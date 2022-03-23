@@ -213,7 +213,3 @@ glm::vec2 Texture::GetSize()
 	return texture_size;
 }
 
-//void Texture::setup_texobj(const char* pathname)
-//{
-//	tex_obj = Engine::GetTextureManager().Load(pathname, texture_size);
-//}

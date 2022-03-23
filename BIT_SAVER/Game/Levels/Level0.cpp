@@ -23,11 +23,10 @@ Author:  Hyun Kang , Hyosang Jung
 #include"../Objects/fever.h"
 #include"../Objects/CheckBox.h"
 #include"../Levels/Option.h"
-
+#include"..\..\Engine\Physics\Camera.h"
 
 Level0::Level0() :
-	escape(InputKey::Keyboard::Escape),
-	camera({ 0,0 })
+	escape(InputKey::Keyboard::Escape)
 {
 	gameObjectManager = nullptr;
 	heroPtr = nullptr;
@@ -51,7 +50,7 @@ void Level0::Load()
 	notebox = new Note_box({ -4,0 });
 	bossPtr = new Boss({ 15,-5 });
 	energyBar = new EnergyBar({ -4,1.2 });
-
+	camera = new Camera({ 0,0 });
 
 	stageBar = new Stage_bar({ -10,9 }, 110, 82);   // total music time 204  ,  extra time 82
 
@@ -65,6 +64,7 @@ void Level0::Load()
 
 	AddGSComponent(gameObjectManager);
 	AddGSComponent(backPtr);
+	AddGSComponent(camera);
 
 	gameObjectManager->Add(heroPtr);
 	gameObjectManager->Add(notebox);
@@ -93,6 +93,7 @@ void Level0::Update(double dt)
     }
 
 	GetGSComponent<Background>()->Update(dt);
+	GetGSComponent<Camera>()->Update({ 0,0 }, dt);
 	gameObjectManager->UpdateAll(dt);
 
 	if (stageBar->Getchangeflag() == 1)
@@ -137,9 +138,9 @@ void Level0::Draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-	GetGSComponent<Background>()->Draw(camera.GetMatrix());
+	GetGSComponent<Background>()->Draw(camera->GetMatrix());
 	GetGSComponent<Score>()->Draw({ 0,100 });
-	gameObjectManager->DrawAll(camera.GetMatrix());
+	gameObjectManager->DrawAll(camera->GetMatrix());
 }
 
 

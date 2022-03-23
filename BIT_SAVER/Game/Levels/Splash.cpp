@@ -22,9 +22,6 @@ void Splash::Load()
 
 void Splash::Update(double dt)
 {
-#ifdef _DEBUG
-	Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
-#endif
 	timer -= dt;
 	if (PlayKey.IsKeyReleased() == true)
 	{
