@@ -18,6 +18,8 @@ Author: Jaewoo.choi, Hyosang Jung
 #include"../../Engine/Physics/Camera.h"
 #include"../Levels/MainOption.h"
 #include"obstacle.h"
+#include "Score Enum.h"
+
 Note::Note(glm::vec2 startPos, glm::vec2 velocity) :
     isMiss(false),
 
