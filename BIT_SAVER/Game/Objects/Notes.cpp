@@ -11,13 +11,13 @@ Author: Jaewoo.choi, Hyosang Jung
 #include"Notes.h"
 #include"../../Engine/Sprite/GameParticles.h"
 #include "EnergyBar.h"
-#include "../../Engine/Music/music.h"
-#include "../../Game/Levels/State.h"
-#include "../../Engine/Window/Window.h"
+//#include "../../Engine/Music/music.h"
+//#include "../../Game/Levels/State.h"
+//#include "../../Engine/Window/Window.h"
 #include"Score.h"
-#include"../../Engine/Physics/Camera.h"
-#include"../Levels/MainOption.h"
-#include"obstacle.h"
+//#include"../../Engine/Physics/Camera.h"
+//#include"../Levels/MainOption.h"
+//#include"obstacle.h"
 #include "Score Enum.h"
 
 Note::Note(glm::vec2 startPos, glm::vec2 velocity) :
@@ -25,24 +25,23 @@ Note::Note(glm::vec2 startPos, glm::vec2 velocity) :
 
 	UpAttackKey(InputKey::Keyboard::None),
 	DownAttackKey(InputKey::Keyboard::None),
-GameObject(startPos, glm::vec2{ -8,8 })
+GameObject(startPos, glm::vec2{ 2,1 })
 {
 	if (Engine::GetGameStateManager().GetCurrstate()->GetName() != "Offset")
 	{
 		energy = (static_cast<EnergyBar*>(Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Energy_bar)));
 	}
-	AddGOComponent(new Sprite("../spt/fly.spt", this));
-	GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(Note_anim::flying));
+	AddGOComponent(new Sprite("../images/Hit_star.png", this));
 	SetVelocity(velocity);
 
-	if (startPos.y > 0)  //up note
-	{
-		Engine::GetGSComponent<GameObjectManager>()->Add(new Obstacle(glm::vec2{ startPos.x,-7 }, velocity));
-	}
-	else  //down note
-	{
-		Engine::GetGSComponent<GameObjectManager>()->Add(new Obstacle(glm::vec2{ startPos.x,5 }, velocity));
-	}
+	//if (startPos.y > 0)  //up note
+	//{
+	//	Engine::GetGSComponent<GameObjectManager>()->Add(new Obstacle(glm::vec2{ startPos.x,-7 }, velocity));
+	//}
+	//else  //down note
+	//{
+	//	Engine::GetGSComponent<GameObjectManager>()->Add(new Obstacle(glm::vec2{ startPos.x,5 }, velocity));
+	//}
 }
 
 void Note::Update(double dt)
@@ -85,7 +84,6 @@ glm::vec2 Note::Getposition()
 
 void Note::Hit_Check()
 {
-
 	if (Score_check()== static_cast<int>(SCORE::PERFECT) && GetPosition().y > 0)
 	{
 		if ((UpAttackKey.IsKeyDown() == true && UpAttackKey.IsKeyReapeated() == false))
@@ -204,8 +202,6 @@ int Note::Score_check()
         return static_cast<int>(SCORE::BAD);
     }
     return static_cast<int>(SCORE::MISS);
-    
-
 }
 
 

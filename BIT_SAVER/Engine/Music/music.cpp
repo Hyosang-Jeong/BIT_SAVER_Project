@@ -123,7 +123,7 @@ void Music::pitchUp(int sound_num)
 {
 
     ErrorCheck(FMOD_Channel_GetPitch(pChannel[sound_num], &pitch));
-    pitch = 1.5f;
+    pitch = 1.6f;
     ErrorCheck(FMOD_Channel_SetPitch(pChannel[sound_num], pitch));
 
 }

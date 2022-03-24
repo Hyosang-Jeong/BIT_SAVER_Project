@@ -259,6 +259,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Game\Objects\Tutorial_Helper.cpp" />
+    <ClCompile Include="Game\Objects\UpNode.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -344,6 +345,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Game\Objects\obstacle.h" />
+    <ClInclude Include="Game\Objects\Score Enum.h" />
     <ClInclude Include="Game\Objects\Score.h" />
     <ClInclude Include="Game\Objects\stage_bar.h" />
     <ClInclude Include="Game\Objects\Track.h">
@@ -353,6 +355,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Game\Objects\Tutorial_Helper.h" />
+    <ClInclude Include="Game\Objects\UpNode.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

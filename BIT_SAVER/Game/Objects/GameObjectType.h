@@ -13,6 +13,7 @@ enum class GameObjectType {
     Boss,
     Track,
     Note,
+    UpNote,
     Note_collisionBox,
     Energy_bar,
     Stage_bar,

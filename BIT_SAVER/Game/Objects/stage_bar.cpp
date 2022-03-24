@@ -10,6 +10,7 @@ Author:	Jaewoo Choi
 #include"../Engine/Engine.h" //get window
 #include"..\Levels\Level1.h"  // Level1's gravity
 
+
 Stage_bar::Stage_bar(glm::vec2 startPos, double total_time, double extra_time) :
 	music_total_time(total_time),extra_stage_time(extra_time),
 	GameObject(startPos, glm::vec2{ 1,1 })
@@ -20,8 +21,7 @@ Stage_bar::Stage_bar(glm::vec2 startPos, double total_time, double extra_time) :
 	boss_stage_barPtr = Engine::GetTextureManager().Load("../images/boss_stage_bar.png");
 	GetGOComponent<Sprite>()->PlayAnimation(0);
 	currstate = 0;
-
-	boss_stage_time = (music_total_time - extra_stage_time) * 0.5;
+	boss_stage_time = (music_total_time - extra_stage_time) * BOSS_PITCH;
 	actual_total_time = extra_stage_time + boss_stage_time;
 
 	extra_stage_size = WINDOW_WIDTH * (extra_stage_time / actual_total_time);
@@ -40,6 +40,7 @@ void Stage_bar::Update(double dt)
 	if (Doupdate == true)
 	{
 		GameObject::Update(dt);
+		std::cout << GetPosition().x << std::endl;
 		UpdatePosition({ (WINDOW_WIDTH / actual_total_time) * dt,0 });
 		if (GetPosition().x > extra_stage_pos_range.y && currstate == 0)
 		{

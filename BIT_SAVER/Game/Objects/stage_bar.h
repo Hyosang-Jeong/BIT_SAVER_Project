@@ -26,6 +26,7 @@ public:
     }
 private:
     const double WINDOW_WIDTH = 20;
+    const double BOSS_PITCH = 0.625;
     int currstate;
     bool Doupdate;
     Texture* extra_stage_barPtr;

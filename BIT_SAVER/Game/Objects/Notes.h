@@ -14,25 +14,24 @@ Author: Jaewoo.choi, Hyosang Jung
 
 
 class EnergyBar;
-enum class Note_anim
-{
-    flying,
-    explosion
-};
+
 
 class Note : public GameObject
 {
 public:
     Note(glm::vec2 startPos,glm::vec2 velocity);
-    void Update(double dt) override;
+    virtual void Update(double dt) override;
     glm::vec2 Getposition();
     GameObjectType GetObjectType() override
     {
         return GameObjectType::Note;
     }
-    void Draw(glm::mat3 camera_matrix) override;
-    void Hit_Check();
-    int Score_check();
+    virtual void Draw(glm::mat3 camera_matrix) override;
+    virtual void Hit_Check();
+    virtual int Score_check();
+
+    
+
 private:
     InputKey UpAttackKey;
     InputKey DownAttackKey;

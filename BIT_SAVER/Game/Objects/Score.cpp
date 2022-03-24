@@ -8,9 +8,7 @@ Author:	Hyun Kang
 -----------------------------------------------------------------*/
 #include "Score.h"
 #include "../Engine/Engine.h"
-#include "Notes.h"
 #include "Score Enum.h"
-
 
 Score::Score()
 {

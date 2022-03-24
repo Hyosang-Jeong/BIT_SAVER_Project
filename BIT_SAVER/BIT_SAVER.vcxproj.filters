@@ -140,6 +140,9 @@
     <ClCompile Include="Game\Objects\obstacle.cpp">
       <Filter>Game\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Objects\UpNode.cpp">
+      <Filter>Game\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\GameObject\GameObject.h">
@@ -293,6 +296,12 @@
       <Filter>Game\Levels</Filter>
     </ClInclude>
     <ClInclude Include="Game\Objects\obstacle.h">
+      <Filter>Game\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Objects\Score Enum.h">
+      <Filter>Game\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Objects\UpNode.h">
       <Filter>Game\Objects</Filter>
     </ClInclude>
   </ItemGroup>
