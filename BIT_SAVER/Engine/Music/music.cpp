@@ -59,7 +59,6 @@ void Music::Load()
 }
 void Music::Play(int sound_num)
 {
-
     result = FMOD_System_PlaySound(pSystem, pSound[sound_num], 0, 0, &pChannel[sound_num]);
     ErrorCheck(result);
     result = FMOD_Channel_SetVolume(pChannel[sound_num], volume);
@@ -156,6 +155,12 @@ void Music::Release()
 {
     FMOD_System_Close(pSystem);
     FMOD_System_Release(pSystem);
+}
+
+void Music::Setposition(int sound_num, unsigned position)
+{
+    result = FMOD_Channel_SetPosition(pChannel[sound_num], position * 1000, FMOD_TIMEUNIT_MS);
+    ErrorCheck(result);
 }
 
 

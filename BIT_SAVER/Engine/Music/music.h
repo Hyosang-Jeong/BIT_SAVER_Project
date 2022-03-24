@@ -44,7 +44,9 @@ public:
     bool isPlaying(int sound_num);
     void ErrorCheck(FMOD_RESULT result);
     void Release();
-    
+    void Setposition(int sound_num, unsigned position);
+
+
     FMOD_SYSTEM* pSystem;
     FMOD_CHANNEL* pChannel[MUSIC_END]{};
     FMOD_SOUND* pSound[MUSIC_END]{};
