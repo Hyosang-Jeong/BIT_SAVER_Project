@@ -10,7 +10,6 @@ Author:	Hyun Kang
 #include "Background.h"
 #include "../Engine/Engine.h"	//GetGameStateManage
 #include "../../Engine/Sprite/Sprite.h"
-#include "../../Engine/Physics/Camera.h"
 
 void Background::Add(const std::filesystem::path& texturePath, double level)
 {
@@ -51,7 +50,6 @@ void Background::Draw([[maybe_unused]]glm::mat3 camera)
     {
         levelInfo.texture_front->Draw(alpha_value, camera,{ levelInfo.position_front,0 }, { 10,10 });
         levelInfo.texture_back->Draw(alpha_value, camera, { levelInfo.position_back,0 },  { 10,10 });
-
     }
 }
 

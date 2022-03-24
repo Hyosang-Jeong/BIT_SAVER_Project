@@ -21,6 +21,18 @@ public:
 	void shake(float intensity, float interval, float total);
 	void generate_shake_xvalue(double dt);
 	void generate_shake_yvalue(double dt);
+	void zoom_effect(glm::vec2 start);
+	void update_scale(double dt);
+
+	void set_scale(glm::vec2 scale_)
+	{
+		scale = scale_;
+	}
+
+	glm::vec2 get_scale()
+	{
+		return scale;
+	}
 private:
 	glm::mat3 mdl_to_ndc_xform;
 	glm::vec2 position;
@@ -28,7 +40,7 @@ private:
 	glm::vec2 scale;
 
 	bool is_shaking;
-	
+	bool zoom_;
 	double target_time = 0;
 	float interval_ = 0;
 	float interval_tmp = 0;

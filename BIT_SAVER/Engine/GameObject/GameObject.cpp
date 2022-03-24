@@ -37,13 +37,11 @@ void GameObject::Update(double dt)
         0,scale.y,0,
         0,0,1
     };
-    double PI = 3.14159265359;
-    orientation.x += orientation.y * (GLfloat)dt;
 
     glm::mat3 rotation_matrix
     {
-        cos(orientation.x * (float)PI / (float)180),sin(orientation.x * (float)PI / (float)180),0,
-       -sin(orientation.x * (float)PI / (float)180),cos(orientation.x * (float)PI / (float)180),0,
+        cos(rotation) ,sin(rotation),0,
+       -sin(rotation),cos(rotation),0,
         0,0,1
     };
 

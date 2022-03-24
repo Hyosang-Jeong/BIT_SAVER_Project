@@ -30,15 +30,15 @@ void Camera::SetPosition(glm::vec2 newPosition)
     position = newPosition;
 }
 
-void Camera::Update(const glm::vec2& ,double dt)
+void Camera::Update(const glm::vec2&  ,double dt)
 {
-    timer_ += dt;
     if (timer_ < target_time)
     {
+        timer_ += dt;
         generate_shake_xvalue(dt);
         generate_shake_yvalue(dt);
     }
-    else
+    else if(timer_ > target_time)
     {
         position = { 0,0 };
         rotation = 0;
@@ -46,6 +46,8 @@ void Camera::Update(const glm::vec2& ,double dt)
         target_time = 0;
         interval_tmp = 0;
     }
+
+    update_scale(dt);
 
     mdl_to_ndc_xform =
     {
@@ -155,6 +157,57 @@ void Camera::generate_shake_yvalue(double dt)
         if (position.y <= tmp)
         {
             shake_value_y.pop_front();
+        }
+    }
+}
+
+
+void Camera::zoom_effect(glm::vec2 start)
+{
+    scale = start;
+    zoom_ = true;
+}
+
+void Camera::update_scale(double dt)
+{
+    if (zoom_ == true)
+    {
+        if (scale.x >= 1)
+        {
+            scale.x -= static_cast<float>(dt) / 2.f;
+            if (scale.x <= 1)
+            {
+                scale.x = 1;
+                zoom_ = false;
+            }
+        }
+        if (scale.y >= 1)
+        {
+            scale.y -= static_cast<float>(dt) / 2.f;
+            if (scale.y <= 1)
+            {
+                scale.y = 1;
+                zoom_ = false;
+            }
+        }
+
+        if (scale.x < 1)
+        {
+            scale.x += static_cast<float>(dt) / 2.f;
+            if (scale.x >= 1)
+            {
+                scale.x = 1;
+                zoom_ = false;
+            }
+        }
+        if (scale.y < 1)
+        {
+            scale.y += static_cast<float>(dt) / 2.f;
+            if (scale.y >= 1)
+            {
+                scale.y = 1;
+                zoom_ = false;
+            }
         }
     }
 }

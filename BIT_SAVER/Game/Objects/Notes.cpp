@@ -20,10 +20,9 @@ Author: Jaewoo.choi, Hyosang Jung
 #include"obstacle.h"
 Note::Note(glm::vec2 startPos, glm::vec2 velocity) :
     isMiss(false),
-
 	UpAttackKey(InputKey::Keyboard::None),
 	DownAttackKey(InputKey::Keyboard::None),
-GameObject(startPos, glm::vec2{ -8,8 })
+	GameObject({ startPos.x , startPos.y - 2 }, glm::vec2{ -8,8 })
 {
 	if (Engine::GetGameStateManager().GetCurrstate()->GetName() != "Offset")
 	{

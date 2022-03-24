@@ -31,6 +31,7 @@ void Mainmenu::Load()
 	level_2 = Engine::GetTextureManager().Load("../images/mainmenu_level2.png");
 	level_3 = Engine::GetTextureManager().Load("../images/mainmenu_level3.png");
 	level_4 = Engine::GetTextureManager().Load("../images/mainmenu_level4.png");
+	Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::None);
 }
 
 void Mainmenu::Update([[maybe_unused]] double dt)
@@ -98,11 +99,11 @@ void Mainmenu::Update([[maybe_unused]] double dt)
 		 currstate++;
 		 Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::None);
 	 }
-	alpha += static_cast<float>(dt)/2.0f;
+	alpha += static_cast<float>(dt)/3.0f;
 	if (currstate > (static_cast<int>(state::START)))
 	{
-		updown_pos.x -= static_cast<float>(dt)*10.f;
-		updown_pos.y += static_cast<float>(dt)*10.f;
+		updown_pos.x -= static_cast<float>(dt)*25.f;
+		updown_pos.y += static_cast<float>(dt)*25.f;
 		if (updown_pos.x < 0)
 		{
 			updown_pos.x = 0;
@@ -121,7 +122,10 @@ void Mainmenu::Draw()
 		0,0,1
 	};
 	mainmenu->Draw(alpha, camera, { 0,0 }, { 10,10 });
-	gamelogo->Draw({ 0,0 }, { 10,10 });
+	if (currstate ==  static_cast<int>(state::START))
+	{
+		gamelogo->Draw({ 0,0 }, { 10,10 });
+	}
 	const std::string font1{ font_path[PressStart] };
 	glm::vec2 winsize = Engine::GetWindow().GetSize();
 	

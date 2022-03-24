@@ -23,6 +23,8 @@ public:
         return GameObjectType::Energy_bar;
     }
 
+    InputKey gameover;
+
 private:
 
 

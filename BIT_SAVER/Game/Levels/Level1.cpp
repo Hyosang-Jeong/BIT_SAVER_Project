@@ -103,52 +103,51 @@ void Level1::Load()
     AddGSComponent(new BadEmitter());
     AddGSComponent(new MissEmitter());
     AddGSComponent(new Score());
-
+    GetGSComponent<Camera>()->zoom_effect({ 2.f,2.f });
 }
 
 void Level1::Update(double dt)
 {
-    if (!Engine::GetMusic().isPlaying(SOUND_NUM::REWIND) && isMusicEnd == false)
-    {
-        Engine::GetMusic().Play(SOUND_NUM::REWIND);
-        Engine::GetMusic().pitchDefault(SOUND_NUM::REWIND);
-        isMusicEnd = true;
-    }
+        if (!Engine::GetMusic().isPlaying(SOUND_NUM::REWIND) && isMusicEnd == false)
+        {
+            Engine::GetMusic().Play(SOUND_NUM::REWIND);
+            Engine::GetMusic().pitchDefault(SOUND_NUM::REWIND);
+            isMusicEnd = true;
+        }
+        GetGSComponent<Background>()->Update(dt);
 
-    GetGSComponent<Background>()->Update(dt);
+        GetGSComponent<Camera>()->Update({ 0,0 }, dt);
 
-    GetGSComponent<Camera>()->Update({ 0,0 },dt);
+        gameObjectManager->UpdateAll(dt);
 
-    gameObjectManager->UpdateAll(dt);
+        if (stageBar->Getchangeflag() == 1)
+        {
+            gamestate = LEVEL_STATE::GENERATING;
+            Engine::GetMusic().Pause(SOUND_NUM::REWIND);
+            bossPtr->GenerateBoss();
+            trackPtr->SetUpdate(false);
+            stageBar->SetUpdate(false);
+            Engine::GetMusic().Play(SOUND_NUM::BOSS_ENTRANCE);
+            Engine::GetMusic().volumeUp(SOUND_NUM::BOSS_ENTRANCE);
+        }
+        if (gamestate == LEVEL_STATE::GENERATING && bossPtr->GetVelocity().x == 0)
+        {
+            Engine::GetMusic().Resume(SOUND_NUM::REWIND);
+            Engine::GetMusic().pitchUp(SOUND_NUM::REWIND);
+            trackPtr->SetUpdate(true);
+            stageBar->SetUpdate(true);
 
-    if (stageBar->Getchangeflag() == 1)
-    {
-        gamestate = LEVEL_STATE::GENERATING;
-        Engine::GetMusic().Pause(SOUND_NUM::REWIND);
-        bossPtr->GenerateBoss();
-        trackPtr->SetUpdate(false);
-        stageBar->SetUpdate(false);
-        Engine::GetMusic().Play(SOUND_NUM::BOSS_ENTRANCE);
-        Engine::GetMusic().volumeUp(SOUND_NUM::BOSS_ENTRANCE);
-    }
-    if (gamestate == LEVEL_STATE::GENERATING && bossPtr->GetVelocity().x == 0)
-    {
-        Engine::GetMusic().Resume(SOUND_NUM::REWIND);
-        Engine::GetMusic().pitchUp(SOUND_NUM::REWIND);
-        trackPtr->SetUpdate(true);
-        stageBar->SetUpdate(true);
-
-        feverBar = new Fever_bar({ -20,-9 });
-        gameObjectManager->Add(feverBar);
-        gamestate = LEVEL_STATE::FINISH;
-    }
+            feverBar = new Fever_bar({ -20,-9 });
+            gameObjectManager->Add(feverBar);
+            gamestate = LEVEL_STATE::FINISH;
+        }
 
     if (energyBar->Isgameover() == true)
     {
-        Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Gameover));
+        heroPtr->die();
     }
 
-    if (Engine::GetMusic().isPlaying(SOUND_NUM::REWIND) == false)
+    if (Engine::GetMusic().isPlaying(SOUND_NUM::REWIND) == false && energyBar->Isgameover() == false)
     {
         Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Clear));
     }
@@ -162,7 +161,7 @@ void Level1::Update(double dt)
 void Level1::Draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
-	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	glClearColor(0.1333f, 0.0666f, 0.5647f, 0.2156f);
 	GetGSComponent<Background>()->Draw(camera->GetMatrix());
 	GetGSComponent<Score>()->Draw({ 0,100 });
 	gameObjectManager->DrawAll(camera->GetMatrix());

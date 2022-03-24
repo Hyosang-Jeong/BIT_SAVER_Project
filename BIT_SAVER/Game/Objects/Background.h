@@ -7,10 +7,7 @@ Project: BIT_SAVER
 Author:	Hyun Kang
 -----------------------------------------------------------------*/
 #pragma once
-#include "..\Engine\Input\Input.h" //input key
-#include "..\Engine\GameObject\GameObject.h" // GameObject inheritance
 #include "../../Engine/Component.h"
-#include"GameObjectType.h"
 #include<glm/glm.hpp>
 #include <filesystem>
 #include"../../Engine/Sprite/Texture.h"
@@ -26,7 +23,6 @@ public:
     void Update(double dt);
     void Draw(glm::mat3 camera);
     void set_fever_mode(bool is_fever_mode_);
-    //glm::vec2 Size();
 
 private:
     struct ParallaxInfo 
@@ -40,5 +36,4 @@ private:
     float alpha_value=1;
     bool is_fever_mode=false;
     std::vector<ParallaxInfo> backgrounds;
-    GLModel model;
 };
