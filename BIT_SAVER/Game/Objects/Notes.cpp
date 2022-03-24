@@ -22,7 +22,6 @@ Author: Jaewoo.choi, Hyosang Jung
 
 Note::Note(glm::vec2 startPos, glm::vec2 velocity) :
     isMiss(false),
-
 	UpAttackKey(InputKey::Keyboard::None),
 	DownAttackKey(InputKey::Keyboard::None),
 GameObject(startPos, glm::vec2{ 2,1 })

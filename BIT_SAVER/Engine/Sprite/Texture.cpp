@@ -113,7 +113,7 @@ void Texture::Draw(glm::vec2 pos, glm::vec2 scale, glm::vec2 rotate)
 	Draw(mdl_to_ndc_xform);
 }
 
-void Texture::Draw(float alpha_value, glm::mat3 camera,glm::vec2 pos, glm::vec2 scale, glm::vec2 rotate)
+void Texture::Draw(float alpha_value, glm::mat3 camera, glm::vec2 pos, glm::vec2 scale, glm::vec2 rotate, glm::vec2 ,  glm::vec2 )
 {
 	glm::mat3 scale_matrix
 	{

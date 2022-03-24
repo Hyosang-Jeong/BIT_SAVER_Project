@@ -11,13 +11,13 @@ Author:  Sunwoo Lee
 #include"../Engine/Engine.h" //get window
 #include"..\Levels\Level1.h"  // Level1's gravity
 #include"../Levels/MainOption.h"
-
+#include"../Levels/State.h"
 #define VOL 0.5f;
 
 
 Hero::Hero(glm::vec2 startPos) :
     timer(0),
-    GameObject(startPos, glm::vec2{ 1.5,1.5 }),
+    GameObject({ startPos.x , startPos.y - 2 }, glm::vec2{ 1.5,1.5 }),
     UpAttackKey(InputKey::Keyboard::None),
     DownAttackKey(InputKey::Keyboard::None)
 {
@@ -38,6 +38,16 @@ void Hero::Update(double dt)
 void Hero::Draw(glm::mat3 camera_matrix)
 {
    GameObject::Draw(camera_matrix);
+}
+
+void Hero::die()
+{
+    if (currState != &stateDie)
+    {
+        SetRotation(0.85);
+        ChangeState(&stateDie);
+        SetPosition({ GetPosition().x, GetPosition().y - 1 });
+    }
 }
 
 void Hero::UpdateXVelocity([[maybe_unused]]double dt)
@@ -63,7 +73,6 @@ void Hero::State_Idle::TestForExit(GameObject* object)
     Hero* hero = static_cast<Hero*>(object);
     if (hero->timer > 0)
     {
-        //hero->GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(hero_anim::hero_run));
         hero->ChangeState(&hero->stateRunning);
     }
 
@@ -74,14 +83,12 @@ void Hero::State_Running::Enter(GameObject* object)
 {
     Hero* hero = static_cast<Hero*>(object);
     hero->GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(hero_anim::hero_run));
-    hero->SetPosition({ hero->GetPosition().x, -5});
+    hero->SetPosition({ hero->GetPosition().x, -7});
     hero->SetVelocity({ 0,0});
 }
 
 void Hero::State_Running::Update([[maybe_unused]] GameObject* object, [[maybe_unused]] double dt)
-{
-    //Hero* hero = static_cast<Hero*>(object);
-}
+{}
 
 void Hero::State_Running::TestForExit(GameObject* object)
 {
@@ -114,7 +121,7 @@ void Hero::State_Falling::Update([[maybe_unused]] GameObject* object, [[maybe_un
 void Hero::State_Falling::TestForExit(GameObject* object)
 {
     Hero* hero = static_cast<Hero*>(object);
-    if (hero->GetPosition().y < -5)
+    if (hero->GetPosition().y < -7)
     {
         hero->ChangeState(&hero->stateRunning);
     }
@@ -125,8 +132,9 @@ void Hero::State_Falling::TestForExit(GameObject* object)
     if ((hero->DownAttackKey.IsKeyDown() == true && hero->DownAttackKey.IsKeyReapeated() == false))
     {
         hero->SetVelocity({ 0,0 });
-        hero->SetPosition({ hero->GetPosition().x, -5 });
+        hero->SetPosition({ hero->GetPosition().x, -7 });
         hero->ChangeState(&hero->stateAttack);
+        Engine::GetGSComponent<Camera>()->shake(0.015f, 0.1f, 1.f);
     }
 
 }
@@ -144,8 +152,7 @@ void Hero::State_Attack::Update([[maybe_unused]] GameObject* object,  [[maybe_un
     if (hero->GetPosition().y < -5)
     {
         hero->SetVelocity({ 0,0 });
-        hero->SetPosition({ hero->GetPosition().x, -5 });
-       Engine::GetGSComponent<Camera>()->shake(0.015f,0.1f,1.f);
+        hero->SetPosition({ hero->GetPosition().x, -7 });
     }
 
 }
@@ -175,11 +182,12 @@ void Hero::State_Jump::Update([[maybe_unused]] GameObject* object, [[maybe_unuse
 {
    // Hero* hero = static_cast<Hero*>(object);
     Hero* hero = static_cast<Hero*>(object);
-    if (hero->GetPosition().y > 5)
+    if (hero->GetPosition().y > 2)
     {
         hero->SetVelocity({ 0,0 });
-        hero->SetPosition({ hero->GetPosition().x, 5 });
+        hero->SetPosition({ hero->GetPosition().x, 2 });
     }
+
 }
 
 void Hero::State_Jump::TestForExit(GameObject* object)
@@ -187,12 +195,38 @@ void Hero::State_Jump::TestForExit(GameObject* object)
     Hero* hero = static_cast<Hero*>(object);
     if (hero->GetGOComponent<Sprite>()->IsAnimationDone() == true)
     {
-        //hero->SetVelocity({ 0,-10 });
-        //hero->SetPosition({ hero->GetPosition().x, 5 });
         hero->ChangeState(&hero->statefalling);
     }
-    if ((hero->DownAttackKey.IsKeyDown() == true && hero->DownAttackKey.IsKeyReapeated() == false))
+    if (hero->DownAttackKey.IsKeyDown() == true && hero->DownAttackKey.IsKeyReapeated() == false)
     {
         hero->ChangeState(&hero->stateAttack);
+        Engine::GetGSComponent<Camera>()->shake(0.015f, 0.1f, 1.f);
+    }
+}
+
+void Hero::State_Die::Enter(GameObject* object)
+{
+    Hero* hero = static_cast<Hero*>(object);
+    hero->GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(hero_anim::hero_die));
+}
+
+void Hero::State_Die::Update(GameObject* object, double dt)
+{
+    Hero* hero = static_cast<Hero*>(object);
+    glm::vec2 target_scale = glm::vec2{ 2,2 };
+    glm::vec2 target_position = hero->GetPosition() / 10.f;
+    if (Engine::GetGSComponent<Camera>()->get_scale().x < target_scale.x)
+    {
+        Engine::GetGSComponent<Camera>()->set_scale({ Engine::GetGSComponent<Camera>()->get_scale().x + dt, Engine::GetGSComponent<Camera>()->get_scale().y + dt });
+        Engine::GetGSComponent<Camera>()->SetPosition({ Engine::GetGSComponent<Camera>()->GetPosition().x + (dt*target_position.x), Engine::GetGSComponent<Camera>()->GetPosition().y + (dt * target_position.y) });
+    }
+} 
+
+void Hero::State_Die::TestForExit(GameObject* object)
+{
+    Hero* hero = static_cast<Hero*>(object);
+    if (hero->GetGOComponent<Sprite>()->IsAnimationDone() == true)
+    {
+        Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Gameover));
     }
 }

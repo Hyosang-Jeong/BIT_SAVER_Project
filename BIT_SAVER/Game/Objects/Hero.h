@@ -17,7 +17,8 @@ enum class hero_anim
 {
     hero_run,
     up_attck,
-    down
+    down,
+    hero_die
 };
 enum Hero_state
 {
@@ -42,6 +43,8 @@ public:
         return GameObjectType::Hero;
     }
     //std::string GetObjectTypeName() override { return "Hero"; }
+    void die();
+
     InputKey UpAttackKey;
     InputKey DownAttackKey;
 
@@ -82,14 +85,20 @@ private:
         virtual void TestForExit(GameObject* object) override;
         std::string GetName() override { return "Jump"; }
     };
-
+    class State_Die : public ObjectState {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void TestForExit(GameObject* object) override;
+        std::string GetName() override { return "Die"; }
+    };
 
     State_Idle stateIdle;
     State_Running stateRunning;
     State_Falling statefalling;
     State_Attack stateAttack;
     State_Jump stateJump;
-
+    State_Die stateDie;
     //Hero_state hero_state;
 
     static constexpr double acceleration = 1;

@@ -54,13 +54,16 @@ void Level0::Load()
 
 	stageBar = new Stage_bar({ -10,9 }, 110, 82);   // total music time 204  ,  extra time 82
 
-
-	backPtr->Add(texture_path[Background_1], 0);
-	backPtr->Add(texture_path[Parallax1_5], 0.5);
-	backPtr->Add(texture_path[Parallax1_4], 0.8);
-	backPtr->Add(texture_path[Parallax1_3], 1.1);
-	backPtr->Add(texture_path[Parallax1_2], 1.3);
-	backPtr->Add(texture_path[Parallax1_1], 1.5);
+	backPtr->Add(texture_path[Background_1_10], 0);
+	backPtr->Add(texture_path[Background_1_9], 0);
+	backPtr->Add(texture_path[Background_1_8], 0.0005);
+	backPtr->Add(texture_path[Background_1_7], 0.0015);
+	backPtr->Add(texture_path[Background_1_6], 0.007);
+	backPtr->Add(texture_path[Background_1_5], 0.022);
+	backPtr->Add(texture_path[Background_1_4], 0.05);
+	backPtr->Add(texture_path[Background_1_3], 0.1);
+	backPtr->Add(texture_path[Background_1_2], 0.5);
+	backPtr->Add(texture_path[Background_1_1], 0.8);
 
 	AddGSComponent(gameObjectManager);
 	AddGSComponent(backPtr);
@@ -137,7 +140,7 @@ void Level0::Update(double dt)
 void Level0::Draw()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	GetGSComponent<Background>()->Draw(camera->GetMatrix());
 	GetGSComponent<Score>()->Draw({ 0,100 });
 	gameObjectManager->DrawAll(camera->GetMatrix());

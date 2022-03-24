@@ -37,8 +37,6 @@ void GameObject::Update(double dt)
         0,scale.y,0,
         0,0,1
     };
-    double PI = 3.14159265359;
-
     glm::mat3 rotation_matrix
     {
         cos(rotation * (float)PI / (float)180),sin(rotation * (float)PI / (float)180),0,
