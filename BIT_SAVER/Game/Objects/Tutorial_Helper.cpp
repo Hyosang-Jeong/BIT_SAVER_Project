@@ -9,7 +9,7 @@ Author:  Hyosang Jung , Sunwoo Lee
 -----------------------------------------------------------------*/
 #include "Tutorial_Helper.h"
 #include "../Engine/Engine.h"
-#include "Notes.h"
+//#include "Notes.h"
 #include"../../Engine/Sprite/GameParticles.h"
 #include"../../Engine/Physics/Camera.h"
 std::string messages[] = {
