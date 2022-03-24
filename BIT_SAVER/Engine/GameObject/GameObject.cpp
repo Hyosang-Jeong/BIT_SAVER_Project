@@ -14,7 +14,7 @@ GameObject::GameObject(glm::vec2 position) : GameObject(position,  { 1, 1 }) {}
 
 GameObject::GameObject(glm::vec2 position, glm::vec2 scale)
     : velocity{ 0,0 }, position(position), updateMatrix(true),
-    scale(scale), currState(&state_nothing)
+    scale(scale), currState(&state_nothing), rotation( 0.0 )
 {
 }
 
@@ -37,11 +37,10 @@ void GameObject::Update(double dt)
         0,scale.y,0,
         0,0,1
     };
-
     glm::mat3 rotation_matrix
     {
-        cos(rotation) ,sin(rotation),0,
-       -sin(rotation),cos(rotation),0,
+        cos(rotation * (float)PI / (float)180),sin(rotation * (float)PI / (float)180),0,
+       -sin(rotation * (float)PI / (float)180),cos(rotation * (float)PI / (float)180),0,
         0,0,1
     };
 

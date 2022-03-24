@@ -9,6 +9,7 @@ Author:	Hyun Kang
 #include "Score.h"
 #include "../Engine/Engine.h"
 #include "Notes.h"
+#include "Score Enum.h"
 
 
 Score::Score()
@@ -62,11 +63,11 @@ void Score::Draw(glm::vec2 location)
 
 	constexpr glm::vec3 SHADER_COLOR(0.f, 0.f, 0.f);
 	constexpr glm::vec3 SCORE_COLOR(0.7f, 0.f, 1.f);
+	constexpr glm::vec3 COMBO_COLOR(1.f, 1.f, 1.f);
 	constexpr glm::vec3 PERFECT_COLOR(0.2f, 0.8f, 1.f);
 	constexpr glm::vec3 GOOD_COLOR(0.f, 1.f, 0.f);
 	constexpr glm::vec3 BAD_COLOR(1.f, 0.f, 0.f);
 	constexpr glm::vec3 MISS_COLOR(0.5f, 0.5f, 0.5f);
-	constexpr glm::vec3 COMBO_COLOR(1.f, 1.f, 1.f);
 	constexpr float SCALE{ 1.f };
 	constexpr int Y_OFFSET{ 50 };
 
@@ -75,6 +76,12 @@ void Score::Draw(glm::vec2 location)
 
 	Engine::GetText(font2).Draw("Score: " + std::to_string(score), location.x + shader_offset.x, location.y + shader_offset.y, SCALE, SHADER_COLOR);
 	Engine::GetText(font2).Draw("Score: " + std::to_string(score), location.x, location.y, SCALE, SCORE_COLOR);
+
+	Engine::GetText(font2).Draw("Combo: " + std::to_string(combo), location.x + shader_offset.x, location.y + shader_offset.y + offset_y, SCALE, SHADER_COLOR);
+	Engine::GetText(font2).Draw("Combo: " + std::to_string(combo), location.x, location.y + offset_y, SCALE, COMBO_COLOR);
+	offset_y += Y_OFFSET;
+
+#ifdef _DEBUG
 
 	Engine::GetText(font2).Draw("Perfect: " + std::to_string(score_count[static_cast<int>(SCORE::PERFECT)]), location.x + shader_offset.x, location.y + shader_offset.y + offset_y, SCALE, SHADER_COLOR);
 	Engine::GetText(font2).Draw("Perfect: " + std::to_string(score_count[static_cast<int>(SCORE::PERFECT)]), location.x, location.y + offset_y, SCALE, PERFECT_COLOR);
@@ -90,10 +97,8 @@ void Score::Draw(glm::vec2 location)
 
 	Engine::GetText(font2).Draw("Miss: " + std::to_string(score_count[static_cast<int>(SCORE::MISS)]), location.x + shader_offset.x, location.y + shader_offset.y + offset_y, SCALE, SHADER_COLOR);
 	Engine::GetText(font2).Draw("Miss: " + std::to_string(score_count[static_cast<int>(SCORE::MISS)]), location.x, location.y + offset_y, SCALE, MISS_COLOR);
-	offset_y += Y_OFFSET;
 
-	Engine::GetText(font2).Draw("Combo: " + std::to_string(combo), location.x + shader_offset.x, location.y + shader_offset.y + offset_y, SCALE, SHADER_COLOR);
-	Engine::GetText(font2).Draw("Combo: " + std::to_string(combo), location.x, location.y + offset_y, SCALE, COMBO_COLOR);
+#endif // DEBUG
 }
 
 void Score::RenderText()

@@ -42,11 +42,3 @@ private:
     EnergyBar* energy;
 
 };
-
-enum class SCORE
-{
-    MISS=0,
-    BAD,
-    GOOD,
-    PERFECT
-};
