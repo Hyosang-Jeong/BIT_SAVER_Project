@@ -8,7 +8,7 @@ Author: Jaewoo.choi, Hyosang Jung
 
 -----------------------------------------------------------------*/
 #include"../../Engine/Engine.h"
-#include"Notes.h"
+#include "NoteHard.h"
 #include"../../Engine/Sprite/GameParticles.h"
 #include "EnergyBar.h"
 //#include "../../Engine/Music/music.h"
@@ -20,7 +20,7 @@ Author: Jaewoo.choi, Hyosang Jung
 //#include"obstacle.h"
 #include "Score Enum.h"
 
-Note::Note(glm::vec2 startPos, glm::vec2 velocity) :
+HardNote::HardNote(glm::vec2 startPos, glm::vec2 velocity) :
     isMiss(false),
 	UpAttackKey(InputKey::Keyboard::None),
 	DownAttackKey(InputKey::Keyboard::None),
@@ -43,7 +43,7 @@ GameObject(startPos, glm::vec2{ 2,1 })
 	//}
 }
 
-void Note::Update(double dt)
+void HardNote::Update(double dt)
 {
 	GameObject::Update(dt);
 
@@ -65,7 +65,7 @@ void Note::Update(double dt)
 	}	
 }
 
-void Note::Draw(glm::mat3 camera_matrix)
+void HardNote::Draw(glm::mat3 camera_matrix)
 {
 	glm::mat3 trans_mat
 	{
@@ -76,12 +76,12 @@ void Note::Draw(glm::mat3 camera_matrix)
 	GameObject::Draw(camera_matrix * trans_mat);
 }
 
-glm::vec2 Note::Getposition()
+glm::vec2 HardNote::Getposition()
 {
     return GameObject::GetPosition();
 }
 
-void Note::Hit_Check()
+void HardNote::Hit_Check()
 {
 	if (Score_check()== static_cast<int>(SCORE::PERFECT) && GetPosition().y > 0)
 	{
@@ -178,7 +178,7 @@ void Note::Hit_Check()
 	}
 }
 
-int Note::Score_check()
+int HardNote::Score_check()
 {
 	float HeroPostion = 0;
 	if (Engine::GetGameStateManager().GetCurrstate()->GetName() != "Offset")

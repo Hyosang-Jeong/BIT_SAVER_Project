@@ -15,7 +15,8 @@ Author: Jaewoo.choi, Sunwoo Lee
 #include "../Levels/Offset.h"
 #include "../Levels/MainOption.h"
 //#include"Notes.h"
-#include "UpNode.h"
+#include "NoteUp.h"
+#include "NoteHard.h"
 
 Track::Track(int music_num) :
 	Track(MidiEvent{}.MidiSetUp(music_num), music_num)
@@ -140,7 +141,7 @@ void Track::Update(double dt)
 					{
 						note_pos = { 10, (i.first - 0.5) * 10 };
 						note_vel = { -20,0 };
-						Engine::GetGSComponent<GameObjectManager>()->Add(new UpNote(note_pos, note_vel));
+						Engine::GetGSComponent<GameObjectManager>()->Add(new HardNote(note_pos, note_vel));
 						i.second.erase(i.second.begin());
 					}
 				}
@@ -154,7 +155,7 @@ void Track::Update(double dt)
 				{
 					note_pos = { 10, ((i.track - 1) - 0.5) * 10 };
 					note_vel = { -20,0 };
-					Engine::GetGSComponent<GameObjectManager>()->Add(new UpNote(note_pos, note_vel));
+					Engine::GetGSComponent<GameObjectManager>()->Add(new HardNote(note_pos, note_vel));
 					track_time.erase(track_time.begin());
 				}
 			}

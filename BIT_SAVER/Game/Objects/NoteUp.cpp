@@ -1,5 +1,5 @@
 #include"../../Engine/Engine.h"
-#include "UpNode.h"
+#include "NoteUp.h"
 #include"../../Engine/Sprite/GameParticles.h"
 #include "EnergyBar.h"
 #include "Score.h"

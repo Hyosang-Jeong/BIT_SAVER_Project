@@ -37,12 +37,13 @@ void GameObject::Update(double dt)
         0,scale.y,0,
         0,0,1
     };
-    glm::mat3 rotation_matrix
-    {
-        cos(rotation * (float)PI / (float)180),sin(rotation * (float)PI / (float)180),0,
-       -sin(rotation * (float)PI / (float)180),cos(rotation * (float)PI / (float)180),0,
-        0,0,1
-    };
+
+	glm::mat3 rotation_matrix
+	{
+		cos(rotation), sin(rotation), 0,
+	   -sin(rotation), cos(rotation), 0,
+		0, 0, 1
+	};
 
     glm::mat3 trans_matrix
     {

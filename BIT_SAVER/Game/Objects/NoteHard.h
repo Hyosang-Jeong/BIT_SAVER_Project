@@ -16,10 +16,10 @@ Author: Jaewoo.choi, Hyosang Jung
 class EnergyBar;
 
 
-class Note : public GameObject
+class HardNote : public GameObject
 {
 public:
-    Note(glm::vec2 startPos,glm::vec2 velocity);
+    HardNote(glm::vec2 startPos,glm::vec2 velocity);
     virtual void Update(double dt) override;
     glm::vec2 Getposition();
     GameObjectType GetObjectType() override

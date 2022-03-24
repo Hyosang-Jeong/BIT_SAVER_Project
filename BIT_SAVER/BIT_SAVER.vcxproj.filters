@@ -44,7 +44,7 @@
     <ClCompile Include="Game\Objects\Tracks.cpp">
       <Filter>Game\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Objects\Notes.cpp">
+    <ClCompile Include="Game\Objects\NoteHard.cpp">
       <Filter>Game\Objects</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Music\Midi.cpp">
@@ -140,7 +140,7 @@
     <ClCompile Include="Game\Objects\obstacle.cpp">
       <Filter>Game\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Objects\UpNode.cpp">
+    <ClCompile Include="Game\Objects\NoteUp.cpp">
       <Filter>Game\Objects</Filter>
     </ClCompile>
   </ItemGroup>
@@ -193,7 +193,7 @@
     <ClInclude Include="Game\Objects\Track.h">
       <Filter>Game\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Objects\Notes.h">
+    <ClInclude Include="Game\Objects\NoteHard.h">
       <Filter>Game\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Music\Midi.h">
@@ -301,7 +301,7 @@
     <ClInclude Include="Game\Objects\Score Enum.h">
       <Filter>Game\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Objects\UpNode.h">
+    <ClInclude Include="Game\Objects\NoteUp.h">
       <Filter>Game\Objects</Filter>
     </ClInclude>
   </ItemGroup>

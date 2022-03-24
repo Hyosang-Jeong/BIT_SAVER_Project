@@ -11,7 +11,7 @@ Author:  Hyun Kang , Hyosang Jung
 #include"Level0.h"
 #include"../Objects/Hero.h"
 #include"../Objects/Track.h"
-#include"../Objects/Notes.h"
+//#include"../Objects/Notes.h"
 #include"../Objects/Boss.h"
 #include"../Objects/Note_collisionBox.h"
 #include"../Objects/Background.h"

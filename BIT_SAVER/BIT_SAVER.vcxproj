@@ -237,7 +237,7 @@
     <ClCompile Include="Game\Objects\EnergyBar.cpp" />
     <ClCompile Include="Game\Objects\fever.cpp" />
     <ClCompile Include="Game\Objects\Hero.cpp" />
-    <ClCompile Include="Game\Objects\Notes.cpp">
+    <ClCompile Include="Game\Objects\NoteHard.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -259,7 +259,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Game\Objects\Tutorial_Helper.cpp" />
-    <ClCompile Include="Game\Objects\UpNode.cpp" />
+    <ClCompile Include="Game\Objects\NoteUp.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -332,7 +332,7 @@
     <ClInclude Include="Game\Objects\fever.h" />
     <ClInclude Include="Game\Objects\GameObjectType.h" />
     <ClInclude Include="Game\Objects\Hero.h" />
-    <ClInclude Include="Game\Objects\Notes.h">
+    <ClInclude Include="Game\Objects\NoteHard.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -355,7 +355,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Game\Objects\Tutorial_Helper.h" />
-    <ClInclude Include="Game\Objects\UpNode.h" />
+    <ClInclude Include="Game\Objects\NoteUp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
