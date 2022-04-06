@@ -34,7 +34,7 @@ private:
     {
     public:
         PerfectParticle(std::string spriteFile) : ParticleEmitter::Particle(spriteFile) {}
-        GameObjectType GetObjectType() { return GameObjectType::Particle; }
+        GameObjectType GetObjectType() { return GameObjectType::PerfectParticle; }
         std::string GetObjectTypeName() { return "Perfect Particle"; }
     };
     static constexpr int NumParticles = 20;

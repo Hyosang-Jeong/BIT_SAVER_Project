@@ -133,7 +133,7 @@ void Hero::State_Falling::TestForExit(GameObject* object)
     if ((hero->DownAttackKey.IsKeyDown() == true && hero->DownAttackKey.IsKeyReapeated() == false))
     {
         hero->SetVelocity({ 0,0 });
-        hero->SetPosition({ hero->GetPosition().x, -7 });
+        //hero->SetPosition({ hero->GetPosition().x, -7 });
         hero->ChangeState(&hero->stateAttack);
         Engine::GetGSComponent<Camera>()->shake(0.015f, 0.1f, 1.f);
     }
@@ -175,18 +175,20 @@ void Hero::State_Attack::TestForExit(GameObject* object)
 void Hero::State_Jump::Enter(GameObject* object)
 {
     Hero* hero = static_cast<Hero*>(object);
-    hero->SetPosition({ hero->GetPosition().x,2});
+    
     hero->GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(hero_anim::up_attck));
 }
 
 void Hero::State_Jump::Update([[maybe_unused]] GameObject* object, [[maybe_unused]] double dt)
 {
-   // Hero* hero = static_cast<Hero*>(object);
     Hero* hero = static_cast<Hero*>(object);
-    if (hero->GetPosition().y > 2)
+
+    hero->SetPosition({ hero->GetPosition().x,3 });
+
+    if (hero->GetPosition().y > 3)
     {
         hero->SetVelocity({ 0,0 });
-        hero->SetPosition({ hero->GetPosition().x, 2 });
+        hero->SetPosition({ hero->GetPosition().x, 3 });
     }
 
 }
@@ -242,7 +244,7 @@ void Hero::State_Magumagu::Enter(GameObject* object)
 {
     Hero* hero = static_cast<Hero*>(object);
     hero->GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(hero_anim::down));
-    hero->SetPosition({ hero->GetPosition().x,2 }); //위에서 쳤는지 판별 못하면 하드노트에서 설정해주기.
+    hero->SetPosition({ hero->GetPosition().x,-2 }); //위에서 쳤는지 판별 못하면 하드노트에서 설정해주기.
     hero->SetVelocity({ 0, 0 });
 }
 
@@ -276,12 +278,14 @@ void Hero::Enter_Magumagu()
 
 void Hero::Exit_Magumagu()
 {
-    if (this->GetPosition().y > 0)
-    {
-        ChangeState(&this->statefalling);
-    }
-    else
-    {
-        ChangeState(&this->stateRunning);
-    }
+    ChangeState(&this->statefalling);
+
+    //if (this->GetPosition().y > 0)
+    //{
+    //    ChangeState(&this->statefalling);
+    //}
+    //else
+    //{
+    //    ChangeState(&this->stateRunning);
+    //}
 }

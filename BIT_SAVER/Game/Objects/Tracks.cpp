@@ -166,15 +166,15 @@ void Track::Update(double dt)
 					/////////////////////////////////////////////////////////////////////////////////////////////////////////
 					if (i.track == 3)
 					{
-						note_pos = { 10, 3 };
+						note_pos = { 10, -2 };
 						Engine::GetGSComponent<GameObjectManager>()->Add(new HardNote(note_pos, note_vel,1.0));
 					}
 					/////////////////////////////////////////////////////////////////////////////////////////////////////////
-					else if (note_pos.y < 0)
+					else if (note_pos.y < 0)	// y=-7
 					{
 						Engine::GetGSComponent<GameObjectManager>()->Add(new DownNote(note_pos, note_vel));
 					}
-					else
+					else	// y=3
 					{
 						Engine::GetGSComponent<GameObjectManager>()->Add(new UpNote(note_pos, note_vel));
 					}

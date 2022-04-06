@@ -22,6 +22,7 @@ enum class GameObjectType {
     Fever_bar,
     Background,
     Hit,
+    PerfectParticle,
     Particle,
     Check_box,
     Obstacle,

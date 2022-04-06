@@ -66,7 +66,7 @@ glm::vec2 DownNote::Getposition()
 
 void DownNote::Hit_Check()
 {
-    if ((UpAttackKey.IsKeyDown() == true && UpAttackKey.IsKeyReapeated() == false) && GetPosition().y > 0)
+    /*if ((UpAttackKey.IsKeyDown() == true && UpAttackKey.IsKeyReapeated() == false) && GetPosition().y > 0)
     {
         switch (Score_check())
         {
@@ -98,7 +98,7 @@ void DownNote::Hit_Check()
                 break;
         }
 
-    }
+    }*/
 
     if ((DownAttackKey.IsKeyDown() == true && DownAttackKey.IsKeyReapeated() == false && GetPosition().y < 0))
     {

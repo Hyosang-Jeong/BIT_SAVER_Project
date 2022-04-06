@@ -19,16 +19,18 @@ logger(Logger::Severity::Debug, true, lastTick)
 logger(Logger::Severity::Event, false, lastTick)
 #endif
 {
+
 	attackKey.UpAttackKey = InputKey::Keyboard::F;
 	attackKey.DownAttackKey = InputKey::Keyboard::J;
+
 }
 Engine::~Engine() {}
 
 void Engine::Init(std::string windowName)
 {
 	logger.LogEvent("Engine Init");
-
 	window.Init(1600, 800,windowName);
+
 	init_shdrpgms();
 	fpsCalcTime = lastTick;
 	GetMusic().Init();

@@ -125,7 +125,9 @@ void HardNote::Hit_Check()
 	}
 	else		// first hit needs to find out if hit up or down
 	{
-		if ((UpAttackKey.IsKeyDown() == true && UpAttackKey.IsKeyReapeated() == false) && GetPosition().y > 0)
+		double hero_y_pos = static_cast<Hero*>(Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero))->GetPosition().y;
+
+		if ((UpAttackKey.IsKeyDown() == true && UpAttackKey.IsKeyReapeated() == false) && hero_y_pos <= -2)
 		{
 			switch (Score_check())
 			{
@@ -151,7 +153,7 @@ void HardNote::Hit_Check()
 
 		}
 
-		if ((DownAttackKey.IsKeyDown() == true && DownAttackKey.IsKeyReapeated() == false && GetPosition().y < 0))
+		if ((DownAttackKey.IsKeyDown() == true && DownAttackKey.IsKeyReapeated() == false && hero_y_pos >= -2))
 		{
 			switch (Score_check())
 			{

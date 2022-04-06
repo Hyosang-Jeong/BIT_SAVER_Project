@@ -146,8 +146,6 @@
     <ClCompile Include="Game\Objects\NoteDown.cpp">
       <Filter>Game\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Window\SerialClass.cpp">
-      <Filter>Engine\Window</Filter>
     <ClCompile Include="Game\Objects\EnergyBarContainer.cpp">
       <Filter>Game\Objects</Filter>
     </ClCompile>
@@ -315,8 +313,6 @@
     <ClInclude Include="Game\Objects\NoteDown.h">
       <Filter>Game\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Window\SerialClass.h">
-      <Filter>Engine\Window</Filter>
     <ClInclude Include="Game\Objects\EnergyBarContainer.h">
       <Filter>Game\Objects</Filter>
     </ClInclude>

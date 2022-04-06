@@ -12,9 +12,9 @@ Author:  Hyosang Jung , Sunwoo Lee
 #include<iostream>
 #include <chrono>   
 #include<utility>
-#include "..\Engine\Window\Window.h"
 #include "..\Engine\GameState\GameStateManager.h"
 #include "..\Engine\input\Input.h"
+#include "..\Engine\Window\Window.h"
 #include "..\Engine\Logger\Logger.h"
 #include"..\Engine\GLModel\GLModel.h"
 #include"..\Engine\GLShader\glslshader.h"

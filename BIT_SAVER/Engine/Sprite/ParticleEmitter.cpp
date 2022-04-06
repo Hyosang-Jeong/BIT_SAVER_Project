@@ -24,6 +24,10 @@ void ParticleEmitter::AddParticle(Particle* particleData)
 	{
 		particleData->SetScale({ 2,2 });
 	}
+	if (particleData->GetObjectType() == GameObjectType::PerfectParticle)
+	{
+		particleData->SetScale({ 1.5,1 });
+	}
 	Engine::GetGSComponent<GameObjectManager>()->Add(particleData);
 
 }
