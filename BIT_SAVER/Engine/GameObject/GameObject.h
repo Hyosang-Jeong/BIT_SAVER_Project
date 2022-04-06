@@ -11,6 +11,7 @@ Author: Hyosang Jung
 
 
 #include<map>
+#include<Windows.h>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>

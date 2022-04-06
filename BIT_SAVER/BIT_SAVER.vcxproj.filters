@@ -149,6 +149,9 @@
     <ClCompile Include="Game\Objects\EnergyBarContainer.cpp">
       <Filter>Game\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Window\SerialClass.cpp">
+      <Filter>Engine\Window</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\GameObject\GameObject.h">
@@ -315,6 +318,9 @@
     </ClInclude>
     <ClInclude Include="Game\Objects\EnergyBarContainer.h">
       <Filter>Game\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Window\SerialClass.h">
+      <Filter>Engine\Window</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
