@@ -9,10 +9,11 @@ Author: Sunwoo Lee
 -----------------------------------------------------------------*/
 #pragma once
 #include <string>
+#include<Windows.h>
 #include <GL/glew.h> 
 #include <GLFW/glfw3.h>
 #include<glm/glm.hpp>
-
+class Serial;
     class Window 
     {
     public:
@@ -32,7 +33,10 @@ Author: Sunwoo Lee
         GLint width, height;
         std::string title;
         glm::vec2 windowSize;
-        
+
+        //for arduino
+        Serial* SP;
+        char incomingData[256] = "";
     };
 
 

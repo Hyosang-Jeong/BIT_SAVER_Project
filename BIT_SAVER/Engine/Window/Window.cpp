@@ -7,23 +7,26 @@ Project: BIT_SAVER
 Author: Sunwoo Lee
 
 -----------------------------------------------------------------*/
-
 #include "Window.h"
 #include"..\Input\Input.h"
 #include "..\Engine.h"			// GetWindow
-
+#include"SerialClass.h"
 void Window::Init(GLint wid, GLint hei,std::string windowName)
 {
     Window::width = wid;
     Window::height = hei;
     Window::title = windowName;
     windowSize = { width,height };
+    //Setup arduino
+    SP = new Serial ("\\\\.\\COM3");
+
 
     if (!glfwInit()) 
     {
         Engine::GetLogger().LogError("GLFW init has failed - abort program!!!");
         std::exit(EXIT_FAILURE);
     }
+
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
@@ -58,6 +61,31 @@ void Window::Init(GLint wid, GLint hei,std::string windowName)
 }
 void Window::Update() 
 {
+    int dataLength = 255;
+    int readResult = 0;
+
+    readResult = SP->ReadData(incomingData, dataLength);
+    
+    incomingData[readResult] = 0;
+
+    if (*incomingData == 'U')
+    {
+            Engine::GetLogger().LogDebug("Arduino Up");
+            Engine::GetInput().SetKeyDown(Engine::GetAttack_Key().UpAttackKey.button, true);
+            Engine::GetInput().SetLastpressedButton(Engine::GetAttack_Key().UpAttackKey.button);
+    }
+    if (*incomingData == 'D')
+    {
+        Engine::GetLogger().LogDebug("Arduino Down");
+        Engine::GetInput().SetKeyDown(Engine::GetAttack_Key().DownAttackKey.button, true);
+        Engine::GetInput().SetLastpressedButton(Engine::GetAttack_Key().DownAttackKey.button);
+    }
+    if (*incomingData == 'N')
+    {
+        Engine::GetInput().SetKeyDown(Engine::GetAttack_Key().UpAttackKey.button, false);
+        Engine::GetInput().SetKeyDown(Engine::GetAttack_Key().DownAttackKey.button, false);
+    }
+
     glfwPollEvents();
 }
 
@@ -143,7 +171,6 @@ void Window::key_cb([[maybe_unused]] GLFWwindow* pwin, [[maybe_unused]] int key,
 {
     if (GLFW_PRESS == action)
     {
-
         InputKey::Keyboard button = GLKEY_TO_GAME(key);
         if (button != InputKey::Keyboard::None)
         {
@@ -154,14 +181,12 @@ void Window::key_cb([[maybe_unused]] GLFWwindow* pwin, [[maybe_unused]] int key,
     }
     else if (GLFW_REPEAT == action)
     {
-
 #ifdef _DEBUG
         Engine::GetLogger().LogDebug("Key repeated");
 #endif
     }
     else if (GLFW_RELEASE == action)
     {
-
         InputKey::Keyboard button = GLKEY_TO_GAME(key);
         if (button != InputKey::Keyboard::None)
         {
@@ -169,6 +194,8 @@ void Window::key_cb([[maybe_unused]] GLFWwindow* pwin, [[maybe_unused]] int key,
             Engine::GetInput().SetKeyDown(button, false);
         }
     }
+
+
 }
 
 void Window::mousebutton_cb([[maybe_unused]] GLFWwindow* pwin, int button, int action, [[maybe_unused]] int mod)
