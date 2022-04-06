@@ -41,6 +41,7 @@ private:
     bool change_state;
     double life_time;
     double timer;
+    static constexpr int HardNote_Score = 50000;
 
 
     EnergyBar* energy;

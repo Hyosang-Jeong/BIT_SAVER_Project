@@ -48,11 +48,7 @@ void HardNote::Update(double dt)
 	if (change_state == true)
 	{
 		change_state = false;
-
-		//Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero)->ChangeState();
 		static_cast<Hero*>(Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero))->Enter_Magumagu();
-		//Hero* hero = static_cast<Hero*>(Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero));
-		//hero->Enter_Magumagu();
 	}
 
 	if (start_timer == true)
@@ -64,7 +60,6 @@ void HardNote::Update(double dt)
 		}
 
 		timer += dt;
-		SetScale({ 2,1 });
 	}
 	else if (GetPosition().x < -10)
 	{
@@ -103,9 +98,10 @@ glm::vec2 HardNote::Getposition()
 
 void HardNote::Hit_Check()
 {
-	if (start_timer == true)
+	if (start_timer == true)		// other than first hit doesnt need to find out if hit up or down
 	{
-		if (UpAttackKey.IsKeyDown() == true && UpAttackKey.IsKeyReapeated() == false)
+		if ((UpAttackKey.IsKeyDown() == true && UpAttackKey.IsKeyReapeated() == false)||
+			(DownAttackKey.IsKeyDown() == true && DownAttackKey.IsKeyReapeated() == false))
 		{
 			switch (static_cast<int>(Score_check()))
 			{
@@ -116,80 +112,69 @@ void HardNote::Hit_Check()
 				case static_cast<int>(SCORE::BAD) :
 				{
 					Engine::GetGSComponent<HitEmitter>()->Emit(1, GetPosition(), { 0,0 }, { 0,0 }, 0);
-					SetVelocity({ -5, 0 });
-					UpdatePosition({ 1,0 });
-					UpdateScale({ 1,1 });
+					UpdatePosition({ 0.25,0 });
+					UpdateScale({ 0.1,0.1 });
+					Engine::GetGSComponent<Score>()->AddScore(HardNote_Score);
 					//isMiss = false;
 					break;
 				}
+				default:
+					break;
 			}
-			Engine::GetGSComponent<Score>()->AddScore(50000);
 		}
 	}
-	else
+	else		// first hit needs to find out if hit up or down
 	{
 		if ((UpAttackKey.IsKeyDown() == true && UpAttackKey.IsKeyReapeated() == false) && GetPosition().y > 0)
 		{
-			switch (static_cast<int>(Score_check()))
+			switch (Score_check())
 			{
 				case static_cast<int>(SCORE::PERFECT) :
-				{
-					Engine::GetGSComponent<PerfectEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
-					isMiss = false;
-					start_timer = true;
-					change_state = true;
-					break;
-				}
+				{}
 				case static_cast<int>(SCORE::GOOD) :
-				{
-					Engine::GetGSComponent<GoodEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
-					isMiss = false;
-					start_timer = true;
-					change_state = true;
-					break;
-				}
+				{}
 				case static_cast<int>(SCORE::BAD) :
 				{
-					Engine::GetGSComponent<BadEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+					Engine::GetGSComponent<HitEmitter>()->Emit(1, GetPosition(), { 0,0 }, { 0,0 }, 0);
 					isMiss = false;
 					start_timer = true;
 					change_state = true;
+					UpdatePosition({ 0.25,0 });
+					SetVelocity({ -2, 0 });
+					UpdateScale({ 0.5,0.1 });
+					Engine::GetGSComponent<Score>()->AddScore(HardNote_Score);
 					break;
 				}
+				default:
+					break;
 			}
-			Engine::GetGSComponent<Score>()->AddScore(Score_check());
+
 		}
 
 		if ((DownAttackKey.IsKeyDown() == true && DownAttackKey.IsKeyReapeated() == false && GetPosition().y < 0))
 		{
-			switch (static_cast<int>(Score_check()))
+			switch (Score_check())
 			{
 				case static_cast<int>(SCORE::PERFECT) :
-				{
-					Engine::GetGSComponent<PerfectEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
-					isMiss = false;
-					start_timer = true;
-					change_state = true;
-					break;
-				}
+				{}
 				case static_cast<int>(SCORE::GOOD) :
-				{
-					Engine::GetGSComponent<GoodEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
-					isMiss = false;
-					start_timer = true;
-					change_state = true;
-					break;
-				}
+				{}
 				case static_cast<int>(SCORE::BAD) :
 				{
-					Engine::GetGSComponent<BadEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+					Engine::GetGSComponent<HitEmitter>()->Emit(1, GetPosition(), { 0,0 }, { 0,0 }, 0);
 					isMiss = false;
 					start_timer = true;
 					change_state = true;
+					UpdatePosition({ 0.25,0 });
+					SetVelocity({ -2, 0 });
+					UpdateScale({ 0.5,0.1 });
+					Engine::GetGSComponent<Score>()->AddScore(HardNote_Score);
 					break;
 				}
+				default:
+					break;
 			}
-			Engine::GetGSComponent<Score>()->AddScore(Score_check());
+
 		}
 	}
 }

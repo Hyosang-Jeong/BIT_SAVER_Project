@@ -144,7 +144,7 @@ void Level2::Update(double dt)
 
 	if (energyBar->Isgameover() == true)
 	{
-		heroPtr->die();
+		//heroPtr->die();
 	}
 
 	if (Engine::GetMusic().isPlaying(SOUND_NUM::DIOMA) == false)

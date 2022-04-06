@@ -73,6 +73,7 @@ void DownNote::Hit_Check()
             case static_cast<int>(SCORE::PERFECT) :
             {
                 Engine::GetGSComponent<PerfectEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+                GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::explosion));
                 isMiss = false;
                 Engine::GetGSComponent<Score>()->AddScore(Score_check());
                 break;
@@ -80,6 +81,7 @@ void DownNote::Hit_Check()
             case static_cast<int>(SCORE::GOOD) :
             {
                 Engine::GetGSComponent<GoodEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+                GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::explosion));
                 isMiss = false;
                 Engine::GetGSComponent<Score>()->AddScore(Score_check());
                 break;
@@ -87,6 +89,7 @@ void DownNote::Hit_Check()
             case static_cast<int>(SCORE::BAD) :
             {
                 Engine::GetGSComponent<BadEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+                GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::explosion));
                 isMiss = false;
                 Engine::GetGSComponent<Score>()->AddScore(Score_check());
                 break;
@@ -104,6 +107,7 @@ void DownNote::Hit_Check()
             case static_cast<int>(SCORE::PERFECT) :
             {
                 Engine::GetGSComponent<PerfectEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+                GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::explosion));
                 isMiss = false;
                 Engine::GetGSComponent<Score>()->AddScore(Score_check());
                 break;
@@ -111,6 +115,7 @@ void DownNote::Hit_Check()
             case static_cast<int>(SCORE::GOOD) :
             {
                 Engine::GetGSComponent<GoodEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+                GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::explosion));
                 isMiss = false;
                 Engine::GetGSComponent<Score>()->AddScore(Score_check());
                 break;
@@ -118,6 +123,7 @@ void DownNote::Hit_Check()
             case static_cast<int>(SCORE::BAD) :
             {
                 Engine::GetGSComponent<BadEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+                GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::explosion));
                 isMiss = false;
                 Engine::GetGSComponent<Score>()->AddScore(Score_check());
                 break;
