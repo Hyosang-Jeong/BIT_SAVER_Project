@@ -11,17 +11,17 @@ Author: Jaewoo Choi
 #include "../../Game/Objects/Hero.h"
 
 EnergyBar::EnergyBar(glm::vec2 startPos) :
-	GameObject(startPos, glm::vec2{ 1,0.2 }),
+	GameObject(startPos, glm::vec2{ 1,4 }),
 	gameover(InputKey::Keyboard::Space)
 {
-	AddGOComponent(new Sprite("../images/note1.png", this));
+	AddGOComponent(new Sprite("../images/HP.png", this));
 }
 
 void EnergyBar::Update(double dt)
 {
 	GameObject::Update(dt);
 
-	SetPosition({ GetPosition().x,Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero)->GetPosition().y + 1.2 });
+	SetPosition({ -8.f,5.f });
 
 #ifdef _DEBUG
 	if (gameover.IsKeyReleased() == true)
