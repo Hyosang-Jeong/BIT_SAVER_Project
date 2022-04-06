@@ -235,6 +235,7 @@
     </ClCompile>
     <ClCompile Include="Game\Objects\CheckBox.cpp" />
     <ClCompile Include="Game\Objects\EnergyBar.cpp" />
+    <ClCompile Include="Game\Objects\EnergyBarContainer.cpp" />
     <ClCompile Include="Game\Objects\fever.cpp" />
     <ClCompile Include="Game\Objects\Hero.cpp" />
     <ClCompile Include="Game\Objects\NoteDown.cpp" />
@@ -330,6 +331,7 @@
     </ClInclude>
     <ClInclude Include="Game\Objects\CheckBox.h" />
     <ClInclude Include="Game\Objects\EnergyBar.h" />
+    <ClInclude Include="Game\Objects\EnergyBarContainer.h" />
     <ClInclude Include="Game\Objects\fever.h" />
     <ClInclude Include="Game\Objects\GameObjectType.h" />
     <ClInclude Include="Game\Objects\Hero.h" />

@@ -11,7 +11,7 @@ Author: Jaewoo Choi
 #include "../../Game/Objects/Hero.h"
 
 EnergyBar::EnergyBar(glm::vec2 startPos) :
-	GameObject(startPos, glm::vec2{ 1,4 }),
+	GameObject(startPos, glm::vec2{ 3,4 }),
 	gameover(InputKey::Keyboard::Space)
 {
 	AddGOComponent(new Sprite("../images/HP.png", this));
@@ -21,7 +21,7 @@ void EnergyBar::Update(double dt)
 {
 	GameObject::Update(dt);
 
-	SetPosition({ -8.f,5.f });
+	//SetPosition({ -8.f,5.f });
 
 #ifdef _DEBUG
 	if (gameover.IsKeyReleased() == true)

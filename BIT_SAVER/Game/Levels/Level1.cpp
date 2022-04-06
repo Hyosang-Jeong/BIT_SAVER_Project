@@ -17,6 +17,7 @@ Author: Hyun Kang , Hyosang Jung
 #include"../Objects/Background.h"
 #include"../Levels/State.h"
 #include "../Objects/EnergyBar.h"
+#include "../Objects/EnergyBarContainer.h"
 #include "../Objects/stage_bar.h"
 #include"../../Engine/Sprite/GameParticles.h"
 #include"../Objects/Score.h"
@@ -36,6 +37,7 @@ Level1::Level1() :
     notebox = nullptr;
     backPtr = nullptr;
     energyBar = nullptr;
+    energyBarContainer = nullptr;
     stageBar = nullptr;
     feverBar = nullptr;
     PcheckBox1 = nullptr;
@@ -56,7 +58,8 @@ void Level1::Load()
     trackPtr = new Track(SOUND_NUM::REWIND);
     notebox = new Note_box({ -4,0 });
     bossPtr = new Boss({ 15,-5 });
-    energyBar = new EnergyBar({ -4,1.2 });
+    energyBar = new EnergyBar({ -7.5,7.5 });
+    energyBarContainer = new EnergyBarContainer({ -7.5,7.5 });
     camera = new Camera({ 0,0 });
     PcheckBox1 = new CheckBox({ -4.4,0 }, 0);
     PcheckBox2 = new CheckBox({ -3.2,0 }, 0);
@@ -88,6 +91,7 @@ void Level1::Load()
     gameObjectManager->Add(notebox);
     gameObjectManager->Add(bossPtr);
     gameObjectManager->Add(energyBar);
+    gameObjectManager->Add(energyBarContainer);
 
     gameObjectManager->Add(PcheckBox1);
     gameObjectManager->Add(PcheckBox2);
@@ -178,6 +182,7 @@ void Level1::Unload()
     bossPtr = nullptr;
     backPtr = nullptr;
     energyBar = nullptr;
+    energyBarContainer = nullptr;
     stageBar = nullptr;
     gameObjectManager->Unload();
 
