@@ -242,6 +242,8 @@ void Hero::State_Magumagu::Enter(GameObject* object)
 {
     Hero* hero = static_cast<Hero*>(object);
     hero->GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(hero_anim::down));
+    hero->SetPosition({ hero->GetPosition().x,2 }); //위에서 쳤는지 판별 못하면 하드노트에서 설정해주기.
+    hero->SetVelocity({ 0, 0 });
 }
 
 void Hero::State_Magumagu::Update(GameObject* object, double )
