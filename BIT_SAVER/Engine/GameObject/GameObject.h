@@ -44,6 +44,7 @@ public:
 	const double GetRotation() const;
 	const glm::vec2& GetTexturetoNDC() const;
 	void SetScale(glm::vec2 newScale);
+	void UpdateScale(glm::vec2 adjustScale);
 	void SetPosition(glm::vec2 newPosition);
 	void set_destroy(bool value);
 	bool Destroy();

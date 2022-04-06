@@ -131,6 +131,13 @@ void GameObject::SetScale(glm::vec2 newScale)
     updateMatrix = true;
 }
 
+void GameObject::UpdateScale(glm::vec2 adjustScale)
+{
+    scale += adjustScale;
+
+    updateMatrix = true;
+}
+
 void GameObject::SetRotation(double newRotationAmount)
 {
     rotation = newRotationAmount;

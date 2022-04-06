@@ -19,13 +19,18 @@ Author: Jaewoo.choi, Hyosang Jung
 //#include"../Levels/MainOption.h"
 //#include"obstacle.h"
 #include "Score Enum.h"
+#include "../Objects/Hero.h"
 
-HardNote::HardNote(glm::vec2 startPos, glm::vec2 velocity) :
+HardNote::HardNote(glm::vec2 startPos, glm::vec2 velocity, double time) :
     isMiss(false),
 	UpAttackKey(InputKey::Keyboard::None),
 	DownAttackKey(InputKey::Keyboard::None),
+	life_time(time),
 GameObject(startPos, glm::vec2{ 2,1 })
 {
+	timer = 0.0;
+	start_timer = false;
+
 	if (Engine::GetGameStateManager().GetCurrstate()->GetName() != "Offset")
 	{
 		energy = (static_cast<EnergyBar*>(Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Energy_bar)));
@@ -33,18 +38,20 @@ GameObject(startPos, glm::vec2{ 2,1 })
 	AddGOComponent(new Sprite("../images/Hit_star.png", this));
 	SetVelocity(velocity);
 
-	//if (startPos.y > 0)  //up note
-	//{
-	//	Engine::GetGSComponent<GameObjectManager>()->Add(new Obstacle(glm::vec2{ startPos.x,-7 }, velocity));
-	//}
-	//else  //down note
-	//{
-	//	Engine::GetGSComponent<GameObjectManager>()->Add(new Obstacle(glm::vec2{ startPos.x,5 }, velocity));
-	//}
 }
 
 void HardNote::Update(double dt)
 {
+	if (start_timer == true)
+	{
+		timer += dt;
+	}
+
+	if (timer > life_time)
+	{
+		set_destroy(true);
+	}
+
 	GameObject::Update(dt);
 
 	UpAttackKey = Engine::GetAttack_Key().UpAttackKey;
@@ -87,13 +94,13 @@ void HardNote::Hit_Check()
 	{
 		if ((UpAttackKey.IsKeyDown() == true && UpAttackKey.IsKeyReapeated() == false))
 		{
-		    if (Engine::GetGSComponent<HitEmitter>() != nullptr)
-		    {
+			if (Engine::GetGSComponent<HitEmitter>() != nullptr)
+			{
 
 			Engine::GetGSComponent<HitEmitter>()->Emit(1, GetPosition(), { 0,0 }, { 0,0 }, 0);
 			Engine::GetGSComponent<PerfectEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
 			Engine::GetGSComponent<Score>()->AddScore(Score_check());
-		    }
+			}
 			set_destroy(true);
 		}
 	}
@@ -101,12 +108,12 @@ void HardNote::Hit_Check()
 	{
 		if ((UpAttackKey.IsKeyDown() == true && UpAttackKey.IsKeyReapeated() == false))
 		{
-		    if (Engine::GetGSComponent<HitEmitter>() != nullptr)
-		    {
+			if (Engine::GetGSComponent<HitEmitter>() != nullptr)
+			{
 			Engine::GetGSComponent<HitEmitter>()->Emit(1, GetPosition(), { 0,0 }, { 0,0 }, 0);
 			Engine::GetGSComponent<GoodEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
 			Engine::GetGSComponent<Score>()->AddScore(Score_check());
-		    }
+			}
 			set_destroy(true);
 		}
 	}
@@ -114,12 +121,12 @@ void HardNote::Hit_Check()
 	{
 		if ((UpAttackKey.IsKeyDown() == true && UpAttackKey.IsKeyReapeated() == false))
 		{
-		    if (Engine::GetGSComponent<HitEmitter>() != nullptr)
-		    {
+			if (Engine::GetGSComponent<HitEmitter>() != nullptr)
+			{
 			Engine::GetGSComponent<HitEmitter>()->Emit(1, GetPosition(), { 0,0 }, { 0,0 }, 0);
 			Engine::GetGSComponent<BadEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
 			Engine::GetGSComponent<Score>()->AddScore(Score_check());
-		    }
+			}
 			set_destroy(true);
 		}
 	}
@@ -128,12 +135,12 @@ void HardNote::Hit_Check()
 	{
 		if ((DownAttackKey.IsKeyDown() == true && DownAttackKey.IsKeyReapeated() == false))
 		{
-		    if (Engine::GetGSComponent<HitEmitter>() != nullptr)
-		    {
+			if (Engine::GetGSComponent<HitEmitter>() != nullptr)
+			{
 			Engine::GetGSComponent<HitEmitter>()->Emit(1, GetPosition(), { 0,0 }, { 0,0 }, 0);
 			Engine::GetGSComponent<PerfectEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
 			Engine::GetGSComponent<Score>()->AddScore(Score_check());
-		    }
+			}
 			set_destroy(true);
 		}
 	}
@@ -142,12 +149,12 @@ void HardNote::Hit_Check()
 	{
 		if ((DownAttackKey.IsKeyDown() == true && DownAttackKey.IsKeyReapeated() == false))
 		{
-		    if (Engine::GetGSComponent<HitEmitter>() != nullptr)
-		    {
+			if (Engine::GetGSComponent<HitEmitter>() != nullptr)
+			{
 			Engine::GetGSComponent<HitEmitter>()->Emit(1, GetPosition(), { 0,0 }, { 0,0 }, 0);
 			Engine::GetGSComponent<GoodEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
 			Engine::GetGSComponent<Score>()->AddScore(Score_check());
-		    }
+			}
 			set_destroy(true);
 		}
 	}
@@ -155,13 +162,13 @@ void HardNote::Hit_Check()
 	{
 		if ((DownAttackKey.IsKeyDown() == true && DownAttackKey.IsKeyReapeated() == false))
 		{
-		    if (Engine::GetGSComponent<BadEmitter>() != nullptr)
-		    {
+			if (Engine::GetGSComponent<BadEmitter>() != nullptr)
+			{
 			Engine::GetGSComponent<BadEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
 			Engine::GetGSComponent<Score>()->AddScore(Score_check());
-		    }
+			}
 			set_destroy(true);
-		    
+
 		}
 	}
 	if (Engine::GetGameStateManager().GetCurrstate()->GetName() != "Offset")

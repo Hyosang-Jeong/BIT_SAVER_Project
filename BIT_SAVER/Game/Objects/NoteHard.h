@@ -19,16 +19,16 @@ class EnergyBar;
 class HardNote : public GameObject
 {
 public:
-    HardNote(glm::vec2 startPos,glm::vec2 velocity);
-    virtual void Update(double dt) override;
+    HardNote(glm::vec2 startPos,glm::vec2 velocity, double time);
+    void Update(double dt) override;
     glm::vec2 Getposition();
     GameObjectType GetObjectType() override
     {
         return GameObjectType::Note;
     }
-    virtual void Draw(glm::mat3 camera_matrix) override;
-    virtual void Hit_Check();
-    virtual int Score_check();
+    void Draw(glm::mat3 camera_matrix) override;
+    void Hit_Check();
+    int Score_check();
 
     
 
@@ -36,6 +36,10 @@ private:
     InputKey UpAttackKey;
     InputKey DownAttackKey;
     bool isMiss;
+
+    bool start_timer;
+    double life_time;
+    double timer;
 
 
     EnergyBar* energy;

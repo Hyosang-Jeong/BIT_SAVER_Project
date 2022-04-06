@@ -228,7 +228,7 @@ std::map<int,std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
         break;
     case SOUND_NUM::DIOMA:
         trackFrom = 1;
-        trackTo = 2;
+        trackTo = 3;
         break;
     case SOUND_NUM::ENERGY:
         trackFrom = 1;
