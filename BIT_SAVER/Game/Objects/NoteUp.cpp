@@ -105,7 +105,7 @@ void UpNote::Hit_Check()
 
     }
 
-    if ((DownAttackKey.IsKeyDown() == true && DownAttackKey.IsKeyReapeated() == false && GetPosition().y < 0))
+    /*if ((DownAttackKey.IsKeyDown() == true && DownAttackKey.IsKeyReapeated() == false && GetPosition().y < 0))
     {
         switch (Score_check())
         {
@@ -140,7 +140,7 @@ void UpNote::Hit_Check()
                 break;
         }
 
-    }
+    }*/
     if (Engine::GetGameStateManager().GetCurrstate()->GetName() != "Offset")
     {
         if (GetGOComponent<Sprite>()->GetCurrentAnim() != static_cast<int>(UpNote_anim::explosion))
