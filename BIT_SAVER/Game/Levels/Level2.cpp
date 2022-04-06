@@ -51,7 +51,7 @@ void Level2::Load()
 {
 	isMusicEnd = false;
 	gameObjectManager = new GameObjectManager();
-	heroPtr = new Hero({ -4,-5 });
+	heroPtr = new Hero({ -6,-5 });
 	backPtr = new Background();
 	trackPtr = new Track(SOUND_NUM::DIOMA);
 	notebox = new Note_box({ -4,0 });
