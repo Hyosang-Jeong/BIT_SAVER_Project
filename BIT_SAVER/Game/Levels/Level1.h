@@ -21,6 +21,7 @@ class Track;
 class Note_box;
 class Background;
 class EnergyBar;
+class EnergyBarContainer;
 class Stage_bar;
 class GLText;
 class Fever_bar;
@@ -59,6 +60,7 @@ private:
 	Note_box* notebox;
 	Background* backPtr;
 	EnergyBar* energyBar;
+	EnergyBarContainer* energyBarContainer;
 	Stage_bar* stageBar;
 	Fever_bar* feverBar;
 	CheckBox* PcheckBox1;

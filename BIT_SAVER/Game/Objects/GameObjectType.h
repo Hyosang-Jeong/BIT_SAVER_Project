@@ -15,6 +15,7 @@ enum class GameObjectType {
     Note,
     UpNote,
     Note_collisionBox,
+    Energy_bar_container,
     Energy_bar,
     Stage_bar,
     Text,

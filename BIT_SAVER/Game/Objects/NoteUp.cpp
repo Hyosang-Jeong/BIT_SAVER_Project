@@ -42,7 +42,7 @@ void UpNote::Update(double dt)
             if (energy->GetScale().x > 0)
             {
                 energy->SetScale(glm::vec2{ energy->GetScale().x - (dt / 10),energy->GetScale().y });
-                energy->UpdatePosition(glm::vec2{ -(dt / 10),0 });
+                energy->UpdatePosition(glm::vec2{ -(dt / 20),0 });
             }
         }
     }
