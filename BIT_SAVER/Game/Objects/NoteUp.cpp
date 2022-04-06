@@ -75,95 +75,146 @@ glm::vec2 UpNote::Getposition()
 
 void UpNote::Hit_Check()
 {
-	if (Score_check() == static_cast<int>(SCORE::PERFECT) && GetPosition().y > 0)
+	if ((UpAttackKey.IsKeyDown() == true && UpAttackKey.IsKeyReapeated() == false) && GetPosition().y > 0)
 	{
-		if ((UpAttackKey.IsKeyDown() == true && UpAttackKey.IsKeyReapeated() == false))
+		switch (static_cast<int>(Score_check()))
 		{
-			if (Engine::GetGSComponent<HitEmitter>() != nullptr)
-			{
-
-				Engine::GetGSComponent<HitEmitter>()->Emit(1, GetPosition(), { 0,0 }, { 0,0 }, 0);
-				Engine::GetGSComponent<PerfectEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
-				Engine::GetGSComponent<Score>()->AddScore(Score_check());
-			}
-			GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(UpNote_anim::explosion));
-			SetScale({ 1,1 });
-			//set_destroy(true);
-		}
-	}
-	else if (Score_check() == static_cast<int>(SCORE::GOOD) && GetPosition().y > 0)
-	{
-		if ((UpAttackKey.IsKeyDown() == true && UpAttackKey.IsKeyReapeated() == false))
+		case static_cast<int>(SCORE::PERFECT):
 		{
-			if (Engine::GetGSComponent<HitEmitter>() != nullptr)
-			{
-				Engine::GetGSComponent<HitEmitter>()->Emit(1, GetPosition(), { 0,0 }, { 0,0 }, 0);
-				Engine::GetGSComponent<GoodEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
-				Engine::GetGSComponent<Score>()->AddScore(Score_check());
-			}
-			GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(UpNote_anim::explosion));
-			SetScale({ 1,1 });
+			Engine::GetGSComponent<PerfectEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+			isMiss = false;
+			break;
 		}
-	}
-	else if (Score_check() == static_cast<int>(SCORE::BAD) && GetPosition().y > 0)
-	{
-		if ((UpAttackKey.IsKeyDown() == true && UpAttackKey.IsKeyReapeated() == false))
+		case static_cast<int>(SCORE::GOOD):
 		{
-			if (Engine::GetGSComponent<HitEmitter>() != nullptr)
-			{
-				Engine::GetGSComponent<HitEmitter>()->Emit(1, GetPosition(), { 0,0 }, { 0,0 }, 0);
-				Engine::GetGSComponent<BadEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
-				Engine::GetGSComponent<Score>()->AddScore(Score_check());
-			}
-			GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(UpNote_anim::explosion));
-			SetScale({ 1,1 });
+			Engine::GetGSComponent<GoodEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+			isMiss = false;
+			break;
 		}
+		case static_cast<int>(SCORE::BAD):
+		{
+			Engine::GetGSComponent<BadEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+			isMiss = false;
+			break;
+		}
+		}
+		Engine::GetGSComponent<Score>()->AddScore(Score_check());
 	}
 
-	else if (Score_check() == static_cast<int>(SCORE::PERFECT) && GetPosition().y < 0)
+	if ((DownAttackKey.IsKeyDown() == true && DownAttackKey.IsKeyReapeated() == false && GetPosition().y < 0))
 	{
-		if ((DownAttackKey.IsKeyDown() == true && DownAttackKey.IsKeyReapeated() == false))
+		switch (static_cast<int>(Score_check()))
 		{
-			if (Engine::GetGSComponent<HitEmitter>() != nullptr)
-			{
-				Engine::GetGSComponent<HitEmitter>()->Emit(1, GetPosition(), { 0,0 }, { 0,0 }, 0);
-				Engine::GetGSComponent<PerfectEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
-				Engine::GetGSComponent<Score>()->AddScore(Score_check());
-			}
-			GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(UpNote_anim::explosion));
-			SetScale({ 1,1 });
+		case static_cast<int>(SCORE::PERFECT):
+		{
+			Engine::GetGSComponent<PerfectEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+			isMiss = false;
+			break;
 		}
+		case static_cast<int>(SCORE::GOOD):
+		{
+			Engine::GetGSComponent<GoodEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+			isMiss = false;
+			break;
+		}
+		case static_cast<int>(SCORE::BAD):
+		{
+			Engine::GetGSComponent<BadEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+			isMiss = false;
+			break;
+		}
+		}
+		Engine::GetGSComponent<Score>()->AddScore(Score_check());
 	}
+	//if (Score_check() == static_cast<int>(SCORE::PERFECT) && GetPosition().y > 0)
+	//{
+	//	if ((UpAttackKey.IsKeyDown() == true && UpAttackKey.IsKeyReapeated() == false))
+	//	{
+	//		if (Engine::GetGSComponent<HitEmitter>() != nullptr)
+	//		{
 
-	else if (Score_check() == static_cast<int>(SCORE::GOOD) && GetPosition().y < 0)
-	{
-		if ((DownAttackKey.IsKeyDown() == true && DownAttackKey.IsKeyReapeated() == false))
-		{
-			if (Engine::GetGSComponent<HitEmitter>() != nullptr)
-			{
-				Engine::GetGSComponent<HitEmitter>()->Emit(1, GetPosition(), { 0,0 }, { 0,0 }, 0);
-				Engine::GetGSComponent<GoodEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
-				Engine::GetGSComponent<Score>()->AddScore(Score_check());
-			}
-			GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(UpNote_anim::explosion));
-			SetScale({ 1,1 });
-		}
-	}
-	else if (Score_check() == static_cast<int>(SCORE::BAD) && GetPosition().y < 0)
-	{
-		if ((DownAttackKey.IsKeyDown() == true && DownAttackKey.IsKeyReapeated() == false))
-		{
-			if (Engine::GetGSComponent<BadEmitter>() != nullptr)
-			{
-				Engine::GetGSComponent<BadEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
-				Engine::GetGSComponent<Score>()->AddScore(Score_check());
-			}
-			GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(UpNote_anim::explosion));
-			SetScale({ 1,1 });
+	//			Engine::GetGSComponent<HitEmitter>()->Emit(1, GetPosition(), { 0,0 }, { 0,0 }, 0);
+	//			Engine::GetGSComponent<PerfectEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+	//			Engine::GetGSComponent<Score>()->AddScore(Score_check());
+	//		}
+	//		GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(UpNote_anim::explosion));
+	//		SetScale({ 1,1 });
+	//		//set_destroy(true);
+	//	}
+	//}
+	//else if (Score_check() == static_cast<int>(SCORE::GOOD) && GetPosition().y > 0)
+	//{
+	//	if ((UpAttackKey.IsKeyDown() == true && UpAttackKey.IsKeyReapeated() == false))
+	//	{
+	//		if (Engine::GetGSComponent<HitEmitter>() != nullptr)
+	//		{
+	//			Engine::GetGSComponent<HitEmitter>()->Emit(1, GetPosition(), { 0,0 }, { 0,0 }, 0);
+	//			Engine::GetGSComponent<GoodEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+	//			Engine::GetGSComponent<Score>()->AddScore(Score_check());
+	//		}
+	//		GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(UpNote_anim::explosion));
+	//		SetScale({ 1,1 });
+	//	}
+	//}
+	//else if (Score_check() == static_cast<int>(SCORE::BAD) && GetPosition().y > 0)
+	//{
+	//	if ((UpAttackKey.IsKeyDown() == true && UpAttackKey.IsKeyReapeated() == false))
+	//	{
+	//		if (Engine::GetGSComponent<HitEmitter>() != nullptr)
+	//		{
+	//			Engine::GetGSComponent<HitEmitter>()->Emit(1, GetPosition(), { 0,0 }, { 0,0 }, 0);
+	//			Engine::GetGSComponent<BadEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+	//			Engine::GetGSComponent<Score>()->AddScore(Score_check());
+	//		}
+	//		GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(UpNote_anim::explosion));
+	//		SetScale({ 1,1 });
+	//	}
+	//}
 
-		}
-	}
-	if (Engine::GetGameStateManager().GetCurrstate()->GetName() != "Offset")
+	//else if (Score_check() == static_cast<int>(SCORE::PERFECT) && GetPosition().y < 0)
+	//{
+	//	if ((DownAttackKey.IsKeyDown() == true && DownAttackKey.IsKeyReapeated() == false))
+	//	{
+	//		if (Engine::GetGSComponent<HitEmitter>() != nullptr)
+	//		{
+	//			Engine::GetGSComponent<HitEmitter>()->Emit(1, GetPosition(), { 0,0 }, { 0,0 }, 0);
+	//			Engine::GetGSComponent<PerfectEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+	//			Engine::GetGSComponent<Score>()->AddScore(Score_check());
+	//		}
+	//		GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(UpNote_anim::explosion));
+	//		SetScale({ 1,1 });
+	//	}
+	//}
+
+	//else if (Score_check() == static_cast<int>(SCORE::GOOD) && GetPosition().y < 0)
+	//{
+	//	if ((DownAttackKey.IsKeyDown() == true && DownAttackKey.IsKeyReapeated() == false))
+	//	{
+	//		if (Engine::GetGSComponent<HitEmitter>() != nullptr)
+	//		{
+	//			Engine::GetGSComponent<HitEmitter>()->Emit(1, GetPosition(), { 0,0 }, { 0,0 }, 0);
+	//			Engine::GetGSComponent<GoodEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+	//			Engine::GetGSComponent<Score>()->AddScore(Score_check());
+	//		}
+	//		GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(UpNote_anim::explosion));
+	//		SetScale({ 1,1 });
+	//	}
+	//}
+	//else if (Score_check() == static_cast<int>(SCORE::BAD) && GetPosition().y < 0)
+	//{
+	//	if ((DownAttackKey.IsKeyDown() == true && DownAttackKey.IsKeyReapeated() == false))
+	//	{
+	//		if (Engine::GetGSComponent<BadEmitter>() != nullptr)
+	//		{
+	//			Engine::GetGSComponent<BadEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+	//			Engine::GetGSComponent<Score>()->AddScore(Score_check());
+	//		}
+	//		GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(UpNote_anim::explosion));
+	//		SetScale({ 1,1 });
+
+	//	}
+	//}
+	/*if (Engine::GetGameStateManager().GetCurrstate()->GetName() != "Offset")
 	{
 		if (GetGOComponent<Sprite>()->GetCurrentAnim() != static_cast<int>(UpNote_anim::explosion))
 		{
@@ -177,28 +228,28 @@ void UpNote::Hit_Check()
 				}
 			}
 		}
-	}
+	}*/
 }
 
 int UpNote::Score_check()
 {
 	float HeroPostion = 0;
+	float NotePosition = GetPosition().x;
+
 	if (Engine::GetGameStateManager().GetCurrstate()->GetName() != "Offset")
 	{
-		HeroPostion = Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero)->GetPosition().x;
+		HeroPostion = -4.f;
 	}
 
-	if (GetPosition().x - HeroPostion <= 0.85 && HeroPostion - GetPosition().x <= 0.65)//0.4
+	if (NotePosition - HeroPostion <= 0.5f && NotePosition - HeroPostion >= -0.5f)//0.4
 	{
 		return static_cast<int>(SCORE::PERFECT);
 	}
-	else if (GetPosition().x - HeroPostion <= 1.45 && GetPosition().x - HeroPostion > 0.85 ||
-		HeroPostion - GetPosition().x <= 1.45 && HeroPostion - GetPosition().x > 0.85)//0.6
+	else if (NotePosition - HeroPostion <= 1.f && NotePosition - HeroPostion >= -1.f)//0.4
 	{
 		return static_cast<int>(SCORE::GOOD);
 	}
-	else if (GetPosition().x - HeroPostion < 1.85 && GetPosition().x - HeroPostion > 1.45 ||
-		HeroPostion - GetPosition().x < 1.85 && HeroPostion - GetPosition().x > 1.45)//0.8
+	else if (NotePosition - HeroPostion <= 1.5f && NotePosition - HeroPostion >= -1.5f)//0.4
 	{
 		return static_cast<int>(SCORE::BAD);
 	}

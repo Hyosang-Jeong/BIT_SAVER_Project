@@ -44,7 +44,7 @@ void Level0::Load()
 {
 	isMusicEnd = false;
 	gameObjectManager = new GameObjectManager();
-	heroPtr = new Hero({ -4,-5 });
+	heroPtr = new Hero({ -6,-5 });
 	backPtr = new Background();
 	trackPtr = new Track(SOUND_NUM::DISCO);
 	notebox = new Note_box({ -4,0 });
