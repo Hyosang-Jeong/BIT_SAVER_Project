@@ -38,6 +38,7 @@ private:
     bool isMiss;
 
     bool start_timer;
+    bool change_state;
     double life_time;
     double timer;
 

@@ -5,10 +5,10 @@
 
 class EnergyBar;
 
-class NoteDown : public GameObject
+class DownNote : public GameObject
 {
 public:
-    NoteDown(glm::vec2 startPos, glm::vec2 velocity);
+    DownNote(glm::vec2 startPos, glm::vec2 velocity);
     void Update(double dt) override;
     glm::vec2 Getposition();
     GameObjectType GetObjectType() override

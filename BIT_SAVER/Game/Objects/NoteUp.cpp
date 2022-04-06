@@ -67,6 +67,7 @@ glm::vec2 UpNote::Getposition()
 
 void UpNote::Hit_Check()
 {
+
     if ((UpAttackKey.IsKeyDown() == true && UpAttackKey.IsKeyReapeated() == false) && GetPosition().y > 0)
     {
         switch (Score_check())
@@ -143,6 +144,7 @@ void UpNote::Hit_Check()
             }
         }
     }
+
 }
 
 int UpNote::Score_check()

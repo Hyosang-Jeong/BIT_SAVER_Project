@@ -6,8 +6,10 @@
 #include "Score Enum.h"
 //#include"obstacle.h"
 
-NoteDown::NoteDown(glm::vec2 startPos, glm::vec2 velocity) :
-    isMiss(false),
+
+DownNote::DownNote(glm::vec2 startPos, glm::vec2 velocity) :
+	isMiss(false),
+
 
     UpAttackKey(InputKey::Keyboard::None),
     DownAttackKey(InputKey::Keyboard::None),
@@ -23,7 +25,7 @@ NoteDown::NoteDown(glm::vec2 startPos, glm::vec2 velocity) :
 
 }
 
-void NoteDown::Update(double dt)
+void DownNote::Update(double dt)
 {
     GameObject::Update(dt);
 
@@ -51,18 +53,18 @@ void NoteDown::Update(double dt)
 }
 
 
-void NoteDown::Draw(glm::mat3 camera_matrix)
+void DownNote::Draw(glm::mat3 camera_matrix)
 {
 
     GameObject::Draw(camera_matrix);
 }
 
-glm::vec2 NoteDown::Getposition()
+glm::vec2 DownNote::Getposition()
 {
     return GameObject::GetPosition();
 }
 
-void NoteDown::Hit_Check()
+void DownNote::Hit_Check()
 {
     if ((UpAttackKey.IsKeyDown() == true && UpAttackKey.IsKeyReapeated() == false) && GetPosition().y > 0)
     {
@@ -142,7 +144,7 @@ void NoteDown::Hit_Check()
     }
 }
 
-int NoteDown::Score_check()
+int DownNote::Score_check()
 {
     float HeroPostion = 0;
     float NotePosition = GetPosition().x;
