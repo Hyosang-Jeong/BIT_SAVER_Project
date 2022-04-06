@@ -24,8 +24,9 @@ CheckBox::CheckBox(glm::vec2 startPos, int color) :
         AddGOComponent(new Sprite("../images/checkBoxR.png", this));
 }
 
-void CheckBox::Draw(glm::mat3 camera_matrix)
+void CheckBox::Draw([[maybe_unused]]glm::mat3 camera_matrix)
 {
+#ifdef _DEBUG
     if (isTildeKeyDown == false && tilde.IsKeyDown() && tilde.IsKeyReapeated()==false)
     {
         isTildeKeyDown = true;
@@ -39,7 +40,7 @@ void CheckBox::Draw(glm::mat3 camera_matrix)
     {
         GameObject::Draw(camera_matrix);
     }
-
+#endif
 
 }
 

@@ -30,10 +30,12 @@ void ParticleEmitter::AddParticle(Particle* particleData)
 
 void ParticleEmitter::Emit(int number, glm::vec2 position, glm::vec2 emitterVelocity, glm::vec2 emitVector, double spread)
 {
+
 	if (particleMemoryPool[particleIndexToUse]->IsAlive() == true)
 	{
 		Engine::GetLogger().LogError("Overwrite a particle");
 	}
+
 	while (number != 0)
 	{
 		double angle = (((rand() % 1024) / 1024.0) * spread) - spread / 2.0;
@@ -47,17 +49,22 @@ void ParticleEmitter::Emit(int number, glm::vec2 position, glm::vec2 emitterVelo
 			0,0,1
 		};
 		emitVector.x = (rotation_matrix[0].x * emitVector.x) + (rotation_matrix[1].x * emitVector.x);
+
 		emitVector.y = (rotation_matrix[0].y * emitVector.y) + (rotation_matrix[1].y * emitVector.y);
 
 		glm::vec2 Velocity = emitVector + emitterVelocity;
+
 		Velocity *= magnitude;
 
 		particleMemoryPool[particleIndexToUse]->Revive(position, Velocity, lifetime);
+
 		particleIndexToUse++;
+
 		if (particleIndexToUse == static_cast<int>(particleMemoryPool.size()))
 		{
 			particleIndexToUse = 0;
 		}
+
 		number--;
 	}
 }
@@ -72,6 +79,7 @@ void ParticleEmitter::Particle::Revive(glm::vec2 Position, glm::vec2 Velocity, d
 	this->life = Life;
 	SetPosition(Position);
 	SetVelocity(Velocity);
+
 	if (this->GetObjectType() == GameObjectType::Hit)
 	{
 		GetGOComponent<Sprite>()->PlayAnimation(0);

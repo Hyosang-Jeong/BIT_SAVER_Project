@@ -237,6 +237,7 @@
     <ClCompile Include="Game\Objects\EnergyBar.cpp" />
     <ClCompile Include="Game\Objects\fever.cpp" />
     <ClCompile Include="Game\Objects\Hero.cpp" />
+    <ClCompile Include="Game\Objects\NoteDown.cpp" />
     <ClCompile Include="Game\Objects\NoteHard.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -332,6 +333,7 @@
     <ClInclude Include="Game\Objects\fever.h" />
     <ClInclude Include="Game\Objects\GameObjectType.h" />
     <ClInclude Include="Game\Objects\Hero.h" />
+    <ClInclude Include="Game\Objects\NoteDown.h" />
     <ClInclude Include="Game\Objects\NoteHard.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>

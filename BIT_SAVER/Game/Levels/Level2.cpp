@@ -68,16 +68,15 @@ void Level2::Load()
 	stageBar = new Stage_bar({ -10,9 }, 232, 174);   // total music time 204  ,  extra time 82
 
 
-	backPtr->Add(texture_path[Background_1_10], 0);
-	backPtr->Add(texture_path[Background_1_9], 0);
-	backPtr->Add(texture_path[Background_1_8], 0.0005);
-	backPtr->Add(texture_path[Background_1_7], 0.0015);
-	backPtr->Add(texture_path[Background_1_6], 0.007);
-	backPtr->Add(texture_path[Background_1_5], 0.022);
-	backPtr->Add(texture_path[Background_1_4], 0.05);
-	backPtr->Add(texture_path[Background_1_3], 0.1);
-	backPtr->Add(texture_path[Background_1_2], 0.5);
-	backPtr->Add(texture_path[Background_1_1], 0.8);
+	backPtr->Add(texture_path[Parallax2_1], 0);
+	backPtr->Add(texture_path[Parallax2_2], 0.005);
+	backPtr->Add(texture_path[Parallax2_3], 0.005);
+	backPtr->Add(texture_path[Parallax2_4], 0.015);
+	backPtr->Add(texture_path[Parallax2_5], 0.007);
+	backPtr->Add(texture_path[Parallax2_6], 0.022);
+	backPtr->Add(texture_path[Parallax2_7], 0.05);
+	backPtr->Add(texture_path[Parallax2_8], 0.1);
+
 
 	AddGSComponent(gameObjectManager);
 	AddGSComponent(backPtr);
@@ -102,6 +101,7 @@ void Level2::Load()
 	AddGSComponent(new BadEmitter());
 	AddGSComponent(new MissEmitter());
 	AddGSComponent(new Score());
+	GetGSComponent<Camera>()->zoom_effect({ 2.f,2.f });
 
 }
 
@@ -144,7 +144,7 @@ void Level2::Update(double dt)
 
 	if (energyBar->Isgameover() == true)
 	{
-		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Gameover));
+		heroPtr->die();
 	}
 
 	if (Engine::GetMusic().isPlaying(SOUND_NUM::DIOMA) == false)

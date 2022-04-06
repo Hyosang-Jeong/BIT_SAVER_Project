@@ -40,7 +40,6 @@ void Stage_bar::Update(double dt)
 	if (Doupdate == true)
 	{
 		GameObject::Update(dt);
-		std::cout << GetPosition().x << std::endl;
 		UpdatePosition({ (WINDOW_WIDTH / actual_total_time) * dt,0 });
 		if (GetPosition().x > extra_stage_pos_range.y && currstate == 0)
 		{

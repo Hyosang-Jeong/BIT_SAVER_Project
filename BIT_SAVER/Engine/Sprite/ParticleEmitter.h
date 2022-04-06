@@ -24,7 +24,10 @@ Author:	Hyosang Jung
             void Revive(glm::vec2 Position, glm::vec2 Velocity, double Life);
             void Update(double dt) override;
             void Draw(glm::mat3 matrix) override;
-            bool IsAlive() { return life > 0; }
+            bool IsAlive() 
+            { 
+                return life > 0; 
+            }
         private:
             double life;
         };

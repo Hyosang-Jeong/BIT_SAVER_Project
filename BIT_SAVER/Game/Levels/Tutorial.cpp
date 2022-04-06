@@ -11,7 +11,7 @@ Author: Jaewoo.choi, Hyun Kang
 #include"Tutorial.h"
 #include"../Objects/Hero.h"
 #include"../Objects/Track.h"
-#include"../Objects/Notes.h"
+
 #include"../Objects/Boss.h"
 #include"../Objects/Note_collisionBox.h"
 #include"../Objects/Background.h"
@@ -125,8 +125,8 @@ void Tutorial::Update_currstate(double dt)
 			isMusicEnd = true;
 		}
 		gameObjectManager->UpdateAll(dt);
-		Note* note = static_cast<Note*>(gameObjectManager->Find(GameObjectType::Note));
-		if (note != nullptr)
+		//Note* note = static_cast<Note*>(gameObjectManager->Find(GameObjectType::Note));
+		/*if (note != nullptr)
 		{
 			if (note->GetPosition().y > 0 && note->GetPosition().x < -4)
 			{
@@ -135,7 +135,7 @@ void Tutorial::Update_currstate(double dt)
 				Engine::GetMusic().Pause(SOUND_NUM::OFFSET);
 				Engine::GetGSComponent<Tutorial_Helper>()->Setflag(false);
 			}
-		}
+		}*/
 		break;
 	}
 	case Tuto_Helper_Enum::UP_NOTE_HIT:

@@ -11,7 +11,7 @@ Author: Jaewoo.choi, Sunwoo Lee
 #include"Level3.h"
 #include"../Objects/Hero.h"
 #include"../Objects/Track.h"
-#include"../Objects/Notes.h"
+//#include"../Objects/Notes.h"
 #include"../Objects/Boss.h"
 #include"../Objects/Note_collisionBox.h"
 #include"../Objects/Background.h"
@@ -102,7 +102,7 @@ void Level3::Load()
 	AddGSComponent(new BadEmitter());
 	AddGSComponent(new MissEmitter());
 	AddGSComponent(new Score());
-
+	GetGSComponent<Camera>()->zoom_effect({ 2.f,2.f });
 }
 
 void Level3::Update(double dt)
@@ -142,7 +142,7 @@ void Level3::Update(double dt)
 
 	if (energyBar->Isgameover() == true)
 	{
-		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Gameover));
+		heroPtr->die();
 	}
 
 	if (Engine::GetMusic().isPlaying(SOUND_NUM::ENERGY) == false)

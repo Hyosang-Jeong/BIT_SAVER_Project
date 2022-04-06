@@ -42,7 +42,17 @@ enum Texture_Path
     Parallax1_4,
     Parallax1_3,
     Parallax1_2,
-    Parallax1_1
+    Parallax1_1,
+
+    Parallax2_8,
+    Parallax2_7,
+    Parallax2_6,
+    Parallax2_5,
+    Parallax2_4,
+    Parallax2_3,
+    Parallax2_2,
+    Parallax2_1
+
     //Total
 };
 
@@ -75,7 +85,17 @@ static const char* texture_path[] = {
     "../images/parallax1-4.png",
     "../images/parallax1-3.png",
     "../images/parallax1-2.png",
-    "../images/parallax1-1.png"
+    "../images/parallax1-1.png",
+
+    "../images/BACK8.png",
+    "../images/BACK7.png",
+    "../images/BACK6.png",
+    "../images/BACK5.png",
+    "../images/BACK4.png",
+    "../images/BACK3.png",
+    "../images/BACK2.png",
+    "../images/BACK1.png"
+
 };
 
 

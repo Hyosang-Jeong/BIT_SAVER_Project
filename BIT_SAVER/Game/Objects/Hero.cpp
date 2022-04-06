@@ -46,7 +46,6 @@ void Hero::die()
     {
         SetRotation(0.85);
         ChangeState(&stateDie);
-        SetPosition({ GetPosition().x, GetPosition().y - 1 });
     }
 }
 
@@ -174,7 +173,7 @@ void Hero::State_Attack::TestForExit(GameObject* object)
 void Hero::State_Jump::Enter(GameObject* object)
 {
     Hero* hero = static_cast<Hero*>(object);
-    hero->SetVelocity({0,jumpVelocity});
+    hero->SetPosition({ hero->GetPosition().x,2});
     hero->GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(hero_anim::up_attck));
 }
 
@@ -208,17 +207,22 @@ void Hero::State_Die::Enter(GameObject* object)
 {
     Hero* hero = static_cast<Hero*>(object);
     hero->GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(hero_anim::hero_die));
+    hero-> SetPosition({ -4,-8 });
 }
 
-void Hero::State_Die::Update(GameObject* object, double dt)
+void Hero::State_Die::Update(GameObject* , double dt)
 {
-    Hero* hero = static_cast<Hero*>(object);
+    //Hero* hero = static_cast<Hero*>(object);
     glm::vec2 target_scale = glm::vec2{ 2,2 };
-    glm::vec2 target_position = hero->GetPosition() / 10.f;
+    //glm::vec2 target_position = hero->GetPosition() / 10.f;
+    //if (Engine::GetGSComponent<Camera>()->get_scale().x < target_scale.x)
+    //{
+    //    Engine::GetGSComponent<Camera>()->set_scale({ Engine::GetGSComponent<Camera>()->get_scale().x + dt, Engine::GetGSComponent<Camera>()->get_scale().y + dt });
+    //    Engine::GetGSComponent<Camera>()->SetPosition({ Engine::GetGSComponent<Camera>()->GetPosition().x + (dt*target_position.x), Engine::GetGSComponent<Camera>()->GetPosition().y + (dt * target_position.y) });
+    //}
     if (Engine::GetGSComponent<Camera>()->get_scale().x < target_scale.x)
     {
         Engine::GetGSComponent<Camera>()->set_scale({ Engine::GetGSComponent<Camera>()->get_scale().x + dt, Engine::GetGSComponent<Camera>()->get_scale().y + dt });
-        Engine::GetGSComponent<Camera>()->SetPosition({ Engine::GetGSComponent<Camera>()->GetPosition().x + (dt*target_position.x), Engine::GetGSComponent<Camera>()->GetPosition().y + (dt * target_position.y) });
     }
 } 
 

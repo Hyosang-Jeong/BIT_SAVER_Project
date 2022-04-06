@@ -108,8 +108,7 @@ void Texture::Draw(glm::vec2 pos, glm::vec2 scale, glm::vec2 rotate)
 		0,  1 / 10.f ,0,
 		0,0,1
 	};
-	glm::mat3 mdl_to_ndc_xform = ndcscale_matrix * trans_matrix * rotation_matrix * scale_matrix;	
-	
+	glm::mat3 mdl_to_ndc_xform = ndcscale_matrix * trans_matrix * scale_matrix * rotation_matrix;
 	Draw(mdl_to_ndc_xform);
 }
 

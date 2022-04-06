@@ -33,7 +33,8 @@ public:
 	void Unload() override;
 	void Draw() override;
 	std::string GetName() override { return "MainMenu"; }
-
+	void play_music(int num);
+	void stop_music(int num);
 	InputKey Next;
 	InputKey Previous;
 	InputKey Select;
@@ -48,8 +49,14 @@ private:
 	Texture* level_2;
 	Texture* level_3;
 	Texture* level_4;
+	Texture* LP;
+	Texture* LP_2;
 	float alpha = 0;
+	float text_alpha = 0;
 	int currstate;
+	double timer = 0;
+	double lp_rotate=0;
 	glm::vec2 updown_pos;
+
 };
 

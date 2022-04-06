@@ -83,6 +83,7 @@ void Level1::Load()
     AddGSComponent(gameObjectManager);
     AddGSComponent(backPtr);
     AddGSComponent(camera);
+
     gameObjectManager->Add(heroPtr);
     gameObjectManager->Add(notebox);
     gameObjectManager->Add(bossPtr);
@@ -104,6 +105,7 @@ void Level1::Load()
     AddGSComponent(new MissEmitter());
     AddGSComponent(new Score());
     GetGSComponent<Camera>()->zoom_effect({ 2.f,2.f });
+    
 }
 
 void Level1::Update(double dt)

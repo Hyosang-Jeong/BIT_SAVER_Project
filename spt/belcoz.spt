@@ -1,0 +1,5 @@
+../images/belcoz.png
+FrameSize 428 396
+NumFrames 19
+Anim ../anm/belcoz_run.anm
+Anim ../anm/belcoz_die.anm

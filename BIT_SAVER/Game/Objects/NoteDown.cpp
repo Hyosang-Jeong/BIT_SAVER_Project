@@ -1,24 +1,24 @@
 #include"../../Engine/Engine.h"
-#include "NoteUp.h"
+#include "NoteDown.h"
 #include"../../Engine/Sprite/GameParticles.h"
 #include "EnergyBar.h"
 #include "Score.h"
 #include "Score Enum.h"
 //#include"obstacle.h"
 
-UpNote::UpNote(glm::vec2 startPos, glm::vec2 velocity) :
+NoteDown::NoteDown(glm::vec2 startPos, glm::vec2 velocity) :
 	isMiss(false),
 
 	UpAttackKey(InputKey::Keyboard::None),
 	DownAttackKey(InputKey::Keyboard::None),
-	GameObject(startPos, glm::vec2{ -8,8 })
+	GameObject(startPos, glm::vec2{ 1.5,1.5 })
 {
 	if (Engine::GetGameStateManager().GetCurrstate()->GetName() != "Offset")
 	{
 		energy = (static_cast<EnergyBar*>(Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Energy_bar)));
 	}
-	AddGOComponent(new Sprite("../spt/fly.spt", this));
-	GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(UpNote_anim::flying));
+	AddGOComponent(new Sprite("../spt/belcoz.spt", this));
+	GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::flying));
 	SetVelocity(velocity);
 
 	//if (startPos.y > 0)  //up note
@@ -31,7 +31,7 @@ UpNote::UpNote(glm::vec2 startPos, glm::vec2 velocity) :
 	//}
 }
 
-void UpNote::Update(double dt)
+void NoteDown::Update(double dt)
 {
 	GameObject::Update(dt);
 
@@ -45,9 +45,9 @@ void UpNote::Update(double dt)
 
 	if (isMiss == true)
 	{
-		if (GetGOComponent<Sprite>()->GetCurrentAnim() != static_cast<int>(UpNote_anim::explosion))
+		if (energy->GetScale().x > 0)
 		{
-			if (energy->GetScale().x > 0)
+			if(GetGOComponent<Sprite>()->GetCurrentAnim() != static_cast<int>(DownNote_anim::explosion))
 			{
 				energy->SetScale(glm::vec2{ energy->GetScale().x - (dt / 10),energy->GetScale().y });
 				energy->UpdatePosition(glm::vec2{ -(dt / 10),0 });
@@ -57,23 +57,18 @@ void UpNote::Update(double dt)
 }
 
 
-void UpNote::Draw(glm::mat3 camera_matrix)
+void NoteDown::Draw(glm::mat3 camera_matrix)
 {
-	glm::mat3 trans_mat
-	{
-		1,0,0,
-		0,1,0,
-		-0.25,0,1
-	};
-	GameObject::Draw(camera_matrix * trans_mat);
+
+	GameObject::Draw(camera_matrix );
 }
 
-glm::vec2 UpNote::Getposition()
+glm::vec2 NoteDown::Getposition()
 {
 	return GameObject::GetPosition();
 }
 
-void UpNote::Hit_Check()
+void NoteDown::Hit_Check()
 {
 	if (Score_check() == static_cast<int>(SCORE::PERFECT) && GetPosition().y > 0)
 	{
@@ -86,8 +81,8 @@ void UpNote::Hit_Check()
 				Engine::GetGSComponent<PerfectEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
 				Engine::GetGSComponent<Score>()->AddScore(Score_check());
 			}
-			GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(UpNote_anim::explosion));
-			SetScale({ 1,1 });
+
+			GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::explosion));
 			//set_destroy(true);
 		}
 	}
@@ -101,8 +96,8 @@ void UpNote::Hit_Check()
 				Engine::GetGSComponent<GoodEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
 				Engine::GetGSComponent<Score>()->AddScore(Score_check());
 			}
-			GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(UpNote_anim::explosion));
-			SetScale({ 1,1 });
+			GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::explosion));
+			//set_destroy(true);
 		}
 	}
 	else if (Score_check() == static_cast<int>(SCORE::BAD) && GetPosition().y > 0)
@@ -115,8 +110,8 @@ void UpNote::Hit_Check()
 				Engine::GetGSComponent<BadEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
 				Engine::GetGSComponent<Score>()->AddScore(Score_check());
 			}
-			GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(UpNote_anim::explosion));
-			SetScale({ 1,1 });
+			GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::explosion));
+			//set_destroy(true);
 		}
 	}
 
@@ -130,8 +125,8 @@ void UpNote::Hit_Check()
 				Engine::GetGSComponent<PerfectEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
 				Engine::GetGSComponent<Score>()->AddScore(Score_check());
 			}
-			GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(UpNote_anim::explosion));
-			SetScale({ 1,1 });
+			GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::explosion));
+			//set_destroy(true);
 		}
 	}
 
@@ -145,8 +140,8 @@ void UpNote::Hit_Check()
 				Engine::GetGSComponent<GoodEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
 				Engine::GetGSComponent<Score>()->AddScore(Score_check());
 			}
-			GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(UpNote_anim::explosion));
-			SetScale({ 1,1 });
+			GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::explosion));
+			//set_destroy(true);
 		}
 	}
 	else if (Score_check() == static_cast<int>(SCORE::BAD) && GetPosition().y < 0)
@@ -158,14 +153,13 @@ void UpNote::Hit_Check()
 				Engine::GetGSComponent<BadEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
 				Engine::GetGSComponent<Score>()->AddScore(Score_check());
 			}
-			GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(UpNote_anim::explosion));
-			SetScale({ 1,1 });
-
+			GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::explosion));
+			//set_destroy(true);
 		}
 	}
 	if (Engine::GetGameStateManager().GetCurrstate()->GetName() != "Offset")
 	{
-		if (GetGOComponent<Sprite>()->GetCurrentAnim() != static_cast<int>(UpNote_anim::explosion))
+		if (GetGOComponent<Sprite>()->GetCurrentAnim() != static_cast<int>(DownNote_anim::explosion))
 		{
 			if (Score_check() == static_cast<int>(SCORE::MISS) && isMiss == false && Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero)->GetPosition().x - GetPosition().x > 1)
 			{
@@ -180,7 +174,7 @@ void UpNote::Hit_Check()
 	}
 }
 
-int UpNote::Score_check()
+int NoteDown::Score_check()
 {
 	float HeroPostion = 0;
 	if (Engine::GetGameStateManager().GetCurrstate()->GetName() != "Offset")

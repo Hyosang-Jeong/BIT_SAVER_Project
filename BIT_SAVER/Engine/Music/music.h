@@ -58,6 +58,7 @@ public:
     float Musicvolume = 0.5f;
     float SFXvolume = 0.5f;
     std::vector<const char*> MusicName;
+
 private:
     float volume = 0.f;
 };

@@ -17,7 +17,7 @@ Author: Jaewoo.choi, Sunwoo Lee
 //#include"Notes.h"
 #include "NoteUp.h"
 #include "NoteHard.h"
-
+#include"NoteDown.h"
 Track::Track(int music_num) :
 	Track(MidiEvent{}.MidiSetUp(music_num), music_num)
 {
@@ -139,9 +139,16 @@ void Track::Update(double dt)
 				{
 					if (timer > j)
 					{
-						note_pos = { 10, (i.first - 0.5) * 10 };
+						note_pos = { 10, (i.first - 0.7) * 10 };
 						note_vel = { -20,0 };
-						Engine::GetGSComponent<GameObjectManager>()->Add(new HardNote(note_pos, note_vel));
+						if (note_pos.y < 0)
+						{
+							Engine::GetGSComponent<GameObjectManager>()->Add(new NoteDown(note_pos, note_vel));
+						}
+						else
+						{
+							Engine::GetGSComponent<GameObjectManager>()->Add(new UpNote(note_pos, note_vel));
+						}
 						i.second.erase(i.second.begin());
 					}
 				}
@@ -153,9 +160,16 @@ void Track::Update(double dt)
 			{
 				if (timer > i.time)
 				{
-					note_pos = { 10, ((i.track - 1) - 0.5) * 10 };
+					note_pos = { 10, ((i.track - 1) - 0.7) * 10 };
 					note_vel = { -20,0 };
-					Engine::GetGSComponent<GameObjectManager>()->Add(new HardNote(note_pos, note_vel));
+					if (note_pos.y < 0)
+					{
+						Engine::GetGSComponent<GameObjectManager>()->Add(new NoteDown(note_pos, note_vel));
+					}
+					else
+					{
+						Engine::GetGSComponent<GameObjectManager>()->Add(new UpNote(note_pos, note_vel));
+					}
 					track_time.erase(track_time.begin());
 				}
 			}

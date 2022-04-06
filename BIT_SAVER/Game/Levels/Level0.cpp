@@ -83,7 +83,7 @@ void Level0::Load()
 	AddGSComponent(new BadEmitter());
 	AddGSComponent(new MissEmitter());
 	AddGSComponent(new Score());
-
+	GetGSComponent<Camera>()->zoom_effect({ 2.f,2.f });
 }
 
 void Level0::Update(double dt)
@@ -123,7 +123,7 @@ void Level0::Update(double dt)
 
 	if (energyBar->Isgameover() == true)
 	{
-		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Gameover));
+		heroPtr->die();
 	}
 
 	if (Engine::GetMusic().isPlaying(SOUND_NUM::DISCO) == false)
@@ -157,11 +157,13 @@ void Level0::Unload()
 	energyBar = nullptr;
 	stageBar = nullptr;
 	gameObjectManager->Unload();
+
 	if (Engine::GetMusic().isPlaying(SOUND_NUM::DISCO) == true)
 	{
 	    Engine::GetMusic().pitchDefault(SOUND_NUM::DISCO);
 	    Engine::GetMusic().Stop(SOUND_NUM::DISCO);
 	}
+
 	Engine::GetMusic().isPlaying(SOUND_NUM::DISCO);
 	ClearGSComponent();
 }
