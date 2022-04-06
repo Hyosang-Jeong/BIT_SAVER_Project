@@ -8,7 +8,6 @@ Author: Jaewoo.choi, Hyun Kang , Hyosang Jung
 
 -----------------------------------------------------------------*/
 #pragma once
-#include<Windows.h>
 #include<GL/glew.h>
 #include<string>
 #include<glm/glm.hpp>
