@@ -79,24 +79,24 @@ void UpNote::Hit_Check()
 	{
 		switch (static_cast<int>(Score_check()))
 		{
-		case static_cast<int>(SCORE::PERFECT):
-		{
-			Engine::GetGSComponent<PerfectEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
-			isMiss = false;
-			break;
-		}
-		case static_cast<int>(SCORE::GOOD):
-		{
-			Engine::GetGSComponent<GoodEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
-			isMiss = false;
-			break;
-		}
-		case static_cast<int>(SCORE::BAD):
-		{
-			Engine::GetGSComponent<BadEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
-			isMiss = false;
-			break;
-		}
+			case static_cast<int>(SCORE::PERFECT) :
+			{
+				Engine::GetGSComponent<PerfectEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+				isMiss = false;
+				break;
+			}
+			case static_cast<int>(SCORE::GOOD) :
+			{
+				Engine::GetGSComponent<GoodEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+				isMiss = false;
+				break;
+			}
+			case static_cast<int>(SCORE::BAD) :
+			{
+				Engine::GetGSComponent<BadEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+				isMiss = false;
+				break;
+			}
 		}
 		Engine::GetGSComponent<Score>()->AddScore(Score_check());
 	}
@@ -105,24 +105,24 @@ void UpNote::Hit_Check()
 	{
 		switch (static_cast<int>(Score_check()))
 		{
-		case static_cast<int>(SCORE::PERFECT):
-		{
-			Engine::GetGSComponent<PerfectEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
-			isMiss = false;
-			break;
-		}
-		case static_cast<int>(SCORE::GOOD):
-		{
-			Engine::GetGSComponent<GoodEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
-			isMiss = false;
-			break;
-		}
-		case static_cast<int>(SCORE::BAD):
-		{
-			Engine::GetGSComponent<BadEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
-			isMiss = false;
-			break;
-		}
+			case static_cast<int>(SCORE::PERFECT) :
+			{
+				Engine::GetGSComponent<PerfectEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+				isMiss = false;
+				break;
+			}
+			case static_cast<int>(SCORE::GOOD) :
+			{
+				Engine::GetGSComponent<GoodEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+				isMiss = false;
+				break;
+			}
+			case static_cast<int>(SCORE::BAD) :
+			{
+				Engine::GetGSComponent<BadEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+				isMiss = false;
+				break;
+			}
 		}
 		Engine::GetGSComponent<Score>()->AddScore(Score_check());
 	}

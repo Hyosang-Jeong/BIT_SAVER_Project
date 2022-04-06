@@ -12,6 +12,8 @@ Author:  Sunwoo Lee
 #include"..\Levels\Level1.h"  // Level1's gravity
 #include"../Levels/MainOption.h"
 #include"../Levels/State.h"
+
+#include "../../Engine/GameObject/GameObjectManager.h"
 #define VOL 0.5f;
 
 
@@ -232,5 +234,52 @@ void Hero::State_Die::TestForExit(GameObject* object)
     if (hero->GetGOComponent<Sprite>()->IsAnimationDone() == true)
     {
         Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Gameover));
+    }
+}
+
+
+void Hero::State_Magumagu::Enter(GameObject* object)
+{
+    Hero* hero = static_cast<Hero*>(object);
+    hero->GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(hero_anim::down));
+}
+
+void Hero::State_Magumagu::Update(GameObject* object, double )
+{
+    Hero* hero = static_cast<Hero*>(object);
+
+    if (hero->GetGOComponent<Sprite>()->IsAnimationDone() == true)
+    {
+        hero->GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(hero_anim::down));
+    }
+
+    if ((hero->DownAttackKey.IsKeyDown() == true && hero->DownAttackKey.IsKeyReapeated() == false) ||
+        (hero->UpAttackKey.IsKeyDown() == true && hero->UpAttackKey.IsKeyReapeated() == false))
+    {
+        hero->GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(hero_anim::up_attck));
+        Engine::GetGSComponent<Camera>()->shake(0.015f, 0.1f, 1.f);
+    }
+}
+
+void Hero::State_Magumagu::TestForExit(GameObject* )
+{
+    // exit this state if the hard note is set_destroy == true; in NoteHard.cpp.
+}
+
+void Hero::Enter_Magumagu()
+{
+    //Hero* hero = static_cast<Hero*>( );
+    ChangeState(&this->stateMagumagu);
+}
+
+void Hero::Exit_Magumagu()
+{
+    if (this->GetPosition().y > 0)
+    {
+        ChangeState(&this->statefalling);
+    }
+    else
+    {
+        ChangeState(&this->stateRunning);
     }
 }

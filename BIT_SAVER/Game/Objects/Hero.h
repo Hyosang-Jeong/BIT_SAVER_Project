@@ -45,6 +45,8 @@ public:
     //std::string GetObjectTypeName() override { return "Hero"; }
     void die();
 
+    void Enter_Magumagu();
+    void Exit_Magumagu();
     InputKey UpAttackKey;
     InputKey DownAttackKey;
 
@@ -92,6 +94,13 @@ private:
         virtual void TestForExit(GameObject* object) override;
         std::string GetName() override { return "Die"; }
     };
+    class State_Magumagu : public ObjectState {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void TestForExit(GameObject* object) override;
+        std::string GetName() override { return "Magumagu"; }
+    };
 
     State_Idle stateIdle;
     State_Running stateRunning;
@@ -99,6 +108,7 @@ private:
     State_Attack stateAttack;
     State_Jump stateJump;
     State_Die stateDie;
+    State_Magumagu stateMagumagu;
     //Hero_state hero_state;
 
     static constexpr double acceleration = 1;
