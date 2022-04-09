@@ -6,7 +6,6 @@
 #include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
-
 class Serial
 {
 private:

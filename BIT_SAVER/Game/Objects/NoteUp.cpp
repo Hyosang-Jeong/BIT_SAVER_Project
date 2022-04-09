@@ -7,7 +7,7 @@
 //#include"obstacle.h"
 
 UpNote::UpNote(glm::vec2 startPos, glm::vec2 velocity) :
-    isMiss(false),
+    isMiss(false),ishit(false),
 
     UpAttackKey(InputKey::Keyboard::None),
     DownAttackKey(InputKey::Keyboard::None),
@@ -68,7 +68,8 @@ glm::vec2 UpNote::Getposition()
 void UpNote::Hit_Check()
 {
 
-    if ((UpAttackKey.IsKeyDown() == true && UpAttackKey.IsKeyReapeated() == false) && GetPosition().y > 0)
+
+    if ((UpAttackKey.IsKeyDown() == true && UpAttackKey.IsKeyReapeated() == false) && GetPosition().y > 0 && ishit == false)
     {
         switch (Score_check())
         {
@@ -78,6 +79,7 @@ void UpNote::Hit_Check()
                 GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(UpNote_anim::explosion));
                 SetScale({ 1,1 });
                 isMiss = false;
+                ishit = true;
                 Engine::GetGSComponent<Score>()->AddScore(Score_check());
                 break;
             }
@@ -87,6 +89,7 @@ void UpNote::Hit_Check()
                 GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(UpNote_anim::explosion));
                 SetScale({ 1,1 });
                 isMiss = false;
+                ishit = true;
                 Engine::GetGSComponent<Score>()->AddScore(Score_check());
                 break;
             }
@@ -96,6 +99,7 @@ void UpNote::Hit_Check()
                 GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(UpNote_anim::explosion));
                 SetScale({ 1,1 });
                 isMiss = false;
+                ishit = true;
                 Engine::GetGSComponent<Score>()->AddScore(Score_check());
                 break;
             }

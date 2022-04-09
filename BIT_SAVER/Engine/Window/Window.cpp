@@ -17,7 +17,7 @@ void Window::Init(GLint wid, GLint hei, std::string windowName)
     Window::title = windowName;
     windowSize = { width,height };
     //Setup arduino
-    SP = new Serial("\\\\.\\COM3");
+    SP = new Serial("\\\\.\\COM4");
 
 
     if (!glfwInit())
@@ -49,6 +49,7 @@ void Window::Init(GLint wid, GLint hei, std::string windowName)
 
     GLenum err = glewInit();
 
+    
     if (GLEW_OK != err)
     {
         Engine::GetLogger().LogError("Unable to initialize GLEW - error: ");
@@ -67,24 +68,25 @@ void Window::Update()
 
     incomingData[readResult] = 0;
 
-    if (*incomingData == 'U')
+    if (*incomingData == 'U' )
     {
         Engine::GetLogger().LogDebug("Arduino Up");
         Engine::GetInput().SetKeyDown(Engine::GetAttack_Key().UpAttackKey.button, true);
-        Engine::GetInput().SetLastpressedButton(Engine::GetAttack_Key().UpAttackKey.button);
+      //  Engine::GetInput().SetKeyDown(InputKey::Keyboard::Up, true);
+       //Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::Up);
     }
-    if (*incomingData == 'D')
+    else if (*incomingData == 'D')
     {
         Engine::GetLogger().LogDebug("Arduino Down");
         Engine::GetInput().SetKeyDown(Engine::GetAttack_Key().DownAttackKey.button, true);
-        Engine::GetInput().SetLastpressedButton(Engine::GetAttack_Key().DownAttackKey.button);
+      //  Engine::GetInput().SetKeyDown(InputKey::Keyboard::Down, true);
+       // Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::Down);
     }
-    if (*incomingData == 'N')
+    else if (*incomingData == 'N')
     {
         Engine::GetInput().SetKeyDown(Engine::GetAttack_Key().UpAttackKey.button, false);
         Engine::GetInput().SetKeyDown(Engine::GetAttack_Key().DownAttackKey.button, false);
     }
-
     glfwPollEvents();
 }
 

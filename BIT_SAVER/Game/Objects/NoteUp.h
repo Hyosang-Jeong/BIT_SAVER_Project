@@ -29,6 +29,6 @@ private:
     InputKey UpAttackKey;
     InputKey DownAttackKey;
     bool isMiss;
-
+    bool ishit;
     EnergyBar* energy;
 };
