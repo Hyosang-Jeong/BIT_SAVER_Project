@@ -149,6 +149,9 @@
     <ClCompile Include="Engine\Window\SerialClass.cpp">
       <Filter>Engine\Window</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Physics\Curve.cpp">
+      <Filter>Engine\Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\GameObject\GameObject.h">
@@ -315,6 +318,9 @@
     </ClInclude>
     <ClInclude Include="Engine\Window\SerialClass.h">
       <Filter>Engine\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Physics\Curve.h">
+      <Filter>Engine\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

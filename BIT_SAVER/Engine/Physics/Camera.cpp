@@ -9,7 +9,7 @@ Author:	Hyosang Jung
 #include "Camera.h"
 #include<cmath>
 #include<random>
-#include<iostream>
+
 
 float PI = 3.141592f;
 
