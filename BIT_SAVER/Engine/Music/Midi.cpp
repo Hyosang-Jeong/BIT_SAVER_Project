@@ -13,7 +13,7 @@ Author: Jaewoo.choi, Hyun Kang ,  Sunwoo Lee
 #include "Sound_Num.h"
 int m_ticksPerQuarterNote = 120; //set default
 
-std::map<int,std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
+std::map<int,std::vector<info>> MidiEvent::MidiSetUp(int music_num)
 {
     const char* midi_filename = " ";
     switch (music_num)
@@ -25,7 +25,7 @@ std::map<int,std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
         midi_filename = "../MIDI/disco.mid";
         break;
     case SOUND_NUM::REWIND:
-        midi_filename = "../MIDI/rewind.mid";
+        midi_filename = "../MIDI/rewind_edit.mid";
         break;
     case SOUND_NUM::DIOMA:
         midi_filename = "../MIDI/dioma.mid";
@@ -170,9 +170,20 @@ std::map<int,std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
             event.tick = absolute_ticks;
             event.track = 0;
 
+            //Get velocity to know what function implement
+            //if (bytes[0] == 0x64 && bytes[1] == 0x51)
+            //{
+            //    for (int j = 0; j < bytes[2]; j++)
+            //    {
+            //        tempo_data = tempo_data | (bytes[bytes.size() - 1 - j] << 8 * j);
+            //    }
+            //}
+
             if ((bytes[0] & 0xf0) == 0x90 && bytes[bytes.size() - 1] != 0)
             {
-                if (music_num == SOUND_NUM::OFFSET)
+                event.track = i + 1;
+                event.movement = static_cast<int>(bytes[bytes.size() - 1]);
+                /*if (music_num == SOUND_NUM::OFFSET)
                 {
                     event.track = 1;
                 }
@@ -195,8 +206,9 @@ std::map<int,std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
                 else
                 {
                     event.track = (bytes[0] & 0x0f) + 1;
-                }
+                }*/
                 m_events.push_back(event);
+                
             }
             else if (bytes[0] == 0xff && bytes[1] == 0x2f) 
             {
@@ -209,7 +221,7 @@ std::map<int,std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
     //make seconds from dt and ticks
     one_tick_per_tempo = (tempo_data * 0.000001) / m_ticksPerQuarterNote;
     //std::map<int, std::vector<long double>> track_seconds_;
-    std::map<int,std::vector<long double>> dt_to_seconds;
+    std::map<int,std::vector<info>> dt_to_seconds;
     int trackFrom = 0;
     int trackTo = 0;
     switch (music_num)
@@ -224,7 +236,7 @@ std::map<int,std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
         break;
     case SOUND_NUM::REWIND:
         trackFrom = 1;
-        trackTo = 1;
+        trackTo = 3;
         break;
     case SOUND_NUM::DIOMA:
         trackFrom = 1;
@@ -249,7 +261,8 @@ std::map<int,std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
         {
             if (m.track == i)
             {
-                dt_to_seconds[i].push_back(m.tick * one_tick_per_tempo);
+                //dt_to_seconds[i].push_back(info(m.tick * one_tick_per_tempo, m.tick* one_tick_per_tempo));put movement info(velocity)
+                dt_to_seconds[i].push_back(info(m.tick* one_tick_per_tempo, m.movement));
             }
         }
     }

@@ -9,7 +9,7 @@ class EnergyBar;
 class UpNote : public GameObject
 {
 public:
-    UpNote(glm::vec2 startPos, glm::vec2 velocity);
+    UpNote(glm::vec2 startPos, glm::vec2 velocity, int movement);
     void Update(double dt) override;
     glm::vec2 Getposition();
     GameObjectType GetObjectType() override
@@ -31,6 +31,7 @@ private:
     InputKey DownAttackKey;
     bool isMiss;
     bool ishit;
+    int Movement;
 
     EnergyBar* energy;
 };
