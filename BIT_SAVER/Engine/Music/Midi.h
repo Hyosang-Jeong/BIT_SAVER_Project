@@ -11,12 +11,19 @@ Author: Jaewoo.choi, Hyun Kang ,  Sunwoo Lee
 #include <map>
 #include <vector>
 #include <iostream>
+struct info
+{
+    long double dt_to_seconds = 0;
+    int movement = 0;
+    info(long double d, int m) : dt_to_seconds(d), movement(m) {}
+
+};
 class MidiEvent {
 public:
     MidiEvent() {}
     ~MidiEvent() {}
 
-    std::map<int, std::vector<long double>> MidiSetUp(int music_num);
+    std::map<int, std::vector<info>> MidiSetUp(int music_num);
 
 private:
     std::vector<MidiEvent> m_events;
@@ -30,5 +37,6 @@ private:
     int        track = 0;    // original track num of event in MIDI file
     double     seconds = 0;  // calculated time in sec
     int        seq = 0;      // sorting sequence number of the event
+    int        movement = 0;      // sorting sequence number of the event
 };
 

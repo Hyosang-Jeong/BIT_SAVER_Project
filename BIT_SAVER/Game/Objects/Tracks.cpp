@@ -8,7 +8,7 @@ Author: Jaewoo.choi, Sunwoo Lee
 
 -----------------------------------------------------------------*/
 #include"Track.h"
-#include"..\..\Engine\Music\Midi.h"
+
 #include<algorithm>
 #include"..\..\Engine/Engine.h"
 #include "..\..\Engine\Music\Sound_Num.h"
@@ -18,16 +18,17 @@ Author: Jaewoo.choi, Sunwoo Lee
 #include "NoteUp.h"
 #include "NoteHard.h"
 #include"NoteDown.h"
+
 Track::Track(int music_num) :
 	Track(MidiEvent{}.MidiSetUp(music_num), music_num)
 {
 }
 
-Track::Track(std::map<int,std::vector<long double>> mid_info , int music_num) : 
+Track::Track(std::map<int,std::vector<info>> mid_info , int music_num) : 
 GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 }), Music_Num(music_num)
 {
 	Doupdate = true;
-
+	
     long double Dificulty{ 0.0 };
 
 	//switch (Music_Num)
@@ -55,11 +56,11 @@ GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 }), Music_Num(music_num)
 	{
 		for (auto& time_t : tracks.second)
 		{
-			if (time_t < 0)		// if time is less than 0 for some reason ( -(time from pos10 to pos-4) or -(offset))
+			if (time_t.dt_to_seconds < 0)		// if time is less than 0 for some reason ( -(time from pos10 to pos-4) or -(offset))
 			{
 				continue;
 			}
-			track_time.push_back(Track_Time(tracks.first, time_t));
+			track_time.push_back(Track_Time(tracks.first, time_t.dt_to_seconds,time_t.movement));
 		}
 	}
 
@@ -114,11 +115,11 @@ GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 }), Music_Num(music_num)
 		{
 			if (T % 2 == 0)
 			{
-				track_info[T % 2].push_back(time_t.time);
+				track_info[T % 2].push_back(info(time_t.time,time_t.movement));
 			}
 			else if (T % 2 == 1)
 			{
-				track_info[T % 2].push_back(time_t.time);
+				track_info[T % 2].push_back(info(time_t.time, time_t.movement));
 			}
 			T++;
 		}
@@ -140,17 +141,17 @@ void Track::Update(double dt)
 			{
 				for (auto& j : i.second)
 				{
-					if (timer > j)
+					if (timer > j.dt_to_seconds)
 					{
 						note_pos = { 10, (i.first - 0.7) * 10 };
 						note_vel = { -20,0};
 						if (note_pos.y < 0)
 						{
-							Engine::GetGSComponent<GameObjectManager>()->Add(new DownNote(note_pos, note_vel));
+							Engine::GetGSComponent<GameObjectManager>()->Add(new DownNote(note_pos, note_vel,j.movement));
 						}
 						else
 						{
-							Engine::GetGSComponent<GameObjectManager>()->Add(new UpNote(note_pos, note_vel));
+							Engine::GetGSComponent<GameObjectManager>()->Add(new UpNote(note_pos, note_vel, j.movement));
 						}
 						i.second.erase(i.second.begin());
 					}
@@ -185,12 +186,12 @@ void Track::Update(double dt)
 					{
 					case 1:
 					{
-						Engine::GetGSComponent<GameObjectManager>()->Add(new DownNote(note_pos, note_vel));
+						Engine::GetGSComponent<GameObjectManager>()->Add(new DownNote(note_pos, note_vel, i.movement));
 						break;
 					}
 					case 2:
 					{
-						Engine::GetGSComponent<GameObjectManager>()->Add(new UpNote(note_pos, note_vel));
+						Engine::GetGSComponent<GameObjectManager>()->Add(new UpNote(note_pos, note_vel, i.movement));
 						break;
 					}
 					case 3:

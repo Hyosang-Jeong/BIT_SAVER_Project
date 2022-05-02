@@ -11,21 +11,22 @@ Author:  Jaewoo.choi,  Sunwoo Lee
 #include "..\Engine\GameObject\GameObject.h" // GameObject inheritance
 #include"GameObjectType.h"
 #include <map>
-
+#include"..\..\Engine\Music\Midi.h"
 
 
 struct Track_Time
 {
     int track{ 0 };
     long double time{ 0.0 };
-    Track_Time(int a, long double b) :track(a), time(b) {}
+    int movement{ 0 };
+    Track_Time(int a, long double b, int c) :track(a), time(b), movement(c) {}
 };
 
 class Track : public GameObject
 {
 public:
     Track(int music_num);
-    Track(std::map<int,std::vector<long double>>, int);
+    Track(std::map<int,std::vector<info>>, int);
     void Update(double dt) override;
     glm::vec2 Getposition();
     void SetUpdate(bool update);
@@ -38,7 +39,7 @@ public:
     glm::vec2 note_pos{ 0 };
     glm::vec2 note_vel{ 0 };
 
-    std::map<int, std::vector<long double>> track_info; // for REWIND
+    std::map<int, std::vector<info>> track_info; // for REWIND
 private:
     int Music_Num{ 0 };
     bool Doupdate;

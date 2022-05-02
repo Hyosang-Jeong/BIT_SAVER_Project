@@ -6,8 +6,8 @@
 #include "Score Enum.h"
 //#include"obstacle.h"
 #include "../../Engine/Physics/Curve.h"
-UpNote::UpNote(glm::vec2 startPos, glm::vec2 velocity) :
-    isMiss(false),ishit(false),
+UpNote::UpNote(glm::vec2 startPos, glm::vec2 velocity, int movement) :
+    isMiss(false),ishit(false), Movement(movement),
 
     UpAttackKey(InputKey::Keyboard::None),
     DownAttackKey(InputKey::Keyboard::None),
@@ -26,7 +26,12 @@ UpNote::UpNote(glm::vec2 startPos, glm::vec2 velocity) :
 
 void UpNote::Update(double dt)
 {
-    GetGOComponent<Curve>()->TOPWave();
+
+    if (Movement == 99)
+        GetGOComponent<Curve>()->TOPWave();
+    else if (Movement == 101)
+        GetGOComponent<Curve>()->BotToTop();
+
     GameObject::Update(dt);
 
     UpAttackKey = Engine::GetAttack_Key().UpAttackKey;

@@ -7,8 +7,8 @@
 //#include"obstacle.h"
 #include "../../Engine/Physics/Curve.h"
 #include <random>
-DownNote::DownNote(glm::vec2 startPos, glm::vec2 velocity) :
-    isMiss(false), ishit(false),
+DownNote::DownNote(glm::vec2 startPos, glm::vec2 velocity, int movement) :
+    isMiss(false), ishit(false), Movement(movement),
 
 
     UpAttackKey(InputKey::Keyboard::None),
@@ -29,7 +29,12 @@ DownNote::DownNote(glm::vec2 startPos, glm::vec2 velocity) :
 
 void DownNote::Update(double dt)
 {
-    GetGOComponent<Curve>()->TopToBot();
+    if (Movement == 99)
+        GetGOComponent<Curve>()->BotWave();
+    else if (Movement == 101)
+        GetGOComponent<Curve>()->TopToBot();
+
+
     GameObject::Update(dt);
 
     UpAttackKey = Engine::GetAttack_Key().UpAttackKey;
