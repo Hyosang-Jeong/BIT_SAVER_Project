@@ -30,6 +30,7 @@ DownNote::DownNote(glm::vec2 startPos, glm::vec2 velocity) :
 void DownNote::Update(double dt)
 {
     //if()
+    //
     GetGOComponent<Curve>()->TopToBot();
     GameObject::Update(dt);
 
