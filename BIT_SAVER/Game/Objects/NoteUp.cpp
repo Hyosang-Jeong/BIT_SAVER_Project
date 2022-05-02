@@ -26,8 +26,7 @@ UpNote::UpNote(glm::vec2 startPos, glm::vec2 velocity) :
 
 void UpNote::Update(double dt)
 {
-    GetGOComponent<Curve>()->BotToTop();
-
+    GetGOComponent<Curve>()->TOPWave();
     GameObject::Update(dt);
 
     UpAttackKey = Engine::GetAttack_Key().UpAttackKey;
