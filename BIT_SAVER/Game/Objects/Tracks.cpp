@@ -30,31 +30,35 @@ GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 }), Music_Num(music_num)
 
     long double Dificulty{ 0.0 };
 
-	switch (Music_Num)
-	{
-	    case static_cast<int>(SOUND_NUM::OFFSET) :
-			Dificulty = 0.0001;
-			break;
-	    case static_cast<int>(SOUND_NUM::DISCO) :
-			Dificulty = 0.000001;
-			break;
-	    case static_cast<int>(SOUND_NUM::REWIND) :
-			Dificulty = 0.3;
-			break;
-		case static_cast<int>(SOUND_NUM::DIOMA):
-			Dificulty = 0.1;
-			break;
-		case static_cast<int>(SOUND_NUM::ENERGY):
-			Dificulty = 0.1;
-			break;
-		default:
-			break;
-	}
+	//switch (Music_Num)
+	//{
+	//    case static_cast<int>(SOUND_NUM::OFFSET) :
+	//		Dificulty = 0.0001;
+	//		break;
+	//    case static_cast<int>(SOUND_NUM::DISCO) :
+	//		Dificulty = 0.000001;
+	//		break;
+	//    case static_cast<int>(SOUND_NUM::REWIND) :
+	//		Dificulty = 0.3;
+	//		break;
+	//	case static_cast<int>(SOUND_NUM::DIOMA):
+	//		Dificulty = 0.1;
+	//		break;
+	//	case static_cast<int>(SOUND_NUM::ENERGY):
+	//		Dificulty = 0.1;
+	//		break;
+	//	default:
+	//		break;
+	//}
 
 	for (auto& tracks : mid_info)
 	{
 		for (auto& time_t : tracks.second)
 		{
+			if (time_t < 0)		// if time is less than 0 for some reason ( -(time from pos10 to pos-4) or -(offset))
+			{
+				continue;
+			}
 			track_time.push_back(Track_Time(tracks.first, time_t));
 		}
 	}
@@ -64,7 +68,6 @@ GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 }), Music_Num(music_num)
 			return (left.time < right.time);
 		}
 	);
-
 
 	long double t{ track_time[0].time };
 	track_time.erase(std::remove_if(begin(track_time) + 1, end(track_time), [&](Track_Time time_t)
@@ -89,22 +92,22 @@ GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 }), Music_Num(music_num)
 		tt.time += target_time;
 	}
 	Engine::GetLogger().LogEvent("Your off set is " + std::to_string(static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->GetOffsetTime()));
-	if (Music_Num == static_cast<int>(SOUND_NUM::REWIND) || Music_Num == static_cast<int>(SOUND_NUM::ENERGY))
-	{
-		for (auto& time_t : track_time)
-		{
-			int T = static_cast<int>(time_t.time * 10000);
-			if (T % 2 == 0)
-			{
-				track_info[T % 2].push_back(time_t.time);
-			}
-			else if (T % 2 == 1)
-			{
-				track_info[T % 2].push_back(time_t.time);
-			}
-		}
-	}
-	else if (Music_Num == static_cast<int>(SOUND_NUM::OFFSET))
+	//if (Music_Num == static_cast<int>(SOUND_NUM::REWIND) || Music_Num == static_cast<int>(SOUND_NUM::ENERGY))
+	//{
+	//	for (auto& time_t : track_time)
+	//	{
+	//		int T = static_cast<int>(time_t.time * 10000);
+	//		if (T % 2 == 0)
+	//		{
+	//			track_info[T % 2].push_back(time_t.time);
+	//		}
+	//		else if (T % 2 == 1)
+	//		{
+	//			track_info[T % 2].push_back(time_t.time);
+	//		}
+	//	}
+	//}
+	if (Music_Num == static_cast<int>(SOUND_NUM::OFFSET))
 	{
 		int T = 0;
 		for (auto& time_t : track_time)
@@ -131,7 +134,7 @@ void Track::Update(double dt)
 
 		timer += dt * Engine::GetMusic().pitch;
 
-		if (Music_Num == static_cast<int>(SOUND_NUM::REWIND) || Music_Num == static_cast<int>(SOUND_NUM::ENERGY) || Music_Num == static_cast<int>(SOUND_NUM::OFFSET))
+		if (/*Music_Num == static_cast<int>(SOUND_NUM::REWIND) || Music_Num == static_cast<int>(SOUND_NUM::ENERGY) ||*/ Music_Num == static_cast<int>(SOUND_NUM::OFFSET))
 		{
 			for (auto& i : track_info)
 			{
@@ -163,20 +166,40 @@ void Track::Update(double dt)
 					note_pos = { 10, ((i.track - 1) - 0.7) * 10 };
 					note_vel = { -20,0 };
 
-					/////////////////////////////////////////////////////////////////////////////////////////////////////////
-					if (i.track == 3)
+					///////////////////////////////////////////////////////////////////////////////////////////////////////////
+					//if (i.track == 3)
+					//{
+					//	note_pos = { 10, -2 };
+					//	Engine::GetGSComponent<GameObjectManager>()->Add(new HardNote(note_pos, note_vel,1.0));
+					//}
+					///////////////////////////////////////////////////////////////////////////////////////////////////////////
+					//else if (note_pos.y < 0)	// y=-7
+					//{
+					//	Engine::GetGSComponent<GameObjectManager>()->Add(new DownNote(note_pos, note_vel));
+					//}
+					//else	// y=3
+					//{
+					//	Engine::GetGSComponent<GameObjectManager>()->Add(new UpNote(note_pos, note_vel));
+					//}
+					switch (i.track)
 					{
-						note_pos = { 10, -2 };
-						Engine::GetGSComponent<GameObjectManager>()->Add(new HardNote(note_pos, note_vel,1.0));
-					}
-					/////////////////////////////////////////////////////////////////////////////////////////////////////////
-					else if (note_pos.y < 0)	// y=-7
+					case 1:
 					{
 						Engine::GetGSComponent<GameObjectManager>()->Add(new DownNote(note_pos, note_vel));
+						break;
 					}
-					else	// y=3
+					case 2:
 					{
 						Engine::GetGSComponent<GameObjectManager>()->Add(new UpNote(note_pos, note_vel));
+						break;
+					}
+					case 3:
+					{
+						note_pos = { 10, -2 };
+						Engine::GetGSComponent<GameObjectManager>()->Add(new HardNote(note_pos, note_vel, 1.0));
+						break;
+					}
+					default: break;
 					}
 					track_time.erase(track_time.begin());
 				}

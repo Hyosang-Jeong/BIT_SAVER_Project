@@ -25,7 +25,7 @@ std::map<int,std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
         midi_filename = "../MIDI/disco.mid";
         break;
     case SOUND_NUM::REWIND:
-        midi_filename = "../MIDI/rewind.mid";
+        midi_filename = "../MIDI/rewind_edit.mid";
         break;
     case SOUND_NUM::DIOMA:
         midi_filename = "../MIDI/dioma.mid";
@@ -172,7 +172,8 @@ std::map<int,std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
 
             if ((bytes[0] & 0xf0) == 0x90 && bytes[bytes.size() - 1] != 0)
             {
-                if (music_num == SOUND_NUM::OFFSET)
+                event.track = i + 1;
+                /*if (music_num == SOUND_NUM::OFFSET)
                 {
                     event.track = 1;
                 }
@@ -195,7 +196,7 @@ std::map<int,std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
                 else
                 {
                     event.track = (bytes[0] & 0x0f) + 1;
-                }
+                }*/
                 m_events.push_back(event);
             }
             else if (bytes[0] == 0xff && bytes[1] == 0x2f) 
@@ -224,7 +225,7 @@ std::map<int,std::vector<long double>> MidiEvent::MidiSetUp(int music_num)
         break;
     case SOUND_NUM::REWIND:
         trackFrom = 1;
-        trackTo = 1;
+        trackTo = 3;
         break;
     case SOUND_NUM::DIOMA:
         trackFrom = 1;
