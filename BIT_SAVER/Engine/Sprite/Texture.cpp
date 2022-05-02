@@ -150,7 +150,7 @@ void Texture::Draw(float alpha_value, glm::mat3 camera, glm::vec2 pos, glm::vec2
 
 	glTextureParameteri(tex_obj, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // size
 	glTextureParameteri(tex_obj, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
+	glTextureParameteri(tex_obj, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glActiveTexture(GL_TEXTURE0);
 
 	glEnable(GL_TEXTURE_2D);

@@ -20,27 +20,13 @@ Option::Option() :
     escape(InputKey::Keyboard::Escape),
     OptionUpKey(InputKey::Keyboard::Up),
     OptionDownKey(InputKey::Keyboard::Down),
-    OptionSoundUpKey(InputKey::Keyboard::Right),
-    OptionSoundDownKey(InputKey::Keyboard::Left),
     OptionSelectKey(InputKey::Keyboard::Enter),
-    mouseSwitch(false),
-    selectedIndex(glm::vec2{ 0,1 }),
-    SoundBallScale(glm::vec2{ 0.2,0.2 }),
-    smallsoundballScale(glm::vec2{ 0.2,0.2 }),
-    mousePosition(glm::vec2{ 0,0 }),
-    MouseKey(InputKey::Mouse::Left),
-    ChangeKey(InputKey::Keyboard::Space)
+    selectedIndex(glm::vec2{ 0,1 })
 {
     select = -1;
     w = Engine::GetWindow().GetSize().x;
     h = Engine::GetWindow().GetSize().y;
-    world_to_ndc =
-    {
-   20 / w, 0,0,
-   0,-20 / h,0,
-   -10,10,1
-    };
-    SoundBallPosition=glm::vec2{ 0.5,3.5 };
+
     Resume=glm::vec2{ 0,0 };
     Restart=glm::vec2{ 0,0 };
     Mainmenu=glm::vec2{ 0,0 };
@@ -53,31 +39,63 @@ void Option::Load()
     textureAll = Engine::GetTextureManager().Load(texture_path[Pause]);
     bigSoundBall = Engine::GetTextureManager().Load(texture_path[Sound_Bigball]);
     smallSoundBall = Engine::GetTextureManager().Load(texture_path[Sound_Smallball]);
-    cursor = Engine::GetTextureManager().Load(texture_path[MOUSE_CURSOR]);
 }
 
-void Option::Update(double dt)
+void Option::Update(double )
 {
-    mousePosition = Engine::GetInput().MouseGetPosition();
-    mousePosition = world_to_ndc * glm::vec3(mousePosition, 1);
-    if (ChangeKey.IsKeyDown() == true && ChangeKey.IsKeyReapeated() == false)
+    GetIndex();
+    if (OptionUpKey.IsKeyReleased() == true)
     {
-        if (select == Select::KEYBOARD)
+        switch (select)
         {
-            select = -1;
+        case (Select::RESUME):
+        {
+            select = Select::QUIT;
+            break;
         }
-        else
+        case Select::RESTART:
         {
-            select = Select::KEYBOARD;
-            Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::None);
-             IsUpkeychanged = false;
-             IsDownkeychanged = false;
-             KeychangeTextTimer = 1;
+            select = Select::RESUME;
+            break;
+        }
+        case Select::MAINMENU:
+        {
+            select = Select::RESTART;
+            break;
+        }
+        case Select::QUIT:
+        {
+            select = Select::MAINMENU;
+            break;
+        }
         }
     }
-    KeychangeTextTimer -= dt;
-    GetIndex();
-    changeSound(dt);
+    if (OptionDownKey.IsKeyReleased() == true)
+    {
+        switch (select)
+        {
+        case (Select::RESUME):
+        {
+            select = Select::RESTART;
+            break;
+        }
+        case Select::RESTART:
+        {
+            select = Select::MAINMENU;
+            break;
+        }
+        case Select::MAINMENU:
+        {
+            select = Select::QUIT;
+            break;
+        }
+        case Select::QUIT:
+        {
+            select = Select::RESUME;
+            break;
+        }
+        }
+    }
 }
 
 void Option::Draw()
@@ -90,86 +108,13 @@ void Option::Draw()
 
     Engine::GetGameStateManager().GetCurrstate()->Draw();
 
-
     textureAll->Draw({ 0,0 }, { 10,10 });
-    bigSoundBall->Draw(SoundBallPosition, { 0.3,0.3 });
-    smallSoundBall->Draw(SoundBallPosition, smallsoundballScale);
-    cursor->Draw({ mousePosition.x + 0.1, mousePosition.y - 0.5 }, { 0.5,0.5 });
 
     glm::vec2 window_pos = Engine::GetWindow().GetSize();
     window_pos.x *= 0.5;
     window_pos.y *= 0.5;
 
     glm::vec2 offset(w*0.03, h*0.1);
-    Engine::GetText(font2).Draw("Press Spacebar to change Attack key", 400.f, 100.f, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
-    if (select == Select::KEYBOARD)
-    {
-        if (Engine::GetInput().GetLastPressedButton() != InputKey::Keyboard::None)
-        {
-            if (Engine::GetInput().GetLastPressedButton() >= InputKey::Keyboard::A && Engine::GetInput().GetLastPressedButton() <= InputKey::Keyboard::Z)
-            {
-                if (IsUpkeychanged == false)
-                {
-                    Engine::GetAttack_Key().UpAttackKey = Engine::GetInput().GetLastPressedButton();
-                    Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::None);
-                    IsUpkeychanged = true;
-                    KeychangeTextTimer = 1;
-                }
-                else if (IsDownkeychanged == false && Engine::GetInput().GetLastPressedButton() != static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->UpAttackKey.button)
-                {
-                    Engine::GetAttack_Key().DownAttackKey = Engine::GetInput().GetLastPressedButton();
-                    Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::None);
-                    IsDownkeychanged = true;
-                }
-            }
-        }
-       
-         char Upkey = 'A' + static_cast<char>((static_cast<int>(Engine::GetAttack_Key().UpAttackKey.button) - static_cast<int>(InputKey::Keyboard::A)));
-         char Downkey = 'A' + static_cast<char>((static_cast<int>(Engine::GetAttack_Key().DownAttackKey.button) - static_cast<int>(InputKey::Keyboard::A)));
-         std::string Upresult(1, Upkey);
-         std::string Downresult(1, Downkey);
-         if (IsUpkeychanged == false)
-         {
-             if (KeychangeTextTimer >0.5)
-             {
-                 Engine::GetText(font2).Draw("Up attack Key : " + Upresult, 400.f, 125.f, 1.f, glm::vec3(1.f, 1.f, 1.f));
-                 Engine::GetText(font2).Draw("Down attack Key : " + Downresult, 400.f, 150.f, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
-             }
-             else
-             {
-                 Engine::GetText(font2).Draw("Up attack Key : " + Upresult, 400.f, 125.f, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
-                 Engine::GetText(font2).Draw("Down attack Key : " + Downresult, 400.f, 150.f, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
-             }
-             if (KeychangeTextTimer < 0)
-             {
-                 KeychangeTextTimer = 1;
-             }
-         }
-         else if(IsDownkeychanged == false)
-         {
-             if (KeychangeTextTimer > 0.5)
-             {
-                 Engine::GetText(font2).Draw("Up attack Key : " + Upresult, 400.f, 125.f, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
-                 Engine::GetText(font2).Draw("Down attack Key : " + Downresult, 400.f, 150.f, 1.f, glm::vec3(1.f, 1.f, 1.f));
-             }
-             else
-             {
-                 Engine::GetText(font2).Draw("Up attack Key : " + Upresult, 400.f, 125.f, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
-                 Engine::GetText(font2).Draw("Down attack Key : " + Downresult, 400.f, 150.f, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
-             }
-             if (KeychangeTextTimer < 0)
-             {
-                 KeychangeTextTimer = 1;
-             }
-         }
-         else
-         {
-             Engine::GetText(font2).Draw("Up attack Key : " + Upresult, 400.f, 125.f, 1.f, glm::vec3(1.f, 1.f, 1.f));
-             Engine::GetText(font2).Draw("Down attack Key : " + Downresult, 400.f, 150.f, 1.f, glm::vec3(1.f, 1.f, 1.f));
-         }
-        Engine::GetText(font2).Draw("Press Spacebar to change Attack key", 400.f, 100.f, 1.f, glm::vec3(1.f, 1.f, 1.f));
-
-    }
 
     Engine::GetText(font2).Draw("RESUME", window_pos.x - offset.x, window_pos.y - offset.y, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
 
@@ -179,8 +124,6 @@ void Option::Draw()
 
     }
     Resume = { window_pos.x - offset.x ,window_pos.y - offset.y };
-    Resume = world_to_ndc * glm::vec3(Resume, 1);
-
 
     offset.y -= h * 0.1f;
 
@@ -191,7 +134,6 @@ void Option::Draw()
 
     }
     Restart = { window_pos.x - offset.x ,window_pos.y - offset.y };
-    Restart = world_to_ndc * glm::vec3(Restart, 1);
     offset.y -= h * 0.11f;
 
     Engine::GetText(font2).Draw("MAIN MENU", window_pos.x - offset.x, window_pos.y - offset.y, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
@@ -201,7 +143,7 @@ void Option::Draw()
         Engine::GetText(font2).Draw("MAIN MENU", window_pos.x - offset.x, window_pos.y - offset.y, 1.f, glm::vec3(1.f, 1.f, 1.f));
     }
     Mainmenu = { window_pos.x - offset.x ,window_pos.y - offset.y };
-    Mainmenu = world_to_ndc * glm::vec3(Mainmenu, 1);
+
 
     offset.y -= h * 0.11f;
 
@@ -211,36 +153,13 @@ void Option::Draw()
         Engine::GetText(font2).Draw("QUIT", window_pos.x - offset.x, window_pos.y - offset.y, 1.f, glm::vec3(1.f, 1.f, 1.f));
     }
     Quit = { window_pos.x - offset.x ,window_pos.y - offset.y };
-    Quit = world_to_ndc * glm::vec3(Quit, 1);
 
 }
 
 
 void Option::GetIndex()
 {
-    if (IsInBox(Resume) == true)
-    {
-        select = Select::RESUME;
-    }
-    else if (IsInBox(Restart) == true)
-    {
-        select = Select::RESTART;
-    }
-    else if (IsInBox(Mainmenu) == true)
-    {
-        select = Select::MAINMENU;
-    }
-    else if (IsInBox(Quit) == true)
-    {
-        select = Select::QUIT;
-    }
-    
-    else if(select != Select::KEYBOARD)
-    {
-        select = -1;
-    }
-
-    if (MouseKey.MouseIsKeyReleased() == true)
+    if (OptionSelectKey.IsKeyReleased() == true)
     {
         switch (select)
         {
@@ -262,37 +181,11 @@ void Option::GetIndex()
         }
     }
 
-
-
 }
 
 int Option::GetSelect()
 {
     return select;
-}
-
-bool Option::IsInBoxSound(glm::vec2 pos)
-{
-    if (pos.x + 0.5 > mousePosition.x &&
-        pos.x - 0.5 < mousePosition.x &&
-        pos.y + 0.5 > mousePosition.y &&
-        pos.y - 0.5 < mousePosition.y)
-    {
-        return true;
-    }
-    return false;
-}
-
-bool Option::IsInBox(glm::vec2 pos)
-{
-    if (pos.x + 2.9 > mousePosition.x &&
-        pos.x - 1.7 < mousePosition.x &&
-        pos.y + 0.8 > mousePosition.y &&
-        pos.y - 1 < mousePosition.y)
-    {
-        return true;
-    }
-    return false;
 }
 
 
@@ -301,48 +194,4 @@ void Option::Unload()
     textureAll = nullptr;
     bigSoundBall = nullptr;
     smallSoundBall = nullptr;
-}
-
-void Option::changeSound(double dt)
-{
-    if (IsInBoxSound(SoundBallPosition))
-    {
-        if (smallsoundballScale.x < 0.59f)
-        {
-            smallsoundballScale.x += static_cast<float>(dt);
-        }
-        if (smallsoundballScale.y < 0.59f)
-        {
-            smallsoundballScale.y += static_cast<float>(dt);
-        }
-
-        if (MouseKey.MouseIsKeyDown() == true)
-        {
-            mouseSwitch = true;
-        }
-        else
-        {
-            mouseSwitch = false;
-        }
-    }
-    else if (IsInBoxSound(SoundBallPosition) == false)
-    {
-        if (smallsoundballScale.x > 0.2f)
-        {
-            smallsoundballScale.x -= static_cast<float>(dt);
-        }
-        if (smallsoundballScale.y > 0.2f)
-        {
-            smallsoundballScale.y -= static_cast<float>(dt);
-        }
-    }
-    if (mouseSwitch == true && MouseKey.MouseIsKeyDown() == true)
-    {
-        if (mousePosition.x >= -1.5f && mousePosition.x <= 2.3f)
-        {
-            SoundBallPosition.x = mousePosition.x;
-        }
-
-        Engine::GetMusic().SetVolume(((SoundBallPosition.x) + 1.5f) / 3.8f);
-    }
 }

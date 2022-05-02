@@ -19,5 +19,6 @@ enum SOUND_NUM
     SOUND_EFFECT2,
     BOSS_ENTRANCE,
     FEVER,
+    JANJI,
     MUSIC_END
 };

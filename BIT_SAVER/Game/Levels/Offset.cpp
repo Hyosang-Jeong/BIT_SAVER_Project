@@ -77,7 +77,7 @@ void Offset::Load()
 
 void Offset::Update(double dt)
 {
-
+      
     if (HitKey.IsKeyDown())
         isHit = true;
 

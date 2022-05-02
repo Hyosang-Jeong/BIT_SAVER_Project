@@ -167,7 +167,7 @@ void Level2::Draw()
 	glClear(GL_COLOR_BUFFER_BIT);
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	GetGSComponent<Background>()->Draw(camera->GetMatrix());
-	GetGSComponent<Score>()->Draw({ 0,100 });
+	GetGSComponent<Score>()->Draw({ 0,200 });
 	gameObjectManager->DrawAll(camera->GetMatrix());
 }
 

@@ -36,18 +36,22 @@ void MainOption::Load()
     main_screen =    Engine::GetTextureManager().Load("../images/mainmenu.png");
     volume_option  = Engine::GetTextureManager().Load("../images/volume.png");
     key_option         = Engine::GetTextureManager().Load("../images/key_setting.png");
+    offset_default = Engine::GetTextureManager().Load("../images/offset_default.png");
     volume_ball       = Engine::GetTextureManager().Load("../images/volume_ball.png");
     Button1               = Engine::GetTextureManager().Load("../images/option_button1.png");
     Button2               = Engine::GetTextureManager().Load("../images/option_button2.png");
     Button3               = Engine::GetTextureManager().Load("../images/option_button3.png");
 
     select = MAIN_SELECT::VOLUME;
+    Engine::GetMusic().Play(SOUND_NUM::JANJI);
 }
 
 void MainOption::Update(double dt)
 {
+
     glm::vec2 size = Engine::GetWindow().GetSize();
-    Engine::GetMusic().SetVolume(SoundBallPosition.x+1.25f);
+    Engine::GetMusic().SetVolume((SoundBallPosition.x + 1.25f) / 2.5f);
+    Engine::GetMusic().Update();
     KeychangeTextTimer -= dt;
 
     if (escape.IsKeyReleased() == true)
@@ -100,11 +104,20 @@ void MainOption::Update(double dt)
     {
         if (volume_up.IsKeyReleased() == true)
         {
-            SoundBallPosition.x += 0.25f;
+            if(SoundBallPosition.x <1.1f)
+                  SoundBallPosition.x += 0.25f;
         }
         if (volume_down.IsKeyReleased() == true)
         {
-            SoundBallPosition.x -= 0.25f;
+            if (SoundBallPosition.x > -1.1f)
+                  SoundBallPosition.x -= 0.25f;
+        }
+    }
+    if (select == MAIN_SELECT::OFF_SET)
+    {
+        if (enter.IsKeyReleased() == true)
+        {
+            Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Offset));
         }
     }
 }
@@ -205,7 +218,9 @@ void MainOption::Draw()
     } 
     if (select == MAIN_SELECT::OFF_SET)
     {
-        Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Offset));
+        offset_default->Draw({ 0,0 }, { 10,10 });
+        Button3->Draw({ 0,0 }, { 10,10 });
+
     }
 }
 
@@ -222,4 +237,5 @@ long double MainOption::GetOffsetTime()
 
 void MainOption::Unload()
 {
+    Engine::GetMusic().Stop(SOUND_NUM::JANJI);
 }

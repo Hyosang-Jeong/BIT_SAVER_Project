@@ -27,8 +27,9 @@ public:
     void set_attack_flag(bool attack_flag, GLfloat ypos );
     void Draw(glm::mat3 camera_matrix) override;
 private:
-    Texture Hit_tex;
-    Texture Miss_tex;
+    Texture* UP;
+    Texture* Down;
+    float scale = 0;
     bool Hit[2] = { false };   //Hit check flag
     glm::vec2 Hit_pos[2] = { {-20,-20},{-20,-20} }; //Track1 and Track2  // intial pos -20,-20 => not to draw initial state
     bool attack_pressed{false};

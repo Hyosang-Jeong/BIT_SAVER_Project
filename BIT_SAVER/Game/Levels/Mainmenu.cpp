@@ -21,6 +21,7 @@ Mainmenu::Mainmenu() :
 	Next(InputKey::Keyboard::Down),
 	Previous(InputKey::Keyboard::Up),
 	Select(InputKey::Keyboard::Enter),
+	T(InputKey::Keyboard::T),
 	currstate(static_cast<int>(state::START)),
 	escape(InputKey::Keyboard::Escape),
 	updown_pos(10,-10)
@@ -60,7 +61,11 @@ void Mainmenu::Update( double dt)
 		if(timer > 1)
 			timer = 0;
 	}
-
+	if (T.IsKeyReleased() == true)
+	{
+		stop_music(currstate);
+		Engine::GetGameStateManager().SetNextState(3);
+	}
 
 
 	if (escape.IsKeyReleased() == true)
@@ -95,11 +100,10 @@ void Mainmenu::Update( double dt)
 		{
 			switch (currstate)
 			{
-
 			case 3:
 			{
 				stop_music(currstate);
-				Engine::GetGameStateManager().SetNextState(3);
+				Engine::GetGameStateManager().SetNextState(4);
 				break;
 			}
 			case 4:

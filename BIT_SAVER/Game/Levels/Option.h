@@ -15,7 +15,6 @@ Author: Jaewoo.choi, Hyun Kang , Hyosang Jung , Sunwoo Lee
 
 enum  Select
 {
-    KEYBOARD,
     RESUME,
     RESTART,
     MAINMENU,
@@ -34,9 +33,7 @@ public:
     void Draw() override;
     void GetIndex();
     int GetSelect();
-    bool IsInBoxSound(glm::vec2 pos);
-    bool IsInBox(glm::vec2 pos);
-    void changeSound(double dt);
+
 
 private:
     bool IsUpkeychanged;
@@ -45,32 +42,18 @@ private:
     Texture* textureAll;
     Texture* bigSoundBall;
     Texture* smallSoundBall;
-    Texture* cursor;
 
     InputKey escape;
     InputKey OptionUpKey;
     InputKey OptionDownKey;
-    InputKey OptionSoundUpKey;
-    InputKey OptionSoundDownKey;
     InputKey OptionSelectKey;
-    InputKey MouseKey;
-    InputKey ChangeKey;
 
-
-    bool mouseSwitch;
     glm::vec2 selectedIndex;
 
     int select;
 
-    glm::vec2 SoundBallPosition;
-    glm::vec2 SoundBallScale;
-
     float w;
     float h;
-    glm::mat3 world_to_ndc;
-    glm::vec2 mousePosition;
-
-    glm::vec2 smallsoundballScale;
 
     glm::vec2 Resume;
     glm::vec2 Restart;

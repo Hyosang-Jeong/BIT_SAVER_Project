@@ -28,6 +28,10 @@ public:
     void Load() override;
     void Update(double dt) override;
     void Unload() override;
+    SOUND_NUM GetcurrentMusic() override
+    {
+        return SOUND_NUM::JANJI;
+    }
     std::string GetName() { return "MainOption"; }
     void Draw() override;
 
@@ -44,6 +48,7 @@ private:
     Texture* main_screen;
     Texture* volume_option;
     Texture* key_option;
+    Texture* offset_default;
     Texture* volume_ball;
     Texture* Button1;
     Texture* Button2;

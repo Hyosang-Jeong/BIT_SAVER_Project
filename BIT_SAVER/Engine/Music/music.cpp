@@ -54,6 +54,9 @@ void Music::Load()
     result = FMOD_System_CreateSound(pSystem, "../sound/fever.mp3", FMOD_DEFAULT, nullptr, &pSound[FEVER]);
     ErrorCheck(result);
 
+    result = FMOD_System_CreateSound(pSystem, "../sound/Cartoon.mp3", FMOD_DEFAULT, nullptr, &pSound[JANJI]);
+    ErrorCheck(result);
+
     volume = SOUND_DEFAULT;
 
 }

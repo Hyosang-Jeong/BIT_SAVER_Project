@@ -39,6 +39,7 @@ public:
 	InputKey Previous;
 	InputKey Select;
 	InputKey escape;
+	InputKey T;
 private:
 	Texture* mainmenu;
 	Texture* gamelogo;
