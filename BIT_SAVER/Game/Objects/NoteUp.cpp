@@ -5,7 +5,7 @@
 #include "Score.h"
 #include "Score Enum.h"
 //#include"obstacle.h"
-
+#include "../../Engine/Physics/Curve.h"
 UpNote::UpNote(glm::vec2 startPos, glm::vec2 velocity) :
     isMiss(false),ishit(false),
 
@@ -18,6 +18,7 @@ UpNote::UpNote(glm::vec2 startPos, glm::vec2 velocity) :
         energy = (static_cast<EnergyBar*>(Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Energy_bar)));
     }
     AddGOComponent(new Sprite("../spt/fly.spt", this));
+    AddGOComponent(new Curve(this));
     GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(UpNote_anim::flying));
     SetVelocity(velocity);
 
@@ -25,6 +26,8 @@ UpNote::UpNote(glm::vec2 startPos, glm::vec2 velocity) :
 
 void UpNote::Update(double dt)
 {
+    GetGOComponent<Curve>()->BotToTop();
+
     GameObject::Update(dt);
 
     UpAttackKey = Engine::GetAttack_Key().UpAttackKey;

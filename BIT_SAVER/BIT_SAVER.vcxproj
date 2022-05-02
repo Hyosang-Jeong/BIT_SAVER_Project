@@ -186,6 +186,7 @@
     <ClCompile Include="Engine\Music\music.cpp" />
     <ClCompile Include="Engine\Physics\Camera.cpp" />
     <ClCompile Include="Engine\Physics\Collision.cpp" />
+    <ClCompile Include="Engine\Physics\Curve.cpp" />
     <ClCompile Include="Engine\Sprite\Animation.cpp" />
     <ClCompile Include="Engine\Sprite\GameParticles.cpp" />
     <ClCompile Include="Engine\Sprite\ParticleEmitter.cpp" />
@@ -282,6 +283,7 @@
     <ClInclude Include="Engine\Music\Sound_Num.h" />
     <ClInclude Include="Engine\Physics\Camera.h" />
     <ClInclude Include="Engine\Physics\Collision.h" />
+    <ClInclude Include="Engine\Physics\Curve.h" />
     <ClInclude Include="Engine\Sprite\Animation.h" />
     <ClInclude Include="Engine\Sprite\GameParticles.h" />
     <ClInclude Include="Engine\Sprite\ParticleEmitter.h" />

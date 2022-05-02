@@ -5,21 +5,23 @@
 #include "Score.h"
 #include "Score Enum.h"
 //#include"obstacle.h"
-
-
+#include "../../Engine/Physics/Curve.h"
+#include <random>
 DownNote::DownNote(glm::vec2 startPos, glm::vec2 velocity) :
-	isMiss(false), ishit(false),
+    isMiss(false), ishit(false),
 
 
     UpAttackKey(InputKey::Keyboard::None),
     DownAttackKey(InputKey::Keyboard::None),
     GameObject(startPos, glm::vec2{ 1.5,1.5 })
 {
+
     if (Engine::GetGameStateManager().GetCurrstate()->GetName() != "Offset")
     {
         energy = (static_cast<EnergyBar*>(Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Energy_bar)));
     }
     AddGOComponent(new Sprite("../spt/belcoz.spt", this));
+    AddGOComponent(new Curve( this));
     GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::flying));
     SetVelocity(velocity);
 
@@ -27,6 +29,8 @@ DownNote::DownNote(glm::vec2 startPos, glm::vec2 velocity) :
 
 void DownNote::Update(double dt)
 {
+    //if()
+    GetGOComponent<Curve>()->TopToBot();
     GameObject::Update(dt);
 
     UpAttackKey = Engine::GetAttack_Key().UpAttackKey;
@@ -144,3 +148,5 @@ int DownNote::Score_check()
     }
     return static_cast<int>(SCORE::MISS);
 }
+
+
