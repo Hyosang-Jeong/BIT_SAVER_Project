@@ -19,8 +19,7 @@ GameObject(startPos, glm::vec2{ 1,20 })
 void Note_box::Update(double dt)
 {
 	GameObject::Update(dt);
-	is_destroyed = true;
-	scale += static_cast<float>(dt);
+	scale += static_cast<float>(dt)*30.f;
 }
 
 void Note_box::ResolveCollision(GameObject* )
@@ -37,8 +36,8 @@ const bool Note_box::GetDestroyed() const
 void Note_box::Draw(glm::mat3 )
 {
 	//GameObject::Draw(camera_matrix);
-	UP->Draw({ -4,3 }, { 1.5,1.5 });
-	Down->Draw({ -4,-7 }, { 1.5,1.5 });
+	UP->Draw({ -4,3 }, { 1.5,1.5 }, { scale,0 });
+	Down->Draw({ -4,-7 }, { 1.5,1.5 }, { scale,0 });
 }
 
 glm::vec2 Note_box::Getposition()
