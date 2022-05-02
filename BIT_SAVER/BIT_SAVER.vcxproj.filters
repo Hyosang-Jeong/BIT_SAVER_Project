@@ -131,9 +131,6 @@
     <ClCompile Include="Game\Levels\Level3.cpp">
       <Filter>Game\Levels</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Objects\Tutorial_Helper.cpp">
-      <Filter>Game\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Levels\Level0.cpp">
       <Filter>Game\Levels</Filter>
     </ClCompile>
@@ -151,6 +148,9 @@
     </ClCompile>
     <ClCompile Include="Engine\Window\SerialClass.cpp">
       <Filter>Engine\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Physics\Curve.cpp">
+      <Filter>Engine\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -298,9 +298,6 @@
     <ClInclude Include="Game\Levels\Level3.h">
       <Filter>Game\Levels</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Objects\Tutorial_Helper.h">
-      <Filter>Game\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Levels\Level0.h">
       <Filter>Game\Levels</Filter>
     </ClInclude>
@@ -321,6 +318,9 @@
     </ClInclude>
     <ClInclude Include="Engine\Window\SerialClass.h">
       <Filter>Engine\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Physics\Curve.h">
+      <Filter>Engine\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

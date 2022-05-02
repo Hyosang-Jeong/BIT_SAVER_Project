@@ -46,6 +46,7 @@ void Offset::Load()
     RealCompareNumber = 0;
     resultTime = 0.;
     currentResultTime = 0.;
+    pos.clear();
     x_pos = { -100, -100 };
     gameObjectManager = new GameObjectManager();
 
@@ -56,7 +57,8 @@ void Offset::Load()
     gameObjectManager->Add(trackPtr);
 
     offset_x = Engine::GetTextureManager().Load(texture_path[OFFSET_X]);
-
+    offset_screen = Engine::GetTextureManager().Load("../images/offset_screen.png");
+    offset_background = Engine::GetTextureManager().Load("../images/offset_background.png");
     //trackPtr->track_time.erase(trackPtr->track_time.begin(), trackPtr->track_time.begin() + 4);
 
     for (auto& i : trackPtr->track_time)
@@ -117,7 +119,10 @@ void Offset::Update(double dt)
             if (gameObjectManager->GetgameObjects().size() >= 2)
             {
                 if (hitNumber != 0)
-                    x_pos.x = (static_cast<float>(currentResultTime / static_cast<long double>(RealCompareNumber)))*20.f;
+                {
+                    x_pos.x = (static_cast<float>(currentResultTime / static_cast<long double>(RealCompareNumber))) * 20.f;
+                    pos.push_back(x_pos.x);
+                }
             }
         }
         if (hitNumber != 0)
@@ -133,7 +138,13 @@ void Offset::Update(double dt)
 
 void Offset::Draw()
 {
-    offset_x->Draw({ x_pos.x  , 0 }, { 1,1 });
+
+    offset_background->Draw({ 0  , 0 }, { 10,10 });
+    offset_screen->Draw({ 0  , 0 }, { 10,10 });
+    for (auto& i : pos)
+    {
+       offset_x->Draw({ i  , 0 }, { 10,10 });
+    }
     const std::string font1{ font_path[MochiyPopOne] };
     if (isHit == false)
     {

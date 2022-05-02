@@ -40,6 +40,8 @@ public:
 private:
 
     Texture* offset_x;
+    Texture* offset_screen;
+    Texture* offset_background;
     InputKey ESCAPE;
     InputKey HitKey;
 
@@ -62,4 +64,6 @@ private:
     double intervalTime;
     long double interval;
     bool isoffset;
+
+    std::vector<float> pos;
 };

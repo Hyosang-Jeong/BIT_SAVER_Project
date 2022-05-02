@@ -5,7 +5,6 @@ written consent of DigiPen Institute of Technology is prohibited.
 File Name: Tutorial.h
 Project: BIT_SAVER
 Author: Jaewoo.choi, Hyun Kang 
-
 -----------------------------------------------------------------*/
 #pragma once
 #include "..\Engine\GameState\GameState.h" // BIT_SAVER::GameState
@@ -14,36 +13,22 @@ Author: Jaewoo.choi, Hyun Kang
 #include"../../Engine/Sprite/Texture.h"
 #include "../../Engine/Music/Sound_Num.h"
 
-class Tutorial_Helper;
+class TutorialState
+{
+public:
+    virtual void Enter(GameState* object) =0;
+    virtual void Update(GameState* object, double dt)=0 ;
+    virtual void Draw(GameState* object) = 0;
+    virtual void TestForExit(GameState* object) =0;
+};
+
 class Hero;
-class Boss;
 class Track;
-class Note_box;
 class Background;
-class EnergyBar;
-class Stage_bar;
 class GLText;
-class Fever_bar;
-class CheckBox;
 class Camera;
-
-enum class TUTO_LEVEL_STATE
-{
-	EXTRA,
-	GENERATING,
-	OPTION,
-	FINISH
-};
-
-enum class Tuto_Helper_Enum
-{
-	GREETINGS,
-	UP_NOTE_GENERATE,
-	UP_NOTE_HIT,
-	DOWN_NOTE_GENERATE,
-	DOWN_NOTE_HIT,
-	END
-};
+class Note_box;
+class Texture;
 
 class Tutorial : public GameState
 {
@@ -53,21 +38,44 @@ public:
 	void Update(double dt) override;
 	void Unload() override;
 	std::string GetName() { return "Tutorial"; }
+    SOUND_NUM GetcurrentMusic() override
+    {
+        return SOUND_NUM::OFFSET;
+    }
 	void Draw() override;
-private:
-	void Update_currstate(double dt);
-	InputKey escape;
-	Hero* heroPtr;
-	Boss* bossPtr;
-	Track* trackPtr;
-	Note_box* notebox;
-	Background* backPtr;
-	EnergyBar* energyBar;
-	Stage_bar* stageBar;
-	Fever_bar* feverBar;
-	Camera* camera;
-	GameObjectManager* gameObjectManager;
-	TUTO_LEVEL_STATE gamestate;
-	Tuto_Helper_Enum currstate;
-	bool isMusicEnd;
+    Hero* heroPtr;
+    Background* backPtr;
+    Track* trackPtr;
+    GameObjectManager* gameObjectManager;
+    Camera* camera;
+    Note_box* notebox;
+    TutorialState* tutorialState;
+    InputKey Escape;
+    Texture* helper;
+    glm::vec2 window_pos;
+    glm::vec2 text_pos;
+    const std::string font2;
+    int index;
+public:
+    class State_Greeting : public TutorialState
+    {
+    public:
+        virtual void Enter(GameState* state) override;
+        virtual void Update(GameState* state, double dt) override;
+        virtual void Draw(GameState* state)override;
+        virtual void TestForExit(GameState* state) override;
+    };
+
+    class State_Attacks : public TutorialState 
+    {
+    public:
+        virtual void Enter(GameState* state) override;
+        virtual void Update(GameState* state, double dt) override;
+        virtual void Draw(GameState* state)override;
+        virtual void TestForExit(GameState* state) override;
+    };
+
+    State_Greeting stateGreeting;
+    State_Attacks stateAttack;
+
 };

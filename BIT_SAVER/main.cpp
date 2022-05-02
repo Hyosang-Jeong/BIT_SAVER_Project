@@ -22,12 +22,15 @@ Author:	Jaewoo Choi, Hyun Kang, Hyosang Jung, Sunwoo Lee
 #include"Game\Levels\Mainmenu.h"
 #include"Engine/Input/Input.h"
 #include"Game\Levels\Gameover.h"
-
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
 
 
 
 int main()
 {
+	{
 	Engine& engine = Engine::Instance();
 	engine.Init("Bit_Saver");
 	InputKey exit(InputKey::Keyboard::Enter);
@@ -61,7 +64,8 @@ int main()
 		engine.Update();
 	}
 
-	engine.Shutdown();
+	engine.Shutdown();}
 	glfwTerminate();
+	_CrtDumpMemoryLeaks();
 	return 0;
 }

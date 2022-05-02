@@ -143,7 +143,7 @@ void Track::Update(double dt)
 					if (timer > j)
 					{
 						note_pos = { 10, (i.first - 0.7) * 10 };
-						note_vel = { -20,0 };
+						note_vel = { -20,0};
 						if (note_pos.y < 0)
 						{
 							Engine::GetGSComponent<GameObjectManager>()->Add(new DownNote(note_pos, note_vel));

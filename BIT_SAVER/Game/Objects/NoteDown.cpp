@@ -5,21 +5,23 @@
 #include "Score.h"
 #include "Score Enum.h"
 //#include"obstacle.h"
-
-
+#include "../../Engine/Physics/Curve.h"
+#include <random>
 DownNote::DownNote(glm::vec2 startPos, glm::vec2 velocity) :
-	isMiss(false),
+    isMiss(false), ishit(false),
 
 
     UpAttackKey(InputKey::Keyboard::None),
     DownAttackKey(InputKey::Keyboard::None),
     GameObject(startPos, glm::vec2{ 1.5,1.5 })
 {
+
     if (Engine::GetGameStateManager().GetCurrstate()->GetName() != "Offset")
     {
         energy = (static_cast<EnergyBar*>(Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Energy_bar)));
     }
     AddGOComponent(new Sprite("../spt/belcoz.spt", this));
+    AddGOComponent(new Curve(this));
     GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::flying));
     SetVelocity(velocity);
 
@@ -27,6 +29,7 @@ DownNote::DownNote(glm::vec2 startPos, glm::vec2 velocity) :
 
 void DownNote::Update(double dt)
 {
+    GetGOComponent<Curve>()->TopToBot();
     GameObject::Update(dt);
 
     UpAttackKey = Engine::GetAttack_Key().UpAttackKey;
@@ -41,12 +44,15 @@ void DownNote::Update(double dt)
 
     if (isMiss == true)
     {
-        if (energy->GetScale().x > 0)
+        if (energy != nullptr)
         {
-            if (GetGOComponent<Sprite>()->GetCurrentAnim() != static_cast<int>(DownNote_anim::explosion))
+            if (energy->GetScale().x > 0)
             {
-                energy->SetScale(glm::vec2{ energy->GetScale().x - (dt / 10),energy->GetScale().y });
-                energy->UpdatePosition(glm::vec2{ -(dt / 20),0 });
+                if (GetGOComponent<Sprite>()->GetCurrentAnim() != static_cast<int>(DownNote_anim::explosion))
+                {
+                    energy->SetScale(glm::vec2{ energy->GetScale().x - (dt / 10),energy->GetScale().y });
+                    energy->UpdatePosition(glm::vec2{ -(dt / 20),0 });
+                }
             }
         }
     }
@@ -66,7 +72,9 @@ glm::vec2 DownNote::Getposition()
 
 void DownNote::Hit_Check()
 {
-    /*if ((UpAttackKey.IsKeyDown() == true && UpAttackKey.IsKeyReapeated() == false) && GetPosition().y > 0)
+
+
+    if ((DownAttackKey.IsKeyDown() == true && DownAttackKey.IsKeyReapeated() == false && GetPosition().y < 0) && ishit == false)
     {
         switch (Score_check())
         {
@@ -75,65 +83,41 @@ void DownNote::Hit_Check()
                 Engine::GetGSComponent<PerfectEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
                 GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::explosion));
                 isMiss = false;
-                Engine::GetGSComponent<Score>()->AddScore(Score_check());
-                break;
+                ishit = true;
+                if (Engine::GetGSComponent<Score>() != nullptr)
+                {
+                    Engine::GetGSComponent<Score>()->AddScore(Score_check());
+                }                break;
             }
             case static_cast<int>(SCORE::GOOD) :
             {
                 Engine::GetGSComponent<GoodEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
                 GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::explosion));
                 isMiss = false;
-                Engine::GetGSComponent<Score>()->AddScore(Score_check());
-                break;
+                ishit = true;
+                if (Engine::GetGSComponent<Score>() != nullptr)
+                {
+                    Engine::GetGSComponent<Score>()->AddScore(Score_check());
+                }                break;
             }
             case static_cast<int>(SCORE::BAD) :
             {
                 Engine::GetGSComponent<BadEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
                 GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::explosion));
                 isMiss = false;
-                Engine::GetGSComponent<Score>()->AddScore(Score_check());
-                break;
-            }
-            default:
-                break;
-        }
-
-    }*/
-
-    if ((DownAttackKey.IsKeyDown() == true && DownAttackKey.IsKeyReapeated() == false && GetPosition().y < 0))
-    {
-        switch (Score_check())
-        {
-            case static_cast<int>(SCORE::PERFECT) :
-            {
-                Engine::GetGSComponent<PerfectEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
-                GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::explosion));
-                isMiss = false;
-                Engine::GetGSComponent<Score>()->AddScore(Score_check());
-                break;
-            }
-            case static_cast<int>(SCORE::GOOD) :
-            {
-                Engine::GetGSComponent<GoodEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
-                GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::explosion));
-                isMiss = false;
-                Engine::GetGSComponent<Score>()->AddScore(Score_check());
-                break;
-            }
-            case static_cast<int>(SCORE::BAD) :
-            {
-                Engine::GetGSComponent<BadEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
-                GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::explosion));
-                isMiss = false;
-                Engine::GetGSComponent<Score>()->AddScore(Score_check());
-                break;
+                ishit = true;
+                if (Engine::GetGSComponent<Score>() != nullptr)
+                {
+                    Engine::GetGSComponent<Score>()->AddScore(Score_check());
+                }                break;
             }
             default:
                 break;
         }
 
     }
-    if (Engine::GetGameStateManager().GetCurrstate()->GetName() != "Offset")
+    if (Engine::GetGameStateManager().GetCurrstate()->GetName() != "Offset" && 
+        Engine::GetGameStateManager().GetCurrstate()->GetName() != "Tutorial")
     {
         if (GetGOComponent<Sprite>()->GetCurrentAnim() != static_cast<int>(DownNote_anim::explosion))
         {
@@ -143,7 +127,10 @@ void DownNote::Hit_Check()
                 if (Engine::GetGSComponent<MissEmitter>() != nullptr)
                 {
                     Engine::GetGSComponent<MissEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
-                    Engine::GetGSComponent<Score>()->AddScore(Score_check());
+                    if (Engine::GetGSComponent<Score>() != nullptr)
+                    {
+                        Engine::GetGSComponent<Score>()->AddScore(Score_check());
+                    }
                 }
             }
         }
@@ -173,3 +160,5 @@ int DownNote::Score_check()
     }
     return static_cast<int>(SCORE::MISS);
 }
+
+

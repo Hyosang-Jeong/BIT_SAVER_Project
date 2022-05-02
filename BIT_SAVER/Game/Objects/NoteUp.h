@@ -3,6 +3,7 @@
 #include "..\Engine\GameObject\GameObject.h" // GameObject inheritance
 #include"GameObjectType.h"
 
+
 class EnergyBar;
 
 class UpNote : public GameObject
@@ -29,6 +30,7 @@ private:
     InputKey UpAttackKey;
     InputKey DownAttackKey;
     bool isMiss;
+    bool ishit;
 
     EnergyBar* energy;
 };

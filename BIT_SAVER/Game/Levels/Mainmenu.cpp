@@ -95,10 +95,11 @@ void Mainmenu::Update( double dt)
 		{
 			switch (currstate)
 			{
+
 			case 3:
 			{
 				stop_music(currstate);
-				Engine::GetGameStateManager().SetNextState(4);
+				Engine::GetGameStateManager().SetNextState(3);
 				break;
 			}
 			case 4:

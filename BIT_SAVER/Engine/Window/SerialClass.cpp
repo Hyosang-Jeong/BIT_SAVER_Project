@@ -1,5 +1,5 @@
 #include "SerialClass.h"
-
+#include<string>
 Serial::Serial(const char* portName)
 {
     //We're not yet connected
@@ -14,15 +14,37 @@ Serial::Serial(const char* portName)
         FILE_ATTRIBUTE_NORMAL,
         NULL);
 
+    //For finding port. 
+   /* std::string name = "\\\\.\\COM";
+    int index = 10;
+    while (this->hSerial == INVALID_HANDLE_VALUE)
+    {
+        name = name + std::to_string(index);
+             this->hSerial = CreateFileA(name.c_str(), GENERIC_READ | GENERIC_WRITE,
+            0,
+            NULL,
+            OPEN_EXISTING,
+            FILE_ATTRIBUTE_NORMAL,
+            NULL);
+
+             index--;
+             name = "\\\\.\\COM";
+             if (index == -1)
+             {
+                 printf("No arduino devices");
+                 break;
+             }
+    }*/
+
+
     //Check if the connection was successfull
     if (this->hSerial == INVALID_HANDLE_VALUE)
     {
         //If not success full display an Error
-        if (GetLastError() == ERROR_FILE_NOT_FOUND) {
-
+        if (GetLastError() == ERROR_FILE_NOT_FOUND) 
+        {
             //Print Error if neccessary
             printf("ERROR: Handle was not attached. Reason: %s not available.\n", portName);
-
         }
         else
         {
