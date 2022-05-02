@@ -41,12 +41,15 @@ void DownNote::Update(double dt)
 
     if (isMiss == true)
     {
-        if (energy->GetScale().x > 0)
+        if (energy != nullptr)
         {
-            if (GetGOComponent<Sprite>()->GetCurrentAnim() != static_cast<int>(DownNote_anim::explosion))
+            if (energy->GetScale().x > 0)
             {
-                energy->SetScale(glm::vec2{ energy->GetScale().x - (dt / 10),energy->GetScale().y });
-                energy->UpdatePosition(glm::vec2{ -(dt / 20),0 });
+                if (GetGOComponent<Sprite>()->GetCurrentAnim() != static_cast<int>(DownNote_anim::explosion))
+                {
+                    energy->SetScale(glm::vec2{ energy->GetScale().x - (dt / 10),energy->GetScale().y });
+                    energy->UpdatePosition(glm::vec2{ -(dt / 20),0 });
+                }
             }
         }
     }
@@ -78,8 +81,10 @@ void DownNote::Hit_Check()
                 GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::explosion));
                 isMiss = false;
                 ishit = true;
-                Engine::GetGSComponent<Score>()->AddScore(Score_check());
-                break;
+                if (Engine::GetGSComponent<Score>() != nullptr)
+                {
+                    Engine::GetGSComponent<Score>()->AddScore(Score_check());
+                }                break;
             }
             case static_cast<int>(SCORE::GOOD) :
             {
@@ -87,8 +92,10 @@ void DownNote::Hit_Check()
                 GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::explosion));
                 isMiss = false;
                 ishit = true;
-                Engine::GetGSComponent<Score>()->AddScore(Score_check());
-                break;
+                if (Engine::GetGSComponent<Score>() != nullptr)
+                {
+                    Engine::GetGSComponent<Score>()->AddScore(Score_check());
+                }                break;
             }
             case static_cast<int>(SCORE::BAD) :
             {
@@ -96,15 +103,18 @@ void DownNote::Hit_Check()
                 GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::explosion));
                 isMiss = false;
                 ishit = true;
-                Engine::GetGSComponent<Score>()->AddScore(Score_check());
-                break;
+                if (Engine::GetGSComponent<Score>() != nullptr)
+                {
+                    Engine::GetGSComponent<Score>()->AddScore(Score_check());
+                }                break;
             }
             default:
                 break;
         }
 
     }
-    if (Engine::GetGameStateManager().GetCurrstate()->GetName() != "Offset")
+    if (Engine::GetGameStateManager().GetCurrstate()->GetName() != "Offset" && 
+        Engine::GetGameStateManager().GetCurrstate()->GetName() != "Tutorial")
     {
         if (GetGOComponent<Sprite>()->GetCurrentAnim() != static_cast<int>(DownNote_anim::explosion))
         {
@@ -114,7 +124,10 @@ void DownNote::Hit_Check()
                 if (Engine::GetGSComponent<MissEmitter>() != nullptr)
                 {
                     Engine::GetGSComponent<MissEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
-                    Engine::GetGSComponent<Score>()->AddScore(Score_check());
+                    if (Engine::GetGSComponent<Score>() != nullptr)
+                    {
+                        Engine::GetGSComponent<Score>()->AddScore(Score_check());
+                    }
                 }
             }
         }

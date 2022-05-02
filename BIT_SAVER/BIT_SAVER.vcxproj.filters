@@ -131,9 +131,6 @@
     <ClCompile Include="Game\Levels\Level3.cpp">
       <Filter>Game\Levels</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Objects\Tutorial_Helper.cpp">
-      <Filter>Game\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Levels\Level0.cpp">
       <Filter>Game\Levels</Filter>
     </ClCompile>
@@ -297,9 +294,6 @@
     </ClInclude>
     <ClInclude Include="Game\Levels\Level3.h">
       <Filter>Game\Levels</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Objects\Tutorial_Helper.h">
-      <Filter>Game\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Game\Levels\Level0.h">
       <Filter>Game\Levels</Filter>

@@ -5,224 +5,183 @@ written consent of DigiPen Institute of Technology is prohibited.
 File Name: Tutorial.cpp
 Project: BIT_SAVER
 Author: Jaewoo.choi, Hyun Kang 
-
 -----------------------------------------------------------------*/
 #include "../Engine/Engine.h"	//GetGameStateManage
 #include"Tutorial.h"
 #include"../Objects/Hero.h"
-#include"../Objects/Track.h"
-
-#include"../Objects/Boss.h"
-#include"../Objects/Note_collisionBox.h"
 #include"../Objects/Background.h"
-#include"../Levels/State.h"
-#include "../Objects/EnergyBar.h"
-#include "../Objects/stage_bar.h"
-#include"../../Engine/Sprite/GameParticles.h"
-#include "../Objects/Tutorial_Helper.h"
-#include"../Objects/Score.h"
-#include"../Objects/fever.h"
-#include"../Objects/CheckBox.h"
-#include"../Levels/Option.h"
+#include"../Objects/Track.h"
+#include"../Objects/Note_collisionBox.h"
 #include"..\..\Engine\Physics\Camera.h"
+#include"../../Engine/Sprite/GameParticles.h"
+#include"../../Engine/Sprite/Texture.h"
+#include"../Levels/State.h"
 
-Tutorial::Tutorial() :
-	escape(InputKey::Keyboard::Escape)
+Tutorial::Tutorial() :Escape(InputKey::Keyboard::Escape),
+    font2( font_path[PressStart] )
 {
-	gameObjectManager = nullptr;
-	heroPtr = nullptr;
-	trackPtr = nullptr;
-	bossPtr = nullptr;
-	notebox = nullptr;
-	backPtr = nullptr;
-	energyBar = nullptr;
-	stageBar = nullptr;
-	feverBar = nullptr;
-	camera = nullptr;
-	gamestate = TUTO_LEVEL_STATE::EXTRA;
+     window_pos = Engine::GetWindow().GetSize();
+    text_pos.x = window_pos.x * 0.5f;
+    text_pos.y = window_pos.y * 0.6f;
 }
 
 void Tutorial::Load()
 {
-	isMusicEnd = false;
-	gameObjectManager = new GameObjectManager();
+    tutorialState = &stateGreeting;
+    tutorialState->Enter(this);
+
 	heroPtr = new Hero({ -6,-5 });
 	backPtr = new Background();
 	trackPtr = new Track(SOUND_NUM::OFFSET);
-	notebox = new Note_box({ -4,0 });
-	bossPtr = new Boss({ 15,-5 });
-	energyBar = new EnergyBar({ -4,1.2 });
-	stageBar = new Stage_bar({ -10,9 }, 110, 82);   // total music time 204  ,  extra time 82
-	camera = new Camera({0,0 });
-	currstate = Tuto_Helper_Enum::GREETINGS;
+	gameObjectManager = new GameObjectManager();
+    camera = new Camera({ 0,0 });
+    notebox = new Note_box({ -4,0 });
 
+    backPtr->Add(texture_path[Background_1_10], 0);
+    backPtr->Add(texture_path[Background_1_9], 0);
+    backPtr->Add(texture_path[Background_1_8], 0.0005);
+    backPtr->Add(texture_path[Background_1_7], 0.0015);
+    backPtr->Add(texture_path[Background_1_6], 0.007);
+    backPtr->Add(texture_path[Background_1_5], 0.022);
+    backPtr->Add(texture_path[Background_1_4], 0.05);
+    backPtr->Add(texture_path[Background_1_3], 0.1);
+    backPtr->Add(texture_path[Background_1_2], 0.5);
+    backPtr->Add(texture_path[Background_1_1], 0.8);
 
-	backPtr->Add(texture_path[Background_1], 0);
-	backPtr->Add(texture_path[Parallax1_5], 0.5);
-	backPtr->Add(texture_path[Parallax1_4], 0.8);
-	backPtr->Add(texture_path[Parallax1_3], 1.1);
-	backPtr->Add(texture_path[Parallax1_2], 1.3);
-	backPtr->Add(texture_path[Parallax1_1], 1.5);
+    AddGSComponent(gameObjectManager);
+    AddGSComponent(backPtr);
+    AddGSComponent(camera);
 
-	AddGSComponent(gameObjectManager);
-	AddGSComponent(backPtr);
-	AddGSComponent(camera);
+    gameObjectManager->Add(heroPtr);
+    gameObjectManager->Add(trackPtr);
+    gameObjectManager->Add(notebox);
 
-	gameObjectManager->Add(heroPtr);
-	gameObjectManager->Add(notebox);
-	gameObjectManager->Add(bossPtr);
-	gameObjectManager->Add(energyBar);
-	gameObjectManager->Add(stageBar);
-	gameObjectManager->Add(trackPtr);
-	gameObjectManager->Add(new CheckBox({ -4.4,0 }, 0));
-	gameObjectManager->Add(new CheckBox({ -3.2,0 }, 0));
-	gameObjectManager->Add(new CheckBox({ -4.6,0 }, 1));
-	gameObjectManager->Add(new CheckBox({ -2.6,0 }, 1));
-	gameObjectManager->Add(new CheckBox({ -4.8,0 }, 2));
-	gameObjectManager->Add(new CheckBox({ -2.0,0 }, 2));
-
-	AddGSComponent(new Tutorial_Helper());
-	AddGSComponent(new HitEmitter());
-	AddGSComponent(new PerfectEmitter());
-	AddGSComponent(new GoodEmitter());
-	AddGSComponent(new BadEmitter());
-	AddGSComponent(new MissEmitter());
-	AddGSComponent(new Score());
-
-	trackPtr->track_info[0].erase(trackPtr->track_info[0].begin(), trackPtr->track_info[0].begin() + 4);
-	trackPtr->track_info[1].erase(trackPtr->track_info[1].begin(), trackPtr->track_info[1].begin() + 2);
-
+    AddGSComponent(new HitEmitter());
+    AddGSComponent(new PerfectEmitter());
+    AddGSComponent(new GoodEmitter());
+    AddGSComponent(new BadEmitter());
+    AddGSComponent(new MissEmitter());
 }
 
 void Tutorial::Update(double dt)
 {
-	GetGSComponent<Background>()->Update(dt);
-	GetGSComponent<Camera>()->Update({ 0,0 }, dt);
-	Update_currstate(dt);
-}
-
-void Tutorial::Update_currstate(double dt)
-{
-
-	switch (currstate)
-	{
-	case Tuto_Helper_Enum::GREETINGS:
-	{
-		Engine::GetGSComponent<Tutorial_Helper>()->Set_state(static_cast<int>(currstate));
-		if (Engine::GetGSComponent<Tutorial_Helper>()->Getflag() == true)
-		{
-			currstate = Tuto_Helper_Enum::UP_NOTE_GENERATE;
-			Engine::GetGSComponent<Tutorial_Helper>()->Setflag(false);
-		}
-		break;
-	}
-	case Tuto_Helper_Enum::UP_NOTE_GENERATE:
-	{
-		Engine::GetGSComponent<Tutorial_Helper>()->Set_state(static_cast<int>(currstate));
-		if (!Engine::GetMusic().isPlaying(SOUND_NUM::OFFSET) && isMusicEnd == false)
-		{
-			Engine::GetMusic().Play(SOUND_NUM::OFFSET);
-			isMusicEnd = true;
-		}
-		gameObjectManager->UpdateAll(dt);
-		//Note* note = static_cast<Note*>(gameObjectManager->Find(GameObjectType::Note));
-		/*if (note != nullptr)
-		{
-			if (note->GetPosition().y > 0 && note->GetPosition().x < -4)
-			{
-				currstate = Tuto_Helper_Enum::UP_NOTE_HIT;
-				Engine::GetGSComponent<Tutorial_Helper>()->Set_state(static_cast<int>(currstate));
-				Engine::GetMusic().Pause(SOUND_NUM::OFFSET);
-				Engine::GetGSComponent<Tutorial_Helper>()->Setflag(false);
-			}
-		}*/
-		break;
-	}
-	case Tuto_Helper_Enum::UP_NOTE_HIT:
-	{
-		Hero* hero = static_cast<Hero*>(gameObjectManager->Find(GameObjectType::Hero));
-		hero->Update(dt);
-
-		if (Engine::GetGSComponent<Tutorial_Helper>()->Getflag() == true)
-		{
-			currstate = Tuto_Helper_Enum::DOWN_NOTE_GENERATE;
-			Engine::GetGSComponent<Tutorial_Helper>()->Setflag(false);
-			Engine::GetGSComponent<Tutorial_Helper>()->Set_state(static_cast<int>(currstate));
-		}
-		break;
-	}
-	case Tuto_Helper_Enum::DOWN_NOTE_GENERATE:
-	{
-		Engine::GetMusic().Resume(SOUND_NUM::OFFSET);
-		gameObjectManager->UpdateAll(dt);
-
-		if (gameObjectManager->Find(GameObjectType::Note) != nullptr)
-		{
-			if (gameObjectManager->Find(GameObjectType::Note)->GetPosition().y < 0 &&
-				gameObjectManager->Find(GameObjectType::Note)->GetPosition().x < -4)
-			{
-				currstate = Tuto_Helper_Enum::DOWN_NOTE_HIT;
-				Engine::GetMusic().Pause(SOUND_NUM::OFFSET);
-				Engine::GetGSComponent<Tutorial_Helper>()->Set_state(static_cast<int>(currstate));
-			}
-		}
-		break;
-	}
-	case Tuto_Helper_Enum::DOWN_NOTE_HIT:
-	{
-		Hero* hero = static_cast<Hero*>(gameObjectManager->Find(GameObjectType::Hero));
-		hero->Update(dt);
-		if (Engine::GetGSComponent<Tutorial_Helper>()->Getflag() == true)
-		{
-			currstate = Tuto_Helper_Enum::END;
-			Engine::GetGSComponent<Tutorial_Helper>()->Setflag(false);
-			Engine::GetGSComponent<Tutorial_Helper>()->Set_state(static_cast<int>(currstate));
-		}
-		break;
-	}
-	case Tuto_Helper_Enum::END:
-	{
-		Engine::GetMusic().Resume(SOUND_NUM::OFFSET);
-		gameObjectManager->UpdateAll(dt);
-		Hero* hero = static_cast<Hero*>(gameObjectManager->Find(GameObjectType::Hero));
-		hero->Update(dt);
-		if (Engine::GetGSComponent<Tutorial_Helper>()->Getflag() == true)
-		{
-			Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Level0));
-		}
-		break;
-	}
-	}
+    tutorialState->Update(this, dt);
+    tutorialState->TestForExit(this);
 }
 
 void Tutorial::Draw()
 {
-	glClear(GL_COLOR_BUFFER_BIT);
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-	GetGSComponent<Background>()->Draw(camera->GetMatrix());
-	GetGSComponent<Score>()->Draw({ 0,100 });
-	Engine::GetGSComponent<Tutorial_Helper>()->Draw();
-	gameObjectManager->DrawAll(camera->GetMatrix());
+    glClear(GL_COLOR_BUFFER_BIT);
+    glClearColor(0.1333f, 0.0666f, 0.5647f, 0.2156f);
+    GetGSComponent<Background>()->Draw(camera->GetMatrix());
+    gameObjectManager->DrawAll(camera->GetMatrix());
+    tutorialState->Draw(this);
 }
 
 
 void Tutorial::Unload()
 {
-	heroPtr = nullptr;
-	trackPtr = nullptr;
-	notebox = nullptr;
-	bossPtr = nullptr;
-	backPtr = nullptr;
-	energyBar = nullptr;
-	stageBar = nullptr;
-	gameObjectManager->Unload();
+    heroPtr = nullptr;
+    trackPtr = nullptr;
+    notebox = nullptr;
+    backPtr = nullptr;
+    gameObjectManager->Unload();
 
-	if (Engine::GetMusic().isPlaying(SOUND_NUM::OFFSET) == true)
-	{
-		Engine::GetMusic().pitchDefault(SOUND_NUM::OFFSET);
-		Engine::GetMusic().Stop(SOUND_NUM::OFFSET);
-	}
+    if (Engine::GetMusic().isPlaying(SOUND_NUM::OFFSET) == true)
+    {
+        Engine::GetMusic().pitchDefault(SOUND_NUM::OFFSET);
+        Engine::GetMusic().Stop(SOUND_NUM::OFFSET);
+    }
+    ClearGSComponent();
 
-	Engine::GetMusic().isPlaying(SOUND_NUM::OFFSET);
-	ClearGSComponent();
+}
+
+void Tutorial::State_Greeting::Enter(GameState* state)
+{
+    Tutorial* tutorial = static_cast<Tutorial*>(state);
+    tutorial->helper = Engine::GetTextureManager().Load("../images/helper.png" );
+    Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::None);
+    tutorial->index = 0;
+}
+
+void Tutorial::State_Greeting::Update(GameState* state, double dt)
+{
+    Tutorial* tutorial = reinterpret_cast<Tutorial*>(state);
+    tutorial->heroPtr->Update(dt);
+    if (Engine::GetInput().GetLastPressedButton() != InputKey::Keyboard::None ){
+        tutorial->index++;
+        Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::None);
+    }
+}
+
+void Tutorial::State_Greeting::Draw(GameState* state)
+{
+    Tutorial* tutorial = static_cast<Tutorial*>(state);
+    tutorial->helper->Draw({ 6,-7 }, { -4,4 });
+    switch (tutorial->index)
+    {
+    case 0:  Engine::GetText(tutorial->font2).Draw("Hello", tutorial->text_pos.x, tutorial->text_pos.y, 1.f, glm::vec3(1, 1, 1));
+        break;
+    case 1: Engine::GetText(tutorial->font2).Draw("Let's learn game play", tutorial->text_pos.x, tutorial->text_pos.y, 1.f, glm::vec3(1, 1, 1));
+        break;
+    case 2: Engine::GetText(tutorial->font2).Draw("Default Jump attack key is F", tutorial->text_pos.x, tutorial->text_pos.y, 1.f, glm::vec3(1, 1, 1));
+        break;
+    case 3: Engine::GetText(tutorial->font2).Draw("Default Down attack key is J", tutorial->text_pos.x, tutorial->text_pos.y, 1.f, glm::vec3(1, 1, 1));
+        break;
+    case 4: Engine::GetText(tutorial->font2).Draw("You can change these key", tutorial->text_pos.x, tutorial->text_pos.y, 1.f, glm::vec3(1, 1, 1));
+        break;
+    case 5: Engine::GetText(tutorial->font2).Draw("Play Tutorial !", tutorial->text_pos.x, tutorial->text_pos.y, 1.f, glm::vec3(1, 1, 1));
+        break;
+    }
+       
+}
+
+void Tutorial::State_Greeting::TestForExit(GameState* state)
+{
+    Tutorial* tutorial = static_cast<Tutorial*>(state);
+    if (tutorial->index == 6)
+    {
+        tutorial->tutorialState = &tutorial->stateAttack;
+        tutorial->tutorialState->Enter(state);
+    }
+}
+
+void Tutorial::State_Attacks::Enter(GameState* )
+{
+    Engine::GetMusic().Play(SOUND_NUM::OFFSET);
+}
+
+void Tutorial::State_Attacks::Update(GameState* state, double dt)
+{
+    Tutorial* tutorial = static_cast<Tutorial*>(state);
+    tutorial->gameObjectManager->UpdateAll(dt);
+    if (tutorial->Escape.IsKeyDown() == true)
+    {
+        Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Option));
+    }
+    if (tutorial->index == 7 &&Engine::GetInput().GetLastPressedButton() != InputKey::Keyboard::None) {
+        tutorial->index++;
+        Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::None);
+    }
+}
+
+void Tutorial::State_Attacks::Draw(GameState* state)
+{
+    Tutorial* tutorial = static_cast<Tutorial*>(state);
+
+    if (Engine::GetMusic().isPlaying(SOUND_NUM::OFFSET) == false)
+    {
+        Engine::GetText(tutorial->font2).Draw("Good..!", tutorial->text_pos.x, tutorial->text_pos.y, 1.f, glm::vec3(1, 1, 1));
+        tutorial->index = 7;
+        Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::None);
+    }
+}
+
+void Tutorial::State_Attacks::TestForExit(GameState* state)
+{
+    Tutorial* tutorial = static_cast<Tutorial*>(state);
+    if (tutorial->index == 8)
+    {
+        Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
+    }
 }

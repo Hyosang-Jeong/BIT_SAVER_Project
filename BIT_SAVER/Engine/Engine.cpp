@@ -243,5 +243,9 @@ void Engine::init_fonts()
 }
 bool Engine::HasGameEnded()
 {
+	if (glfwWindowShouldClose(Engine::GetWindow().ptr_window))
+	{
+			return true;
+	}
 	return  gameStateManager.HasGameEnded();
 }

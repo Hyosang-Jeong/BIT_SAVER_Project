@@ -19,58 +19,93 @@ Author:  Hyun Kang , Hyosang Jung , Sunwoo Lee
 
 MainOption::MainOption() :
     escape(InputKey::Keyboard::Escape),
-    mouseSwitch(false),
-    selectedIndex(glm::vec2{ 0,1 }),
-    SoundBallPosition(glm::vec2{ 6.0625,5.74 }),
-    SoundBallScale(glm::vec2{ 0.6,0.6 }),
-    smallsoundballScale(glm::vec2{ 0.2,0.2 }),
-    mousePosition(glm::vec2{ 0,0 }),
-    MouseKey(InputKey::Mouse::Left),
     UpAttackKey(Engine::GetAttack_Key().UpAttackKey),
-    DownAttackKey(Engine::GetAttack_Key().DownAttackKey)
+    DownAttackKey(Engine::GetAttack_Key().DownAttackKey),
+    enter(InputKey::Keyboard::Enter),
+    volume_up(InputKey::Keyboard::Right),
+    volume_down(InputKey::Keyboard::Left),
+    select_up(InputKey::Keyboard::Up),
+    select_down(InputKey::Keyboard::Down),
+    SoundBallPosition{ 0,0 },
+    upkey_pos{ 0,0 },
+    downkey_pos{ 0,0 }
 {}
 
 void MainOption::Load()
 {
-    textureAll = Engine::GetTextureManager().Load(texture_path[Main_Option]);
-    soundbar = Engine::GetTextureManager().Load(texture_path[MAIN_SOUND_BAR]);
-    bigSoundBall = Engine::GetTextureManager().Load(texture_path[Sound_Bigball]);
-    smallSoundBall = Engine::GetTextureManager().Load(texture_path[Sound_Smallball]);
-    Cursor = Engine::GetTextureManager().Load(texture_path[MOUSE_CURSOR]);
-    select = MAIN_SELECT::NONE;
-    w = Engine::GetWindow().GetSize().x;
-    h = Engine::GetWindow().GetSize().y;
-    world_to_ndc =
-    {
-   20 / w, 0,0,
-   0,-20 / h,0,
-   -10,10,1
-    };
+    main_screen =    Engine::GetTextureManager().Load("../images/mainmenu.png");
+    volume_option  = Engine::GetTextureManager().Load("../images/volume.png");
+    key_option         = Engine::GetTextureManager().Load("../images/key_setting.png");
+    volume_ball       = Engine::GetTextureManager().Load("../images/volume_ball.png");
+    Button1               = Engine::GetTextureManager().Load("../images/option_button1.png");
+    Button2               = Engine::GetTextureManager().Load("../images/option_button2.png");
+    Button3               = Engine::GetTextureManager().Load("../images/option_button3.png");
+
+    select = MAIN_SELECT::VOLUME;
 }
 
 void MainOption::Update(double dt)
 {
-    glm::vec2 window_pos = Engine::GetWindow().GetSize();
-    window_pos.x *= 0.5;
-    window_pos.y *= 0.5;
-    volume_pos = { window_pos.x - window_pos.x * 0.09f , window_pos.y - window_pos.y *0.55f };
-
-    key_pos = { window_pos.x - window_pos.x * 0.12f, window_pos.y- window_pos.y * 0.08f };
-
-    offset_pos = { window_pos.x - window_pos.x * 0.09f, window_pos.y + window_pos.y * 0.45f };
-
-    upkey_pos = { key_pos.x + window_pos.x * 0.3f, key_pos.y - window_pos.y * 0.1f };
-    downkey_pos= { key_pos.x + window_pos.x * 0.3f, key_pos.y + window_pos.y * 0.1f };
-    mousePosition = Engine::GetInput().MouseGetPosition();
-    mousePosition = world_to_ndc * glm::vec3(mousePosition, 1);
-    IsInBox();
-    GetIndex();
-    changeSound(dt);
+    glm::vec2 size = Engine::GetWindow().GetSize();
+    Engine::GetMusic().SetVolume(SoundBallPosition.x+1.25f);
     KeychangeTextTimer -= dt;
 
     if (escape.IsKeyReleased() == true)
     {
         Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
+    }
+    if (select_up.IsKeyReleased() == true)
+    {
+        switch (select)
+        {
+        case (MAIN_SELECT::VOLUME):
+        {
+            select = MAIN_SELECT::OFF_SET;
+            break;
+        }
+        case MAIN_SELECT::KEY_CHANGE:
+        {
+            select = MAIN_SELECT::VOLUME;
+            break;
+        }
+        case MAIN_SELECT::OFF_SET:
+        {
+            select = MAIN_SELECT::KEY_CHANGE;
+            break;
+        }
+        }
+    }
+    if (select_down.IsKeyReleased() == true)
+    {
+        switch (select)
+        {
+        case MAIN_SELECT::VOLUME:
+        {
+            select = MAIN_SELECT::KEY_CHANGE;
+            break;
+        }
+        case MAIN_SELECT::KEY_CHANGE:
+        {
+            select = MAIN_SELECT::OFF_SET;
+            break;
+        }
+        case MAIN_SELECT::OFF_SET:
+        {
+            select = MAIN_SELECT::VOLUME;
+            break;
+        }
+        }
+    }
+    if (select == MAIN_SELECT::VOLUME)
+    {
+        if (volume_up.IsKeyReleased() == true)
+        {
+            SoundBallPosition.x += 0.25f;
+        }
+        if (volume_down.IsKeyReleased() == true)
+        {
+            SoundBallPosition.x -= 0.25f;
+        }
     }
 }
 
@@ -78,45 +113,29 @@ void MainOption::Draw()
 {
     const std::string font1{ font_path[MochiyPopOne] };
     const std::string font2{ font_path[PressStart] };
+    glm::vec2 size = Engine::GetWindow().GetSize();
+    upkey_pos.x = size.x * 0.52f;
+    downkey_pos.x = size.x * 0.52f;
+
+    upkey_pos.y = size.y * 0.26f;
+    downkey_pos.y = size.y * 0.49f;
 
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
-
-    textureAll->Draw({ 0,0 }, { 10,10 });
-
-    Cursor->Draw({ mousePosition.x + 0.1, mousePosition.y - 0.5 }, { 0.5,0.5 });
-
-    Engine::GetText(font2).Draw("VOLUME", volume_pos.x, volume_pos.y, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
-
+    main_screen->Draw({ 0,0 }, { 10,10 });
     if (select == MAIN_SELECT::VOLUME)
     {
-        Engine::GetText(font2).Draw("VOLUME", volume_pos.x, volume_pos.y, 1.f, glm::vec3(0.4f, 0.f, 0.6f));
+        IsUpkeychanged = false;
+        IsDownkeychanged = false;
+         volume_option->Draw({ 0,0 }, { 10,10 });
+         volume_ball->Draw(SoundBallPosition, {10,10 });
+         Button1->Draw({ 0,0 }, { 10,10 });
     }
-
-    if (select == MAIN_SELECT::VOLUME_SELECTED)
-    {
-        soundbar->Draw({ 0,0 }, { 10,10 });
-        bigSoundBall->Draw(SoundBallPosition, { 0.5,0.5 });
-        smallSoundBall->Draw(SoundBallPosition, smallsoundballScale);
-    }
-
-    Engine::GetText(font2).Draw("KEY CHANGE",key_pos.x,key_pos.y, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
-
     if (select == MAIN_SELECT::KEY_CHANGE)
     {
-        Engine::GetText(font2).Draw("KEY CHANGE", key_pos.x, key_pos.y, 1.f, glm::vec3(0.4f, 0.f, 0.6f));
-    }
-
-    Engine::GetText(font2).Draw("OFFSET", offset_pos.x,offset_pos.y, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
-
-    if (select == MAIN_SELECT::OFF_SET)
-    {
-        Engine::GetText(font2).Draw("OFFSET", offset_pos.x, offset_pos.y, 1.f, glm::vec3(0.4f, 0.f, 0.6f));
-    }
-
-    if (select == MAIN_SELECT::KEY_CHANGE_SELECTED)
-    {
+        key_option->Draw({ 0,0 }, { 10,10 });
+        Button2->Draw({ 0,0 }, { 10,10 });
         if (Engine::GetInput().GetLastPressedButton() != InputKey::Keyboard::None)
         {
             if (Engine::GetInput().GetLastPressedButton() >= InputKey::Keyboard::A && Engine::GetInput().GetLastPressedButton() <= InputKey::Keyboard::Z)
@@ -143,18 +162,18 @@ void MainOption::Draw()
         char Downkey = 'A' + static_cast<char>((static_cast<int>(DownAttackKey.button) - static_cast<int>(InputKey::Keyboard::A)));
         std::string Upresult(1, Upkey);
         std::string Downresult(1, Downkey);
-
+        float scale = 0.7f;
         if (IsUpkeychanged == false)
         {
             if (KeychangeTextTimer > 0.5)
             {
-                Engine::GetText(font2).Draw("Up attack Key : " + Upresult, upkey_pos.x, upkey_pos.y, 1.f, glm::vec3(0.f, 0.f, 0.f));
-                Engine::GetText(font2).Draw("Down attack Key : " + Downresult, downkey_pos.x, downkey_pos.y, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
+                Engine::GetText(font2).Draw("Up attack Key      " + Upresult, upkey_pos.x, upkey_pos.y, scale, glm::vec3(0.5f, 0.5f, 0.5f));
+                Engine::GetText(font2).Draw("Down attack Key    " + Downresult, downkey_pos.x, downkey_pos.y, scale, glm::vec3(0.5f, 0.5f, 0.5f));
             }
             else
             {
-                Engine::GetText(font2).Draw("Up attack Key : " + Upresult, upkey_pos.x, upkey_pos.y, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
-                Engine::GetText(font2).Draw("Down attack Key : " + Downresult, downkey_pos.x, downkey_pos.y, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
+                Engine::GetText(font2).Draw("Up attack Key      " + Upresult, upkey_pos.x, upkey_pos.y, scale, glm::vec3(1.f, 1.f, 1.f));
+                Engine::GetText(font2).Draw("Down attack Key    " + Downresult, downkey_pos.x, downkey_pos.y, scale, glm::vec3(0.5f, 0.5f, 0.5f));
             }
             if (KeychangeTextTimer < 0)
             {
@@ -165,13 +184,13 @@ void MainOption::Draw()
         {
             if (KeychangeTextTimer > 0.5)
             {
-                Engine::GetText(font2).Draw("Up attack Key : " + Upresult, upkey_pos.x, upkey_pos.y, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
-                Engine::GetText(font2).Draw("Down attack Key : " + Downresult, downkey_pos.x, downkey_pos.y, 1.f, glm::vec3(0.f, 0.f, 0.f));
+                Engine::GetText(font2).Draw("Up attack Key      " + Upresult, upkey_pos.x, upkey_pos.y, scale, glm::vec3(0.5f, 0.5f, 0.5f));
+                Engine::GetText(font2).Draw("Down attack Key    " + Downresult, downkey_pos.x, downkey_pos.y, scale, glm::vec3(0.5f, 0.5f, 0.5f));
             }
             else
             {
-                Engine::GetText(font2).Draw("Up attack Key : " + Upresult, upkey_pos.x, upkey_pos.y, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
-                Engine::GetText(font2).Draw("Down attack Key : " + Downresult, downkey_pos.x, downkey_pos.y, 1.f, glm::vec3(0.5f, 0.5f, 0.5f));
+                Engine::GetText(font2).Draw("Up attack Key      " + Upresult, upkey_pos.x, upkey_pos.y, scale, glm::vec3(0.5f, 0.5f, 0.5f));
+                Engine::GetText(font2).Draw("Down attack Key    " + Downresult, downkey_pos.x, downkey_pos.y, scale, glm::vec3(1.f, 1.f, 1.f));
             }
             if (KeychangeTextTimer < 0)
             {
@@ -180,35 +199,13 @@ void MainOption::Draw()
         }
         else
         {
-            Engine::GetText(font2).Draw("Up attack Key : " + Upresult, upkey_pos.x, upkey_pos.y, 1.f, glm::vec3(0.f, 0.f, 0.f));
-            Engine::GetText(font2).Draw("Down attack Key : " + Downresult, downkey_pos.x , downkey_pos.y, 1.f, glm::vec3(0.f, 0.f, 0.f));
+            Engine::GetText(font2).Draw("Up attack Key      " + Upresult, upkey_pos.x, upkey_pos.y, scale, glm::vec3(1.f, 1.f, 1.f));
+            Engine::GetText(font2).Draw("Down attack Key    " + Downresult, downkey_pos.x, downkey_pos.y, scale, glm::vec3(1.f, 1.f, 1.f));
         }
-    }
-
-}
-
-
-void MainOption::GetIndex()
-{
-    if (MouseKey.MouseIsKeyReleased() == true)
+    } 
+    if (select == MAIN_SELECT::OFF_SET)
     {
-        switch (select)
-        {
-        case MAIN_SELECT::VOLUME:
-            select = MAIN_SELECT::VOLUME_SELECTED;
-            break;
-        case MAIN_SELECT::KEY_CHANGE:
-            select = MAIN_SELECT::KEY_CHANGE_SELECTED;
-            Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::None);
-            IsUpkeychanged = false;
-            IsDownkeychanged = false;
-            break;
-        case MAIN_SELECT::OFF_SET:
-            Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Offset));
-            break;
-        default:
-            break;
-        }
+        Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Offset));
     }
 }
 
@@ -223,107 +220,6 @@ long double MainOption::GetOffsetTime()
 }
 
 
-bool MainOption::IsInBoxSound()
-{
-    if (SoundBallPosition.x+SoundBallScale.x > mousePosition.x && SoundBallPosition.x - SoundBallScale.x < mousePosition.x)
-    {
-        if (SoundBallPosition.y + SoundBallScale.y > mousePosition.y && SoundBallPosition.y - SoundBallScale.y < mousePosition.y)
-        {
-            return true;
-        }
-    }
-    return false;
-}
-
-void MainOption::IsInBox()
-{
-    if (mousePosition.x > -1.8 && mousePosition.x < 1.65)
-    {
-        if(mousePosition.y > 4.5 && mousePosition.y < 7)
-        {
-            if (select != MAIN_SELECT::VOLUME_SELECTED)
-            {
-                select = MAIN_SELECT::VOLUME;
-            }
-        }
-
-        else if (mousePosition.y > 0.5 && mousePosition.y < 2)
-        {
-            if (select != MAIN_SELECT::KEY_CHANGE_SELECTED)
-            {
-                select = MAIN_SELECT::KEY_CHANGE;
-            }
-        }
-
-        else  if (mousePosition.y > -5.5 && mousePosition.y < -3)
-        {
-                select = MAIN_SELECT::OFF_SET;    
-        }
-
-        else
-        {
-            if (select != MAIN_SELECT::VOLUME_SELECTED)
-            {
-                select = MAIN_SELECT::NONE;
-            }
-        }
-    }
-
-    else
-    {
-        if (select != MAIN_SELECT::VOLUME_SELECTED)
-        {
-            select = MAIN_SELECT::NONE;
-        }
-    }
-
-}
-
-
 void MainOption::Unload()
 {
-}
-
-void MainOption::changeSound(double dt)
-{
-    if (IsInBoxSound())
-    {
-        if (smallsoundballScale.x < 0.59f)
-        {
-            smallsoundballScale.x += static_cast<float>(dt);
-        }
-        if (smallsoundballScale.y < 0.59f)
-        {
-            smallsoundballScale.y += static_cast<float>(dt);
-        }
-
-        if (MouseKey.MouseIsKeyDown() == true)
-        {
-            mouseSwitch = true;
-        }
-        else
-        {
-            mouseSwitch = false;
-        }
-    }
-    else if (IsInBoxSound() == false)
-    {
-        if (smallsoundballScale.x > 0.2f)
-        {
-            smallsoundballScale.x -= static_cast<float>(dt);
-        }
-        if (smallsoundballScale.y > 0.2f)
-        {
-            smallsoundballScale.y -= static_cast<float>(dt);
-        }
-    }
-    if (mouseSwitch == true && MouseKey.MouseIsKeyDown() == true)
-    {
-        if (mousePosition.x >= 3.575f && mousePosition.x <= 8.55f)
-        {
-            SoundBallPosition.x = mousePosition.x;
-        }
-
-        Engine::GetMusic().SetVolume((SoundBallPosition.x - 3.55f) / 5.f);
-    }
 }

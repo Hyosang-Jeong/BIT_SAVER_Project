@@ -15,13 +15,9 @@ Author:  Hyun Kang , Hyosang Jung , Sunwoo Lee
 
 enum class MAIN_SELECT
 {
-    NONE,
     VOLUME,
-    VOLUME_SELECTED,
     KEY_CHANGE,
-    KEY_CHANGE_SELECTED,
     OFF_SET,
-    SOUND,
     QUIT,
 };
 
@@ -35,12 +31,9 @@ public:
     std::string GetName() { return "MainOption"; }
     void Draw() override;
 
-    void GetIndex();
+ 
     void SetOffsetTime(long double offsetTime_);
     long double GetOffsetTime();
-    bool IsInBoxSound();
-    void IsInBox();
-    void changeSound(double dt);
     InputKey UpAttackKey;
     InputKey DownAttackKey;
 
@@ -48,30 +41,23 @@ private:
     bool IsUpkeychanged;
     bool IsDownkeychanged;
     double KeychangeTextTimer;
-    Texture* textureAll;
-    Texture* soundbar;
-    Texture* bigSoundBall;
-    Texture* smallSoundBall;
-    Texture* Cursor;
+    Texture* main_screen;
+    Texture* volume_option;
+    Texture* key_option;
+    Texture* volume_ball;
+    Texture* Button1;
+    Texture* Button2;
+    Texture* Button3;
 
     InputKey escape;
-    InputKey MouseKey;
+    InputKey enter;
+    InputKey volume_up;
+    InputKey volume_down;
+    InputKey select_up;
+    InputKey select_down;
 
-    float w;
-    float h;
-    bool mouseSwitch;
     MAIN_SELECT select;
-
-    glm::vec2 selectedIndex;
     glm::vec2 SoundBallPosition;
-    glm::vec2 SoundBallScale;
-    glm::mat3 world_to_ndc;
-    glm::vec2 mousePosition;
-    glm::vec2 smallsoundballScale;
-    
-    glm::vec2 volume_pos;
-    glm::vec2 key_pos;
-    glm::vec2 offset_pos;
     glm::vec2 upkey_pos;
     glm::vec2 downkey_pos;
 
