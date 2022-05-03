@@ -197,7 +197,7 @@ void Track::Update(double dt)
 					case 3:
 					{
 						note_pos = { 10, -2 };
-						Engine::GetGSComponent<GameObjectManager>()->Add(new HardNote(note_pos, note_vel, 1.0));
+						Engine::GetGSComponent<GameObjectManager>()->Add(new HardNote(note_pos, note_vel, 0.5));
 						break;
 					}
 					default: break;
