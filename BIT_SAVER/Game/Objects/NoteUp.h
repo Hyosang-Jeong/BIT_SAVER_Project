@@ -19,6 +19,7 @@ public:
     void Draw(glm::mat3 camera_matrix) override;
     void Score_Check(int score);
 
+
     enum class UpNote_anim
     {
         flying,

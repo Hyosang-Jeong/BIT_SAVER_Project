@@ -26,7 +26,7 @@ void Music::Init()
 }
 
 void Music::Load()
-{
+{   //want loop, use FMOD_LOOP_NORMAL
     result = FMOD_System_CreateSound(pSystem, "../sound/offset.mp3", FMOD_DEFAULT, nullptr, &pSound[OFFSET]);
     ErrorCheck(result);
 

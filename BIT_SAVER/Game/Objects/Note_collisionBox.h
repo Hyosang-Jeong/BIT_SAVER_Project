@@ -36,4 +36,6 @@ private:
     bool is_repeated{ false };
     bool is_destroyed{ true };
     GLfloat attack_ypos{ 0 };
+    float hitScale = 2.0;
+    bool ishit = false;
 };
