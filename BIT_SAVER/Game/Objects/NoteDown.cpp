@@ -123,6 +123,3 @@ void DownNote::Score_Check(int score)
         break;
     }
 }
-
-
-

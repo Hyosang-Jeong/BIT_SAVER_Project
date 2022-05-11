@@ -126,3 +126,4 @@ void UpNote::Score_Check(int score)
         break;
     }
 }
+
