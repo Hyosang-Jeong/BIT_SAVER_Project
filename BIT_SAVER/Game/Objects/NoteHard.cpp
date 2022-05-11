@@ -108,7 +108,10 @@ void HardNote::Hit_Check()
 					Engine::GetGSComponent<HitEmitter>()->Emit(1, GetPosition(), { 0,0 }, { 0,0 }, 0);
 					UpdatePosition({ 0.25,0 });
 					UpdateScale({ 0.1,0.1 });
-					Engine::GetGSComponent<Score>()->AddScore(HardNote_Score);
+					if (Engine::GetGSComponent<Score>() != nullptr)
+					{
+						Engine::GetGSComponent<Score>()->AddScore(HardNote_Score);
+					}
 					//isMiss = false;
 					break;
 				}
@@ -138,7 +141,10 @@ void HardNote::Hit_Check()
 					UpdatePosition({ 0.25,0 });
 					SetVelocity({ -2, 0 });
 					UpdateScale({ 0.5,0.1 });
-					Engine::GetGSComponent<Score>()->AddScore(HardNote_Score);
+					if (Engine::GetGSComponent<Score>() != nullptr)
+					{
+						Engine::GetGSComponent<Score>()->AddScore(HardNote_Score);
+					}
 					break;
 				}
 				default:
@@ -164,7 +170,10 @@ void HardNote::Hit_Check()
 					UpdatePosition({ 0.25,0 });
 					SetVelocity({ -2, 0 });
 					UpdateScale({ 0.5,0.1 });
-					Engine::GetGSComponent<Score>()->AddScore(HardNote_Score);
+					if (Engine::GetGSComponent<Score>() != nullptr)
+					{
+						Engine::GetGSComponent<Score>()->AddScore(HardNote_Score);
+					}
 					break;
 				}
 				default:

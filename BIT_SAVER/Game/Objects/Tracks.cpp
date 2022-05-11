@@ -146,77 +146,81 @@ void Track::Update(double dt)
 
 		timer += dt * Engine::GetMusic().pitch;
 		pitch_timer += dt;
-		if ( Music_Num == static_cast<int>(SOUND_NUM::OFFSET))
-		{
-			for (auto& i : track_info)
-			{
-				for (auto& j : i.second)
-				{
-					if (timer > j.dt_to_seconds)
-					{
-						note_pos = { 10, (i.first - 0.7) * 10 };
-						note_vel = { -20,0 };
-						if (note_pos.y < 0)
-						{
-							Engine::GetGSComponent<GameObjectManager>()->Add(new DownNote(note_pos, note_vel, j.movement));
-						}
-						else
-						{
-							Engine::GetGSComponent<GameObjectManager>()->Add(new UpNote(note_pos, note_vel, j.movement));
-						}
-						i.second.erase(i.second.begin());
-					}
-				}
-			}
-		}
-		else
-		{
+		//if ( Music_Num == static_cast<int>(SOUND_NUM::OFFSET))
+		//{
+		//	for (auto& i : track_info)
+		//	{
+		//		for (auto& j : i.second)
+		//		{
+		//			if (timer > j.dt_to_seconds)
+		//			{
+		//				note_pos = { 10, (i.first - 0.7) * 10 };
+		//				note_vel = { -20,0 };
+		//				if (note_pos.y < 0)
+		//				{
+		//					Engine::GetGSComponent<GameObjectManager>()->Add(new DownNote(note_pos, note_vel, j.movement));
+		//				}
+		//				else
+		//				{
+		//					Engine::GetGSComponent<GameObjectManager>()->Add(new UpNote(note_pos, note_vel, j.movement));
+		//				}
+		//				i.second.erase(i.second.begin());
+		//			}
+		//		}
+		//	}
+		//}
+		//else
+		//{
 			while (true)
 			{
 
-				Track_Time tmp = track_time.front();
-				if (timer >= tmp.time)
+				if (track_time.empty() != true)
 				{
-					note_pos = { 10, ((tmp.track - 1) - 0.7) * 10 };
-					note_vel = { -20,0 };
-					switch (tmp.track)
+					Track_Time tmp = track_time.front();
+					if (timer >= tmp.time)
 					{
-					case 1:
-					{
-						GameObject* down_tmp = new DownNote(note_pos, note_vel, tmp.movement);
-						Engine::GetGSComponent<GameObjectManager>()->Add(down_tmp);
-						time.push(tmp.time);
-						notes.push(down_tmp);
-						break;
-					}
-					case 2:
-					{
-						GameObject* up_tmp = new UpNote(note_pos, note_vel, tmp.movement);
-						Engine::GetGSComponent<GameObjectManager>()->Add(up_tmp);
-						time.push(tmp.time);
-						notes.push(up_tmp);
-						break;
-					}
-					case 3:
-					{
-						note_pos = { 10, -2 };
-						GameObject* hard_tmp = new HardNote(note_pos, note_vel, 1);
-						Engine::GetGSComponent<GameObjectManager>()->Add(hard_tmp);
-						time.push(tmp.time);
-						notes.push(hard_tmp);
-						break;
-					}
+						note_pos = { 10, ((tmp.track - 1) - 0.7) * 10 };
+						note_vel = { -20,0 };
+						switch (tmp.track)
+						{
+						case 1:
+						{
+							GameObject* down_tmp = new DownNote(note_pos, note_vel, tmp.movement);
+							Engine::GetGSComponent<GameObjectManager>()->Add(down_tmp);
+							time.push(tmp.time);
+							notes.push(down_tmp);
+							break;
+						}
+						case 2:
+						{
+							GameObject* up_tmp = new UpNote(note_pos, note_vel, tmp.movement);
+							Engine::GetGSComponent<GameObjectManager>()->Add(up_tmp);
+							time.push(tmp.time);
+							notes.push(up_tmp);
+							break;
+						}
+						case 3:
+						{
+							note_pos = { 10, -2 };
+							GameObject* hard_tmp = new HardNote(note_pos, note_vel, 1);
+							Engine::GetGSComponent<GameObjectManager>()->Add(hard_tmp);
+							time.push(tmp.time);
+							notes.push(hard_tmp);
+							break;
+						}
 
-					default: break;
+						default: break;
+						}
+						track_time.pop();
 					}
-					track_time.pop();
+					else
+						break;
 				}
+
 				else
 					break;
 			}
-
 			hit_check();
-		}
 
 	}
 }

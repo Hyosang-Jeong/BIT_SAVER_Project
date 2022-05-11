@@ -21,6 +21,9 @@ std::map<int,std::vector<info>> MidiEvent::MidiSetUp(int music_num)
     case SOUND_NUM::OFFSET:
         midi_filename = "../MIDI/offset.mid";
         break;
+    case SOUND_NUM::TUTORIAL:
+        midi_filename = "../MIDI/tutorial_offset.mid";
+        break;
     case SOUND_NUM::DISCO:
         midi_filename = "../MIDI/disco.mid";
         break;
@@ -230,6 +233,10 @@ std::map<int,std::vector<info>> MidiEvent::MidiSetUp(int music_num)
         trackFrom = 1;
         trackTo = 1;
         break;
+    case SOUND_NUM::TUTORIAL:
+        trackFrom = 1;
+        trackTo = 3;
+        break;
     case SOUND_NUM::DISCO:
         trackFrom = 1;
         trackTo = 2;
@@ -250,7 +257,7 @@ std::map<int,std::vector<info>> MidiEvent::MidiSetUp(int music_num)
         trackFrom = 1;
         trackTo = 1;
         {
-            Engine::GetLogger().LogError("Error! :There are not track infor(midi.cppLine241)");
+            Engine::GetLogger().LogError("Error! :There are not track info(midi.cppLine241)");
             exit(EXIT_FAILURE);
         }
         break;

@@ -32,7 +32,7 @@ void Tutorial::Load()
 
 	heroPtr = new Hero({ -6,-5 });
 	backPtr = new Background();
-	trackPtr = new Track(SOUND_NUM::OFFSET);
+	trackPtr = new Track(SOUND_NUM::TUTORIAL);
 	gameObjectManager = new GameObjectManager();
     camera = new Camera({ 0,0 });
     notebox = new Note_box({ -4,0 });

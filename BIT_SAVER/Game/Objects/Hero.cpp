@@ -12,7 +12,6 @@ Author:  Sunwoo Lee
 #include"..\Levels\Level1.h"  // Level1's gravity
 #include"../Levels/MainOption.h"
 #include"../Levels/State.h"
-
 #include "../../Engine/GameObject/GameObjectManager.h"
 #define VOL 0.5f;
 
@@ -53,7 +52,6 @@ void Hero::die()
 
 void Hero::UpdateXVelocity([[maybe_unused]]double dt)
 {
-
 }
 
 // idle state
@@ -76,7 +74,6 @@ void Hero::State_Idle::TestForExit(GameObject* object)
     {
         hero->ChangeState(&hero->stateRunning);
     }
-
 }
 
 //run state
@@ -133,9 +130,7 @@ void Hero::State_Falling::TestForExit(GameObject* object)
     if ((hero->DownAttackKey.IsKeyDown() == true && hero->DownAttackKey.IsKeyReapeated() == false))
     {
         hero->SetVelocity({ 0,0 });
-        //hero->SetPosition({ hero->GetPosition().x, -7 });
         hero->ChangeState(&hero->stateAttack);
-        Engine::GetGSComponent<Camera>()->shake(0.015f, 0.1f, 1.f);
     }
 
 }
@@ -203,7 +198,6 @@ void Hero::State_Jump::TestForExit(GameObject* object)
     if (hero->DownAttackKey.IsKeyDown() == true && hero->DownAttackKey.IsKeyReapeated() == false)
     {
         hero->ChangeState(&hero->stateAttack);
-        Engine::GetGSComponent<Camera>()->shake(0.015f, 0.1f, 1.f);
     }
 }
 

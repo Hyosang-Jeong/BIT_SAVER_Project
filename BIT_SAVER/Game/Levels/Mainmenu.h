@@ -20,7 +20,8 @@ enum class state
 	LEVEL1,
 	LEVEL2,
 	LEVEL3,
-	OPTION
+	OPTION,
+	ESCAPE
 };
 
 class Mainmenu : public GameState
@@ -37,6 +38,8 @@ public:
 	void stop_music(int num);
 	InputKey Next;
 	InputKey Previous;
+	InputKey Right;
+	InputKey Left;
 	InputKey Select;
 	InputKey escape;
 	InputKey T;
@@ -52,11 +55,14 @@ private:
 	Texture* level_4;
 	Texture* LP;
 	Texture* LP_2;
+	Texture* Quit_screen;
 	float alpha = 0;
 	float text_alpha = 0;
 	int currstate;
 	double timer = 0;
 	double lp_rotate=0;
+	bool escape_game;
+	int previous_state;
 	glm::vec2 updown_pos;
 
 };
