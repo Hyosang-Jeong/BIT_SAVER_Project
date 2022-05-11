@@ -22,9 +22,12 @@ Mainmenu::Mainmenu() :
 	Previous(InputKey::Keyboard::Up),
 	Select(InputKey::Keyboard::Enter),
 	T(InputKey::Keyboard::T),
+	Right(InputKey::Keyboard::Right),
+	Left(InputKey::Keyboard::Left),
 	currstate(static_cast<int>(state::START)),
+	previous_state(currstate),
 	escape(InputKey::Keyboard::Escape),
-	updown_pos(10,-10)
+	updown_pos(10,-10),escape_game(true)
 {
 }
 
@@ -41,6 +44,7 @@ void Mainmenu::Load()
 	level_4 = Engine::GetTextureManager().Load("../images/mainmenu_level4.png");
 	LP = Engine::GetTextureManager().Load("../images/LP.png");
 	LP_2 = Engine::GetTextureManager().Load("../images/LP.png");
+	Quit_screen = Engine::GetTextureManager().Load("../images/Quit.png");
 	Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::None);
 }
 
@@ -70,31 +74,52 @@ void Mainmenu::Update( double dt)
 
 	if (escape.IsKeyReleased() == true)
 	{
-		Engine::GetGameStateManager().Shutdown();
+		if (currstate != static_cast<int>(state::ESCAPE))
+		{
+			previous_state = currstate;
+			stop_music(currstate);
+			currstate = static_cast<int>(state::ESCAPE);
+		}
+		else
+		{
+			currstate = previous_state;
+			play_music(currstate);
+		}
+	}
+
+	if (currstate == static_cast<int>(state::ESCAPE))
+	{
+		if (Right.IsKeyReleased() || Left.IsKeyReleased())
+			escape_game = !escape_game;
 	}
 
 	if (currstate > static_cast<int>(state::START))
 	{
 		if (Engine::GetInput().GetLastPressedButton() != InputKey::Keyboard::None && Next.IsKeyReleased() == true)
 		{
-			stop_music(currstate);
-			currstate++;
-			if (currstate == static_cast<int>(state::OPTION) + 1)
+			if (currstate != static_cast<int>(state::ESCAPE))
 			{
-				currstate = static_cast<int>(state::TUTORIAL);
+				stop_music(currstate);
+				currstate++;
+				if (currstate == static_cast<int>(state::OPTION) + 1)
+				{
+					currstate = static_cast<int>(state::TUTORIAL);
+				}
+				play_music(currstate);
 			}
-			play_music(currstate);
-
 		}
 		else if (Engine::GetInput().GetLastPressedButton() != InputKey::Keyboard::None && Previous.IsKeyReleased() == true)
 		{
-			stop_music(currstate);
-			currstate--;
-			if (currstate == static_cast<int>(state::TUTORIAL) - 1)
+			if (currstate != static_cast<int>(state::ESCAPE))
 			{
-				currstate = static_cast<int>(state::OPTION);
+				stop_music(currstate);
+				currstate--;
+				if (currstate == static_cast<int>(state::TUTORIAL) - 1)
+				{
+					currstate = static_cast<int>(state::OPTION);
+				}
+				play_music(currstate);
 			}
-			play_music(currstate);
 		}
 		else if (Engine::GetInput().GetLastPressedButton() != InputKey::Keyboard::None && Select.IsKeyReleased() == true)
 		{
@@ -129,6 +154,17 @@ void Mainmenu::Update( double dt)
 				stop_music(currstate);
 				Engine::GetGameStateManager().SetNextState(2);
 				break;
+			}
+			case 8:
+			{
+				if (escape_game == true)
+					Engine::GetGameStateManager().Shutdown();
+				else
+				{
+					currstate = previous_state;
+					play_music(currstate);
+					break;
+				}
 			}
 			default:
 				break;
@@ -179,13 +215,13 @@ void Mainmenu::Draw()
 	{
 		levels->Draw({ 0,updown_pos.x }, { 10,10 });
 		option->Draw({ 0,updown_pos.y }, { 10,10 });
-
-		//Engine::GetText(font1).Draw("DISCO", winsize.x * 0.38f, winsize.y * 0.2f, 1.f, glm::vec3(1.f, 1.f, 1.f));
-		//Engine::GetText(font1).Draw("REWIND", winsize.x * 0.38f, winsize.y * 0.31f, 1.f, glm::vec3(1.f, 1.f, 1.f));
-		//Engine::GetText(font1).Draw("DIOMA", winsize.x * 0.38f, winsize.y * 0.42f, 1.f, glm::vec3(1.f, 1.f, 1.f));
-		//Engine::GetText(font1).Draw("ENERGY", winsize.x * 0.38f, winsize.y * 0.55f, 1.f, glm::vec3(1.f, 1.f, 1.f));
-
 	}
+	if (updown_pos.y == 0)
+	{
+		LP->Draw({ 1.25,5.28 }, { 0.5,0.73 }, { lp_rotate,0 });
+		LP_2->Draw({ 2.5,2.0 }, { 0.45,0.7 }, { lp_rotate,0 });
+	}
+
 	switch (currstate)
 	{
 		case static_cast<int>(state::TUTORIAL):
@@ -214,14 +250,23 @@ void Mainmenu::Draw()
 			option_button->Draw({ 0,0 }, { 10,10 });
 			break;
 		}
+		case static_cast<int>(state::ESCAPE):
+		{
+			Quit_screen->Draw({ 0,0 }, { 10,5 });
+			Engine::GetText(font1).Draw("Do you want to Quit?", winsize.x * 0.32f, winsize.y * 0.41f, 1.5f, glm::vec3(1.f, 1.f, 1.f));
+
+			Engine::GetText(font1).Draw("YES", winsize.x * 0.35f, winsize.y * 0.55f, 1.5f, glm::vec3(0.5f, 0.5f, 0.5f));
+			Engine::GetText(font1).Draw("NO", winsize.x * 0.6f, winsize.y * 0.55f, 1.5f, glm::vec3(0.5f, 0.5f, 0.5f));
+			if(escape_game==true)
+				Engine::GetText(font1).Draw("YES", winsize.x * 0.35f, winsize.y * 0.55f, 1.5f, glm::vec3(1.f, 1.f, 1.f));
+			else
+				Engine::GetText(font1).Draw("NO",    winsize.x * 0.6f, winsize.y * 0.55f, 1.5f, glm::vec3(1.f, 1.f, 1.f));
+			break;
+		}
 		default:
 			break;
 	}
-	if (updown_pos.y == 0)
-	{
-		LP->Draw({ 1.25,5.28 }, { 0.5,0.73 }, { lp_rotate,0 });
-		LP_2->Draw({ 2.5,2.0 }, { 0.45,0.7 }, { lp_rotate,0 });
-	}
+
 
 }
 void Mainmenu::play_music(int num)

@@ -144,3 +144,4 @@ void GLText::Draw(std::string text, float x, float y, float scale, glm::vec3 col
 	glBindTexture(GL_TEXTURE_2D, 0);
 	shd_ref->second.UnUse();
 }
+
