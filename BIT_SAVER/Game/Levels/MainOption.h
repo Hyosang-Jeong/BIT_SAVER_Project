@@ -34,13 +34,13 @@ public:
     }
     std::string GetName() { return "MainOption"; }
     void Draw() override;
-
+    float GetVolume();
  
     void SetOffsetTime(long double offsetTime_);
     long double GetOffsetTime();
     InputKey UpAttackKey;
     InputKey DownAttackKey;
-
+    float WholeVolume = 0.5f;
 private:
     bool IsUpkeychanged;
     bool IsDownkeychanged;

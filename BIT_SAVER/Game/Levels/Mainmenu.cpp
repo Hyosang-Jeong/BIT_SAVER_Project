@@ -83,8 +83,7 @@ void Mainmenu::Update( double dt)
 			{
 				currstate = static_cast<int>(state::TUTORIAL);
 			}
-			while (Engine::GetMusic().isPlaying(currstate) != true)
-			    play_music(currstate);
+			play_music(currstate);
 
 		}
 		else if (Engine::GetInput().GetLastPressedButton() != InputKey::Keyboard::None && Previous.IsKeyReleased() == true)

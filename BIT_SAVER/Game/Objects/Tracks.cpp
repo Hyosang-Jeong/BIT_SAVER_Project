@@ -173,6 +173,7 @@ void Track::Update(double dt)
 		{
 			while (true)
 			{
+
 				Track_Time tmp = track_time.front();
 				if (timer >= tmp.time)
 				{

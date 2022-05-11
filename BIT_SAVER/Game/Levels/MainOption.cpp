@@ -50,7 +50,8 @@ void MainOption::Update(double dt)
 {
 
     glm::vec2 size = Engine::GetWindow().GetSize();
-    Engine::GetMusic().SetVolume((SoundBallPosition.x + 1.25f) / 2.5f);
+    WholeVolume = (SoundBallPosition.x + 1.25f) / 2.5f;
+    Engine::GetMusic().SetVolume(WholeVolume);
     Engine::GetMusic().Update();
     KeychangeTextTimer -= dt;
 
@@ -238,4 +239,9 @@ long double MainOption::GetOffsetTime()
 void MainOption::Unload()
 {
     Engine::GetMusic().Stop(SOUND_NUM::JANJI);
+}
+
+float MainOption::GetVolume()
+{
+    return WholeVolume;
 }

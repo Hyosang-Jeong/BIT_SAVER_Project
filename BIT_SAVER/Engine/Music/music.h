@@ -22,6 +22,7 @@ Author: Jaewoo.choi
 #define SOUND_DEFAULT   0.5f
 #define SOUND_WEIGHT    0.1f 
 
+
 class Music
 {
 public:

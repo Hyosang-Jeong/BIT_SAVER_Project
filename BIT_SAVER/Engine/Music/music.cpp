@@ -14,7 +14,7 @@ Author: Jaewoo.choi
 #include <vector>
 #include "../../Engine/Input/Input.h"
 #include "../Engine.h"
-
+#include "../../Game/Levels/MainOption.h"
 using namespace std;
 void Music::Init()
 {
@@ -26,7 +26,7 @@ void Music::Init()
 }
 
 void Music::Load()
-{   //want loop, use FMOD_LOOP_NORMAL
+{
     result = FMOD_System_CreateSound(pSystem, "../sound/offset.mp3", FMOD_DEFAULT, nullptr, &pSound[OFFSET]);
     ErrorCheck(result);
 
@@ -62,9 +62,14 @@ void Music::Load()
 }
 void Music::Play(int sound_num)
 {
+    
     result = FMOD_System_PlaySound(pSystem, pSound[sound_num], 0, 0, &pChannel[sound_num]);
     ErrorCheck(result);
-    result = FMOD_Channel_SetVolume(pChannel[sound_num], volume);
+    if (Engine::GetGSComponent<MainOption>() != nullptr)
+        result = FMOD_Channel_SetVolume(pChannel[sound_num], Engine::GetGSComponent<MainOption>()->GetVolume());
+    else
+        result = FMOD_Channel_SetVolume(pChannel[sound_num], volume);
+
     ErrorCheck(result);
 }
 
