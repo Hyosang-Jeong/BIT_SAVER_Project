@@ -20,5 +20,6 @@ enum SOUND_NUM
     BOSS_ENTRANCE,
     FEVER,
     JANJI,
+    TUTORIAL,
     MUSIC_END
 };

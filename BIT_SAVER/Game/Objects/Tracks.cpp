@@ -146,31 +146,31 @@ void Track::Update(double dt)
 
 		timer += dt * Engine::GetMusic().pitch;
 		pitch_timer += dt;
-		if ( Music_Num == static_cast<int>(SOUND_NUM::OFFSET))
-		{
-			for (auto& i : track_info)
-			{
-				for (auto& j : i.second)
-				{
-					if (timer > j.dt_to_seconds)
-					{
-						note_pos = { 10, (i.first - 0.7) * 10 };
-						note_vel = { -20,0 };
-						if (note_pos.y < 0)
-						{
-							Engine::GetGSComponent<GameObjectManager>()->Add(new DownNote(note_pos, note_vel, j.movement));
-						}
-						else
-						{
-							Engine::GetGSComponent<GameObjectManager>()->Add(new UpNote(note_pos, note_vel, j.movement));
-						}
-						i.second.erase(i.second.begin());
-					}
-				}
-			}
-		}
-		else
-		{
+		//if ( Music_Num == static_cast<int>(SOUND_NUM::OFFSET))
+		//{
+		//	for (auto& i : track_info)
+		//	{
+		//		for (auto& j : i.second)
+		//		{
+		//			if (timer > j.dt_to_seconds)
+		//			{
+		//				note_pos = { 10, (i.first - 0.7) * 10 };
+		//				note_vel = { -20,0 };
+		//				if (note_pos.y < 0)
+		//				{
+		//					Engine::GetGSComponent<GameObjectManager>()->Add(new DownNote(note_pos, note_vel, j.movement));
+		//				}
+		//				else
+		//				{
+		//					Engine::GetGSComponent<GameObjectManager>()->Add(new UpNote(note_pos, note_vel, j.movement));
+		//				}
+		//				i.second.erase(i.second.begin());
+		//			}
+		//		}
+		//	}
+		//}
+		//else
+		//{
 			while (true)
 			{
 				Track_Time tmp = track_time.front();
@@ -215,7 +215,7 @@ void Track::Update(double dt)
 			}
 
 			hit_check();
-		}
+		//}
 
 	}
 }
