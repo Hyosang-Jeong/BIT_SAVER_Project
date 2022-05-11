@@ -102,6 +102,7 @@ void Level1::Load()
 
     gameObjectManager->Add(stageBar);
     gameObjectManager->Add(trackPtr);
+
     AddGSComponent(new HitEmitter());
     AddGSComponent(new PerfectEmitter());
     AddGSComponent(new GoodEmitter());
@@ -110,10 +111,12 @@ void Level1::Load()
     AddGSComponent(new Score());
     GetGSComponent<Camera>()->zoom_effect({ 2.f,2.f });
     
+
 }
 
 void Level1::Update(double dt)
 {
+        
         if (!Engine::GetMusic().isPlaying(SOUND_NUM::REWIND) && isMusicEnd == false)
         {
             Engine::GetMusic().Play(SOUND_NUM::REWIND);

@@ -9,10 +9,6 @@
 #include <random>
 DownNote::DownNote(glm::vec2 startPos, glm::vec2 velocity, int movement) :
     isMiss(false), ishit(false), Movement(movement),
-
-
-    UpAttackKey(InputKey::Keyboard::None),
-    DownAttackKey(InputKey::Keyboard::None),
     GameObject(startPos, glm::vec2{ 1.5,1.5 })
 {
 
@@ -37,15 +33,10 @@ void DownNote::Update(double dt)
 
     GameObject::Update(dt);
 
-    UpAttackKey = Engine::GetAttack_Key().UpAttackKey;
-    DownAttackKey = Engine::GetAttack_Key().DownAttackKey;
-
     if (GetPosition().x < -10)
     {
         set_destroy(true);
     }
-
-    Hit_Check();
 
     if (isMiss == true)
     {
@@ -75,95 +66,63 @@ glm::vec2 DownNote::Getposition()
     return GameObject::GetPosition();
 }
 
-void DownNote::Hit_Check()
+void DownNote::Score_Check(int score)
 {
-
-
-    if ((DownAttackKey.IsKeyDown() == true && DownAttackKey.IsKeyReapeated() == false && GetPosition().y < 0) && ishit == false)
+    switch (score)
     {
-        switch (Score_check())
+    case static_cast<int>(SCORE::PERFECT):
+    {
+        Engine::GetGSComponent<PerfectEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+        GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::explosion));
+        isMiss = false;
+        ishit = true;
+        if (Engine::GetGSComponent<Score>() != nullptr)
         {
-            case static_cast<int>(SCORE::PERFECT) :
-            {
-                Engine::GetGSComponent<PerfectEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
-                GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::explosion));
-                isMiss = false;
-                ishit = true;
-                if (Engine::GetGSComponent<Score>() != nullptr)
-                {
-                    Engine::GetGSComponent<Score>()->AddScore(Score_check());
-                }                break;
-            }
-            case static_cast<int>(SCORE::GOOD) :
-            {
-                Engine::GetGSComponent<GoodEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
-                GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::explosion));
-                isMiss = false;
-                ishit = true;
-                if (Engine::GetGSComponent<Score>() != nullptr)
-                {
-                    Engine::GetGSComponent<Score>()->AddScore(Score_check());
-                }                break;
-            }
-            case static_cast<int>(SCORE::BAD) :
-            {
-                Engine::GetGSComponent<BadEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
-                GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::explosion));
-                isMiss = false;
-                ishit = true;
-                if (Engine::GetGSComponent<Score>() != nullptr)
-                {
-                    Engine::GetGSComponent<Score>()->AddScore(Score_check());
-                }                break;
-            }
-            default:
-                break;
-        }
-
+            Engine::GetGSComponent<Score>()->AddScore(score);
+        }                break;
     }
-    if (Engine::GetGameStateManager().GetCurrstate()->GetName() != "Offset" && 
-        Engine::GetGameStateManager().GetCurrstate()->GetName() != "Tutorial")
+    case static_cast<int>(SCORE::GOOD):
     {
-        if (GetGOComponent<Sprite>()->GetCurrentAnim() != static_cast<int>(DownNote_anim::explosion))
+        Engine::GetGSComponent<GoodEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+        GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::explosion));
+        isMiss = false;
+        ishit = true;
+        if (Engine::GetGSComponent<Score>() != nullptr)
         {
-            if (Score_check() == static_cast<int>(SCORE::MISS) && isMiss == false && GetPosition().x < -4.f)
+            Engine::GetGSComponent<Score>()->AddScore(score);
+        }                break;
+    }
+    case static_cast<int>(SCORE::BAD):
+    {
+        Engine::GetGSComponent<BadEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+        GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::explosion));
+        isMiss = false;
+        ishit = true;
+        if (Engine::GetGSComponent<Score>() != nullptr)
+        {
+            Engine::GetGSComponent<Score>()->AddScore(score);
+        }                break;
+    }
+    case static_cast<int>(SCORE::MISS):
+    {
+        if (Engine::GetGameStateManager().GetCurrstate()->GetName() != "Offset" &&
+            Engine::GetGameStateManager().GetCurrstate()->GetName() != "Tutorial")
+        {
+            isMiss = true;
+            if (Engine::GetGSComponent<MissEmitter>() != nullptr)
             {
-                isMiss = true;
-                if (Engine::GetGSComponent<MissEmitter>() != nullptr)
+                Engine::GetGSComponent<MissEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+                if (Engine::GetGSComponent<Score>() != nullptr)
                 {
-                    Engine::GetGSComponent<MissEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
-                    if (Engine::GetGSComponent<Score>() != nullptr)
-                    {
-                        Engine::GetGSComponent<Score>()->AddScore(Score_check());
-                    }
+                    Engine::GetGSComponent<Score>()->AddScore(score);
                 }
             }
         }
     }
+    default:
+        break;
+    }
 }
 
-int DownNote::Score_check()
-{
-    float HeroPostion = 0;
-    float NotePosition = GetPosition().x;
-
-    if (Engine::GetGameStateManager().GetCurrstate()->GetName() != "Offset")
-    {
-        HeroPostion = -4.f;
-    }
-    if (NotePosition - HeroPostion <= 0.5f && NotePosition - HeroPostion >= -0.5f)
-    {
-        return static_cast<int>(SCORE::PERFECT);
-    }
-    else if (NotePosition - HeroPostion <= 1.f && NotePosition - HeroPostion >= -1.f)
-    {
-        return static_cast<int>(SCORE::GOOD);
-    }
-    else if (NotePosition - HeroPostion <= 1.5f && NotePosition - HeroPostion >= -1.5f)
-    {
-        return static_cast<int>(SCORE::BAD);
-    }
-    return static_cast<int>(SCORE::MISS);
-}
 
 

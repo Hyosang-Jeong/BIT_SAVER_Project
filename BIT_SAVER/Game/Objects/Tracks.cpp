@@ -22,13 +22,17 @@ Author: Jaewoo.choi, Sunwoo Lee
 Track::Track(int music_num) :
 	Track(MidiEvent{}.MidiSetUp(music_num), music_num)
 {
+	UpAttackKey = Engine::GetAttack_Key().UpAttackKey;
+	DownAttackKey = Engine::GetAttack_Key().DownAttackKey;
 }
 
 Track::Track(std::map<int,std::vector<info>> mid_info , int music_num) : 
-GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 }), Music_Num(music_num)
+GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 }), Music_Num(music_num), UpAttackKey(InputKey::Keyboard::None),
+DownAttackKey(InputKey::Keyboard::None)
 {
 	Doupdate = true;
-	
+	UpAttackKey = Engine::GetAttack_Key().UpAttackKey;
+	DownAttackKey = Engine::GetAttack_Key().DownAttackKey;
     long double Dificulty{ 0.0 };
 
 	//switch (Music_Num)
@@ -52,6 +56,7 @@ GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 }), Music_Num(music_num)
 	//		break;
 	//}
 
+	std::vector<Track_Time> tmp;
 	for (auto& tracks : mid_info)
 	{
 		for (auto& time_t : tracks.second)
@@ -60,18 +65,17 @@ GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 }), Music_Num(music_num)
 			{
 				continue;
 			}
-			track_time.push_back(Track_Time(tracks.first, time_t.dt_to_seconds,time_t.movement));
+			tmp.push_back(Track_Time(tracks.first, time_t.dt_to_seconds,time_t.movement));
 		}
 	}
-
-	std::sort(begin(track_time), end(track_time), [](Track_Time left, Track_Time right)
+	std::sort(begin(tmp), end(tmp), [](Track_Time left, Track_Time right)
 		{
 			return (left.time < right.time);
 		}
 	);
 
-	long double t{ track_time[0].time };
-	track_time.erase(std::remove_if(begin(track_time) + 1, end(track_time), [&](Track_Time time_t)
+	long double t{ tmp[0].time };
+	tmp.erase(std::remove_if(begin(tmp) + 1, end(tmp), [&](Track_Time time_t)
 		{
 			if (time_t.time - t < Dificulty)
 			{
@@ -81,11 +85,10 @@ GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 }), Music_Num(music_num)
 				t = time_t.time;
 				return false;
 			}
-		}), end(track_time));
+		}), end(tmp));
 
-	
-	double target_time = 14.0 / -20;
-	for (auto& tt : track_time)
+
+	for (auto& tt : tmp)
 	{
 	    if (static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->GetOffsetTime() > -10)
 		tt.time += target_time - static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->GetOffsetTime();
@@ -93,6 +96,12 @@ GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 }), Music_Num(music_num)
 		tt.time += target_time;
 	}
 	Engine::GetLogger().LogEvent("Your off set is " + std::to_string(static_cast<MainOption*>(Engine::GetGameStateManager().Find("MainOption"))->GetOffsetTime()));
+	for (auto& i : tmp)
+	{
+		if(i.time>0)
+			track_time.push(i);
+	}
+
 	//if (Music_Num == static_cast<int>(SOUND_NUM::REWIND) || Music_Num == static_cast<int>(SOUND_NUM::ENERGY))
 	//{
 	//	for (auto& time_t : track_time)
@@ -108,34 +117,36 @@ GameObject({ 0,0 },  glm::vec2{ 0.1,0.1 }), Music_Num(music_num)
 	//		}
 	//	}
 	//}
-	if (Music_Num == static_cast<int>(SOUND_NUM::OFFSET))
-	{
-		int T = 0;
-		for (auto& time_t : track_time)
-		{
-			if (T % 2 == 0)
-			{
-				track_info[T % 2].push_back(info(time_t.time,time_t.movement));
-			}
-			else if (T % 2 == 1)
-			{
-				track_info[T % 2].push_back(info(time_t.time, time_t.movement));
-			}
-			T++;
-		}
-	}
+	//if (Music_Num == static_cast<int>(SOUND_NUM::OFFSET))
+	//{
+	//	int T = 0;
+	//	for (auto& time_t : track_time)
+	//	{
+	//		if (T % 2 == 0)
+	//		{
+	//			track_info[T % 2].push_back(info(time_t.time,time_t.movement));
+	//		}
+	//		else if (T % 2 == 1)
+	//		{
+	//			track_info[T % 2].push_back(info(time_t.time, time_t.movement));
+	//		}
+	//		T++;
+	//	}
+	//}
 }
 
 
 void Track::Update(double dt)
 {
+	UpAttackKey = Engine::GetAttack_Key().UpAttackKey;
+	DownAttackKey = Engine::GetAttack_Key().DownAttackKey;
 	if (Doupdate == true)
 	{
 		GameObject::Update(dt);
 
 		timer += dt * Engine::GetMusic().pitch;
-
-		if (/*Music_Num == static_cast<int>(SOUND_NUM::REWIND) || Music_Num == static_cast<int>(SOUND_NUM::ENERGY) ||*/ Music_Num == static_cast<int>(SOUND_NUM::OFFSET))
+		pitch_timer += dt;
+		if ( Music_Num == static_cast<int>(SOUND_NUM::OFFSET))
 		{
 			for (auto& i : track_info)
 			{
@@ -144,10 +155,10 @@ void Track::Update(double dt)
 					if (timer > j.dt_to_seconds)
 					{
 						note_pos = { 10, (i.first - 0.7) * 10 };
-						note_vel = { -20,0};
+						note_vel = { -20,0 };
 						if (note_pos.y < 0)
 						{
-							Engine::GetGSComponent<GameObjectManager>()->Add(new DownNote(note_pos, note_vel,j.movement));
+							Engine::GetGSComponent<GameObjectManager>()->Add(new DownNote(note_pos, note_vel, j.movement));
 						}
 						else
 						{
@@ -160,54 +171,55 @@ void Track::Update(double dt)
 		}
 		else
 		{
-			for (auto& i : track_time)
+			while (true)
 			{
-				if (timer > i.time)
+				Track_Time tmp = track_time.front();
+				if (timer >= tmp.time)
 				{
-					note_pos = { 10, ((i.track - 1) - 0.7) * 10 };
+					note_pos = { 10, ((tmp.track - 1) - 0.7) * 10 };
 					note_vel = { -20,0 };
-
-					///////////////////////////////////////////////////////////////////////////////////////////////////////////
-					//if (i.track == 3)
-					//{
-					//	note_pos = { 10, -2 };
-					//	Engine::GetGSComponent<GameObjectManager>()->Add(new HardNote(note_pos, note_vel,1.0));
-					//}
-					///////////////////////////////////////////////////////////////////////////////////////////////////////////
-					//else if (note_pos.y < 0)	// y=-7
-					//{
-					//	Engine::GetGSComponent<GameObjectManager>()->Add(new DownNote(note_pos, note_vel));
-					//}
-					//else	// y=3
-					//{
-					//	Engine::GetGSComponent<GameObjectManager>()->Add(new UpNote(note_pos, note_vel));
-					//}
-					switch (i.track)
+					switch (tmp.track)
 					{
 					case 1:
 					{
-						Engine::GetGSComponent<GameObjectManager>()->Add(new DownNote(note_pos, note_vel, i.movement));
+						GameObject* down_tmp = new DownNote(note_pos, note_vel, tmp.movement);
+						Engine::GetGSComponent<GameObjectManager>()->Add(down_tmp);
+						time.push(tmp.time);
+						notes.push(down_tmp);
 						break;
 					}
 					case 2:
 					{
-						Engine::GetGSComponent<GameObjectManager>()->Add(new UpNote(note_pos, note_vel, i.movement));
+						GameObject* up_tmp = new UpNote(note_pos, note_vel, tmp.movement);
+						Engine::GetGSComponent<GameObjectManager>()->Add(up_tmp);
+						time.push(tmp.time);
+						notes.push(up_tmp);
 						break;
 					}
 					case 3:
 					{
 						note_pos = { 10, -2 };
-						Engine::GetGSComponent<GameObjectManager>()->Add(new HardNote(note_pos, note_vel, 0.5));
+						GameObject* hard_tmp = new HardNote(note_pos, note_vel, 1);
+						Engine::GetGSComponent<GameObjectManager>()->Add(hard_tmp);
+						time.push(tmp.time);
+						notes.push(hard_tmp);
 						break;
 					}
+
 					default: break;
 					}
-					track_time.erase(track_time.begin());
+					track_time.pop();
 				}
+				else
+					break;
 			}
+
+			hit_check();
 		}
+
 	}
 }
+
 
 glm::vec2 Track::Getposition()
 {
@@ -217,5 +229,149 @@ glm::vec2 Track::Getposition()
 void Track::SetUpdate(bool update)
 {
 	Doupdate = update;
+}
+
+void Track::hit_check()
+{
+	double miss_time = 16.0 / -20;
+	while (true)
+	{
+		if (time.empty() == false) //for miss any note
+		{
+			long double  tmp = (time.front()) - (miss_time* Engine::GetMusic().pitch);
+			if (timer>= (tmp))
+			{
+				GameObject* note_tmp = notes.front();
+				notes.pop();
+				time.pop();
+				if (note_tmp->GetPosition().y > -2)
+				{
+					static_cast<UpNote*>(note_tmp)->Score_Check(0);
+					break;
+				}
+				else
+				{
+					static_cast<DownNote*>(note_tmp)->Score_Check(0);
+					break;
+				}
+			}
+			else
+				break;
+		}
+		else
+			break;
+	}
+
+	if ((UpAttackKey.IsKeyDown() == true && UpAttackKey.IsKeyReapeated() == false))
+	{
+		while (true)
+		{
+			if (time.empty() == false)
+			{
+				long double  tmp = time.front() - (target_time * Engine::GetMusic().pitch);
+
+				if (timer - (tmp ) <=0.05 && timer - (tmp ) >=-0.05)
+				{
+					GameObject* note_tmp = notes.front();
+					if (note_tmp->GetPosition().y > -2)
+					{
+						notes.pop();
+						time.pop();
+						static_cast<UpNote*>(note_tmp)->Score_Check(3);
+						break;
+					}
+					else if (note_tmp->GetPosition().y == -2)
+					{
+						notes.pop();
+						time.pop();
+						break;
+					}
+					else
+						break;
+				}
+
+				else if (timer - (tmp ) <= 0.13 && timer - (tmp ) >= -0.13)
+				{
+					GameObject* note_tmp = notes.front();
+					if (note_tmp->GetPosition().y > -2)
+					{
+						notes.pop();
+						time.pop();
+						static_cast<UpNote*>(note_tmp)->Score_Check(2);
+						break;
+					}
+					else if (note_tmp->GetPosition().y == -2)
+					{
+						notes.pop();
+						time.pop();
+						break;
+					}
+					else
+						break;
+				}
+
+
+				else
+					break;
+			}
+			else
+				break;
+		}
+	}
+
+
+	if (DownAttackKey.IsKeyDown() == true && DownAttackKey.IsKeyReapeated() == false)
+	{
+		while (true)
+		{
+			if (time.empty() == false)
+			{
+				long double  tmp = time.front() - (target_time * Engine::GetMusic().pitch);
+
+				if (timer - (tmp) <= 0.05 && timer - tmp >= -0.05)
+				{
+					GameObject* note_tmp = notes.front();
+					if (note_tmp->GetPosition().y < -2)
+					{
+						notes.pop();
+						time.pop();
+						static_cast<DownNote*>(note_tmp)->Score_Check(3);
+						break;
+					}
+					else if (note_tmp->GetPosition().y == -2)
+					{
+						notes.pop();
+						time.pop();
+						break;
+					}
+					else
+						break;
+				}
+				if (timer - (tmp) <= 0.13 && timer - tmp >= -0.13)
+				{
+					GameObject* note_tmp = notes.front();
+					if (note_tmp->GetPosition().y < -2)
+					{
+						notes.pop();
+						time.pop();
+						static_cast<DownNote*>(note_tmp)->Score_Check(2);
+						break;
+					}
+					else if (note_tmp->GetPosition().y == -2)
+					{
+						notes.pop();
+						time.pop();
+						break;
+					}
+					else
+						break;
+				}
+				else
+					break;
+			}
+			else
+				break;
+		}
+	}
 }
 

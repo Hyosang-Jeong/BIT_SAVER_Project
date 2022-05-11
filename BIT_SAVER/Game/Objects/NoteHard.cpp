@@ -58,7 +58,6 @@ void HardNote::Update(double dt)
 			static_cast<Hero*>(Engine::GetGSComponent<GameObjectManager>()->Find(GameObjectType::Hero))->Exit_Magumagu();
 			set_destroy(true);
 		}
-
 		timer += dt;
 	}
 	else if (GetPosition().x < -10)
@@ -67,7 +66,8 @@ void HardNote::Update(double dt)
 	}
 
 	GameObject::Update(dt);
-	Hit_Check();
+
+    Hit_Check();
 	
 	if (isMiss == true)
 	{
@@ -76,18 +76,12 @@ void HardNote::Update(double dt)
 		energy->SetScale(glm::vec2{ energy->GetScale().x - (dt / 10),energy->GetScale().y });
 		energy->UpdatePosition(glm::vec2{ -(dt / 10),0 });
 	    }
+
 	}	
 }
 
 void HardNote::Draw(glm::mat3 camera_matrix)
 {
-	//glm::mat3 trans_mat
-	//{
-	//	1,0,0,
-	//	0,1,0,
-	//	-0.25,0,1
-	//};
-	//GameObject::Draw(camera_matrix * trans_mat);
 	GameObject::Draw(camera_matrix);
 }
 

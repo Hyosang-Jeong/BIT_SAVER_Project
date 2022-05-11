@@ -17,8 +17,7 @@ public:
         return GameObjectType::UpNote;
     }
     void Draw(glm::mat3 camera_matrix) override;
-    void Hit_Check();
-    int Score_check();
+    void Score_Check(int score);
 
     enum class UpNote_anim
     {
@@ -27,8 +26,7 @@ public:
     };
 
 private:
-    InputKey UpAttackKey;
-    InputKey DownAttackKey;
+
     bool isMiss;
     bool ishit;
     int Movement;
