@@ -8,6 +8,7 @@ Author:	Hyun Kang
 -----------------------------------------------------------------*/
 #include"Note_collisionBox.h"
 #include"../../Engine/Engine.h"
+#include"NoteDown.h"
 Note_box::Note_box(glm::vec2 startPos) :
 GameObject(startPos, glm::vec2{ 1,20 })
 {
@@ -20,6 +21,7 @@ void Note_box::Update(double dt)
 {
 	GameObject::Update(dt);
 	scale += static_cast<float>(dt)*30.f;
+	GetGOComponent<DownNote>()->GetHitCheck();
 }
 
 void Note_box::ResolveCollision(GameObject* )
