@@ -66,6 +66,7 @@ void GameObjectManager::UpdateAll(double dt)
 		gameObjects.remove(remove);
 		
 		delete remove;
+		//remove = nullptr;
 	}
 }
 

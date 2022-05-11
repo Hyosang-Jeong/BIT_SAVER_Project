@@ -11,6 +11,7 @@ Author:  Jaewoo.choi,  Sunwoo Lee
 #include "..\Engine\GameObject\GameObject.h" // GameObject inheritance
 #include"GameObjectType.h"
 #include <map>
+#include<queue>
 #include"..\..\Engine\Music\Midi.h"
 
 
@@ -34,15 +35,23 @@ public:
     {
         return GameObjectType::Track;
     }
+
     void SetOffsetTime(long double offset_time_);
-    std::vector<Track_Time> track_time; // for else
+    std::queue<Track_Time> track_time; // for else
+    std::queue<long double> time;
+    std::queue<GameObject*> notes;
     glm::vec2 note_pos{ 0 };
     glm::vec2 note_vel{ 0 };
 
     std::map<int, std::vector<info>> track_info; // for REWIND
+    InputKey UpAttackKey;
+    InputKey DownAttackKey;
+    void hit_check();
 private:
     int Music_Num{ 0 };
     bool Doupdate;
     double timer{ 0 };
+    double pitch_timer{ 0 };
     long double offset_time{ 0 };
+    double target_time = 14.0 / -20;
 };
