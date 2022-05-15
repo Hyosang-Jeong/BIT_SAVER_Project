@@ -27,7 +27,7 @@ Mainmenu::Mainmenu() :
 	currstate(static_cast<int>(state::START)),
 	previous_state(currstate),
 	escape(InputKey::Keyboard::Escape),
-	updown_pos(10,-10),escape_game(true)
+	updown_pos(10,-10),escape_game(false)
 {
 }
 
@@ -78,6 +78,7 @@ void Mainmenu::Update( double dt)
 		{
 			previous_state = currstate;
 			stop_music(currstate);
+			escape_game = false;
 			currstate = static_cast<int>(state::ESCAPE);
 		}
 		else

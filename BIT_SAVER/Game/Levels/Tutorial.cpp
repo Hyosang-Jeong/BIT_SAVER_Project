@@ -159,7 +159,8 @@ void Tutorial::State_Attacks::Update(GameState* state, double dt)
     {
         Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Option));
     }
-    if (tutorial->index == 7 &&Engine::GetInput().GetLastPressedButton() != InputKey::Keyboard::None) {
+    if (tutorial->index == 7 &&Engine::GetInput().GetLastPressedButton() != InputKey::Keyboard::None) 
+    {
         tutorial->index++;
         Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::None);
     }
