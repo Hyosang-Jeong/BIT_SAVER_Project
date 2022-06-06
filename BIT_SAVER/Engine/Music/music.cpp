@@ -67,9 +67,10 @@ void Music::Play(int sound_num)
 {
     
     result = FMOD_System_PlaySound(pSystem, pSound[sound_num], 0, 0, &pChannel[sound_num]);
+
     ErrorCheck(result);
     if (Engine::GetGSComponent<MainOption>() != nullptr)
-        result = FMOD_Channel_SetVolume(pChannel[sound_num], Engine::GetGSComponent<MainOption>()->GetVolume());
+        volume = Engine::GetGSComponent<MainOption>()->GetVolume();
     else
         result = FMOD_Channel_SetVolume(pChannel[sound_num], volume);
 

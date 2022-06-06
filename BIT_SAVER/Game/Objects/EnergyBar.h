@@ -12,6 +12,13 @@ Author: Jaewoo Choi
 #include "..\Engine\GameObject\GameObject.h" // GameObject inheritance
 
 #include "../../Game/Objects/GameObjectType.h"
+
+constexpr float SIXTEEN_TIME_PER_LIFE   =   5.f / 10.5f;
+constexpr float EIGHT_TIME_PER_LIFE     = SIXTEEN_TIME_PER_LIFE * 2;
+constexpr float FOUR_TIME_PER_LIFE      = EIGHT_TIME_PER_LIFE * 2;
+constexpr float TWO_TIME_PER_LIFE       = FOUR_TIME_PER_LIFE * 2;
+constexpr float ONE_TIME_PER_LIFE       = TWO_TIME_PER_LIFE * 2;
+
 class EnergyBar : public GameObject
 {
 public:

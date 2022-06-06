@@ -6,8 +6,9 @@
 #include "Score Enum.h"
 //#include"obstacle.h"
 #include "../../Engine/Physics/Curve.h"
+
 UpNote::UpNote(glm::vec2 startPos, glm::vec2 velocity, int movement) :
-    isMiss(false),ishit(false), Movement(movement),
+    isMiss(false), ishit(false), Movement(movement),
     GameObject(startPos, glm::vec2{ -8,8 })
 {
     if (Engine::GetGameStateManager().GetCurrstate()->GetName() != "Offset")
@@ -44,8 +45,10 @@ void UpNote::Update(double dt)
             {
                 if (energy->GetScale().x > 0)
                 {
-                    energy->SetScale(glm::vec2{ energy->GetScale().x - (dt / 10),energy->GetScale().y });
-                    energy->UpdatePosition(glm::vec2{ -(dt / 20),0 });
+                    //energy->SetScale(glm::vec2{ energy->GetScale().x - ((dt * 2.f) * FOUR_TIME_PER_LIFE),energy->GetScale().y });//one space
+                    //energy->UpdatePosition(glm::vec2{ -(dt)*FOUR_TIME_PER_LIFE,0 });//one space
+                    //if (energy->GetScale().x < 0.1)
+                    //    energy->SetScale({ -0.1,0 });
                 }
             }
         }
@@ -73,57 +76,57 @@ void UpNote::Score_Check(int score)
 {
     switch (score)
     {
-    case static_cast<int>(SCORE::PERFECT):
-    {
-        Engine::GetGSComponent<PerfectEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
-        GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(UpNote_anim::explosion));
-        isMiss = false;
-        ishit = true;
-        if (Engine::GetGSComponent<Score>() != nullptr)
+        case static_cast<int>(SCORE::PERFECT) :
         {
-            Engine::GetGSComponent<Score>()->AddScore(score);
-        }                break;
-    }
-    case static_cast<int>(SCORE::GOOD):
-    {
-        Engine::GetGSComponent<GoodEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
-        GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(UpNote_anim::explosion));
-        isMiss = false;
-        ishit = true;
-        if (Engine::GetGSComponent<Score>() != nullptr)
-        {
-            Engine::GetGSComponent<Score>()->AddScore(score);
-        }                break;
-    }
-    case static_cast<int>(SCORE::BAD):
-    {
-        Engine::GetGSComponent<BadEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
-        GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(UpNote_anim::explosion));
-        isMiss = false;
-        ishit = true;
-        if (Engine::GetGSComponent<Score>() != nullptr)
-        {
-            Engine::GetGSComponent<Score>()->AddScore(score);
-        }                break;
-    }
-    case static_cast<int>(SCORE::MISS):
-    {
-        if (Engine::GetGameStateManager().GetCurrstate()->GetName() != "Offset" &&
-            Engine::GetGameStateManager().GetCurrstate()->GetName() != "Tutorial")
-        {
-            isMiss = true;
-            if (Engine::GetGSComponent<MissEmitter>() != nullptr)
+            Engine::GetGSComponent<PerfectEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+            GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(UpNote_anim::explosion));
+            isMiss = false;
+            ishit = true;
+            if (Engine::GetGSComponent<Score>() != nullptr)
             {
-                Engine::GetGSComponent<MissEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
-                if (Engine::GetGSComponent<Score>() != nullptr)
+                Engine::GetGSComponent<Score>()->AddScore(score);
+            }                break;
+        }
+        case static_cast<int>(SCORE::GOOD) :
+        {
+            Engine::GetGSComponent<GoodEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+            GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(UpNote_anim::explosion));
+            isMiss = false;
+            ishit = true;
+            if (Engine::GetGSComponent<Score>() != nullptr)
+            {
+                Engine::GetGSComponent<Score>()->AddScore(score);
+            }                break;
+        }
+        case static_cast<int>(SCORE::BAD) :
+        {
+            Engine::GetGSComponent<BadEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+            GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(UpNote_anim::explosion));
+            isMiss = false;
+            ishit = true;
+            if (Engine::GetGSComponent<Score>() != nullptr)
+            {
+                Engine::GetGSComponent<Score>()->AddScore(score);
+            }                break;
+        }
+        case static_cast<int>(SCORE::MISS) :
+        {
+            if (Engine::GetGameStateManager().GetCurrstate()->GetName() != "Offset" &&
+                Engine::GetGameStateManager().GetCurrstate()->GetName() != "Tutorial")
+            {
+                isMiss = true;
+                if (Engine::GetGSComponent<MissEmitter>() != nullptr)
                 {
-                    Engine::GetGSComponent<Score>()->AddScore(score);
+                    Engine::GetGSComponent<MissEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
+                    if (Engine::GetGSComponent<Score>() != nullptr)
+                    {
+                        Engine::GetGSComponent<Score>()->AddScore(score);
+                    }
                 }
             }
         }
-    }
-    default:
-        break;
+        default:
+            break;
     }
 }
 
