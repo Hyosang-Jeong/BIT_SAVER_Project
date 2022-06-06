@@ -12,7 +12,7 @@ Author:  Hyosang Jung , Sunwoo Lee
 #include<time.h>  //time
 #include <glm/gtc/matrix_transform.hpp>
 
-Engine::Engine() :frameCount(0),  lastTick(std::chrono::system_clock::now()),
+Engine::Engine() :frameCount(0),  lastTick(std::chrono::system_clock::now()),easy(true),
 #ifdef _DEBUG				
 logger(Logger::Severity::Debug, true, lastTick)
 #else 						
@@ -240,6 +240,17 @@ void Engine::init_fonts()
 	texts[text1path] = text1;
 	texts[text2path] = text2;
 	
+}
+bool Engine::GetDifficulty()
+{
+    return easy;
+}
+void SetDifficulty(bool )
+{
+ //   if (easy)
+	//easy = true;
+ //   else
+	//easy = false;
 }
 bool Engine::HasGameEnded()
 {

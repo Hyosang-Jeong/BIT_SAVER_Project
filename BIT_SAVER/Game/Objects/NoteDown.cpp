@@ -47,10 +47,10 @@ void DownNote::Update(double dt)
             {
                 if (GetGOComponent<Sprite>()->GetCurrentAnim() != static_cast<int>(DownNote_anim::explosion))
                 {
-                    //energy->SetScale(glm::vec2{ energy->GetScale().x - ((dt * 2.f) * FOUR_TIME_PER_LIFE),energy->GetScale().y });//one space
-                    //energy->UpdatePosition(glm::vec2{ -(dt)*FOUR_TIME_PER_LIFE,0 });//one space
-                    //if (energy->GetScale().x < 0.1)
-                    //    energy->SetScale({ -0.1,0 });
+                    energy->SetScale(glm::vec2{ energy->GetScale().x - ((dt * 2.f) * EIGHT_TIME_PER_LIFE),energy->GetScale().y });//one space
+                    energy->UpdatePosition(glm::vec2{ -(dt) *EIGHT_TIME_PER_LIFE,0 });//one space
+                    if (energy->GetScale().x < 0.1)
+                        energy->SetScale({ -0.1,0 });
                 }
             }
         }

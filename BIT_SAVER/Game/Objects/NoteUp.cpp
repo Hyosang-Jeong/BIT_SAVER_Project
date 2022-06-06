@@ -8,7 +8,7 @@
 #include "../../Engine/Physics/Curve.h"
 
 UpNote::UpNote(glm::vec2 startPos, glm::vec2 velocity, int movement) :
-    isMiss(false), ishit(false), Movement(movement),
+    isMiss(false), ishit(false), Movement(movement), 
     GameObject(startPos, glm::vec2{ -8,8 })
 {
     if (Engine::GetGameStateManager().GetCurrstate()->GetName() != "Offset")
@@ -45,10 +45,12 @@ void UpNote::Update(double dt)
             {
                 if (energy->GetScale().x > 0)
                 {
-                    //energy->SetScale(glm::vec2{ energy->GetScale().x - ((dt * 2.f) * FOUR_TIME_PER_LIFE),energy->GetScale().y });//one space
-                    //energy->UpdatePosition(glm::vec2{ -(dt)*FOUR_TIME_PER_LIFE,0 });//one space
-                    //if (energy->GetScale().x < 0.1)
-                    //    energy->SetScale({ -0.1,0 });
+                    
+                        energy->SetScale(glm::vec2{ energy->GetScale().x - ((dt * 2.f) * EIGHT_TIME_PER_LIFE),energy->GetScale().y });//one space
+                        energy->UpdatePosition(glm::vec2{ -(dt) *EIGHT_TIME_PER_LIFE,0 });//one space
+                        if (energy->GetScale().x < 0.1)
+                            energy->SetScale({ -0.1,0 });
+                    
                 }
             }
         }

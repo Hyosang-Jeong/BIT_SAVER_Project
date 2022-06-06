@@ -47,10 +47,13 @@ public:
     bool HasGameEnded();
     void init_shdrpgms();
     void init_fonts();
+    bool GetDifficulty();
+    void SetDifficulty(bool _easy);
+
 
     template<typename T>
     static T* GetGSComponent() { return GetGameStateManager().GetGSComponent<T>(); }
-
+    
 public:
     Engine();
     ~Engine();
@@ -67,7 +70,7 @@ public:
     TextureManager texturemanager;
     Input input;
     Window window;
-
+    bool easy;
 
     std::map<std::string, GLSLShader> shdrpgms;
     std::map<std::string, GLText> texts;
