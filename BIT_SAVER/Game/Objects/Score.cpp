@@ -117,3 +117,8 @@ int Score::Getscore()
 {
 	return score;
 }
+
+std::array<int, 4> Score::GetscoreCount()
+{
+	return score_count;
+}

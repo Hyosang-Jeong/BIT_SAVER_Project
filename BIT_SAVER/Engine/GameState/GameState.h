@@ -29,7 +29,6 @@ public:
 	}
 	
 	virtual void Draw() = 0;
-
 	template<typename T>
 	T* GetGSComponent() { return components.GetComponent<T>(); }
 protected:

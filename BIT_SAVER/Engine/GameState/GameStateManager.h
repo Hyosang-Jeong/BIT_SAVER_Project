@@ -33,7 +33,7 @@ public:
 		return currGameState->GetGSComponent<T>(); 
 	}
 
-private:
+public:
 	enum class State
 	{
 		START,

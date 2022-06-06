@@ -177,6 +177,7 @@
     <ClCompile Include="Engine\Engine.cpp" />
     <ClCompile Include="Engine\GameObject\GameObject.cpp" />
     <ClCompile Include="Engine\GameObject\GameObjectManager.cpp" />
+    <ClCompile Include="Engine\GameState\GameState.cpp" />
     <ClCompile Include="Engine\GameState\GameStateManager.cpp" />
     <ClCompile Include="Engine\GLModel\GLModel.cpp" />
     <ClCompile Include="Engine\GLShader\glslshader.cpp" />

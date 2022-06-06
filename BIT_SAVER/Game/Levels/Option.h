@@ -33,8 +33,8 @@ public:
     void Draw() override;
     void GetIndex();
     int GetSelect();
-
-
+    void Wait();
+    void draw_second(double second);
 private:
     bool IsUpkeychanged;
     bool IsDownkeychanged;
@@ -42,6 +42,10 @@ private:
     Texture* textureAll;
     Texture* bigSoundBall;
     Texture* smallSoundBall;
+
+    Texture* wait_3;
+    Texture* wait_2;
+    Texture* wait_1;
 
     InputKey escape;
     InputKey OptionUpKey;

@@ -21,5 +21,6 @@ enum SOUND_NUM
     FEVER,
     JANJI,
     TUTORIAL,
+    WAIT,
     MUSIC_END
 };

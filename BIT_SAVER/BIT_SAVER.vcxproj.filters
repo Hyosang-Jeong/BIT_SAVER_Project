@@ -152,6 +152,7 @@
     <ClCompile Include="Engine\Physics\Curve.cpp">
       <Filter>Engine\Physics</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\GameState\GameState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\GameObject\GameObject.h">

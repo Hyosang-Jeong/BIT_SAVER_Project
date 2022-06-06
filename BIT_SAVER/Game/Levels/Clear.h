@@ -10,6 +10,7 @@ Author: Hyun Kang
 #include <string>
 #include "..\Engine\GameState\GameState.h" // BIT_SAVER::GameState
 #include"..\Engine\Input\Input.h"  //input key
+
 class Clear : public GameState
 {
 public:
@@ -18,8 +19,19 @@ public:
     void Update(double dt) override;
     void Unload() override;
     void Draw() override;
+    void Setstats(std::string name,int score, std::array<int, 4> score_count);
+    void Draw_star();
     std::string GetName() override { return "Clear"; }
+    std::string currLevel;
+    int score;
+    float accuracy;
+    std::array<int, 4> score_count;
     InputKey ESCAPE;
+    Texture* board;
+    Texture* star_1;
+    Texture* star_2;
+    Texture* star_3;
+    Texture* hero;
 private:
 };
 

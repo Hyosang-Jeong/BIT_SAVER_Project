@@ -74,8 +74,17 @@ public:
         virtual void Draw(GameState* state)override;
         virtual void TestForExit(GameState* state) override;
     };
+    class State_Magu : public TutorialState
+    {
+    public:
+        virtual void Enter(GameState* state) override;
+        virtual void Update(GameState* state, double dt) override;
+        virtual void Draw(GameState* state)override;
+        virtual void TestForExit(GameState* state) override;
+        int magu_index{ 0 };
+    };
 
     State_Greeting stateGreeting;
     State_Attacks stateAttack;
-
+    State_Magu stateMagu;
 };

@@ -14,6 +14,7 @@ enum class GameObjectType {
     Track,
     Note,
     UpNote,
+    HardNote,
     Note_collisionBox,
     Energy_bar_container,
     Energy_bar,
