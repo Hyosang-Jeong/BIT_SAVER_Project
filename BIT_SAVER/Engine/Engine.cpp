@@ -12,7 +12,7 @@ Author:  Hyosang Jung , Sunwoo Lee
 #include<time.h>  //time
 #include <glm/gtc/matrix_transform.hpp>
 
-Engine::Engine() :frameCount(0),  lastTick(std::chrono::system_clock::now()),easy(true),
+Engine::Engine() :frameCount(0),  lastTick(std::chrono::system_clock::now()),easy(false),
 #ifdef _DEBUG				
 logger(Logger::Severity::Debug, true, lastTick)
 #else 						
