@@ -24,17 +24,17 @@ Track::Track(int music_num) :
 {
     UpAttackKey = Engine::GetAttack_Key().UpAttackKey;
     DownAttackKey = Engine::GetAttack_Key().DownAttackKey;
-    if(Engine::Instance().GetDifficulty())
-        target_time = 14.0 / -10.0;
-    else
-        target_time = 14.0 / -20.0;
-    
 }
 
 Track::Track(std::map<int, std::vector<info>> mid_info, int music_num) :
     GameObject({ 0,0 }, glm::vec2{ 0.1,0.1 }), Music_Num(music_num), UpAttackKey(InputKey::Keyboard::None),
     DownAttackKey(InputKey::Keyboard::None)
 {
+    if (Engine::Instance().GetDifficulty())
+        target_time = 14.0 / -10.0;
+    else
+        target_time = 14.0 / -20.0;
+
     Doupdate = true;
     UpAttackKey = Engine::GetAttack_Key().UpAttackKey;
     DownAttackKey = Engine::GetAttack_Key().DownAttackKey;
