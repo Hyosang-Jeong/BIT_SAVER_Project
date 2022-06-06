@@ -25,7 +25,7 @@ Author: Jaewoo.choi, Sunwoo Lee
 #include"../Objects/CheckBox.h"
 #include"../Levels/Option.h"
 #include"../../Engine/Physics/Camera.h"
-
+#include"../Levels/Clear.h"
 
 Level3::Level3() :
 	escape(InputKey::Keyboard::Escape)
@@ -152,6 +152,8 @@ void Level3::Update(double dt)
 	if (Engine::GetMusic().isPlaying(SOUND_NUM::ENERGY) == false)
 	{
 		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Clear));
+		static_cast<Clear*>(Engine::GetGameStateManager().Find("Clear"))->Setstats("Energy", GetGSComponent<Score>()->Getscore(), GetGSComponent<Score>()->GetscoreCount());
+
 	}
 	if (escape.IsKeyDown() == true)
 	{

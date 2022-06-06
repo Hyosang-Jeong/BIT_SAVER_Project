@@ -25,7 +25,7 @@ Author:  Hyun Kang , Hyosang Jung
 #include"../Objects/CheckBox.h"
 #include"../Levels/Option.h"
 #include"..\..\Engine\Physics\Camera.h"
-
+#include"../Levels/Clear.h"
 Level0::Level0() :
 	escape(InputKey::Keyboard::Escape)
 {
@@ -55,7 +55,7 @@ void Level0::Load()
 	energyBarContainer = new EnergyBarContainer({ -7.5,7.5 });
 	camera = new Camera({ 0,0 });
 
-	stageBar = new Stage_bar({ -10,9 }, 110, 82);   // total music time 204  ,  extra time 82
+	stageBar = new Stage_bar({ -10,9 }, 110, 81.5);   // total music time 204  ,  extra time 82
 
 	backPtr->Add(texture_path[Background_1_10], 0);
 	backPtr->Add(texture_path[Background_1_9], 0);
@@ -132,6 +132,7 @@ void Level0::Update(double dt)
 	if (Engine::GetMusic().isPlaying(SOUND_NUM::DISCO) == false)
 	{
 		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Clear));
+		static_cast<Clear*>(Engine::GetGameStateManager().Find("Clear"))->Setstats("Disco",GetGSComponent<Score>()->Getscore(),GetGSComponent<Score>()->GetscoreCount());
 	}
 	if (escape.IsKeyDown() == true)
 	{

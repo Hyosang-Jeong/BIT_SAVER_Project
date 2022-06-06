@@ -9,7 +9,7 @@ Author:	Hyosang Jung
 #include "../Engine/Engine.h"	//GetGameStateManage
 #include"Splash.h"
 #include"State.h"
-
+#include"../Levels/Clear.h"
 Splash::Splash() : PlayKey(InputKey::Keyboard::Enter),timer(6)
 {
 }
@@ -32,7 +32,8 @@ void Splash::Update(double dt)
 	}
 	if (timer < 0)
 	{
-		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
+		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Clear));
+		static_cast<Clear*>(Engine::GetGameStateManager().Find("Clear"))->Setstats("Rewind", 100, { 10,10,10,10 });
 	}
 
 }

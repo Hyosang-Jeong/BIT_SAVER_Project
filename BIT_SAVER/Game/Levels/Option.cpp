@@ -39,6 +39,10 @@ void Option::Load()
     textureAll = Engine::GetTextureManager().Load(texture_path[Pause]);
     bigSoundBall = Engine::GetTextureManager().Load(texture_path[Sound_Bigball]);
     smallSoundBall = Engine::GetTextureManager().Load(texture_path[Sound_Smallball]);
+    wait_3 = Engine::GetTextureManager().Load("../images/3.png" );
+    wait_2 = Engine::GetTextureManager().Load("../images/2.png" );
+    wait_1 = Engine::GetTextureManager().Load("../images/1.png" );
+   
 }
 
 void Option::Update(double )
@@ -100,6 +104,10 @@ void Option::Update(double )
 
 void Option::Draw()
 {
+    if (static_cast<int>(Engine::GetGameStateManager().state) == 5)
+    {
+        return;
+    }
     const std::string font1{ font_path[MochiyPopOne] };
     const std::string font2{ font_path[PressStart] };
 
@@ -164,8 +172,11 @@ void Option::GetIndex()
         switch (select)
         {
         case RESUME:
-            Engine::GetGameStateManager().ResumeState();
+        {
+            Wait();
+            Engine::GetGameStateManager().ResumeState(); 
             break;
+        }
         case RESTART:
             Engine::GetGameStateManager().ReloadState();
             break;
@@ -186,6 +197,31 @@ void Option::GetIndex()
 int Option::GetSelect()
 {
     return select;
+}
+
+void Option::Wait()
+{
+    double timer = glfwGetTime();
+    Engine::GetMusic().Play(SOUND_NUM::WAIT);
+    while (glfwGetTime() - timer < 4)
+    {
+        glfwSwapBuffers(Engine::GetWindow().ptr_window);
+        glClear(GL_COLOR_BUFFER_BIT);
+        glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+        Engine::GetGameStateManager().GetCurrstate()->Draw();
+        draw_second(glfwGetTime() - timer);
+    }
+    Engine::GetMusic().Pause(SOUND_NUM::WAIT);
+}
+
+void Option::draw_second(double second)
+{
+    if(second <=1.5)
+        wait_3->Draw({ 0,5 }, { 1,2 });
+    else if(second <=2.8)
+        wait_2->Draw({ 0,5 }, { 1,2 });
+    else
+        wait_1->Draw({ 0,5 }, { 1,2 });
 }
 
 

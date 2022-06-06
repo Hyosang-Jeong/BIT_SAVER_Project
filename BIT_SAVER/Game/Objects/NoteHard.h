@@ -24,7 +24,7 @@ public:
     glm::vec2 Getposition();
     GameObjectType GetObjectType() override
     {
-        return GameObjectType::Note;
+        return GameObjectType::HardNote;
     }
     void Draw(glm::mat3 camera_matrix) override;
     void Hit_Check();

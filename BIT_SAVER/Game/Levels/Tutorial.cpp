@@ -16,7 +16,7 @@ Author: Jaewoo.choi, Hyun Kang
 #include"../../Engine/Sprite/GameParticles.h"
 #include"../../Engine/Sprite/Texture.h"
 #include"../Levels/State.h"
-
+#include"../Objects/NoteHard.h"
 Tutorial::Tutorial() :Escape(InputKey::Keyboard::Escape),
     font2( font_path[PressStart] )
 {
@@ -29,6 +29,7 @@ void Tutorial::Load()
 {
     tutorialState = &stateGreeting;
     tutorialState->Enter(this);
+    stateMagu.magu_index = 0;
 
 	heroPtr = new Hero({ -6,-5 });
 	backPtr = new Background();
@@ -146,15 +147,30 @@ void Tutorial::State_Greeting::TestForExit(GameState* state)
     }
 }
 
-void Tutorial::State_Attacks::Enter(GameState* )
+void Tutorial::State_Attacks::Enter(GameState* state)
 {
-    Engine::GetMusic().Play(SOUND_NUM::OFFSET);
+    Tutorial* tutorial = static_cast<Tutorial*>(state);
+    if(tutorial->stateMagu.magu_index==0)
+        Engine::GetMusic().Play(SOUND_NUM::OFFSET);
 }
 
 void Tutorial::State_Attacks::Update(GameState* state, double dt)
 {
     Tutorial* tutorial = static_cast<Tutorial*>(state);
+    HardNote* magu = static_cast<HardNote*>(tutorial->gameObjectManager->Find(GameObjectType::HardNote));
+
+    if (magu != nullptr)
+    {
+        if (tutorial->stateMagu.magu_index==0 && magu->Getposition().x <= 6)
+        {
+            tutorial->tutorialState = &tutorial->stateMagu;
+            tutorial->tutorialState->Enter(state);
+            return;
+        }
+    }
     tutorial->gameObjectManager->UpdateAll(dt);
+
+
     if (tutorial->Escape.IsKeyDown() == true)
     {
         Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Option));
@@ -184,5 +200,44 @@ void Tutorial::State_Attacks::TestForExit(GameState* state)
     if (tutorial->index == 8)
     {
         Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
+    }
+}
+
+void Tutorial::State_Magu::Enter(GameState* )
+{
+    Engine::GetMusic().Pause(SOUND_NUM::OFFSET);
+    Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::None);
+}
+
+void Tutorial::State_Magu::Update(GameState* , double )
+{
+    if (Engine::GetInput().GetLastPressedButton() != InputKey::Keyboard::None)
+    {
+        this->magu_index++;
+        Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::None);
+    }
+}
+
+void Tutorial::State_Magu::Draw(GameState* state)
+{
+    Tutorial* tutorial = static_cast<Tutorial*>(state);
+    tutorial->helper->Draw({ 6,-7 }, { -4,4 });
+    switch (this->magu_index)
+    {
+    case 0:  Engine::GetText(tutorial->font2).Draw("This is Magu Magu note", tutorial->text_pos.x, tutorial->window_pos.y * 0.3f, 1.f, glm::vec3(1, 1, 1));
+        break;
+    case 1: Engine::GetText(tutorial->font2).Draw("Jump  and down  as much as you can", tutorial->text_pos.x, tutorial->window_pos.y * 0.3f, 1.f, glm::vec3(1, 1, 1));
+        break;
+    }
+}
+
+void Tutorial::State_Magu::TestForExit(GameState* state)
+{
+    Tutorial* tutorial = static_cast<Tutorial*>(state);
+    if (this->magu_index == 2)
+    {
+        tutorial->tutorialState = &tutorial->stateAttack;
+        tutorial->tutorialState->Enter(state);
+        Engine::GetMusic().Resume(SOUND_NUM::OFFSET);
     }
 }

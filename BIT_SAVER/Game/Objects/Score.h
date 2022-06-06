@@ -17,6 +17,7 @@ public:
     void AddScore(int newPoints);
     void Draw(glm::vec2 location);
     int Getscore();
+    std::array<int, 4> GetscoreCount();
 private:
     void RenderText();
     unsigned int combo;

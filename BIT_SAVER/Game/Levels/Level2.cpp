@@ -25,7 +25,7 @@ Author: Jaewoo.choi, Hyun Kang
 #include"../Objects/CheckBox.h"
 #include"../Levels/Option.h"
 #include"../../Engine/Physics/Camera.h"
-
+#include"../Levels/Clear.h"
 
 Level2::Level2() :
 	escape(InputKey::Keyboard::Escape)
@@ -154,6 +154,8 @@ void Level2::Update(double dt)
 	if (Engine::GetMusic().isPlaying(SOUND_NUM::DIOMA) == false)
 	{
 		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Clear));
+		static_cast<Clear*>(Engine::GetGameStateManager().Find("Clear"))->Setstats("DIOMA", GetGSComponent<Score>()->Getscore(), GetGSComponent<Score>()->GetscoreCount());
+
 	}
 	if (escape.IsKeyDown() == true)
 	{
