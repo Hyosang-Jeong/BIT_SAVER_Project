@@ -239,7 +239,7 @@ std::map<int,std::vector<info>> MidiEvent::MidiSetUp(int music_num)
         break;
     case SOUND_NUM::DISCO:
         trackFrom = 1;
-        trackTo = 2;
+        trackTo = 3;
         break;
     case SOUND_NUM::REWIND:
         trackFrom = 1;
