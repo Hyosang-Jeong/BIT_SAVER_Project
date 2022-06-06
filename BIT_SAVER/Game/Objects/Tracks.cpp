@@ -20,11 +20,7 @@ Author: Jaewoo.choi, Sunwoo Lee
 #include"NoteDown.h"
 
 Track::Track(int music_num) :
-    Track(MidiEvent{}.MidiSetUp(music_num), music_num)
-{
-    UpAttackKey = Engine::GetAttack_Key().UpAttackKey;
-    DownAttackKey = Engine::GetAttack_Key().DownAttackKey;
-}
+    Track(MidiEvent{}.MidiSetUp(music_num), music_num) {}
 
 Track::Track(std::map<int, std::vector<info>> mid_info, int music_num) :
     GameObject({ 0,0 }, glm::vec2{ 0.1,0.1 }), Music_Num(music_num), UpAttackKey(InputKey::Keyboard::None),
