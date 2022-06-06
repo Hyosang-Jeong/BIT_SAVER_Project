@@ -5,6 +5,7 @@
 
 
 
+
 class EnergyBar;
 
 class DownNote : public GameObject
@@ -33,4 +34,6 @@ private:
     int Movement;
 
     EnergyBar* energy;
+
+    
 };
