@@ -55,7 +55,7 @@ void Level0::Load()
 	energyBarContainer = new EnergyBarContainer({ -7.5,7.5 });
 	camera = new Camera({ 0,0 });
 
-	stageBar = new Stage_bar({ -10,9 }, 110, 82);   // total music time 204  ,  extra time 82
+	stageBar = new Stage_bar({ -10,9 }, 110, 81.5);   // total music time 204  ,  extra time 82
 
 	backPtr->Add(texture_path[Background_1_10], 0);
 	backPtr->Add(texture_path[Background_1_9], 0);

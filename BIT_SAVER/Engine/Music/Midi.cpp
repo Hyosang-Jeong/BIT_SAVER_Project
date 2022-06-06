@@ -25,7 +25,7 @@ std::map<int,std::vector<info>> MidiEvent::MidiSetUp(int music_num)
         midi_filename = "../MIDI/tutorial_offset.mid";
         break;
     case SOUND_NUM::DISCO:
-        midi_filename = "../MIDI/disco.mid";
+        midi_filename = "../MIDI/disco_edit.mid";
         break;
     case SOUND_NUM::REWIND:
         midi_filename = "../MIDI/rewind_edit.mid";
