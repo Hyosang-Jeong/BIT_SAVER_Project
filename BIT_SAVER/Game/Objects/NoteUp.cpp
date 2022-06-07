@@ -32,6 +32,11 @@ void UpNote::Update(double dt)
 
     GameObject::Update(dt);
 
+    if (GetPosition().x < -10)
+    {
+        set_destroy(true);
+    }
+
     Die_effect(dt);
 
     if (isMiss == true)
@@ -81,10 +86,7 @@ void UpNote::Die_effect(double )
          SetVelocity({ -5 ,  30 });
     else
         SetVelocity({ -15 ,  15 });
-    if (GetPosition().x < -10)
-    {
-        set_destroy(true);
-    }
+
 }
 void UpNote::Score_Check(int score)
 {
@@ -95,7 +97,7 @@ void UpNote::Score_Check(int score)
         {
             Engine::GetGSComponent<HitEmitter>()->Emit(1, GetPosition(), { 0,0 }, { 0,0 }, 0);
             Engine::GetGSComponent<PerfectEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
-            //GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(UpNote_anim::explosion));
+            GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(UpNote_anim::explosion));
             isMiss = false;
             ishit = true;
             score_ = 3;
@@ -110,7 +112,7 @@ void UpNote::Score_Check(int score)
         {
             Engine::GetGSComponent<HitEmitter>()->Emit(1, GetPosition(), { 0,0 }, { 0,0 }, 0);
             Engine::GetGSComponent<GoodEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
-            //GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(UpNote_anim::explosion));
+            GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(UpNote_anim::explosion));
             isMiss = false;
             ishit = true;
 

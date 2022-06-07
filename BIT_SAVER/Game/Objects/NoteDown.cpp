@@ -34,8 +34,11 @@ void DownNote::Update(double dt)
 
     GameObject::Update(dt);
 
-    Die_effect(dt);
-
+   Die_effect(dt);
+    if (GetPosition().x < -10)
+    {
+        set_destroy(true);
+    }
     if (isMiss == true)
     {
         if (energy != nullptr)
@@ -65,10 +68,6 @@ void DownNote::Die_effect(double)
         SetVelocity({ -5 ,  30 });
     else
         SetVelocity({ -15 ,  15 });
-    if (GetPosition().x < -10)
-    {
-        set_destroy(true);
-    }
 }
 void DownNote::Draw(glm::mat3 camera_matrix)
 {
@@ -89,7 +88,7 @@ void DownNote::Score_Check(int score)
         {
             Engine::GetGSComponent<PerfectEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
             Engine::GetGSComponent<HitEmitter>()->Emit(1, GetPosition(), { 0,0 }, { 0,0 }, 0);
-           // GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::explosion));
+            GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::explosion));
             isMiss = false;
             ishit = true;
             score_ = 3;
@@ -103,7 +102,7 @@ void DownNote::Score_Check(int score)
         {
             Engine::GetGSComponent<GoodEmitter>()->Emit(1, GetPosition(), { -4,2 }, { 0,0 }, 0);
             Engine::GetGSComponent<HitEmitter>()->Emit(1, GetPosition(), { 0,0 }, { 0,0 }, 0);
-          //  GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::explosion));
+            GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::explosion));
             isMiss = false;
             ishit = true;
             score_ = 2;
