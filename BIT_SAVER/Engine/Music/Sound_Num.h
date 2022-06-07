@@ -25,7 +25,6 @@ enum SOUND_NUM
     INTRO1,
     INTRO2,
     INTRO3,
-    HIT,
     MENU_SELECT,
     MENU_MOVE,
     STAR1,
