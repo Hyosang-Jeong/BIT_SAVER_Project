@@ -111,18 +111,18 @@ void Level2::Load()
 
 void Level2::Update(double dt)
 {
+	gameObjectManager->UpdateAll(dt);
     if (!Engine::GetMusic().isPlaying(SOUND_NUM::DIOMA) && isMusicEnd == false)
     {
-	Engine::GetMusic().Play(SOUND_NUM::DIOMA);
-	Engine::GetMusic().pitchDefault(SOUND_NUM::DIOMA);
-	isMusicEnd = true;
+		Engine::GetMusic().Play(SOUND_NUM::DIOMA);
+		Engine::GetMusic().pitchDefault(SOUND_NUM::DIOMA);
+		isMusicEnd = true;
     }
 
 	GetGSComponent<Background>()->Update(dt);
 
 	GetGSComponent<Camera>()->Update({ 0,0 }, dt);
 
-	gameObjectManager->UpdateAll(dt);
 
 	if (stageBar->Getchangeflag() == 1)
 	{

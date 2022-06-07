@@ -69,6 +69,18 @@ void Music::Load()
     result = FMOD_System_CreateSound(pSystem, "../sound/movingMenu.mp3", FMOD_DEFAULT, nullptr, &pSound[MENU_MOVE]);
     ErrorCheck(result);
 
+    result = FMOD_System_CreateSound(pSystem, "../sound/star1.wav", FMOD_DEFAULT, nullptr, &pSound[STAR1]);
+    ErrorCheck(result);
+
+    result = FMOD_System_CreateSound(pSystem, "../sound/star2.wav", FMOD_DEFAULT, nullptr, &pSound[STAR2]);
+    ErrorCheck(result);
+
+    result = FMOD_System_CreateSound(pSystem, "../sound/star3.wav", FMOD_DEFAULT, nullptr, &pSound[STAR3]);
+    ErrorCheck(result);
+
+    result = FMOD_System_CreateSound(pSystem, "../sound/Hit_.wav", FMOD_DEFAULT, nullptr, &pSound[HIT]);
+    ErrorCheck(result);
+
     volume = SOUND_DEFAULT;
 
 }

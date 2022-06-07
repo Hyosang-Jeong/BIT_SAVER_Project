@@ -140,6 +140,7 @@ void Hero::State_Attack::Enter(GameObject* object)
     Hero* hero = static_cast<Hero*>(object);
     hero->SetVelocity({ 0,-jumpVelocity });
     hero->GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(hero_anim::up_attck));
+    Engine::GetMusic().Play(SOUND_NUM::HIT);
 }
 
 void Hero::State_Attack::Update([[maybe_unused]] GameObject* object,  [[maybe_unused]]double dt)
@@ -172,6 +173,7 @@ void Hero::State_Jump::Enter(GameObject* object)
     Hero* hero = static_cast<Hero*>(object);
     
     hero->GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(hero_anim::up_attck));
+    Engine::GetMusic().Play(SOUND_NUM::HIT);
 }
 
 void Hero::State_Jump::Update([[maybe_unused]] GameObject* object, [[maybe_unused]] double dt)
@@ -238,7 +240,7 @@ void Hero::State_Magumagu::Enter(GameObject* object)
 {
     Hero* hero = static_cast<Hero*>(object);
     hero->GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(hero_anim::down));
-    hero->SetPosition({ hero->GetPosition().x,-2 }); //위에서 쳤는지 판별 못하면 하드노트에서 설정해주기.
+    hero->SetPosition({ hero->GetPosition().x,-2 }); 
     hero->SetVelocity({ 0, 0 });
 }
 
@@ -254,6 +256,7 @@ void Hero::State_Magumagu::Update(GameObject* object, double )
     if ((hero->DownAttackKey.IsKeyDown() == true && hero->DownAttackKey.IsKeyReapeated() == false) ||
         (hero->UpAttackKey.IsKeyDown() == true && hero->UpAttackKey.IsKeyReapeated() == false))
     {
+        Engine::GetMusic().Play(SOUND_NUM::HIT);
         hero->GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(hero_anim::up_attck));
         Engine::GetGSComponent<Camera>()->shake(0.015f, 0.1f, 1.f);
     }

@@ -46,6 +46,7 @@ void Mainmenu::Load()
 	LP_2 = Engine::GetTextureManager().Load("../images/LP.png");
 	Quit_screen = Engine::GetTextureManager().Load("../images/Quit.png");
 	Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::None);
+	is_selected  = false;
 }
 
 void Mainmenu::Update( double dt)
@@ -77,7 +78,7 @@ void Mainmenu::Update( double dt)
 	}
 
 
-	if (escape.IsKeyReleased() == true)
+	if (Engine::GetInput().GetLastPressedButton() != InputKey::Keyboard::None && escape.IsKeyReleased() == true)
 	{
 		if (currstate != static_cast<int>(state::ESCAPE))
 		{
@@ -133,7 +134,7 @@ void Mainmenu::Update( double dt)
 				play_music(currstate);
 			}
 		}
-		else if (Engine::GetInput().GetLastPressedButton() != InputKey::Keyboard::None && Select.IsKeyReleased() == true)
+		else if (is_selected == false && Engine::GetInput().GetLastPressedButton() != InputKey::Keyboard::None && Select.IsKeyReleased() == true)
 		{
 			Engine::GetMusic().Play(SOUND_NUM::MENU_SELECT);
 			switch (currstate)
@@ -141,25 +142,37 @@ void Mainmenu::Update( double dt)
 			case 3:
 			{
 				stop_music(currstate);
-				Engine::GetGameStateManager().SetNextState(4);
+				Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::None);
+				is_selected = true;
+				/*difficulty_select();
+				Engine::GetGameStateManager().SetNextState(4);*/
 				break;
 			}
 			case 4:
 			{
 				stop_music(currstate);
-				Engine::GetGameStateManager().SetNextState(5);
+				Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::None);
+				is_selected = true;
+				//difficulty_select();
+				//Engine::GetGameStateManager().SetNextState(5);
 				break;
 			}
 			case 5:
 			{
 				stop_music(currstate);
-				Engine::GetGameStateManager().SetNextState(6);
+				Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::None);
+				is_selected = true;
+				//difficulty_select();
+				//Engine::GetGameStateManager().SetNextState(6);
 				break;
 			}
 			case 6:
 			{
 				stop_music(currstate);
-				Engine::GetGameStateManager().SetNextState(7);
+				Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::None);
+				is_selected = true;
+				//difficulty_select();
+				//Engine::GetGameStateManager().SetNextState(7);
 				break;
 			}
 			case 7:
@@ -204,6 +217,8 @@ void Mainmenu::Update( double dt)
 			updown_pos.y = 0;
 		}
 	}
+
+
 }
 
 void Mainmenu::Draw()
@@ -267,22 +282,29 @@ void Mainmenu::Draw()
 		}
 		case static_cast<int>(state::ESCAPE):
 		{
-			Quit_screen->Draw({ 0,0 }, { 10,5 });
-			Engine::GetText(font1).Draw("Do you want to Quit?", winsize.x * 0.32f, winsize.y * 0.41f, 1.5f, glm::vec3(1.f, 1.f, 1.f));
+			if (is_selected == false)
+			{
+				Quit_screen->Draw({ 0,0 }, { 10,5 });
+				Engine::GetText(font1).Draw("Do you want to Quit?", winsize.x * 0.32f, winsize.y * 0.41f, 1.5f, glm::vec3(1.f, 1.f, 1.f));
 
-			Engine::GetText(font1).Draw("YES", winsize.x * 0.35f, winsize.y * 0.55f, 1.5f, glm::vec3(0.5f, 0.5f, 0.5f));
-			Engine::GetText(font1).Draw("NO", winsize.x * 0.6f, winsize.y * 0.55f, 1.5f, glm::vec3(0.5f, 0.5f, 0.5f));
-			if(escape_game==true)
-				Engine::GetText(font1).Draw("YES", winsize.x * 0.35f, winsize.y * 0.55f, 1.5f, glm::vec3(1.f, 1.f, 1.f));
+				Engine::GetText(font1).Draw("YES", winsize.x * 0.35f, winsize.y * 0.55f, 1.5f, glm::vec3(0.5f, 0.5f, 0.5f));
+				Engine::GetText(font1).Draw("NO", winsize.x * 0.6f, winsize.y * 0.55f, 1.5f, glm::vec3(0.5f, 0.5f, 0.5f));
+				if (escape_game == true)
+					Engine::GetText(font1).Draw("YES", winsize.x * 0.35f, winsize.y * 0.55f, 1.5f, glm::vec3(1.f, 1.f, 1.f));
+				else
+					Engine::GetText(font1).Draw("NO", winsize.x * 0.6f, winsize.y * 0.55f, 1.5f, glm::vec3(1.f, 1.f, 1.f));
+			}
 			else
-				Engine::GetText(font1).Draw("NO",    winsize.x * 0.6f, winsize.y * 0.55f, 1.5f, glm::vec3(1.f, 1.f, 1.f));
+			{
+				currstate = previous_state;
+			}
 			break;
 		}
 		default:
 			break;
 	}
 
-
+	difficulty_select();
 }
 void Mainmenu::play_music(int num)
 {
@@ -337,7 +359,67 @@ void Mainmenu::stop_music(int num)
 	}
 }
 
+void Mainmenu::difficulty_select()
+{
 
+	const std::string font{ font_path[MochiyPopOne] };
+
+	glm::vec2 winsize = Engine::GetWindow().GetSize();
+
+	if (is_selected)
+	{
+		Quit_screen->Draw({ 0,0 }, { 10,5 });
+		if (Right.IsKeyReleased() || Left.IsKeyReleased())
+		{
+			Engine::Instance().SetDifficulty(!Engine::Instance().GetDifficulty());
+		}
+
+		if (escape.IsKeyReleased())
+		{
+			is_selected = false;
+			Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::None);
+		}
+		Engine::GetText(font).Draw("Easy", winsize.x * 0.32f, winsize.y * 0.50f, 1.5f, glm::vec3(0.5f, 0.5f, 0.5f));
+		Engine::GetText(font).Draw("Hard", winsize.x * 0.55f, winsize.y * 0.50f, 1.5f, glm::vec3(0.5f, 0.5f, 0.5f));
+		if (Engine::Instance().GetDifficulty() == true)
+			Engine::GetText(font).Draw("Easy", winsize.x * 0.32f, winsize.y * 0.50f, 1.5f, glm::vec3(1.f, 1.f, 1.f));
+		else
+			Engine::GetText(font).Draw("Hard", winsize.x * 0.55f, winsize.y * 0.50f, 1.5f, glm::vec3(1.f, 1.f, 1.f));
+
+		if (Engine::GetInput().GetLastPressedButton() != InputKey::Keyboard::None && Select.IsKeyReleased() == true)
+		{
+			switch (currstate)
+			{
+			case 3:
+			{
+				Engine::GetGameStateManager().SetNextState(4);
+				is_selected = false;
+				break;
+			}
+			case 4:
+			{
+				Engine::GetGameStateManager().SetNextState(5);
+				is_selected = false;
+				break;
+			}
+			case 5:
+			{
+				Engine::GetGameStateManager().SetNextState(6);
+				is_selected = false;
+				break;
+			}
+			case 6:
+			{
+				Engine::GetGameStateManager().SetNextState(7);
+				is_selected = false;
+				break;
+			}
+			}
+		}
+
+	}
+
+}
 //todo
 void Mainmenu::Unload()
 {

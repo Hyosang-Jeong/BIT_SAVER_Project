@@ -25,5 +25,9 @@ enum SOUND_NUM
     INTRO,
     MENU_SELECT,
     MENU_MOVE,
+    STAR1,
+    STAR2,
+    STAR3,
+    HIT,
     MUSIC_END
 };

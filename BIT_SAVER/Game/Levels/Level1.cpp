@@ -116,6 +116,7 @@ void Level1::Load()
 
 void Level1::Update(double dt)
 {
+        gameObjectManager->UpdateAll(dt);
         
         if (!Engine::GetMusic().isPlaying(SOUND_NUM::REWIND) && isMusicEnd == false)
         {
@@ -127,7 +128,6 @@ void Level1::Update(double dt)
 
         GetGSComponent<Camera>()->Update({ 0,0 }, dt);
 
-        gameObjectManager->UpdateAll(dt);
 
         if (stageBar->Getchangeflag() == 1)
         {

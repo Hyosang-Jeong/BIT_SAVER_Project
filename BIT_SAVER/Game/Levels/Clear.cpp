@@ -47,12 +47,12 @@ void Clear::Draw()
     main_menu->Draw({ 0,0 }, { 10,10 });
     board->Draw({ 0,0 }, { 10,10 });
 
-    //int timer;
-    //timer = static_cast<int>(glfwGetTime()) % 2;
-    //hero->Draw({ -8,0 }, { ((timer*2) - 1)*2,2 });
-
     //Draw music name
     Engine::GetText(font1).Draw(currLevel, window_pos.x*0.34f, window_pos.y * 0.19f, 1.f, { 1.f,1.f,1.f });
+    if(Engine::Instance().GetDifficulty())
+        Engine::GetText(font1).Draw("Easy", window_pos.x * 0.54f, window_pos.y * 0.19f, 1.f, { 0.f,0.f,1.f });
+    else
+        Engine::GetText(font1).Draw("Hard", window_pos.x * 0.54f, window_pos.y * 0.19f, 1.f, { 1.f,0.f,0.f });
 
     //Draw score
     Engine::GetText(font1).Draw("Score", window_pos.x * 0.33f, window_pos.y * 0.47f, 1.f, { 1.f,1.f,1.f });
@@ -101,12 +101,15 @@ void Clear::Update_star_scale(double dt)
     }
     else if(star_2_scale == 0)
     {
+        if (star_3_scale != 10.f && !Engine::GetMusic().isPlaying(SOUND_NUM::STAR1))
+            Engine::GetMusic().Play(SOUND_NUM::STAR1);
         star_3_scale = 10.f;
         star_2_scale = 50.f;
     }
 
     if (star_3_scale == 10.f)
     {
+
         if (star_2_scale > 10.f)
         {
             star_1_scale = 0;
@@ -114,18 +117,23 @@ void Clear::Update_star_scale(double dt)
          }
         else if (star_1_scale == 0)
         {
+            if (accuracy > 70.f&&star_2_scale != 10.f && !Engine::GetMusic().isPlaying(SOUND_NUM::STAR2))
+                Engine::GetMusic().Play(SOUND_NUM::STAR2);
             star_2_scale = 10.f;
             star_1_scale = 50.f;
         }
     }
     if (star_2_scale == 10.f)
     {
+
         if (star_1_scale > 10.f)
         {
             star_1_scale -= static_cast<float>(dt) * 50.f;
         }
         else
         {
+            if (accuracy > 90.f&&star_1_scale != 10.f && !Engine::GetMusic().isPlaying(SOUND_NUM::STAR3))
+                Engine::GetMusic().Play(SOUND_NUM::STAR3);
             star_1_scale = 10.f;
         }
     }

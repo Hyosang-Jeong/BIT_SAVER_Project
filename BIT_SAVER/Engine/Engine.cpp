@@ -245,12 +245,9 @@ bool Engine::GetDifficulty()
 {
     return easy;
 }
-void SetDifficulty(bool )
+void Engine::SetDifficulty(bool difficulty)
 {
- //   if (easy)
-	//easy = true;
- //   else
-	//easy = false;
+	easy = difficulty;
 }
 bool Engine::HasGameEnded()
 {
