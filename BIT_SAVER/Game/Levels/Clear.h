@@ -20,6 +20,7 @@ public:
     void Unload() override;
     void Draw() override;
     void Setstats(std::string name,int score, std::array<int, 4> score_count);
+    void Update_star_scale(double dt);
     void Draw_star();
     std::string GetName() override { return "Clear"; }
     std::string currLevel;
@@ -31,7 +32,12 @@ public:
     Texture* star_1;
     Texture* star_2;
     Texture* star_3;
-    Texture* hero;
+    Texture* main_menu;
+
+    float star_1_scale;
+    float star_2_scale;
+    float star_3_scale;
+
 private:
 };
 

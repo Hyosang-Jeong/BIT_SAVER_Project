@@ -20,15 +20,19 @@ void Clear::Load()
     star_1 = Engine::GetTextureManager().Load("../images/star_score_1.png");
     star_2 = Engine::GetTextureManager().Load("../images/star_score_2.png");
     star_3 = Engine::GetTextureManager().Load("../images/star_score_3.png");
-    hero = Engine::GetTextureManager().Load("../images/hero_dance.png");
+    main_menu = Engine::GetTextureManager().Load("../images/Mainmenu.png");
+    Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::None);
+    star_3_scale = 50.f;
 }
+
 
 void Clear::Update([[maybe_unused]] double dt)
 {
-    if (ESCAPE.IsKeyDown() == true)
+    if (Engine::GetInput().GetLastPressedButton() != InputKey::Keyboard::None)
     {
-	Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
+        Engine::GetGameStateManager().SetNextState(static_cast<int>(State::MainMenu));
     }
+    Update_star_scale(dt);
 }
 
 void Clear::Draw()
@@ -40,14 +44,12 @@ void Clear::Draw()
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-    //Engine::GetText(font2).Draw("Clear!", 0.f, 50.f, 3.f, { 0.5f,0.5f,0.5f });
-    //Engine::GetText(font2).Draw("Press Enter to go MainMenu", 0.f, 250.f, 3.f, { 0.5f,0.5f,0.5f });
-    int timer;
-    timer = static_cast<int>(glfwGetTime()) % 2;
-
+    main_menu->Draw({ 0,0 }, { 10,10 });
     board->Draw({ 0,0 }, { 10,10 });
 
-    hero->Draw({ -8,0 }, { ((timer*2) - 1)*2,2 });
+    //int timer;
+    //timer = static_cast<int>(glfwGetTime()) % 2;
+    //hero->Draw({ -8,0 }, { ((timer*2) - 1)*2,2 });
 
     //Draw music name
     Engine::GetText(font1).Draw(currLevel, window_pos.x*0.34f, window_pos.y * 0.19f, 1.f, { 1.f,1.f,1.f });
@@ -89,13 +91,58 @@ void Clear::Setstats(std::string name, int score_, std::array<int, 4> score_coun
                         ((float)score_count[3] + (float)score_count[2] + (float)score_count[1] + (float)score_count[0]);
     accuracy *= 100.f;
 }
+void Clear::Update_star_scale(double dt)
+{
+    if (star_3_scale >10.f)
+    {
+        star_1_scale = 0;
+        star_2_scale = 0;
+        star_3_scale -= static_cast<float>(dt)*50.f;
+    }
+    else if(star_2_scale == 0)
+    {
+        star_3_scale = 10.f;
+        star_2_scale = 50.f;
+    }
+
+    if (star_3_scale == 10.f)
+    {
+        if (star_2_scale > 10.f)
+        {
+            star_1_scale = 0;
+            star_2_scale -= static_cast<float>(dt) * 50.f;
+         }
+        else if (star_1_scale == 0)
+        {
+            star_2_scale = 10.f;
+            star_1_scale = 50.f;
+        }
+    }
+    if (star_2_scale == 10.f)
+    {
+        if (star_1_scale > 10.f)
+        {
+            star_1_scale -= static_cast<float>(dt) * 50.f;
+        }
+        else
+        {
+            star_1_scale = 10.f;
+        }
+    }
+}
 void Clear::Draw_star()
 {
-    star_3->Draw({ 0,0 }, { 10,10 });
+
+    star_3->Draw({ 0,0 }, { star_3_scale,star_3_scale });
+
     if(accuracy > 70.f)
-         star_2->Draw({ 0,0 }, { 10,10 });
+         star_2->Draw({ 0,0 }, { star_2_scale,star_2_scale });
+
     if(accuracy > 90.f)
-         star_1->Draw({ 0,0 }, { 10,10 });
+         star_1->Draw({ 0,0 }, { star_1_scale,star_1_scale });
+
+
+
 }
 void Clear::Unload()
 {

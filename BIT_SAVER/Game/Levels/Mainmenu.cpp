@@ -52,8 +52,13 @@ void Mainmenu::Update( double dt)
 {
 	lp_rotate += 30 * dt;
 	//text alpha
-	if (currstate == static_cast<int>(state::START)) {
+	if (currstate == static_cast<int>(state::START))
+	{
 		timer += dt;
+		if (Engine::GetMusic().isPlaying(SOUND_NUM::INTRO) == false)
+		{
+			Engine::GetMusic().Play(SOUND_NUM::INTRO);
+		}
 	}
 	if (timer < 0.5)
 	{
@@ -91,13 +96,17 @@ void Mainmenu::Update( double dt)
 	if (currstate == static_cast<int>(state::ESCAPE))
 	{
 		if (Right.IsKeyReleased() || Left.IsKeyReleased())
+		{
+			Engine::GetMusic().Play(SOUND_NUM::MENU_MOVE);
 			escape_game = !escape_game;
+		}
 	}
 
 	if (currstate > static_cast<int>(state::START))
 	{
 		if (Engine::GetInput().GetLastPressedButton() != InputKey::Keyboard::None && Next.IsKeyReleased() == true)
 		{
+			Engine::GetMusic().Play(SOUND_NUM::MENU_MOVE);
 			if (currstate != static_cast<int>(state::ESCAPE))
 			{
 				stop_music(currstate);
@@ -112,6 +121,7 @@ void Mainmenu::Update( double dt)
 		}
 		else if (Engine::GetInput().GetLastPressedButton() != InputKey::Keyboard::None && Previous.IsKeyReleased() == true)
 		{
+			Engine::GetMusic().Play(SOUND_NUM::MENU_MOVE);
 			if (currstate != static_cast<int>(state::ESCAPE))
 			{
 				stop_music(currstate);
@@ -125,6 +135,7 @@ void Mainmenu::Update( double dt)
 		}
 		else if (Engine::GetInput().GetLastPressedButton() != InputKey::Keyboard::None && Select.IsKeyReleased() == true)
 		{
+			Engine::GetMusic().Play(SOUND_NUM::MENU_SELECT);
 			switch (currstate)
 			{
 			case 3:
@@ -176,11 +187,13 @@ void Mainmenu::Update( double dt)
 	
 	 if (Engine::GetInput().GetLastPressedButton() != InputKey::Keyboard::None && currstate == (static_cast<int>(state::START)))
 	 {
+		 Engine::GetMusic().Stop(SOUND_NUM::INTRO);
 		 currstate++;
 		 play_music(currstate);
 		 Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::None);
 	 }
 	alpha += static_cast<float>(dt)/3.0f;
+
 	if (currstate > (static_cast<int>(state::START)))
 	{
 		updown_pos.x -= static_cast<float>(dt)*25.f;
