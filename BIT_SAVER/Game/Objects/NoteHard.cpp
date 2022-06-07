@@ -67,17 +67,9 @@ void HardNote::Update(double dt)
 
 	GameObject::Update(dt);
 
-    Hit_Check();
+	Hit_Check();
 	
-	if (isMiss == true)
-	{
-	    if (energy->GetScale().x > 0)
-	    {
-		energy->SetScale(glm::vec2{ energy->GetScale().x - (dt / 10),energy->GetScale().y });
-		energy->UpdatePosition(glm::vec2{ -(dt / 10),0 });
-	    }
-
-	}	
+	
 }
 
 void HardNote::Draw(glm::mat3 camera_matrix)
