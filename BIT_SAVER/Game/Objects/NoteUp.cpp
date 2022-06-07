@@ -47,7 +47,7 @@ void UpNote::Update(double dt)
                 {
                     
                         energy->SetScale(glm::vec2{ energy->GetScale().x - ((dt * 2.f) * EIGHT_TIME_PER_LIFE),energy->GetScale().y });//one space
-                        energy->UpdatePosition(glm::vec2{ -(dt) * EIGHT_TIME_PER_LIFE,0 });//one space
+                        energy->UpdatePosition(glm::vec2{ -(dt) *EIGHT_TIME_PER_LIFE,0 });//one space
                         if (energy->GetScale().x < 0.1)
                             energy->SetScale({ -0.1,0 });
                     
