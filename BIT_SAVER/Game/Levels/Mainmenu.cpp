@@ -56,9 +56,17 @@ void Mainmenu::Update( double dt)
 	if (currstate == static_cast<int>(state::START))
 	{
 		timer += dt;
-		if (Engine::GetMusic().isPlaying(SOUND_NUM::INTRO) == false)
+		if (Engine::GetMusic().isPlaying(SOUND_NUM::INTRO1) == false)
 		{
-			Engine::GetMusic().Play(SOUND_NUM::INTRO);
+			Engine::GetMusic().Play(SOUND_NUM::INTRO1);
+		}
+		if (Engine::GetMusic().isPlaying(SOUND_NUM::INTRO2) == false)
+		{
+		    Engine::GetMusic().Play(SOUND_NUM::INTRO2);
+		}
+		if (Engine::GetMusic().isPlaying(SOUND_NUM::INTRO3) == false)
+		{
+		    Engine::GetMusic().Play(SOUND_NUM::INTRO3);
 		}
 	}
 	if (timer < 0.5)
@@ -200,7 +208,9 @@ void Mainmenu::Update( double dt)
 	
 	 if (Engine::GetInput().GetLastPressedButton() != InputKey::Keyboard::None && currstate == (static_cast<int>(state::START)))
 	 {
-		 Engine::GetMusic().Stop(SOUND_NUM::INTRO);
+		 Engine::GetMusic().Stop(SOUND_NUM::INTRO1);
+		 Engine::GetMusic().Stop(SOUND_NUM::INTRO2);
+		 Engine::GetMusic().Stop(SOUND_NUM::INTRO3);
 		 currstate++;
 		 play_music(currstate);
 		 Engine::GetInput().SetLastpressedButton(InputKey::Keyboard::None);

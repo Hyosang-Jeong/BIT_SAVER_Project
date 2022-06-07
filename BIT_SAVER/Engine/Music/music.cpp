@@ -60,13 +60,22 @@ void Music::Load()
     result = FMOD_System_CreateSound(pSystem, "../sound/321.mp3", FMOD_DEFAULT, nullptr, &pSound[WAIT]);
     ErrorCheck(result);
 
-    result = FMOD_System_CreateSound(pSystem, "../sound/Intro2.wav", FMOD_DEFAULT, nullptr, &pSound[INTRO]);
+    result = FMOD_System_CreateSound(pSystem, "../sound/Neon1.wav", FMOD_LOOP_NORMAL, nullptr, &pSound[INTRO1]);
     ErrorCheck(result);
 
-    result = FMOD_System_CreateSound(pSystem, "../sound/selectingMenu.mp3", FMOD_DEFAULT, nullptr, &pSound[MENU_SELECT]);
+    result = FMOD_System_CreateSound(pSystem, "../sound/Neon2.wav", FMOD_LOOP_NORMAL, nullptr, &pSound[INTRO2]);
     ErrorCheck(result);
 
-    result = FMOD_System_CreateSound(pSystem, "../sound/movingMenu.mp3", FMOD_DEFAULT, nullptr, &pSound[MENU_MOVE]);
+    result = FMOD_System_CreateSound(pSystem, "../sound/Neon3.wav", FMOD_LOOP_NORMAL, nullptr, &pSound[INTRO3]);
+    ErrorCheck(result);
+
+    result = FMOD_System_CreateSound(pSystem, "../sound/Hit_.mp3", FMOD_DEFAULT, nullptr, &pSound[HIT]);
+    ErrorCheck(result);
+
+    result = FMOD_System_CreateSound(pSystem, "../sound/selectingMenu.wav", FMOD_DEFAULT, nullptr, &pSound[MENU_SELECT]);
+    ErrorCheck(result);
+
+    result = FMOD_System_CreateSound(pSystem, "../sound/movingMenu.wav", FMOD_DEFAULT, nullptr, &pSound[MENU_MOVE]);
     ErrorCheck(result);
 
     result = FMOD_System_CreateSound(pSystem, "../sound/star1.wav", FMOD_DEFAULT, nullptr, &pSound[STAR1]);
@@ -124,7 +133,7 @@ void Music::Pause(int sound_num)
 
 void Music::volumeUp(int sound_num)
 {
-
+    
     if (volume < SOUND_MAX) 
     {
         volume = SOUND_MAX;
