@@ -115,31 +115,36 @@ void Mainmenu::Update( double dt)
 	{
 		if (Engine::GetInput().GetLastPressedButton() != InputKey::Keyboard::None && Next.IsKeyReleased() == true)
 		{
-			Engine::GetMusic().Play(SOUND_NUM::MENU_MOVE);
-			if (currstate != static_cast<int>(state::ESCAPE))
+			if (is_selected == false)
 			{
-				stop_music(currstate);
-				currstate++;
-				if (currstate == static_cast<int>(state::OPTION) + 1)
+				Engine::GetMusic().Play(SOUND_NUM::MENU_MOVE);
+				if (currstate != static_cast<int>(state::ESCAPE))
 				{
-					currstate = static_cast<int>(state::TUTORIAL);
+					stop_music(currstate);
+					currstate++;
+					if (currstate == static_cast<int>(state::OPTION) + 1)
+					{
+						currstate = static_cast<int>(state::TUTORIAL);
+					}
+					play_music(currstate);
 				}
-				play_music(currstate);
 			}
-
 		}
 		else if (Engine::GetInput().GetLastPressedButton() != InputKey::Keyboard::None && Previous.IsKeyReleased() == true)
 		{
-			Engine::GetMusic().Play(SOUND_NUM::MENU_MOVE);
-			if (currstate != static_cast<int>(state::ESCAPE))
+			if (is_selected == false)
 			{
-				stop_music(currstate);
-				currstate--;
-				if (currstate == static_cast<int>(state::TUTORIAL) - 1)
+				Engine::GetMusic().Play(SOUND_NUM::MENU_MOVE);
+				if (currstate != static_cast<int>(state::ESCAPE))
 				{
-					currstate = static_cast<int>(state::OPTION);
+					stop_music(currstate);
+					currstate--;
+					if (currstate == static_cast<int>(state::TUTORIAL) - 1)
+					{
+						currstate = static_cast<int>(state::OPTION);
+					}
+					play_music(currstate);
 				}
-				play_music(currstate);
 			}
 		}
 		else if (is_selected == false && Engine::GetInput().GetLastPressedButton() != InputKey::Keyboard::None && Select.IsKeyReleased() == true)
@@ -237,7 +242,8 @@ void Mainmenu::Draw()
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glm::vec2 winsize = Engine::GetWindow().GetSize();
 	const std::string font1{ font_path[PressStart] };
-	glm::mat3 camera = {
+	glm::mat3 camera =
+	{
 		1,0,0,
 		0,1,0,
 		0,0,1
