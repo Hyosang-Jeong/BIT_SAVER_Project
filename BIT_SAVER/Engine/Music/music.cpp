@@ -60,6 +60,15 @@ void Music::Load()
     result = FMOD_System_CreateSound(pSystem, "../sound/321.mp3", FMOD_DEFAULT, nullptr, &pSound[WAIT]);
     ErrorCheck(result);
 
+    result = FMOD_System_CreateSound(pSystem, "../sound/Intro2.wav", FMOD_DEFAULT, nullptr, &pSound[INTRO]);
+    ErrorCheck(result);
+
+    result = FMOD_System_CreateSound(pSystem, "../sound/selectingMenu.mp3", FMOD_DEFAULT, nullptr, &pSound[MENU_SELECT]);
+    ErrorCheck(result);
+
+    result = FMOD_System_CreateSound(pSystem, "../sound/movingMenu.mp3", FMOD_DEFAULT, nullptr, &pSound[MENU_MOVE]);
+    ErrorCheck(result);
+
     volume = SOUND_DEFAULT;
 
 }

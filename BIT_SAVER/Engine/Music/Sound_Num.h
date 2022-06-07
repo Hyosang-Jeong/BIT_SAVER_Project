@@ -22,5 +22,8 @@ enum SOUND_NUM
     JANJI,
     TUTORIAL,
     WAIT,
+    INTRO,
+    MENU_SELECT,
+    MENU_MOVE,
     MUSIC_END
 };

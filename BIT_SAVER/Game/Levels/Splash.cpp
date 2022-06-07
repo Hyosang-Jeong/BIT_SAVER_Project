@@ -33,7 +33,7 @@ void Splash::Update(double dt)
 	if (timer < 0)
 	{
 		Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Clear));
-		static_cast<Clear*>(Engine::GetGameStateManager().Find("Clear"))->Setstats("Rewind", 100, { 10,10,10,10 });
+		static_cast<Clear*>(Engine::GetGameStateManager().Find("Clear"))->Setstats("Rewind", 100, { 10,10,10,1000 });
 	}
 
 }
