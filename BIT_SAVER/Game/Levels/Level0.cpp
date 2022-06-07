@@ -91,6 +91,7 @@ void Level0::Load()
 
 void Level0::Update(double dt)
 {
+	gameObjectManager->UpdateAll(dt);
     if (!Engine::GetMusic().isPlaying(SOUND_NUM::DISCO) && isMusicEnd == false)
     {
 	Engine::GetMusic().Play(SOUND_NUM::DISCO);
@@ -100,7 +101,6 @@ void Level0::Update(double dt)
 
 	GetGSComponent<Background>()->Update(dt);
 	GetGSComponent<Camera>()->Update({ 0,0 }, dt);
-	gameObjectManager->UpdateAll(dt);
 
 	if (stageBar->Getchangeflag() == 1)
 	{

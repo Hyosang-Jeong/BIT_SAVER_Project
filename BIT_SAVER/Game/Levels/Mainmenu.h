@@ -36,6 +36,7 @@ public:
 	std::string GetName() override { return "MainMenu"; }
 	void play_music(int num);
 	void stop_music(int num);
+	void difficulty_select();
 	InputKey Next;
 	InputKey Previous;
 	InputKey Right;
@@ -62,6 +63,7 @@ private:
 	double timer = 0;
 	double lp_rotate=0;
 	bool escape_game;
+	bool is_selected;
 	int previous_state;
 	glm::vec2 updown_pos;
 

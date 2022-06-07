@@ -22,8 +22,15 @@ enum SOUND_NUM
     JANJI,
     TUTORIAL,
     WAIT,
-    INTRO,
+    INTRO1,
+    INTRO2,
+    INTRO3,
+    HIT,
     MENU_SELECT,
     MENU_MOVE,
+    STAR1,
+    STAR2,
+    STAR3,
+    HIT,
     MUSIC_END
 };

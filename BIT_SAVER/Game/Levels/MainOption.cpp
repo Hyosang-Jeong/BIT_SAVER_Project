@@ -221,7 +221,8 @@ void MainOption::Draw()
     {
         offset_default->Draw({ 0,0 }, { 10,10 });
         Button3->Draw({ 0,0 }, { 10,10 });
-
+        IsUpkeychanged = false;
+        IsDownkeychanged = false;
     }
 }
 
