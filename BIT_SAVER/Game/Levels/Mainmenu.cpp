@@ -242,7 +242,8 @@ void Mainmenu::Draw()
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glm::vec2 winsize = Engine::GetWindow().GetSize();
 	const std::string font1{ font_path[PressStart] };
-	glm::mat3 camera = {
+	glm::mat3 camera =
+	{
 		1,0,0,
 		0,1,0,
 		0,0,1
