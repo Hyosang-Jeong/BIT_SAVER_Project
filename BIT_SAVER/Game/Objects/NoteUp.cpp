@@ -37,6 +37,8 @@ void UpNote::Update(double dt)
         set_destroy(true);
     }
 
+    Die_effect(dt);
+
     if (isMiss == true)
     {
         if (GetGOComponent<Sprite>()->GetCurrentAnim() != static_cast<int>(UpNote_anim::explosion))
@@ -50,7 +52,6 @@ void UpNote::Update(double dt)
                         energy->UpdatePosition(glm::vec2{ -(dt) *EIGHT_TIME_PER_LIFE,0 });//one space
                         if (energy->GetScale().x < 0.1)
                             energy->SetScale({ -0.1,0 });
-                    
                 }
             }
         }
@@ -74,10 +75,24 @@ glm::vec2 UpNote::Getposition()
     return GameObject::GetPosition();
 }
 
+void UpNote::Die_effect(double )
+{
+    if (ishit == false)
+        return;
+
+    SetRotation(glm::radians(30.f));
+
+    if(score_ == 3)
+         SetVelocity({ -5 ,  30 });
+    else
+        SetVelocity({ -15 ,  15 });
+
+}
 void UpNote::Score_Check(int score)
 {
     switch (score)
     {
+
         case static_cast<int>(SCORE::PERFECT) :
         {
             Engine::GetGSComponent<HitEmitter>()->Emit(1, GetPosition(), { 0,0 }, { 0,0 }, 0);
@@ -85,11 +100,14 @@ void UpNote::Score_Check(int score)
             GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(UpNote_anim::explosion));
             isMiss = false;
             ishit = true;
+            score_ = 3;
             if (Engine::GetGSComponent<Score>() != nullptr)
             {
                 Engine::GetGSComponent<Score>()->AddScore(score);
-            }                break;
+            }                
+            break;
         }
+
         case static_cast<int>(SCORE::GOOD) :
         {
             Engine::GetGSComponent<HitEmitter>()->Emit(1, GetPosition(), { 0,0 }, { 0,0 }, 0);
@@ -97,10 +115,13 @@ void UpNote::Score_Check(int score)
             GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(UpNote_anim::explosion));
             isMiss = false;
             ishit = true;
+
+            score_ = 2;
             if (Engine::GetGSComponent<Score>() != nullptr)
             {
                 Engine::GetGSComponent<Score>()->AddScore(score);
-            }                break;
+            }               
+            break;
         }
         case static_cast<int>(SCORE::BAD) :
         {
@@ -112,7 +133,8 @@ void UpNote::Score_Check(int score)
             if (Engine::GetGSComponent<Score>() != nullptr)
             {
                 Engine::GetGSComponent<Score>()->AddScore(score);
-            }                break;
+            }                
+            break;
         }
         case static_cast<int>(SCORE::MISS) :
         {

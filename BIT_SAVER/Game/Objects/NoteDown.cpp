@@ -34,11 +34,11 @@ void DownNote::Update(double dt)
 
     GameObject::Update(dt);
 
+   Die_effect(dt);
     if (GetPosition().x < -10)
     {
         set_destroy(true);
     }
-
     if (isMiss == true)
     {
         if (energy != nullptr)
@@ -57,7 +57,18 @@ void DownNote::Update(double dt)
     }
 }
 
+void DownNote::Die_effect(double)
+{
+    if (ishit == false)
+        return;
 
+    SetRotation(glm::radians(30.f));
+
+    if (score_ == 3)
+        SetVelocity({ -5 ,  30 });
+    else
+        SetVelocity({ -15 ,  15 });
+}
 void DownNote::Draw(glm::mat3 camera_matrix)
 {
 
@@ -80,6 +91,7 @@ void DownNote::Score_Check(int score)
             GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::explosion));
             isMiss = false;
             ishit = true;
+            score_ = 3;
             if (Engine::GetGSComponent<Score>() != nullptr)
             {
                 Engine::GetGSComponent<Score>()->AddScore(score);
@@ -93,6 +105,7 @@ void DownNote::Score_Check(int score)
             GetGOComponent<Sprite>()->PlayAnimation(static_cast<int>(DownNote_anim::explosion));
             isMiss = false;
             ishit = true;
+            score_ = 2;
             if (Engine::GetGSComponent<Score>() != nullptr)
             {
                 Engine::GetGSComponent<Score>()->AddScore(score);
