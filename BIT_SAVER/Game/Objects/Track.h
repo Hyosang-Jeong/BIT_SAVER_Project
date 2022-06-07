@@ -53,5 +53,5 @@ private:
     double timer{ 0 };
     double pitch_timer{ 0 };
     long double offset_time{ 0 };
-    double target_time = 14.0 / -20;
+    double target_time;
 };

@@ -12,7 +12,7 @@ Author: Jaewoo Choi
 EnergyBarContainer::EnergyBarContainer(glm::vec2 startPos) :
     GameObject(startPos, glm::vec2{ 3,4 })
 {
-    AddGOComponent(new Sprite("../images/HP_Container_4.png", this));
+    AddGOComponent(new Sprite("../images/HP_Container.png", this));
 }
 
 void EnergyBarContainer::Draw(glm::mat3 camera_matrix)

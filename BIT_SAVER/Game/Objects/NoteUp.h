@@ -33,4 +33,5 @@ private:
     int Movement;
 
     EnergyBar* energy;
+
 };
