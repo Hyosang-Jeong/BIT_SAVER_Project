@@ -31,7 +31,7 @@ std::map<int,std::vector<info>> MidiEvent::MidiSetUp(int music_num)
         midi_filename = "../MIDI/rewind_edit.mid";
         break;
     case SOUND_NUM::DIOMA:
-        midi_filename = "../MIDI/dioma.mid";
+        midi_filename = "../MIDI/dioma_edit.mid";
         break;
     case SOUND_NUM::ENERGY:
         midi_filename = "../MIDI/energy.mid";
