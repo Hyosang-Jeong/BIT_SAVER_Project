@@ -69,6 +69,10 @@ void Offset::Load()
     {
         compareTime.push_back(i.time);
     }
+    for (size_t i = 0; i < _size; i++)
+    {
+        trackPtr->track_time.push(track_time_vector[i]);
+    }
     currentTime = compareTime[0];
     interval = (compareTime[1] - compareTime[0]) * (1.2);
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -149,6 +153,7 @@ void Offset::Draw()
     {
        offset_x->Draw({ i  , 0 }, { 10,10 });
     }
+
     const std::string font1{ font_path[MochiyPopOne] };
     if (isHit == false)
     {
