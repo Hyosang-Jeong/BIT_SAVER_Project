@@ -253,7 +253,11 @@ void Mainmenu::Draw()
 
 	if (currstate ==  static_cast<int>(state::START))
 	{
+		gamelogo->model.shdr_pgm.Use();
+		gamelogo->model.shdr_pgm.SetUniform("Logo", 1);
+		gamelogo->model.shdr_pgm.SetUniform("time", static_cast<float>(glfwGetTime()));
 		gamelogo->Draw({ 0,0 }, { 10,10 });
+
 		Engine::GetText(font1).Draw("Press any key to start", winsize.x * 0.38f, winsize.y * 0.9f, 1.f, glm::vec3(text_alpha, text_alpha, text_alpha));
 	}
 	

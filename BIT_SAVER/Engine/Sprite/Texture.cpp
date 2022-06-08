@@ -22,7 +22,6 @@ void Texture::Draw(glm::mat3  displayMatrix)
 
 void Texture::Draw(glm::mat3 displayMatrix, glm::vec2 texel_pos, glm::vec2 texel_size)
 {
-
 	model.shdr_pgm.Use();
 	glBindVertexArray(model.vaoid);
 

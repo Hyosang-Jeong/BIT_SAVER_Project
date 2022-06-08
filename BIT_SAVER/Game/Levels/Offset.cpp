@@ -13,7 +13,6 @@ Author: Jaewoo.choi, Hyosang Jung
 #include "Offset.h"
 #include"../Objects/CheckBox.h"
 #include"../Objects/Hero.h"
-#include"../Objects/Track.h"
 #include"../Objects/Background.h"
 #include "../Objects/EnergyBar.h"
 #include "../../Engine/Music/Sound_Num.h"
@@ -39,39 +38,48 @@ Offset::Offset() :
 
 void Offset::Load()
 {
-    //isHit = false;
-    //isoffset = false;
-    //isStart = false;
-    //isMusicEnd = false;
-    //RealCompareNumber = 0;
-    //resultTime = 0.;
-    //currentResultTime = 0.;
-    //pos.clear();
-    //x_pos = { -100, -100 };
-    //gameObjectManager = new GameObjectManager();
+    isHit = false;
+    isoffset = false;
+    isStart = false;
+    isMusicEnd = false;
+    RealCompareNumber = 0;
+    resultTime = 0.;
+    currentResultTime = 0.;
+    pos.clear();
+    x_pos = { -100, -100 };
+    gameObjectManager = new GameObjectManager();
 
-    //trackPtr = new Track(SOUND_NUM::OFFSET);
+    trackPtr = new Track(SOUND_NUM::OFFSET);
 
-    //AddGSComponent(gameObjectManager);
+    AddGSComponent(gameObjectManager);
 
-    //gameObjectManager->Add(trackPtr);
+    gameObjectManager->Add(trackPtr);
 
-    //offset_x = Engine::GetTextureManager().Load(texture_path[OFFSET_X]);
-    //offset_screen = Engine::GetTextureManager().Load("../images/offset_screen.png");
-    //offset_background = Engine::GetTextureManager().Load("../images/offset_background.png");
-    ////trackPtr->track_time.erase(trackPtr->track_time.begin(), trackPtr->track_time.begin() + 4);
-
-    //for (auto& i : trackPtr->track_time)
-    //{
-    //    compareTime.push_back(i.time);
-    //}
-    //currentTime = compareTime[0];
-    //interval = (compareTime[1] - compareTime[0]) * (1.2);
-    //glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-    //glClear(GL_COLOR_BUFFER_BIT);
-    //glfwSwapBuffers(Engine::GetWindow().ptr_window);
-    //glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-    //glClear(GL_COLOR_BUFFER_BIT);
+    offset_x = Engine::GetTextureManager().Load(texture_path[OFFSET_X]);
+    offset_screen = Engine::GetTextureManager().Load("../images/offset_screen.png");
+    offset_background = Engine::GetTextureManager().Load("../images/offset_background.png");
+    //trackPtr->track_time.erase(trackPtr->track_time.begin(), trackPtr->track_time.begin() + 4);
+    size_t _size = trackPtr->track_time.size();
+    for (size_t i = 0; i < _size; i++)
+    {
+        track_time_vector.push_back(trackPtr->track_time.front());
+        trackPtr->track_time.pop();
+    }
+    for (auto& i : track_time_vector)
+    {
+        compareTime.push_back(i.time);
+    }
+    for (size_t i = 0; i < _size; i++)
+    {
+        trackPtr->track_time.push(track_time_vector[i]);
+    }
+    currentTime = compareTime[0];
+    interval = (compareTime[1] - compareTime[0]) * (1.2);
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+    glfwSwapBuffers(Engine::GetWindow().ptr_window);
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
 }
 
 
@@ -145,6 +153,7 @@ void Offset::Draw()
     {
        offset_x->Draw({ i  , 0 }, { 10,10 });
     }
+
     const std::string font1{ font_path[MochiyPopOne] };
     if (isHit == false)
     {
