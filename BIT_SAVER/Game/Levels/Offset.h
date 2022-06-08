@@ -13,7 +13,7 @@ Author: Jaewoo.choi, Hyosang Jung
 #include "..\Engine\GameObject\GameObjectManager.h" // gameobjectmanager
 #include"..\Engine\Input\Input.h"  //input key
 #include"..\..\Engine\Physics\Camera.h"
-
+#include"../Objects/Track.h"
 
 class CheckBox;
 class Hero;
@@ -44,7 +44,7 @@ private:
     Texture* offset_background;
     InputKey ESCAPE;
     InputKey HitKey;
-
+    std::vector<Track_Time> track_time_vector; 
     GameObjectManager* gameObjectManager;
  
     Track* trackPtr;
