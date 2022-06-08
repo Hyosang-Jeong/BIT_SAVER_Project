@@ -13,6 +13,8 @@ Author:  Sunwoo Lee
 #include"../Levels/MainOption.h"
 #include"../Levels/State.h"
 #include "../../Engine/GameObject/GameObjectManager.h"
+#include"../../Game/Levels/Clear.h"
+#include"Score.h"
 #define VOL 0.5f;
 
 
@@ -165,6 +167,10 @@ void Hero::State_Attack::TestForExit(GameObject* object)
     {
         hero->ChangeState(&hero->stateJump);
     }
+    if ((hero->DownAttackKey.IsKeyDown() == true && hero->DownAttackKey.IsKeyReapeated() == false))
+    {
+        hero->ChangeState(&hero->stateAttack);
+    }
 }
 
 // state jump
@@ -210,20 +216,20 @@ void Hero::State_Die::Enter(GameObject* object)
     hero-> SetPosition({ -4,-8 });
 }
 
-void Hero::State_Die::Update(GameObject* , double dt)
+void Hero::State_Die::Update(GameObject* , double )
 {
-    //Hero* hero = static_cast<Hero*>(object);
-    glm::vec2 target_scale = glm::vec2{ 2,2 };
-    //glm::vec2 target_position = hero->GetPosition() / 10.f;
+    ////Hero* hero = static_cast<Hero*>(object);
+    //glm::vec2 target_scale = glm::vec2{ 2,2 };
+    ////glm::vec2 target_position = hero->GetPosition() / 10.f;
+    ////if (Engine::GetGSComponent<Camera>()->get_scale().x < target_scale.x)
+    ////{
+    ////    Engine::GetGSComponent<Camera>()->set_scale({ Engine::GetGSComponent<Camera>()->get_scale().x + dt, Engine::GetGSComponent<Camera>()->get_scale().y + dt });
+    ////    Engine::GetGSComponent<Camera>()->SetPosition({ Engine::GetGSComponent<Camera>()->GetPosition().x + (dt*target_position.x), Engine::GetGSComponent<Camera>()->GetPosition().y + (dt * target_position.y) });
+    ////}
     //if (Engine::GetGSComponent<Camera>()->get_scale().x < target_scale.x)
     //{
     //    Engine::GetGSComponent<Camera>()->set_scale({ Engine::GetGSComponent<Camera>()->get_scale().x + dt, Engine::GetGSComponent<Camera>()->get_scale().y + dt });
-    //    Engine::GetGSComponent<Camera>()->SetPosition({ Engine::GetGSComponent<Camera>()->GetPosition().x + (dt*target_position.x), Engine::GetGSComponent<Camera>()->GetPosition().y + (dt * target_position.y) });
     //}
-    if (Engine::GetGSComponent<Camera>()->get_scale().x < target_scale.x)
-    {
-        Engine::GetGSComponent<Camera>()->set_scale({ Engine::GetGSComponent<Camera>()->get_scale().x + dt, Engine::GetGSComponent<Camera>()->get_scale().y + dt });
-    }
 } 
 
 void Hero::State_Die::TestForExit(GameObject* object)
@@ -231,7 +237,9 @@ void Hero::State_Die::TestForExit(GameObject* object)
     Hero* hero = static_cast<Hero*>(object);
     if (hero->GetGOComponent<Sprite>()->IsAnimationDone() == true)
     {
-        Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Gameover));
+        Engine::GetGameStateManager().SetNextState(static_cast<int>(State::Clear));
+        static_cast<Clear*>(Engine::GetGameStateManager().Find("Clear"))->Setstats("You Lose", Engine::GetGSComponent<Score>()->Getscore(), Engine::GetGSComponent<Score>()->GetscoreCount());
+        static_cast<Clear*>(Engine::GetGameStateManager().Find("Clear"))->Set_lose(true);
     }
 }
 

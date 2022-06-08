@@ -22,6 +22,7 @@ public:
     void Setstats(std::string name,int score, std::array<int, 4> score_count);
     void Update_star_scale(double dt);
     void Draw_star();
+    void Set_lose(bool lose);
     std::string GetName() override { return "Clear"; }
     std::string currLevel;
     int score;
@@ -38,6 +39,7 @@ public:
     float star_2_scale;
     float star_3_scale;
 
+    bool is_lose;
 private:
 };
 
