@@ -34,7 +34,7 @@ std::map<int,std::vector<info>> MidiEvent::MidiSetUp(int music_num)
         midi_filename = "../MIDI/dioma_edit.mid";
         break;
     case SOUND_NUM::ENERGY:
-        midi_filename = "../MIDI/energy.mid";
+        midi_filename = "../MIDI/energy_edit.mid";
         break;
     default:
         break;
@@ -251,7 +251,7 @@ std::map<int,std::vector<info>> MidiEvent::MidiSetUp(int music_num)
         break;
     case SOUND_NUM::ENERGY:
         trackFrom = 1;
-        trackTo = 1;
+        trackTo = 3;
         break;
     default:
         trackFrom = 1;

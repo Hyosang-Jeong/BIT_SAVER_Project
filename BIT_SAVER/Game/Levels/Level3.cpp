@@ -68,7 +68,7 @@ void Level3::Load()
 	BcheckBox1 = new CheckBox({ -4.8,0 }, 2);
 	BcheckBox2 = new CheckBox({ -2.0,0 }, 2);
 
-	stageBar = new Stage_bar({ -10,9 }, 221, 104);   // total music time 204  ,  extra time 82
+	stageBar = new Stage_bar({ -10,9 }, 163, 104);   // total music time 204  ,  extra time 82
 
 
 	backPtr->Add(texture_path[Background_1_10], 0);
