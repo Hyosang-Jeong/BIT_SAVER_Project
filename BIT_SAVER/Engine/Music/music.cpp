@@ -87,9 +87,6 @@ void Music::Load()
     result = FMOD_System_CreateSound(pSystem, "../sound/star3.wav", FMOD_DEFAULT, nullptr, &pSound[STAR3]);
     ErrorCheck(result);
 
-    result = FMOD_System_CreateSound(pSystem, "../sound/Hit_.wav", FMOD_DEFAULT, nullptr, &pSound[HIT]);
-    ErrorCheck(result);
-
     volume = SOUND_DEFAULT;
 
 }
