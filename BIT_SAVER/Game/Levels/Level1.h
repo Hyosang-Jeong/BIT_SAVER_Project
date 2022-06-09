@@ -75,5 +75,5 @@ private:
 	//GLText* text;
 
 	bool isMusicEnd;
-
+	bool doonce;
 };

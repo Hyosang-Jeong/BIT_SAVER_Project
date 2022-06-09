@@ -47,6 +47,7 @@ Level1::Level1() :
     BcheckBox1 = nullptr;
     BcheckBox2 = nullptr;
     gamestate = LEVEL_STATE::EXTRA;
+    doonce = true;
 }
 
 void Level1::Load()
@@ -116,6 +117,11 @@ void Level1::Load()
 
 void Level1::Update(double dt)
 {
+    if (doonce)
+    {
+        Engine::GetGameStateManager().ReloadState();
+        doonce = false;
+    }
         gameObjectManager->UpdateAll(dt);
         
         if (!Engine::GetMusic().isPlaying(SOUND_NUM::REWIND) && isMusicEnd == false)

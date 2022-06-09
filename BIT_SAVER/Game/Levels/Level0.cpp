@@ -40,6 +40,7 @@ Level0::Level0() :
 	stageBar = nullptr;
 	feverBar = nullptr;
 	gamestate = LEVEL0_STATE::EXTRA;
+	doonce = true;
 }
 
 void Level0::Load()
@@ -91,6 +92,11 @@ void Level0::Load()
 
 void Level0::Update(double dt)
 {
+	if (doonce)
+	{
+		Engine::GetGameStateManager().ReloadState();
+		doonce = false;
+	}
 	gameObjectManager->UpdateAll(dt);
     if (!Engine::GetMusic().isPlaying(SOUND_NUM::DISCO) && isMusicEnd == false)
     {
