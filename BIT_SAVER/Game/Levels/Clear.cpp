@@ -93,6 +93,9 @@ void Clear::Setstats(std::string name, int score_, std::array<int, 4> score_coun
 }
 void Clear::Update_star_scale(double dt)
 {
+    if (is_lose)
+        return;
+
     if (star_3_scale >10.f)
     {
         star_1_scale = 0;
@@ -140,7 +143,8 @@ void Clear::Update_star_scale(double dt)
 }
 void Clear::Draw_star()
 {
-
+    if (is_lose)
+        return;
     star_3->Draw({ 0,0 }, { star_3_scale,star_3_scale });
 
     if(accuracy > 70.f)
@@ -152,6 +156,11 @@ void Clear::Draw_star()
 
 
 }
+void Clear::Set_lose(bool lose)
+{
+    is_lose = lose;
+}
 void Clear::Unload()
 {
+    is_lose = false;
 }
